@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ブリーダーメニュー" 
+        android:textSize="30sp"/>
+    
+    <Button
+        android:id="@+id/button1"
+        android:onClick="newBeetleInfoOnClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="採取" 
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:onClick="breedExectionOnClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ブリード" 
+        android:textSize="30sp"/>
+    
+    <Button
+        android:id="@+id/button3"
+        android:onClick="battleDeckManageOnClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="対戦キット"
+        android:textSize="30sp" />
+    
+    <Button
+        android:id="@+id/button4"
+        android:onClick="beetleKitListOnClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="虫キット一覧"
+        android:textSize="30sp" />
+    
+</LinearLayout>
