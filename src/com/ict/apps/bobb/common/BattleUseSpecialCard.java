@@ -17,9 +17,9 @@ public class BattleUseSpecialCard {
 	// 対戦用特殊１
 	private static final String CARD1 = "card1";
 	// 対戦用特殊２
-	private static final String CARD2 = "card1";
+	private static final String CARD2 = "card2";
 	// 対戦用特殊３
-	private static final String CARD3 = "card1";
+	private static final String CARD3 = "card3";
 	
 	public enum CardNum {
 		CARD1,
