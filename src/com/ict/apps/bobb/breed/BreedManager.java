@@ -5,6 +5,7 @@ import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.CardImageInfo;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * ブリード全般の機能クラス
@@ -37,8 +38,6 @@ public class BreedManager {
 		
 		// レベルとカテゴリからImageIDを算出
 		int imageId = this.getImageId(level, category);
-		
-		imageId = 1;
 		
 		// imageIDをキーにDBアクセスして、説明を取得する。
 		BeetleKitFactory factory = new BeetleKitFactory(context);
@@ -156,11 +155,11 @@ public class BreedManager {
 			// レベル１
 			level = 1;
 		}
-		if (lv1_max < total && total <= lv2_max) {
+		else if (lv1_max < total && total <= lv2_max) {
 			// レベル２
 			level = 2;
 		}
-		if (lv2_max < total && total <= lv3_max) {
+		else if (lv2_max < total && total <= lv3_max) {
 			// レベル３
 			level = 3;
 		}
@@ -187,7 +186,7 @@ public class BreedManager {
 			// 攻撃型
 			category = 1;
 		}
-		if (attack * rate <= defence) {
+		else if (attack * rate <= defence) {
 			// 守備型
 			category = 3;
 		}
@@ -213,6 +212,9 @@ public class BreedManager {
 				{4,5,6},
 				{7,8,9}
 		};
+		
+		Log.d("★", "level: " + level + "  category: " + category);
+		
 		return imageid_map[level-1][category-1];
 	}
 

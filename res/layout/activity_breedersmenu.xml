@@ -7,39 +7,53 @@
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ブリーダーメニュー" 
-        android:textSize="30sp"/>
+        android:layout_height="40dp"
+        android:background="@drawable/listitem_bg"
+        android:gravity="center"
+        android:text="ブリーダーメニュー"
+        android:textColor="#5C4033"
+        android:textSize="30sp" />
     
     <Button
         android:id="@+id/button1"
-        android:onClick="newBeetleInfoOnClick"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="採取" 
-        android:textSize="30sp"/>
+        android:layout_height="80dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="newBeetleInfoOnClick"
+        android:text="採取"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button2"
-        android:onClick="breedExectionOnClick"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ブリード" 
-        android:textSize="30sp"/>
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="breedExectionOnClick"
+        android:text="ブリード"
+        android:textSize="30sp" />
     
     <Button
         android:id="@+id/button3"
-        android:onClick="battleDeckManageOnClick"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="battleDeckManageOnClick"
         android:text="対戦キット"
         android:textSize="30sp" />
     
     <Button
         android:id="@+id/button4"
-        android:onClick="beetleKitListOnClick"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="beetleKitListOnClick"
         android:text="虫キット一覧"
         android:textSize="30sp" />
     
