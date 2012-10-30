@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="266dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/carddetail_bg" >
+
+    <TextView
+        android:id="@+id/carddetail_intoro"
+        android:layout_width="213dp"
+        android:layout_height="133dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/textarea"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingTop="40dp"
+        android:text="説明：カードの説明をこちらに書く予定でございます。"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:id="@+id/carddetail_icon"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_alignRight="@+id/carddetail_intoro"
+        android:layout_alignTop="@+id/carddetail_attrribute"
+        android:src="@drawable/beetle1" />
+
+    <TextView
+        android:id="@+id/carddetail_name"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@+id/carddetail_icon"
+        android:layout_alignTop="@+id/carddetail_attrribute"
+        android:background="#BDB76B"
+        android:paddingLeft="10dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/carddetail_attrribute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/fire" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/carddetail_attrribute"
+        android:layout_below="@+id/linearLayout1"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/carddetail_atk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/carddetail_intoro"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="攻：XXX"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/carddetail_def"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/carddetail_atk"
+        android:layout_alignBottom="@+id/carddetail_atk"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/carddetail_atk"
+        android:text="守：XXX"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
