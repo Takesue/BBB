@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +25,22 @@ public class BeetleKitSelectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_beetlekitselection);
-
-		BeetleKitFactory factory = new BeetleKitFactory(this);
-		ArrayList<BeetleKit> kitlist = factory.getBeetleKit(BeetleKitFactory.KitType.NORMAL);
-		kitlist.get(0);
 		
+		Intent intent = this.getIntent();
+		int kitType = intent.getIntExtra("kittype", -1);
 
+		ArrayList<BeetleKit> kitlist = null;
+		BeetleKitFactory factory = new BeetleKitFactory(this);
+		if (kitType == 1) {
+			// 種別１の場合 一般の虫キット
+			kitlist = factory.getBeetleKit(BeetleKitFactory.KitType.NORMAL);
+		}
+		else {
+			// 種別１の場合 特殊の虫キット
+			kitlist = factory.getBeetleKit(BeetleKitFactory.KitType.SPECIAL);
+		}
+		
+		
 		// 表示アイテム設定先の取得
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.beetle_kit_selection);
 
@@ -37,7 +48,6 @@ public class BeetleKitSelectionActivity extends Activity {
 		for (int i = 0; i < cnt; i++) {
 			// 虫キット情報を表示用アイテムに設定
 			vgroup.addView(this.addBeeetleKitList(kitlist.get(i)));
-			
 		}
 
 	}
@@ -73,6 +83,7 @@ public class BeetleKitSelectionActivity extends Activity {
 				Intent intent = new Intent();
 				Log.d("★★★", "BeetleKit ID = " + bk.getBeetleKitId());
 				intent.putExtra(BoBBDBHelper.BEETLE_KIT_BEETLE_ID, bk.getBeetleKitId());
+				setResult(RESULT_OK, intent);
 				finish();
 			}
 		});

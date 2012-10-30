@@ -1,11 +1,12 @@
 <resources>
 
-    <!-- 
-    <style name="AppTheme" parent="android:Theme.Light" />
-     -->
     <style name="AppTheme" parent="android:Theme">
         <item name="android:windowBackground">@drawable/bobb_bg</item>
     </style>
 
+    <!-- 
+    <style name="AppTheme" parent="android:Theme.Light" />
+     -->
+    
 
 </resources>

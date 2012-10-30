@@ -28,18 +28,11 @@ public class BeetleKitListActivity extends Activity {
 		
 		BeetleKitFactory factory = new BeetleKitFactory(this);
 		ArrayList<BeetleKit> kitlist = factory.getBeetleKit(BeetleKitFactory.KitType.NORMAL);
-		kitlist.get(0);
-		
 
 		// 表示アイテム設定先の取得
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.beetle_kit_list);
 
 		int cnt = kitlist.size();
-		for (int i = 0; i < cnt; i++) {
-			// 虫キット情報を表示用アイテムに設定
-			vgroup.addView(this.addBeeetleKitList(kitlist.get(i)));
-			
-		}
 		for (int i = 0; i < cnt; i++) {
 			// 虫キット情報を表示用アイテムに設定
 			vgroup.addView(this.addBeeetleKitList(kitlist.get(i)));
