@@ -265,8 +265,8 @@ public class BreedManager {
 		
 		// 基礎値×ブリード回数の合計が加算される
 		int base = 20;
-		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base));
-		newBeetle.setDefence(newBeetle.getDefence() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base));
+		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
+		newBeetle.setDefence(newBeetle.getDefence() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
 		
 		// ★親のバーコードは削除するのか？
 		
@@ -274,6 +274,9 @@ public class BreedManager {
 		BeetleKitFactory factory = new BeetleKitFactory(context);
 		factory.deleteBeetleKit(beetle1.getBeetleKitId());
 		factory.deleteBeetleKit(beetle2.getBeetleKitId());
+		
+		// 子供カード登録
+		factory.insertBeetleKitToDB(newBeetle);
 		
 
 		return newBeetle;

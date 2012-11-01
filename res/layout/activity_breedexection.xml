@@ -13,29 +13,71 @@
         android:text="ブリード（交配）"
         android:textColor="#5C4033"
         android:textSize="30sp" />
-    
-    <Button
-        android:id="@+id/button1"
-        android:onClick="cardOnClick1"
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="交配カード" 
-        android:textSize="40sp"/>
-    
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.02"
+        android:background="#FFEBCD"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/breedIntroduction"
+        android:textColor="#5C4033" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.07" >
+
+        <Button
+            android:id="@+id/breed_exe_beetlekit1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/listitem_bg"
+            android:onClick="onClickBeetlekitSelection"
+            android:text="虫キット未設定"
+            android:textColor="#5C4033"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="221dp"
+            android:layout_gravity="top|center_vertical"
+            android:layout_marginTop="24dp"
+            android:layout_weight="0.87"
+            android:src="@drawable/breed_fusion" />
+
+        <Button
+            android:id="@+id/breed_exe_beetlekit2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/listitem_bg"
+            android:onClick="onClickBeetlekitSelection"
+            android:text="虫キット未設定"
+            android:textColor="#5C4033"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
     <Button
-        android:id="@+id/button2"
-        android:onClick="cardOnClick2"
+        android:id="@+id/breed_exec_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="交配カード" 
-        android:textSize="40sp"/>
-    
-    <Button
-        android:id="@+id/button3"
-        android:onClick="crossbredOnClick"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="開始" 
-        android:textSize="40sp"/>
-    
+        android:layout_gravity="bottom"
+        android:onClick="onClickExecBreed"
+        android:text="ブリードする"
+        android:textColor="#006400"
+        android:textSize="40sp" />
+
 </LinearLayout>

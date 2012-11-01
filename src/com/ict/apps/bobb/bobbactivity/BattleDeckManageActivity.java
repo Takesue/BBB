@@ -45,7 +45,7 @@ public class BattleDeckManageActivity extends TabActivity {
 
 		// 独自のタブ用レイアウト生成
 		ViewGroup tabView2 = (ViewGroup) ((LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.tab_view, null);
+				R.layout.tab_view_special, null);
 		// タブに表示するテキストの設定
 		TextView text2 = (TextView) tabView2.findViewById(R.id.tabText);
 		text2.setText("特殊カード設定");

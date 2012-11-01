@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="spe_deck_buttons">
+        <item>@+id/spe_deck1</item>
+        <item>@+id/spe_deck2</item>
+        <item>@+id/spe_deck3</item>
+    </integer-array>
+    <integer-array name="spe_deck_title">
+        <item>@+id/spe_deck1_title</item>
+        <item>@+id/spe_deck2_title</item>
+        <item>@+id/spe_deck3_title</item>
+    </integer-array>
+    <integer-array name="spe_deck_attack">
+        <item>@+id/spe_deck1_attack</item>
+        <item>@+id/spe_deck2_attack</item>
+        <item>@+id/spe_deck3_attack</item>
+    </integer-array>
+    <integer-array name="spe_deck_defence">
+        <item>@+id/spe_deck1_defence</item>
+        <item>@+id/spe_deck2_defence</item>
+        <item>@+id/spe_deck3_defence</item>
+    </integer-array>
+    <integer-array name="spe_deck_ic">
+        <item>@+id/spe_deck1_ic</item>
+        <item>@+id/spe_deck2_ic</item>
+        <item>@+id/spe_deck3_ic</item>
+    </integer-array>
+    
+</resources>

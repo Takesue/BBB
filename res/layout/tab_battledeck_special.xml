@@ -17,35 +17,230 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/card1"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/listitem_bg"
-                android:onClick="deckOnClick2"
-                android:text="デッキ1"
-                android:textSize="40sp" />
+                android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/card2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/listitem_bg"
-                android:onClick="deckOnClick2"
-                android:text="デッキ2"
-                android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/card3"
+                <Button
+                    android:id="@+id/spe_deck1"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                
+
+                <ImageView
+                    android:id="@+id/spe_deck1_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/spe_deck1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck1" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/spe_deck1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/spe_deck1_ic"
+                    android:layout_toRightOf="@+id/imageView1"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/spe_deck1_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck1_title"
+                    android:layout_below="@+id/imageView1"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/spe_deck1_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spe_deck1_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/spe_deck1_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/listitem_bg"
-                android:onClick="deckOnClick2"
-                android:text="デッキ3"
-                android:textSize="40sp" />
+                android:layout_height="wrap_content" >
+
+
+
+                <Button
+                    android:id="@+id/spe_deck2"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                <ImageView
+                    android:id="@+id/spe_deck2_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/spe_deck2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck2" />
+
+
+
+                <TextView
+                    android:id="@+id/spe_deck2_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView2"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/spe_deck2_ic"
+                    android:layout_toRightOf="@+id/imageView2"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/spe_deck2_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck2_title"
+                    android:layout_below="@+id/imageView2"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/spe_deck2_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spe_deck2_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/spe_deck2_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+
+
+                <Button
+                    android:id="@+id/spe_deck3"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                <ImageView
+                   android:id="@+id/spe_deck3_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/spe_deck3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck3" />
+
+
+
+
+                <TextView
+                    android:id="@+id/spe_deck3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView3"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/spe_deck3_ic"
+                    android:layout_toRightOf="@+id/imageView3"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/spe_deck3_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spe_deck3_title"
+                    android:layout_below="@+id/imageView3"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/spe_deck3_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spe_deck3_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/spe_deck3_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
 
         </LinearLayout>
 

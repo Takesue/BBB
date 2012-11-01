@@ -10,6 +10,7 @@ import com.ict.apps.bobb.db.BoBBDBHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +47,14 @@ public class BattleDeckForNormalTab extends Activity {
 		}
 
 	}
+
 	
+//	private int[] viewidList = {R.id.deck1,
+//			R.id.deck2,
+//			R.id.deck3,
+//			R.id.deck4,
+//			R.id.deck5};
+
 	/**
 	 * アイコン表示付きリストに虫キット情報追加
 	 * @param mInflater
@@ -55,39 +63,43 @@ public class BattleDeckForNormalTab extends Activity {
 	 */
 	private void addBeeetleKitList(BeetleKit kit, Integer i) {
 		
-		int[] viewidList = {R.id.deck1,
-				R.id.deck2,
-				R.id.deck3,
-				R.id.deck4,
-				R.id.deck5};
+		TypedArray titles = getResources().obtainTypedArray(R.array.deck_title);
+		TypedArray attacks = getResources().obtainTypedArray(R.array.deck_attack);
+		TypedArray defences = getResources().obtainTypedArray(R.array.deck_defence);
+		TypedArray ic = getResources().obtainTypedArray(R.array.deck_ic);
 
-		TextView view = (TextView)this.findViewById(viewidList[i]);
-		view.setText("id:" + kit.getBeetleKitId());
+		// 名前設定
+		((TextView)this.findViewById(titles.getResourceId(i, -1))).setText(kit.getName());
+		// アイコン画像設定
+		ImageView image = (ImageView)this.findViewById(ic.getResourceId(i, -1));
+		image.setImageResource(kit.getImageResourceId(this));
+		// 攻撃値設定
+		((TextView)this.findViewById(attacks.getResourceId(i, -1))).setText("攻：" + kit.getAttack());
+		// 守備値設定
+		((TextView)this.findViewById(defences.getResourceId(i, -1))).setText("守：" + kit.getDefence());
 		
-//		
-//		// 名前設定
-//		((TextView)view.findViewById(R.id.kit_name)).setText(kit.getName());
-//		// アイコン画像設定
-//		ImageView image = (ImageView)view.findViewById(R.id.kiticon);
-//		image.setImageResource(kit.getImageResourceId(this));
-//		// 攻撃値設定
-//		((TextView)view.findViewById(R.id.kit_attack)).setText("攻  ：  " + kit.getAttack());
-//		// 守備値設定
-//		((TextView)view.findViewById(R.id.kit_defence)).setText("守  ：  " + kit.getDefence());
+	}
+	
+	/**
+	 * デッキボタンクリック時
+	 * @param view
+	 */
+	public void onClickDeckButton(View view) {
 		
-		// リスナーの設定
-		final Integer deckNum = i;
-		view.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				BattleDeckForNormalTab.settingDeckNum = deckNum;
-				Log.d("★★", "id::"+BattleDeckForNormalTab.settingDeckNum);
-				// クリック時の処理
-				Intent intent = new Intent(BattleDeckForNormalTab.this, BeetleKitSelectionActivity.class);
-				intent.putExtra("kittype", 1);
-				startActivityForResult(intent, 0);
+		TypedArray buttons = getResources().obtainTypedArray(R.array.deck_buttons);
+		
+		int id = view.getId();
+		int length = buttons.length();
+		for (int i = 0; i < length; i++) {
+			if (id == buttons.getResourceId(i, -1)) {
+				BattleDeckForNormalTab.settingDeckNum = i;
 			}
-		});
+		}
 		
+		// クリック時の処理
+		Intent intent = new Intent(BattleDeckForNormalTab.this, BeetleKitSelectionActivity.class);
+		intent.putExtra("kittype", 1);
+		startActivityForResult(intent, 0);
 	}
 
 	@Override
