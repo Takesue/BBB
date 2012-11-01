@@ -12,6 +12,7 @@ public class BattleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+        this.battleCardsSet();
 	}
 	
     public void finishOnClick(View v){
@@ -21,6 +22,9 @@ public class BattleActivity extends Activity {
 		
     }
     
-	
+	public void battleCardsSet(){
+		BattleCardsSet bcs = new BattleCardsSet(this);
+		setContentView(bcs);
+	}
 
 }
