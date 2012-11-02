@@ -2,6 +2,9 @@
 
     <style name="AppTheme" parent="android:Theme">
         <item name="android:windowBackground">@drawable/bobb_bg</item>
+		<!-- パネル(Menu) の背景 -->  
+    	<item name="android:panelBackground">@color/menu_bg</item>  
+    	<item name="android:panelFullBackground">@color/menu_bg</item>  
     </style>
 
     <!-- 

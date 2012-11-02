@@ -3,9 +3,12 @@ package com.ict.apps.bobb.breed;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.CardImageInfo;
+import com.ict.apps.bobb.db.BoBBDBHelper;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * ブリード全般の機能クラス
@@ -21,6 +24,11 @@ public class BreedManager {
 	public BeetleKit generateCardStatusFromBarcode(Context context, long barcode) {
 		
 		// ★既に読み込んだバーコードかどうかチェック
+		if(this.existBarcode(context, barcode)) {
+			Toast.makeText(context, "既に同じバーコードで虫キットを取得しています。\n" +
+					"同じバーコードは使用できません。", Toast.LENGTH_SHORT).show();
+			return null;
+		}
 		
 		// ★決め打ちの事前登録済みのバーコードIDでないか？
 		
@@ -58,6 +66,60 @@ public class BreedManager {
 		bk.setType(1);
 		
 		return bk;
+	}
+
+	/**
+	 * バーコード履歴にバーコードを登録する
+	 * @return
+	 */
+	public void insertBarcodeToDB(Context context, long barcode) {
+		
+		// DBインスタンス取得
+		BoBBDBHelper beetleDb = BoBBDBHelper.getInstance(context);
+		beetleDb.insertBarcodeReadInfo(barcode);
+		
+	}
+	
+	/**
+	 * バーコード履歴に存在するバーコードかどうか確認する
+	 * バーコードが履歴に既に存在する場合、trueを返却する。
+	 * @param context
+	 * @return
+	 */
+	private boolean existBarcode(Context context, long barcode) {
+		
+		boolean flag = false;
+		
+		// DBインスタンス取得
+		BoBBDBHelper beetleDb = BoBBDBHelper.getInstance(context);
+		
+		// DBインスタンスオープン
+		beetleDb.connectInstance();
+		
+		Cursor cursor = beetleDb.getBarcodeInfo();
+		if(cursor != null) {
+			//　カーソルがあった場合、虫キットインスタンスに情報を設定する。
+			if (cursor.moveToFirst()) {
+				// 取得したレコード数を取得する
+				int iRecCnt = cursor.getCount();
+				for (int i = 0; i < iRecCnt; i++) {
+					
+					// 取得レコードのバーコードと比較
+					if (barcode == cursor.getLong(0)) {
+						// バーコードが一した場合true
+						flag = true;
+					}
+
+					cursor.moveToNext();
+				}
+			}
+			cursor.close();
+		}
+		
+		// DBインスタンスクローズ
+		beetleDb.closeInstance();
+		
+		return flag;
 	}
 	
 	/**

@@ -202,7 +202,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	 * バーコード読み込み履歴のインサート
 	 * @param barcode 読み込みバーコード
 	 */
-	public void insertBarcodeReadInfo(int barcode) {
+	public void insertBarcodeReadInfo(long barcode) {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		

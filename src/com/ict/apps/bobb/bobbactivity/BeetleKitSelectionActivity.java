@@ -2,32 +2,37 @@ package com.ict.apps.bobb.bobbactivity;
 
 import java.util.ArrayList;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.IInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class BeetleKitSelectionActivity extends Activity {
+/**
+ * 虫キット選択画面クラス
+ *
+ */
+public class BeetleKitSelectionActivity extends BaseActivity {
 	
 	private int kitType = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_beetlekitselection);
 		
 		Intent intent = this.getIntent();

@@ -2,6 +2,7 @@ package com.ict.apps.bobb.bobbactivity;
 
 import java.util.ArrayList;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
@@ -17,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class BattleDeckForSpecialTab extends Activity {
+public class BattleDeckForSpecialTab extends BaseActivity {
 
 	private static Integer settingDeckNum = -1;
 

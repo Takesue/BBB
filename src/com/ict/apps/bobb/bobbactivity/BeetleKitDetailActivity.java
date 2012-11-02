@@ -1,5 +1,6 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
@@ -20,7 +21,7 @@ import android.widget.TextView;
  * 虫キット詳細表示画面
  *
  */
-public class BeetleKitDetailActivity extends Activity {
+public class BeetleKitDetailActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

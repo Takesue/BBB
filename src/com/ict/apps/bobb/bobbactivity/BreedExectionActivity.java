@@ -1,23 +1,24 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.breed.BreedManager;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * ブリード（交配）画面クラス
  *
  */
-public class BreedExectionActivity extends Activity {
+public class BreedExectionActivity extends BaseActivity {
 
 	private static Integer settingDeckNum = -1;
 
@@ -55,15 +56,36 @@ public class BreedExectionActivity extends Activity {
 	 */
 	public void onClickExecBreed (View view) {
 		
-		BreedManager bm = new BreedManager();
-		BeetleKit newBeetleKit = bm.breedBeetle(this, BreedExectionActivity.selectedKit1, BreedExectionActivity.selectedKit2);
+		if (BreedExectionActivity.selectedKit1 != null && BreedExectionActivity.selectedKit2 != null) {
+			BreedManager bm = new BreedManager();
+			BeetleKit newBeetleKit = bm.breedBeetle(this, BreedExectionActivity.selectedKit1, BreedExectionActivity.selectedKit2);
+
+			// 詳細画面表示
+			Intent intent = new Intent(this, BeetleKitDetailActivity.class);
+			
+			Log.d("★★★", "BeetleKit ID = " + newBeetleKit.getBeetleKitId());
+			intent.putExtra(BoBBDBHelper.BEETLE_KIT_BEETLE_ID, newBeetleKit.getBeetleKitId());
+			startActivity(intent);
+			
+			// 設定情報のクリア
+			this.clearSettingBreedKit();
+
+		}
+		else {
+			Toast.makeText(this, "ブリードする虫キットが設定されていません。", Toast.LENGTH_SHORT).show();
+		}
 		
-		// 詳細画面表示
-		Intent intent = new Intent(this, BeetleKitDetailActivity.class);
-		Log.d("★★★", "BeetleKit ID = " + newBeetleKit.getBeetleKitId());
-		intent.putExtra(BoBBDBHelper.BEETLE_KIT_BEETLE_ID, newBeetleKit.getBeetleKitId());
-		startActivity(intent);
-		
+	}
+
+
+	/**
+	 * 設定済み虫キットをクリアする
+	 */
+	private void clearSettingBreedKit() {
+		BreedExectionActivity.selectedKit1 = null;
+		BreedExectionActivity.selectedKit2 = null;
+		((TextView)this.findViewById(R.id.breed_exe_beetlekit1)).setText("虫キット未設定");
+		((TextView)this.findViewById(R.id.breed_exe_beetlekit2)).setText("虫キット未設定");
 	}
 	
 	@Override

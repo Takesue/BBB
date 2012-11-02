@@ -1,17 +1,17 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.breed.BreedManager;
-import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,15 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NewBeetleInfoActivity extends Activity {
+/**
+ * 新しい虫キット表示画面クラス
+ *
+ */
+public class NewBeetleInfoActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_newbeetleinfo);
-		
-		MediaPlayer mp = MediaPlayer.create(this, R.raw.waoh);
-		mp.start();
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.setContentView(R.layout.activity_newbeetleinfo);
 		
 		// 引数として渡された虫キットIDを取得
 		Intent intent = this.getIntent();
@@ -36,8 +38,16 @@ public class NewBeetleInfoActivity extends Activity {
 		// 新規カード取得（バーコード番号からカード生成）  DBにカード情報を登録
 		BreedManager bm = new BreedManager();
 		BeetleKit kit = bm.generateCardStatusFromBarcode(this, barcode);
+		if (kit == null) {
+			// 生成失敗
+			finish();
+			return;
+		}
 		
-		
+		// 生成時効果音再生
+		MediaPlayer mp = MediaPlayer.create(this, R.raw.waoh);
+		mp.start();
+
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.newBeetleKit);
 		vgroup.setGravity(Gravity.CENTER_HORIZONTAL);
 		View view = this.getLayoutInflater().inflate(R.layout.card_detailview, vgroup);
@@ -65,7 +75,11 @@ public class NewBeetleInfoActivity extends Activity {
 		getButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// 虫キット情報テーブルに登録
 				manager.registBeetleKit(context, bk);
+				// バーコード履歴に登録
+				manager.insertBarcodeToDB(context, bk.getBarcode_id());
+				
 				Toast.makeText(context, "虫キットを取得しました。", Toast.LENGTH_SHORT).show();
 				finish();
 			}
