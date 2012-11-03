@@ -1,37 +1,44 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import android.os.Bundle;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
-public class BattleCardsSet extends View {
+public class BattleCardsSet extends Activity {
 
-	public BattleCardsSet(Context context) {
-		super(context);
-	}
+	// カードの表示部品（card.xml）
+	private View viewCard = null;
+
+//	public BattleCardsSet(Context context) {
+//		super(context);
+//	}
 	
 	protected void onDraw(Canvas canvas){
-		super.onDraw(canvas);
+//		super.onDraw(canvas);
 		
 		Resources res = getResources();
 		
-		Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.cards);
-		Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap1, 100, 150, false);
+		Bitmap rivalcard1 = BitmapFactory.decodeResource(res, R.drawable.cards);
+		Bitmap rivalcard2 = Bitmap.createScaledBitmap(rivalcard1, 100, 150, false);
 		
 		Paint paint = new Paint();
 		
-		canvas.drawBitmap(bitmap2, 200, 150, paint);
+		canvas.drawBitmap(rivalcard2, 200, 150, paint);
 		
-		Bitmap bitmap3 = BitmapFactory.decodeResource(res, R.drawable.cards);
-		Bitmap bitmap4 = Bitmap.createScaledBitmap(bitmap3, 100, 150, false);
+		this.viewCard = ((LayoutInflater) this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+						R.layout.my_cards, null);
 		
-//		Paint paint = new Paint();
-		
-		canvas.drawBitmap(bitmap4, 200, 400, paint);
 	}
 
 }
