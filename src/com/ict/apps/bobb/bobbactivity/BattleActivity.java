@@ -4,6 +4,11 @@ package com.ict.apps.bobb.bobbactivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -11,13 +16,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class BattleActivity extends Activity implements OnTouchListener {
 
 	int cardCount = 30;
 	int maxTime = 5;
 	
+	private BattleActivity bAct;
+
 	private BattleCardDetail vgroup;
 
 	// カードの表示部品（card.xml）
@@ -128,9 +137,13 @@ public class BattleActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
         Log.d("Create","start");
+        this.getThis();
         this.displayCards();
 	}
 	
+    public void getThis(){
+    	this.bAct = this;
+    }
     public void finishOnClick(View v){
     	
 //		Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
@@ -160,7 +173,6 @@ public class BattleActivity extends Activity implements OnTouchListener {
 		
 		this.cardEvent = false;
 		
-		Log.d("1","1");
 		for(int i = this.cardCount - 1; i >= 0; i--){
 			// 相手CARD用View取得
 			this.rivalViewCard[i] = ((LayoutInflater) this
@@ -169,12 +181,12 @@ public class BattleActivity extends Activity implements OnTouchListener {
 			// ユーザーCARD用View取得
 			this.myViewCard[i] = ((LayoutInflater) this
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+//					R.layout.card_detailview, null);
 					R.layout.my_cards, null);
 			// OntouchListnerにActivityクラスを設定
 			this.myViewCard[i].setOnTouchListener(this);
 			// カードを長押しした場合のイベントリスナ
-			final Activity act = this;
-			Log.d("1","5");
+			final Activity act = bAct;
 			this.myViewCard[i].setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
@@ -186,7 +198,6 @@ public class BattleActivity extends Activity implements OnTouchListener {
 				}
 			});
 
-			Log.d("1","6");
 			// 相手Densityの値を取得
 			float tmpDensity = this.getResources().getDisplayMetrics().density;
 			
@@ -197,15 +208,12 @@ public class BattleActivity extends Activity implements OnTouchListener {
 			cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 			cartParams.setMargins((int)((50+(i*5))*tmpDensity), (int)(125*tmpDensity), 0, 0);
 			
-			Log.d("1","7");
 			// 戦闘画面のベース部品を取得
 			BattleCardDetail vgroup = (BattleCardDetail)this.findViewById(R.id.battle_base_layout);
 
-			Log.d("1","8");
 			// 戦闘ベース部品にcard追加する
 			vgroup.addView(this.rivalViewCard[i], cartParams);
 
-			Log.d("1","9");
 			// ユーザーDensityの値を取得
 //			tmpDensity = this.getResources().getDisplayMetrics().density;
 			
@@ -216,11 +224,9 @@ public class BattleActivity extends Activity implements OnTouchListener {
 			cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 			cartParams.setMargins((int)((50+((this.cardCount-i)*5))*tmpDensity), (int)(225*tmpDensity), 0, 0);
 			
-			Log.d("1","10");
 			// 戦闘画面のベース部品を取得
 			vgroup = (BattleCardDetail)this.findViewById(R.id.battle_base_layout);
 
-			Log.d("1","11");
 			// 戦闘ベース部品にcard追加する
 			vgroup.addView(this.myViewCard[i], cartParams);
 		}
@@ -483,12 +489,12 @@ public class BattleActivity extends Activity implements OnTouchListener {
 	 * 山札を消す
 	 */
 	private void setFinishCard() {
-		
 		// 新たなハンドラを追加する前に、ハンドラにある既存のコールバックをすべて削除
 		this.mHandler.removeCallbacks(this.setFinishCard);
 
 		// Handler に対し、" 100 ms 後に mUpdateTimeTask() を呼び出す
 		this.mHandler.postDelayed(this.setFinishCard, 1000);
+		
 	}
 	
 	/**
@@ -877,10 +883,72 @@ public class BattleActivity extends Activity implements OnTouchListener {
 				vgroup.removeView(myViewCard[i]);
 				vgroup.removeView(rivalViewCard[i]);
 			}
+			// ユーザー手札を削除し、表面を表示させる
+			for(Integer i = 0; i <= 4; i++){
+				vgroup.removeView(myViewCard[i]);
+				// ユーザーCARD用View再取得
+				myViewCard[i] = ((LayoutInflater) 
+						getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+//						R.layout.my_cards, null);
+						R.layout.card_detailview, null);
+				// OntouchListnerにActivityクラスを設定
+				myViewCard[i].setOnTouchListener(bAct);
+				// カードを長押しした場合のイベントリスナ
+//				final Activity act = bAct;
+				myViewCard[i].setOnLongClickListener(new View.OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						
+						// ボタン長押しでカード詳細画面を表示
+						viewDetailCards(40, 10);
+						
+						return false;
+					}
+				});
+				// 相手Densityの値を取得
+				float tmpDensity = getResources().getDisplayMetrics().density;
+				
+				BattleCardDetail.LayoutParams cartParams = new BattleCardDetail.LayoutParams(
+						(int)(getResources().getDimensionPixelSize(R.dimen.card_width)),
+						(int)(getResources().getDimensionPixelSize(R.dimen.card_height)));
+/*				View view = getLayoutInflater().inflate(R.layout.card_detailview, null);
+				// 名前設定
+				((TextView)view.findViewById(R.id.carddetail_name)).setText("name");
+				((TextView)view.findViewById(R.id.carddetail_name)).setTextSize(5.0f);
+				// 説明設定
+				((TextView)view.findViewById(R.id.carddetail_atk)).setText("攻：" + "1000");
+				((TextView)view.findViewById(R.id.carddetail_atk)).setTextSize(5.0f);
+				// 説明設定
+				((TextView)view.findViewById(R.id.carddetail_def)).setText("守：" + "300");
+				((TextView)view.findViewById(R.id.carddetail_def)).setTextSize(5.0f);
+				// 説明設定
+				((TextView)view.findViewById(R.id.carddetail_intoro)).setText("説明：" + "せつめいと読みます");
+				((TextView)view.findViewById(R.id.carddetail_intoro)).setTextSize(5.0f);
+				// 画像設定
+				((ImageView)view.findViewById(R.id.carddetail_icon)).setImageResource(R.drawable.beetle1);
+				((ImageView)view.findViewById(R.id.carddetail_icon)).setScaleX(10.0f);
+				// 画像設定
+				((ImageView)view.findViewById(R.id.carddetail_attrribute)).setImageResource(R.drawable.wind);
+				((ImageView)view.findViewById(R.id.carddetail_attrribute)).setScaleX(20.0f);
+				vgroup.addView(view);
+*/				
+				cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+				cartParams.setMargins((int)((i*65)*tmpDensity), (int)(380*tmpDensity), 0, 0);
+				
+				// 戦闘画面のベース部品を取得
+				vgroup = (BattleCardDetail)findViewById(R.id.battle_base_layout);
+
+				// 戦闘ベース部品にcard追加する
+				vgroup.addView(myViewCard[i], cartParams);
+			}
+			
+			
 			// 画面再描画を要求
 			vgroup.invalidate();
 				
+
 		}
 	};
-
+	
 }

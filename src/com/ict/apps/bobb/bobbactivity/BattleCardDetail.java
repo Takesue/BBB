@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class BattleCardDetail extends RelativeLayout {
 
@@ -27,5 +28,5 @@ public class BattleCardDetail extends RelativeLayout {
 //		return false;
 		return super.onInterceptTouchEvent(ev);
 	}
-
+	
 }
