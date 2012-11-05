@@ -11,6 +11,7 @@ import com.ict.apps.bobb.db.BoBBDBHelper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,10 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 	
 	private int kitType = 0;
 
+	
+	private long alreadySetKitId1 = 0;
+	private long alreadySetKitId2 = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,6 +42,8 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 		
 		Intent intent = this.getIntent();
 		this.kitType = intent.getIntExtra("kittype", -1);
+		this.alreadySetKitId1 = intent.getLongExtra("alreadySetKitId1", -1l);
+		this.alreadySetKitId2 = intent.getLongExtra("alreadySetKitId2", -1l);
 
 		// フィルタがけ用に対戦デッキに設定されている虫キットの情報を取得しておく
 		this.getAlreadySettingKit();
@@ -81,6 +88,7 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 		ImageView image = (ImageView)view.findViewById(R.id.kiticon);
 		image.setImageResource(kit.getImageResourceId(this));
 		
+		// 虫キットの種別差異による表示内容変更
 		if (this.kitType == 1) {
 			// 攻撃値設定
 			((TextView)view.findViewById(R.id.kit_attack)).setText("攻  ：  " + kit.getAttack());
@@ -98,20 +106,33 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 		if (this.matchUseKitSet(kit.getBeetleKitId())) {
 			// フィルターかける
 			view.findViewById(R.id.filter).setBackgroundResource(R.drawable.filter);
-			((TextView)view.findViewById(R.id.deck_set_char)).setText("SET");
+			if (kit.getType() == 1) {
+				((ImageView)view.findViewById(R.id.set_ic)).setImageResource(R.drawable.sord);
+			}
+			else {
+				((ImageView)view.findViewById(R.id.set_ic)).setImageResource(R.drawable.lightning);
+			}
 		}
 		else {
-			final BeetleKit bk = kit;
-			view.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					// クリック時の処理
-					Intent intent = new Intent();
-					Log.d("★★★", "BeetleKit ID = " + bk.getBeetleKitId());
-					intent.putExtra(BoBBDBHelper.BEETLE_KIT_BEETLE_ID, bk.getBeetleKitId());
-					setResult(RESULT_OK, intent);
-					finish();
-				}
-			});
+			// さらに、既にブリード対象として設定されていた場合、画像無効、フィルタ掛ける、
+			if (this.alreadySetKitId1 == kit.getBeetleKitId() || this.alreadySetKitId2 == kit.getBeetleKitId()) {
+				view.findViewById(R.id.filter).setBackgroundResource(R.drawable.filter);
+				((TextView)view.findViewById(R.id.deck_set_char)).setText("SET");
+				((TextView)view.findViewById(R.id.deck_set_char)).setTextColor(Color.BLUE);
+			} else {
+				// 
+				final BeetleKit bk = kit;
+				view.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						// クリック時の処理
+						Intent intent = new Intent();
+						Log.d("★★★", "BeetleKit ID = " + bk.getBeetleKitId());
+						intent.putExtra(BoBBDBHelper.BEETLE_KIT_BEETLE_ID, bk.getBeetleKitId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+				});
+			}
 		}
 		
 		return view;
@@ -131,7 +152,6 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 		else if (this.kitType == 2) {
 			this.beetleIdList = BattleUseSpecialCard.getAllSettingDeckID(this);
 		}
-
 		
 	}
 	

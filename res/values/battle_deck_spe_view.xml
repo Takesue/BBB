@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
     <integer-array name="spe_deck_buttons">
         <item>@+id/spe_deck1</item>
         <item>@+id/spe_deck2</item>

@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8.60"
                 android:orientation="vertical" >
-
+
                 <TextView
                     android:id="@+id/kit_name"
                     android:layout_width="match_parent"
@@ -37,24 +37,27 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="3dp"
                     android:text="名前を入れます"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#5C4033" />
-
+                    android:textColor="#5C4033"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/kit_attack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="攻：XXXX"
-                    android:textColor="#5C4033" />
-
+                    android:textColor="#5C4033"
+                    android:textSize="12sp" />
+
                 <TextView
                     android:id="@+id/kit_defence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="守：XXXX"
-                    android:textColor="#5C4033" />
+                    android:textColor="#5C4033"
+                    android:textSize="12sp" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -77,6 +80,16 @@
             android:textColor="#FF0000"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/set_ic"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignRight="@+id/linearLayout1"
+            android:layout_alignTop="@+id/linearLayout1"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+             />
 
     </RelativeLayout>
 

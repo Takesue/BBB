@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/beetleKitDetail"
+    android:id="@+id/beetleKitDetailRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -14,5 +14,29 @@
         android:gravity="center"
         android:text="虫キット詳細"
         android:textSize="30sp" android:textColor="#5C4033"/>
+
+    <LinearLayout
+        android:id="@+id/beetleKitDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:onClick="onClickButton"
+            android:text="戻る" />
+
+    </LinearLayout>
 
 </LinearLayout>

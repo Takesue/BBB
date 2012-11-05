@@ -50,11 +50,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck1" />
-
-
-
-
-
+
                 <TextView
                     android:id="@+id/spe_deck1_title"
                     android:layout_width="wrap_content"
@@ -66,8 +62,7 @@
                     android:layout_toRightOf="@+id/imageView1"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
-
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/spe_deck1_attack"
@@ -125,9 +120,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck2" />
-
-
-
+
                 <TextView
                     android:id="@+id/spe_deck2_title"
                     android:layout_width="wrap_content"
@@ -139,8 +132,7 @@
                     android:layout_toRightOf="@+id/imageView2"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
-
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/spe_deck2_attack"
@@ -199,10 +191,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck3" />
-
-
-
-
+
                 <TextView
                     android:id="@+id/spe_deck3_title"
                     android:layout_width="wrap_content"
@@ -214,8 +203,7 @@
                     android:layout_toRightOf="@+id/imageView3"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
-
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/spe_deck3_attack"

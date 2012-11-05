@@ -30,17 +30,23 @@ public class BreedersMenuActivity extends BaseActivity {
 		this.setContentView(R.layout.activity_breedersmenu);
 
 		this.init();
+		
 	}
 
+	/**
+	 * 採取ボタン選択時
+	 * @param v
+	 */
 	public void newBeetleInfoOnClick(View v) {
-
-//		Intent intent = new Intent(BreedersMenuActivity.this, NewBeetleInfoActivity.class);
-//		this.startActivity(intent);
 		// バーコード機能呼び出し
 		this.callBarcode();
 
 	}
 
+	/**
+	 * ブリードボタン選択時
+	 * @param v
+	 */
 	public void breedExectionOnClick(View v) {
 
 		Intent intent = new Intent(BreedersMenuActivity.this, BreedExectionActivity.class);
@@ -48,6 +54,10 @@ public class BreedersMenuActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 対戦デッキボタン選択時
+	 * @param v
+	 */
 	public void battleDeckManageOnClick(View v) {
 
 		Intent intent = new Intent(BreedersMenuActivity.this, BattleDeckManageActivity.class);
@@ -55,6 +65,10 @@ public class BreedersMenuActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 虫キット一覧ボタン選択時
+	 * @param v
+	 */
 	public void beetleKitListOnClick(View v) {
 
 		Intent intent = new Intent(BreedersMenuActivity.this, BeetleKitListActivity.class);
@@ -71,15 +85,16 @@ public class BreedersMenuActivity extends BaseActivity {
 
 
 		// 画像テーブル挿入  インストール直後の初回起動時に一回だけ実行する必要がある。
-		factory.setImageInfo(1, "クマモン1", 1, 1, "ic_launcher", "ゆるキャラNo1から陥落？？", "無し");
-		factory.setImageInfo(2, "クマモン2", 1, 1, "ic_launcher", "ゆるキャラNo2から陥落？？", "無し");
-		factory.setImageInfo(3, "クマモン3", 1, 1, "ic_launcher", "ゆるキャラNo3から陥落？？", "無し");
-		factory.setImageInfo(4, "クマモン4", 1, 2, "ic_launcher", "ゆるキャラNo4から陥落？？", "無し");
-		factory.setImageInfo(5, "クマモン5", 1, 2, "ic_launcher", "ゆるキャラNo5から陥落？？", "無し");
-		factory.setImageInfo(6, "クマモン6", 1, 2, "ic_launcher", "ゆるキャラNo6から陥落？？", "無し");
-		factory.setImageInfo(7, "クマモン7", 1, 3, "ic_launcher", "ゆるキャラNo7から陥落？？", "無し");
-		factory.setImageInfo(8, "クマモン8", 1, 3, "ic_launcher", "ゆるキャラNo8から陥落？？", "無し");
-		factory.setImageInfo(9, "クマモン9", 1, 3, "ic_launcher", "ゆるキャラNo9から陥落？？", "無し");
+		factory.setImageInfo(1, "クマモン1", 1, 1, "beetle1", "ゆるキャラNo1から陥落？？", "無し");
+		factory.setImageInfo(2, "フジモン2", 2, 1, "beetle2", "顔デカイでえ！", "無し");
+		factory.setImageInfo(3, "ノリモン3", 3, 1, "beetle3", "のりさん大好き♪", "無し");
+		factory.setImageInfo(4, "ドラモン4", 1, 2, "beetle1", "ぼくドラモン", "無し");
+		factory.setImageInfo(5, "トクモン5", 2, 2, "beetle2", "ひゅうーひゅうだよ～", "無し");
+		factory.setImageInfo(6, "クマモン6", 3, 2, "beetle3", "ゆるキャラNo6から陥落？？", "無し");
+		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し");
+		factory.setImageInfo(8, "クマモン8", 2, 3, "beetle2", "ゆるキャラNo8から陥落？？", "無し");
+		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し");
+		factory.setImageInfo(1004, "はしした", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ");
 		
 		
 		// テストデータ挿入
@@ -101,14 +116,14 @@ public class BreedersMenuActivity extends BaseActivity {
 		// 虫キットのダミー情報設定
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1l);						// 虫キットID
-		kit.setBarcode_id(111111111111l);			// バーコードID
+		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("国産カブトムシA");					// 名前
 		kit.setAttack(1500);						// 攻撃
 		kit.setDefence(1000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");		// 画像ファイル名
-		kit.setIntroduction("日本のこころ。この姿をみると子供心を思い出す感じしませんか？");			// カード説明
+		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setIntroduction("日本のこころ。");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -116,7 +131,7 @@ public class BreedersMenuActivity extends BaseActivity {
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(2l);						// 虫キットID
-		kit.setBarcode_id(211111111111l);			// バーコードID
+		kit.setBarcode_id(299911116767l);			// バーコードID
 		kit.setName("韓国カブトムシB");					// 名前
 		kit.setAttack(500);						// 攻撃
 		kit.setDefence(1500);						// 守備
@@ -131,7 +146,7 @@ public class BreedersMenuActivity extends BaseActivity {
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(3l);						// 虫キットID
-		kit.setBarcode_id(311111111111l);			// バーコードID
+		kit.setBarcode_id(388711111111l);			// バーコードID
 		kit.setName("米産カブトムシC");					// 名前
 		kit.setAttack(2000);						// 攻撃
 		kit.setDefence(500);						// 守備
@@ -146,7 +161,7 @@ public class BreedersMenuActivity extends BaseActivity {
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(4l);						// 虫キットID
-		kit.setBarcode_id(411111111111l);			// バーコードID
+		kit.setBarcode_id(411111118989l);			// バーコードID
 		kit.setName("仏産カブトムシD");					// 名前
 		kit.setAttack(1000);						// 攻撃
 		kit.setDefence(1000);						// 守備
@@ -161,7 +176,7 @@ public class BreedersMenuActivity extends BaseActivity {
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(5l);						// 虫キットID
-		kit.setBarcode_id(511111111111l);			// バーコードID
+		kit.setBarcode_id(566711118889l);			// バーコードID
 		kit.setName("露産カブトムシE");					// 名前
 		kit.setAttack(700);							// 攻撃
 		kit.setDefence(1300);						// 守備
@@ -174,6 +189,33 @@ public class BreedersMenuActivity extends BaseActivity {
 		// デッキに設定
 		BattleUseKit.setUseKit(this, BattleUseKit.DeckNum.DECK5, kit);
 
+		kit = new BeetleKit();
+		kit.setBeetleKitId(6l);						// 虫キットID
+		kit.setBarcode_id(598711118888l);			// バーコードID
+		kit.setName("ミヤマクワガタ");					// 名前
+		kit.setAttack(700);							// 攻撃
+		kit.setDefence(1300);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setIntroduction("はじめましてミヤマです。");		// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		factory.insertBeetleKitToDB(kit);
+
+		kit = new BeetleKit();
+		kit.setBeetleKitId(7l);						// 虫キットID
+		kit.setBarcode_id(545911119999l);			// バーコードID
+		kit.setName("ヘラクレスオオカブト");				// 名前
+		kit.setAttack(1200);						// 攻撃
+		kit.setDefence(1200);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setIntroduction("世界一でかいで！！");				// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		factory.insertBeetleKitToDB(kit);
+
+		
 		// 特殊カードダミー情報設定
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1001l);					// 虫キットID
@@ -182,7 +224,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setEffect("一回やすみ");					// 効果
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("ic_launcher");		// 画像ファイル名
+		kit.setImageFileName("beetle1");		// 画像ファイル名
 		kit.setIntroduction("つよいよ");				// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
@@ -196,7 +238,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setEffect("攻撃力UP");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("ic_launcher");		// 画像ファイル名
+		kit.setImageFileName("beetle2");			// 画像ファイル名
 		kit.setIntroduction("触るとイタイヨ");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
@@ -210,13 +252,25 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setEffect("カード入替");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("ic_launcher");		// 画像ファイル名
+		kit.setImageFileName("beetle3");		// 画像ファイル名
 		kit.setIntroduction("髪切った？とよく聞きます");	// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD3, kit);
 		
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1004l);					// 虫キットID
+		kit.setBarcode_id(111111111114l);			// バーコードID
+		kit.setName("はしした");						// 名前
+		kit.setEffect("攻撃力UP");					// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setIntroduction("教育委員会のクソ野郎");		// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		factory.insertBeetleKitToDB(kit);
+
 		
 		// ユーザ情報クラスのアクセス例
 		StatusInfo.setUserName(this, "Noririn");
@@ -331,15 +385,16 @@ public class BreedersMenuActivity extends BaseActivity {
 			if (requestCode == 0) {
 				String barcode = data.getStringExtra("SCAN_RESULT");
 				
+				this.playEffect(R.raw.bane);
+				
 				// バーコード情報を渡して取得結果画面へ遷移する。
 				Intent intent = new Intent(BreedersMenuActivity.this, NewBeetleInfoActivity.class);
 				intent.putExtra(BoBBDBHelper.READ_BARCODE, Long.valueOf(barcode));
 				this.startActivity(intent);
+				
 			}
 		}
-
-		
 	}
-
+	
 
 }

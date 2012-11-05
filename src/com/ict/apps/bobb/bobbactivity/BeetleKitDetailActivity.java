@@ -39,41 +39,48 @@ public class BeetleKitDetailActivity extends BaseActivity {
 		
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.beetleKitDetail);
 		vgroup.setGravity(Gravity.CENTER_HORIZONTAL);
-		View view = this.getLayoutInflater().inflate(R.layout.card_detailview, vgroup);
+		View view = this.getLayoutInflater().inflate(R.layout.beetlekitcard_detailview, vgroup);
 		
 		// 名前設定
-		((TextView)view.findViewById(R.id.carddetail_name)).setText(kit.getName());
+		((TextView)view.findViewById(R.id.beetlekit_carddetail_name)).setText(kit.getName());
+		
+		if (kit.getType() == 1) {
+			
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_type)).setText("モンスターカード");
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_atk)).setText("攻：" + kit.getAttack());
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText("守：" + kit.getDefence());
+		}
+		else if (kit.getType() == 2) {
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_type)).setText("効果カード");
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_atk)).setText("効果：" + kit.getEffect());
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText(" ");
+		}
 		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_atk)).setText("攻：" + kit.getAttack());
-		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_def)).setText("守：" + kit.getDefence());
-		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_intoro)).setText("説明：" + kit.getIntroduction());
+		((TextView)view.findViewById(R.id.beetlekit_carddetail_intoro)).setText("  " + kit.getIntroduction());
 		// 画像設定
-		((ImageView)view.findViewById(R.id.carddetail_icon)).setImageResource(kit.getImageResourceId(this));
+		((ImageView)view.findViewById(R.id.beetlekit_carddetail_icon)).setImageResource(kit.getImageResourceId(this));
 
-		// 画像設定
-		((ImageView)view.findViewById(R.id.carddetail_attrribute)).setImageResource(R.drawable.wind);
 
-		// 戻るボタン生成
-		Button button = new Button(this);
-		button.setText("戻る");
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		vgroup.addView(button);
+//		// 戻るボタン生成
+//		Button button = new Button(this);
+//		button.setText("戻る");
+//		button.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				finish();
+//			}
+//		});
+//		vgroup.addView(button);
 
 	}
 
-	public void returnOnClick(View v) {
+	public void onClickButton(View v) {
 
-		Intent intent = new Intent(BeetleKitDetailActivity.this,
-				BeetleKitListActivity.class);
-		startActivity(intent);
-
+		this.finish();
 	}
 
 }

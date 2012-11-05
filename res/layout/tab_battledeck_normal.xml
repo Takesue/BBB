@@ -48,7 +48,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck1" />
-
+
                 <TextView
                     android:id="@+id/deck1_title"
                     android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                     android:layout_toRightOf="@+id/imageView1"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/deck1_attack"
@@ -115,7 +115,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck2" />
-
+
                 <TextView
                     android:id="@+id/deck2_title"
                     android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                     android:layout_toRightOf="@+id/imageView2"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/deck2_attack"
@@ -182,7 +182,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck3" />
-
+
                 <TextView
                     android:id="@+id/deck3_title"
                     android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                     android:layout_toRightOf="@+id/imageView3"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/deck3_attack"
@@ -249,7 +249,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck4" />
-
+
                 <TextView
                     android:id="@+id/deck4_title"
                     android:layout_width="wrap_content"
@@ -261,7 +261,7 @@
                     android:layout_toRightOf="@+id/imageView4"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/deck4_attack"
@@ -316,7 +316,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:src="@drawable/no_deck5" />
-
+
                 <TextView
                     android:id="@+id/deck5_title"
                     android:layout_width="wrap_content"
@@ -328,7 +328,7 @@
                     android:layout_toRightOf="@+id/imageView5"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/deck5_attack"

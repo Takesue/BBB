@@ -36,37 +36,147 @@
         android:layout_marginTop="20dp"
         android:layout_weight="0.07" >
 
-        <Button
-            android:id="@+id/breed_exe_beetlekit1"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/listitem_bg"
-            android:onClick="onClickBeetlekitSelection"
-            android:text="虫キット未設定"
-            android:textColor="#5C4033"
-            android:textSize="20sp" />
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/breed_exe_beetlekit1"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/listitem_bg"
+                android:onClick="onClickBeetlekitSelection"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/breed_exe_beetlekitImage1"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/beetle1" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#228B22"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/breedkit_name_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="名前1"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/breedkit_attack_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="攻：1000"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/breedkit_defence_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="守：1000"
+                    android:textColor="#ffffff" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="221dp"
+            android:layout_weight="0.7"
             android:layout_gravity="top|center_vertical"
             android:layout_marginTop="24dp"
-            android:layout_weight="0.87"
             android:src="@drawable/breed_fusion" />
 
-        <Button
-            android:id="@+id/breed_exe_beetlekit2"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/listitem_bg"
-            android:onClick="onClickBeetlekitSelection"
-            android:text="虫キット未設定"
-            android:textColor="#5C4033"
-            android:textSize="20sp" />
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/breed_exe_beetlekit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/listitem_bg"
+                android:onClick="onClickBeetlekitSelection"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/breed_exe_beetlekitImage2"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/beetle2" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#228B22"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/breedkit_name_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="名前2"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/breedkit_attack_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="攻：1000"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/breedkit_defence_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="守：1000"
+                    android:textColor="#ffffff" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

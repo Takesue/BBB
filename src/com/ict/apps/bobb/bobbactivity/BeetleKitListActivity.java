@@ -1,6 +1,7 @@
 package com.ict.apps.bobb.bobbactivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseKit;
@@ -9,7 +10,6 @@ import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +46,8 @@ public class BeetleKitListActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_beetlekitlist);
+		
+		this.getAlreadySettingKit();
 		
 		this.createListItems();
 
@@ -143,6 +144,18 @@ public class BeetleKitListActivity extends BaseActivity {
 			}
 		});
 		
+		// 対戦時使用キットに設定されている場合、設定済みアイコンを表示する。
+		if (this.matchUseKitSet(kit.getBeetleKitId())) {
+			Log.d("★★★★★★", "BeetleKit ID = " + bk.getBeetleKitId());
+			// 設定状況
+			if (kit.getType() == 1) {
+				((ImageView)view.findViewById(R.id.set_ic)).setImageResource(R.drawable.sord);
+			}
+			if (kit.getType() == 2) {
+				((ImageView)view.findViewById(R.id.set_ic)).setImageResource(R.drawable.lightning);
+			}
+		}
+
 		// コンテキストを登録
 		this.registerForContextMenu(view);
 		
@@ -152,6 +165,52 @@ public class BeetleKitListActivity extends BaseActivity {
 		
 		return view;
 	}
+	
+//	private ArrayList<Long> beetleIdList = null;
+	private long[] beetleIdList = null;
+	
+	/**
+	 * 既に設定されている虫キットのリストを取得する。
+	 */
+	private void getAlreadySettingKit() {
+		
+		// 対戦時使用デッキに設定されている虫キットを取得する。
+		long[] list1 = BattleUseKit.getAllSettingDeckID(this);
+		long[] list2 = BattleUseSpecialCard.getAllSettingDeckID(this);
+		
+		this.beetleIdList = new long[list1.length + list2.length];
+		
+		int length = this.beetleIdList.length;
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < list1.length; j++) {
+				this.beetleIdList[i++] = list1[j];
+			}
+			for (int j = 0; j < list2.length; j++) {
+				this.beetleIdList[i++] = list2[j];
+			}
+		}
+	}
+	
+	/**
+	 * 対戦セットと一致するのかを確認
+	 * 一致する場合、trueを返却する
+	 * @param id
+	 * @return
+	 */
+	private boolean matchUseKitSet(long id) {
+		boolean flag = false;
+		
+		int length = this.beetleIdList.length;
+		for (int i = 0; i < length; i++) {
+			if (id == this.beetleIdList[i]) {
+				flag = true;
+				break;
+			}
+		}
+		
+		return flag;
+	}
+
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {

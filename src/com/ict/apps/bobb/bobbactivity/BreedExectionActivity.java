@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +32,27 @@ public class BreedExectionActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_breedexection);
+		
+		this.clearSettingBreedKit();
 	}	
 	
 	
 	/**
-	 * 
+	 * ブリード設定画面をクリックした場合、選択画面へ遷移
 	 * @param view
 	 */
 	public void onClickBeetlekitSelection(View view) {
+		
+		// 設定済みの虫キット情報を虫キット選択画面へ渡すため
+		long othorKitId1 = -1;
+		long othorKitId2 = -1;
+		
+		if (BreedExectionActivity.selectedKit1 != null) {
+			othorKitId1 = BreedExectionActivity.selectedKit1.getBeetleKitId();
+		}
+		if (BreedExectionActivity.selectedKit2 != null) {
+			othorKitId2 = BreedExectionActivity.selectedKit2.getBeetleKitId();
+		}
 		
 		// 画面IDを保持
 		BreedExectionActivity.settingDeckNum = view.getId();
@@ -46,6 +60,8 @@ public class BreedExectionActivity extends BaseActivity {
 		// 一般虫キット選択として選択画面を呼び出し
 		Intent intent = new Intent(this, BeetleKitSelectionActivity.class);
 		intent.putExtra("kittype", 1);
+		intent.putExtra("alreadySetKitId1", othorKitId1);
+		intent.putExtra("alreadySetKitId2", othorKitId2);
 		this.startActivityForResult(intent, 0);
 		
 	}
@@ -72,7 +88,7 @@ public class BreedExectionActivity extends BaseActivity {
 
 		}
 		else {
-			Toast.makeText(this, "ブリードする虫キットが設定されていません。", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "虫キットが設定されていません。", Toast.LENGTH_SHORT).show();
 		}
 		
 	}
@@ -84,8 +100,15 @@ public class BreedExectionActivity extends BaseActivity {
 	private void clearSettingBreedKit() {
 		BreedExectionActivity.selectedKit1 = null;
 		BreedExectionActivity.selectedKit2 = null;
-		((TextView)this.findViewById(R.id.breed_exe_beetlekit1)).setText("虫キット未設定");
-		((TextView)this.findViewById(R.id.breed_exe_beetlekit2)).setText("虫キット未設定");
+		((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage1)).setImageResource(R.drawable.breed_kit_unset);
+		((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage2)).setImageResource(R.drawable.breed_kit_unset);
+		((TextView)this.findViewById(R.id.breedkit_name_1)).setText("虫キットを");
+		((TextView)this.findViewById(R.id.breedkit_attack_1)).setText("設定して");
+		((TextView)this.findViewById(R.id.breedkit_defence_1)).setText("ください");
+		((TextView)this.findViewById(R.id.breedkit_name_2)).setText("虫キットを");
+		((TextView)this.findViewById(R.id.breedkit_attack_2)).setText("設定して");
+		((TextView)this.findViewById(R.id.breedkit_defence_2)).setText("ください");
+		
 	}
 	
 	@Override
@@ -105,13 +128,21 @@ public class BreedExectionActivity extends BaseActivity {
 				if (BreedExectionActivity.settingDeckNum == R.id.breed_exe_beetlekit1) {
 					// 設定１の場合
 					BreedExectionActivity.selectedKit1 = kit;
+					((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage1)).setImageResource(kit.getImageResourceId(this));
+					((TextView)this.findViewById(R.id.breedkit_name_1)).setText(kit.getName());
+					((TextView)this.findViewById(R.id.breedkit_attack_1)).setText("攻：" + kit.getAttack());
+					((TextView)this.findViewById(R.id.breedkit_defence_1)).setText("守：" + kit.getDefence());
+					
 				}
 				else if (BreedExectionActivity.settingDeckNum == R.id.breed_exe_beetlekit2) {
 					// 設定２の場合
 					BreedExectionActivity.selectedKit2 = kit;
+					((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage2)).setImageResource(kit.getImageResourceId(this));
+					((TextView)this.findViewById(R.id.breedkit_name_2)).setText(kit.getName());
+					((TextView)this.findViewById(R.id.breedkit_attack_2)).setText("攻：" + kit.getAttack());
+					((TextView)this.findViewById(R.id.breedkit_defence_2)).setText("守：" + kit.getDefence());
 				}
-				// 画面に情報設定
-				((TextView)this.findViewById(BreedExectionActivity.settingDeckNum)).setText("ID:" + beetleKitId);
+				
 			}
 		}
 	}
