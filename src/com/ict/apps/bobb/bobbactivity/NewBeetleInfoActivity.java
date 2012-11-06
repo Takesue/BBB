@@ -1,17 +1,17 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.breed.BreedManager;
-import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.db.BoBBDBHelper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,83 +19,78 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NewBeetleInfoActivity extends Activity {
+/**
+ * 新しい虫キット表示画面クラス
+ *
+ */
+public class NewBeetleInfoActivity extends BaseActivity {
+
+	private BreedManager bm = null;
+	private BeetleKit kit = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_newbeetleinfo);
-		
-		MediaPlayer mp = MediaPlayer.create(this, R.raw.waoh);
-		mp.start();
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.setContentView(R.layout.activity_newbeetleinfo);
 		
 		// 引数として渡された虫キットIDを取得
 		Intent intent = this.getIntent();
 		long barcode = intent.getLongExtra(BoBBDBHelper.READ_BARCODE, 0l);
 		
 		// 新規カード取得（バーコード番号からカード生成）  DBにカード情報を登録
-		BreedManager bm = new BreedManager();
-		BeetleKit kit = bm.generateCardStatusFromBarcode(this, barcode);
-		
+		bm = new BreedManager();
+		kit = bm.generateCardStatusFromBarcode(this, barcode);
+		if (kit == null) {
+			// 生成失敗
+			finish();
+			return;
+		}
 		
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.newBeetleKit);
 		vgroup.setGravity(Gravity.CENTER_HORIZONTAL);
-		View view = this.getLayoutInflater().inflate(R.layout.card_detailview, vgroup);
+		View view = this.getLayoutInflater().inflate(R.layout.beetlekitcard_detailview, vgroup);
 		
 		// 名前設定
-		((TextView)view.findViewById(R.id.carddetail_name)).setText(kit.getName());
-		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_atk)).setText("攻：" + kit.getAttack());
-		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_def)).setText("守：" + kit.getDefence());
-		// 説明設定
-		((TextView)view.findViewById(R.id.carddetail_intoro)).setText("説明：" + kit.getIntroduction());
-		// 画像設定
-		((ImageView)view.findViewById(R.id.carddetail_icon)).setImageResource(kit.getImageResourceId(this));
-		// 画像設定
-		((ImageView)view.findViewById(R.id.carddetail_attrribute)).setImageResource(R.drawable.wind);
+		((TextView)view.findViewById(R.id.beetlekit_carddetail_name)).setText(kit.getName());
 		
-		// 取得ボタン生成
-		final BreedManager manager = bm;
-		final BeetleKit bk = kit;
-		final Context context = this;
+		if (kit.getType() == 1) {
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_type)).setText("モンスターカード");
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_atk)).setText("攻：" + kit.getAttack());
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText("守：" + kit.getDefence());
+			
+		}
+		else if (kit.getType() == 2) {
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_type)).setText("効果カード");
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_atk)).setText("効果：" + kit.getEffect());
+			// 説明設定
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText(" ");
+		}
 		
-		Button getButton = new Button(this);
-		getButton.setText("取得");
-		getButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				manager.registBeetleKit(context, bk);
-				Toast.makeText(context, "虫キットを取得しました。", Toast.LENGTH_SHORT).show();
-				finish();
-			}
-		});
-		vgroup.addView(getButton);
-
-		// キャンセルボタン生成
-		Button cancelButton = new Button(this);
-		cancelButton.setText("キャンセル");
-		cancelButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		vgroup.addView(cancelButton);
-
+		// 説明設定
+		((TextView)view.findViewById(R.id.beetlekit_carddetail_intoro)).setText("  " + kit.getIntroduction());
+		// 画像設定
+		((ImageView)view.findViewById(R.id.beetlekit_carddetail_icon)).setImageResource(kit.getImageResourceId(this));
+		
 	}
 	
-    public void getOnClick(View v){
-//		画面遷移はなさそうなので、保留。
-    }
-	
-    public void returnOnClick(View v){
-    	
-		Intent intent = new Intent(NewBeetleInfoActivity.this, BreedersMenuActivity.class);
-		startActivity(intent);
+	public void onClickGet(View v) {
+		// 虫キット情報テーブルに登録
+		this.bm.registBeetleKit(this, this.kit);
+		// バーコード履歴に登録
+		this.bm.insertBarcodeToDB(this, this.kit.getBarcode_id());
 		
-    }
-    
-	
+		Toast.makeText(this, "虫キットを取得しました。", Toast.LENGTH_SHORT).show();
+
+		this.finish();
+	}
+
+	public void onClickCancel(View v) {
+
+		this.finish();
+	}
 
 }

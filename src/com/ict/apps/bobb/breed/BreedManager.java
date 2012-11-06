@@ -1,11 +1,15 @@
 package com.ict.apps.bobb.breed;
 
+import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.common.BeetleKitFactory;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.CardImageInfo;
+import com.ict.apps.bobb.db.BoBBDBHelper;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * ブリード全般の機能クラス
@@ -21,10 +25,65 @@ public class BreedManager {
 	public BeetleKit generateCardStatusFromBarcode(Context context, long barcode) {
 		
 		// ★既に読み込んだバーコードかどうかチェック
+		if(this.existBarcode(context, barcode)) {
+			Toast.makeText(context, "既に同じバーコードで虫キットを取得しています。\n" +
+					"同じバーコードは使用できません。", Toast.LENGTH_SHORT).show();
+			return null;
+		}
 		
+		BeetleKit bk = null;
 		// ★決め打ちの事前登録済みのバーコードIDでないか？
+		bk = this.createNewSpeBeetleKit(context, barcode);
+
+		if (bk == null) {
+			// 決め打ちで無い場合、一般カードの生成
+			bk = createNewBeetleKit(context, barcode);
+		}
 		
+		return bk;
+	}
+
+	private BeetleKit createNewSpeBeetleKit(Context context, long barcode) {
 		
+		String[] barcodeList = context.getResources().getStringArray(R.array.special_barcode);
+		int[] imageIdList = context.getResources().getIntArray(R.array.special_imageid);
+		
+		BeetleKit bk = null;
+
+		for (int i = 0; i < barcodeList.length; i++) {
+			
+			if (barcode == Long.parseLong(barcodeList[i])) {
+				int imageId = imageIdList[i];
+
+				// imageIDをキーにDBアクセスして、説明を取得する。
+				BeetleKitFactory factory = new BeetleKitFactory(context);
+				CardImageInfo imageInfo = factory.getImageInfo(imageId);
+
+				// 虫キットインスタンスに値を設定する。
+				bk = new BeetleKit();
+				bk.setBeetleKitId(this.createBeetleId());
+				bk.setName(imageInfo.getName());
+				bk.setEffect(imageInfo.getEffect());
+				bk.setIntroduction(imageInfo.getIntroduction());
+				bk.setImage_id(imageId);
+				bk.setBarcode_id(barcode);
+				bk.setBreedcount(0);
+				bk.setImageFileName(imageInfo.getFileName());
+				bk.setType(2);
+			}
+		}
+
+		return bk;
+	}
+	
+	/**
+	 * バーコードから一般カードの生成
+	 * @param context
+	 * @param barcode
+	 * @return
+	 */
+	private BeetleKit createNewBeetleKit(Context context, long barcode) {
+
 		// 決め打ちで無い場合、一般カードなので、攻守力の算出
 		// バーコードから攻撃力算出
 		int attack = this.getAttack(barcode);
@@ -37,7 +96,7 @@ public class BreedManager {
 		int category = this.getCategory(attack, defence);
 		
 		// レベルとカテゴリからImageIDを算出
-		int imageId = this.getImageId(level, category);
+		int imageId = this.getImageId(context, level, category);
 		
 		// imageIDをキーにDBアクセスして、説明を取得する。
 		BeetleKitFactory factory = new BeetleKitFactory(context);
@@ -58,6 +117,60 @@ public class BreedManager {
 		bk.setType(1);
 		
 		return bk;
+	}
+
+	/**
+	 * バーコード履歴にバーコードを登録する
+	 * @return
+	 */
+	public void insertBarcodeToDB(Context context, long barcode) {
+		
+		// DBインスタンス取得
+		BoBBDBHelper beetleDb = BoBBDBHelper.getInstance(context);
+		beetleDb.insertBarcodeReadInfo(barcode);
+		
+	}
+	
+	/**
+	 * バーコード履歴に存在するバーコードかどうか確認する
+	 * バーコードが履歴に既に存在する場合、trueを返却する。
+	 * @param context
+	 * @return
+	 */
+	private boolean existBarcode(Context context, long barcode) {
+		
+		boolean flag = false;
+		
+		// DBインスタンス取得
+		BoBBDBHelper beetleDb = BoBBDBHelper.getInstance(context);
+		
+		// DBインスタンスオープン
+		beetleDb.connectInstance();
+		
+		Cursor cursor = beetleDb.getBarcodeInfo();
+		if(cursor != null) {
+			//　カーソルがあった場合、虫キットインスタンスに情報を設定する。
+			if (cursor.moveToFirst()) {
+				// 取得したレコード数を取得する
+				int iRecCnt = cursor.getCount();
+				for (int i = 0; i < iRecCnt; i++) {
+					
+					// 取得レコードのバーコードと比較
+					if (barcode == cursor.getLong(0)) {
+						// バーコードが一した場合true
+						flag = true;
+					}
+
+					cursor.moveToNext();
+				}
+			}
+			cursor.close();
+		}
+		
+		// DBインスタンスクローズ
+		beetleDb.closeInstance();
+		
+		return flag;
 	}
 	
 	/**
@@ -204,18 +317,47 @@ public class BreedManager {
 	 * @param category
 	 * @return
 	 */
-	private int getImageId(int level, int category) {
+	private int getImageId(Context context, int level, int category) {
 
-		// 画像IDのマッピング
-		int[][] imageid_map = {
-				{1,2,3},
-				{4,5,6},
-				{7,8,9}
-		};
+//		// 画像IDのマッピング
+//		int[][] imageid_map = {
+//				{1,2,3},
+//				{4,5,6},
+//				{7,8,9}
+//		};
 		
-		Log.d("★", "level: " + level + "  category: " + category);
+		// 画像テーブルからマッチするイメージを取得する
 		
-		return imageid_map[level-1][category-1];
+		// DBインスタンス取得
+		BoBBDBHelper beetleDb = BoBBDBHelper.getInstance(context);
+		
+		// DBインスタンスオープン
+		beetleDb.connectInstance();
+		
+		int imageId = 0;
+		Cursor cursor = beetleDb.getCardImageInfo(level, category);
+		if(cursor != null) {
+			//　カーソルがあった場合、虫キットインスタンスに情報を設定する。
+			if (cursor.moveToFirst()) {
+				// 取得したレコード数を取得する
+				int iRecCnt = cursor.getCount();
+				for (int i = 0; i < iRecCnt; i++) {
+					
+					imageId = cursor.getInt(beetleDb.getImageColIndex(BoBBDBHelper.CARD_IMAGE_IMAGE_ID));
+					
+					cursor.moveToNext();
+				}
+			}
+			cursor.close();
+		}
+		
+		// DBインスタンスクローズ
+		beetleDb.closeInstance();
+		
+		Log.d("★", "level: " + level + "  category: " + category + "  imageid: " + imageId);
+		
+		return imageId;
+//		return imageid_map[level-1][category-1];
 	}
 
 	/**
@@ -265,8 +407,8 @@ public class BreedManager {
 		
 		// 基礎値×ブリード回数の合計が加算される
 		int base = 20;
-		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base));
-		newBeetle.setDefence(newBeetle.getDefence() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base));
+		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
+		newBeetle.setDefence(newBeetle.getDefence() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
 		
 		// ★親のバーコードは削除するのか？
 		
@@ -274,6 +416,9 @@ public class BreedManager {
 		BeetleKitFactory factory = new BeetleKitFactory(context);
 		factory.deleteBeetleKit(beetle1.getBeetleKitId());
 		factory.deleteBeetleKit(beetle2.getBeetleKitId());
+		
+		// 子供カード登録
+		factory.insertBeetleKitToDB(newBeetle);
 		
 
 		return newBeetle;

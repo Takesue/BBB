@@ -118,6 +118,31 @@ public class BattleUseKit {
 		}
 		return deckNum;
 	}
+	
+	/**
+	 * 対戦デッキに設定されている全ての虫キットのIDを取得する
+	 * @return
+	 */
+	public static long[] getAllSettingDeckID(Context context) {
+		
+		String[] deckList = {
+				BattleUseKit.DECK1,
+				BattleUseKit.DECK2,
+				BattleUseKit.DECK3,
+				BattleUseKit.DECK4,
+				BattleUseKit.DECK5
+		};
+		
+		long[] beetleIdList = new long[deckList.length];
+		
+		SharedPreferences pref = BattleUseKit.openPreferences(context);
+		
+		for (int i = 0; i < deckList.length; i++) {
+			beetleIdList[i] = pref.getLong(deckList[i], 0);
+		}
+		
+		return beetleIdList;
+	}
 
 	
 }

@@ -28,12 +28,12 @@ public class StartActivity extends Activity {
     public void startOnClick(View v){
     	
     	Intent intent;
-    	if(this.count == true){
+//    	if(this.count == true){
     		intent = new Intent(StartActivity.this, MainMenuActivity.class);
-    	}else{
-    		intent = new Intent(StartActivity.this, UserInfoRegistrationActivity.class);
-    		this.count = true;
-    	}
+//    	}else{
+//    		intent = new Intent(StartActivity.this, UserInfoRegistrationActivity.class);
+//    		this.count = true;
+//    	}
 
 //		Intent intent = new Intent(StartActivity.this, MainMenuActivity.class);
 		startActivity(intent);

@@ -202,7 +202,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	 * バーコード読み込み履歴のインサート
 	 * @param barcode 読み込みバーコード
 	 */
-	public void insertBarcodeReadInfo(int barcode) {
+	public void insertBarcodeReadInfo(long barcode) {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		
@@ -260,6 +260,41 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 				BoBBDBHelper.CARD_IMAGE_IMAGE_ID + "=" + imageId, null, null, null, null);
 		return cursor;
 	}
+	
+	/**
+	 * カード画像情報取得
+	 * @param level カードレベル
+	 * @param category カードの系統 1：攻撃型、2：標準型
+	 * @return
+	 */
+	public Cursor getCardImageInfo(int level, int category) {
+//		Cursor cursor= db.query(BoBBDBHelper.CARD_IMAGE_TBL, BoBBDBHelper.CARD_IMAGE_COLS,
+//				BoBBDBHelper.CARD_IMAGE_LEVEL + "=" + level
+//				+ " AND " + BoBBDBHelper.CARD_IMAGE_CATEGORY + "=" + category
+//				, null, null, null, null);
+		
+		String colums = "";
+		for (int i = 0; i < BoBBDBHelper.CARD_IMAGE_COLS.length; i++) {
+			colums += " " + BoBBDBHelper.CARD_IMAGE_COLS[i];
+			if ( i == BoBBDBHelper.CARD_IMAGE_COLS.length -1) {
+				
+				break;
+			}
+			colums += ",";
+		}
+		
+		String sql = "SELECT " + colums 
+				+ " FROM " + BoBBDBHelper.CARD_IMAGE_TBL 
+				+ " WHERE " 
+				+ BoBBDBHelper.CARD_IMAGE_LEVEL + " = " + level
+				+ " AND "
+				+ BoBBDBHelper.CARD_IMAGE_CATEGORY + " = " + category;
+		
+		Cursor cursor = db.rawQuery(sql, null);
+		
+		return cursor;
+	}
+
 	
 	/**
 	 * バーコード読み込み履歴取得

@@ -15,8 +15,9 @@ public class RuleActivity extends Activity {
 	
     public void returnOnClick(View v){
     	
-		Intent intent = new Intent(RuleActivity.this, StartActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(RuleActivity.this, StartActivity.class);
+//		startActivity(intent);
+    	this.finish();
 		
     }
     

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="5dp" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/battleUseDeckList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/deck1"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                
+
+                <ImageView
+                    android:id="@+id/deck1_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/deck1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck1" />
+
+                <TextView
+                    android:id="@+id/deck1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/deck1_ic"
+                    android:layout_toRightOf="@+id/imageView1"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/deck1_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck1_title"
+                    android:layout_below="@+id/imageView1"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/deck1_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deck1_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/deck1_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/deck2"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                                <ImageView
+                    android:id="@+id/deck2_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/deck2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck2" />
+
+                <TextView
+                    android:id="@+id/deck2_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView2"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/deck2_ic"
+                    android:layout_toRightOf="@+id/imageView2"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/deck2_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck2_title"
+                    android:layout_below="@+id/imageView2"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/deck2_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deck2_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/deck2_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/deck3"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+                <ImageView
+                   android:id="@+id/deck3_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/deck3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle1" />
+                
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck3" />
+
+                <TextView
+                    android:id="@+id/deck3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView3"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/deck3_ic"
+                    android:layout_toRightOf="@+id/imageView3"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/deck3_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck3_title"
+                    android:layout_below="@+id/imageView3"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/deck3_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deck3_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/deck3_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/deck4"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+               <ImageView
+                    android:id="@+id/deck4_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/deck4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle2" />
+                
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck4" />
+
+                <TextView
+                    android:id="@+id/deck4_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView4"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/deck4_ic"
+                    android:layout_toRightOf="@+id/imageView4"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/deck4_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck4_title"
+                    android:layout_below="@+id/imageView4"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/deck4_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deck4_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/deck4_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/deck5"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/listitem_bg"
+                    android:onClick="onClickDeckButton"
+                    android:textSize="40sp" />
+
+               <ImageView
+                    android:id="@+id/deck5_ic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignRight="@+id/deck5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/beetle2" />
+                
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/no_deck5" />
+
+                <TextView
+                    android:id="@+id/deck5_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView5"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/deck5_ic"
+                    android:layout_toRightOf="@+id/imageView5"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/deck5_attack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/deck5_title"
+                    android:layout_below="@+id/imageView5"
+                    android:text="攻：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/deck5_defence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deck5_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/deck5_attack"
+                    android:text="守：XXXX"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+                
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+    
+</LinearLayout>

@@ -106,5 +106,29 @@ public class BattleUseSpecialCard {
 		}
 		return deckNum;
 	}
+	
+	/**
+	 * 対戦デッキに設定されている全ての特殊虫キットのIDを取得する
+	 * @return
+	 */
+	public static long[] getAllSettingDeckID(Context context) {
+		
+		String[] deckList = {
+				BattleUseSpecialCard.CARD1,
+				BattleUseSpecialCard.CARD2,
+				BattleUseSpecialCard.CARD3
+		};
+		
+		long[] beetleIdList = new long[deckList.length];
+		
+		SharedPreferences pref = BattleUseSpecialCard.openPreferences(context);
+		
+		for (int i = 0; i < deckList.length; i++) {
+			beetleIdList[i] = pref.getLong(deckList[i], 0);
+		}
+		
+		return beetleIdList;
+	}
+
 
 }

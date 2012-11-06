@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="special_barcode">
+        <item>1111111111111</item>
+        <item>1923055026001</item>
+        <item>2222222222221</item>
+    </string-array>
+
+    <integer-array name="special_imageid">
+        <item>1001</item>
+        <item>1004</item>
+        <item>1002</item>
+    </integer-array>
+    
+</resources>

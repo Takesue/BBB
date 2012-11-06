@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+<TabHost 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@android:id/tabhost"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp">
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="対戦デッキ設定" 
-        android:textSize="30sp"/>
-    
-    <Button
-        android:id="@+id/button1"
-        android:onClick="deckOnClick1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="デッキ" 
-        android:textSize="40sp"/>
-    
-    <Button
-        android:id="@+id/button2"
-        android:onClick="deckOnClick2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="デッキ" 
-        android:textSize="40sp"/>
-    
-    <Button
-        android:id="@+id/button3"
-        android:onClick="deckOnClick3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="デッキ" 
-        android:textSize="40sp"/>
-    
-</LinearLayout>
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/listitem_bg"
+        android:gravity="center"
+        android:text="対戦デッキ設定"
+        android:textColor="#5C4033"
+        android:textSize="30sp" />
+      
+    <TabWidget
+      android:id="@android:id/tabs"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/tab_bar"
+      />
+    <FrameLayout
+      android:id="@android:id/tabcontent"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@drawable/tabsheet_bg"
+      android:padding="5dp"/>
+    </LinearLayout>
+</TabHost>
+
