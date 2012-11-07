@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.os.Handler;
 
 public class BattleActivity extends Activity{
 
@@ -24,7 +25,6 @@ public class BattleActivity extends Activity{
 
 	// カード詳細表示部品(carddetail.xml)
 	private View myViewCardDerail = null;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,8 @@ public class BattleActivity extends Activity{
     public void getThis(){
     	this.bAct = this;
     }
-    public void finishOnClick(View v){
+//    public void finishOnClick(View v){
+    public void onClickButton(View v){
     	
 		finish();
     }
@@ -58,23 +59,18 @@ public class BattleActivity extends Activity{
 	 */
 	public void displayRivalCards(int left, int top, int ix) {
 		
-        Log.d("dR","1");
 		// 相手CARD用View取得
 		View viewCard = ((LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
 				R.layout.my_cards, null);
-        Log.d("dR","2");
 		// カードビュークラスにActivityを渡す
 		((BattleCards) viewCard).setControlActivity(this);
-        Log.d("dR","3");
 		// カードインスタンスを変数として保持する
 		this.rivalViewCard[ix] = (BattleCards)viewCard;
 		
-        Log.d("dR","4");
 		// Densityの値を取得
 		float tmpDensity = this.getResources().getDisplayMetrics().density;
 		
-        Log.d("dR","5");
 		BattleCardDetail.LayoutParams cartParams = new BattleCardDetail.LayoutParams(
 				(int)(this.getResources().getDimensionPixelSize(R.dimen.card_width)),
 				(int)(this.getResources().getDimensionPixelSize(R.dimen.card_height)));
@@ -92,12 +88,12 @@ public class BattleActivity extends Activity{
 
 	public void displayMyCards(int left, int top, int ix, boolean onClick) {
 		
-		// 相手CARD用View取得
+		// CARD用View取得
 		View viewCard = null;
 		if(onClick == true){
-			viewCard = ((LayoutInflater) this
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-					R.layout.card_detailview, null);
+			viewCard = ((LayoutInflater)
+					getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+					R.layout.cardbattle_detail, null);
 		}else{
 			viewCard = ((LayoutInflater) this
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
@@ -156,7 +152,7 @@ public class BattleActivity extends Activity{
 		// CARD用View取得
 		this.myViewCardDerail = ((LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.card_detailview, null);
+				R.layout.cardbattle_detail, null);
 		
 		BattleCardDetail.LayoutParams cartParams = new BattleCardDetail.LayoutParams(
 				BattleCardDetail.LayoutParams.WRAP_CONTENT,
@@ -191,7 +187,8 @@ public class BattleActivity extends Activity{
 	 * 配るボタン押下時に呼ばれる
 	 * @param v
 	 */
-	public void onClickButton(View v) {
+//	public void onClickButton(View v) {
+	public void finishOnClick(View v){
 		
 		// スレッド起動
 		new Thread(new Runnable() {
@@ -200,27 +197,61 @@ public class BattleActivity extends Activity{
 				
 				try {
 					// 5枚移動する的なやつにする。
-					myViewCard[0].startMovingCard(30, 10, 2, 380);
-					rivalViewCard[0].startMovingCard(30, 10, 2, 380);
-					Thread.sleep(200);
-					myViewCard[1].startMovingCard(30, 10, 2, 380);
-					rivalViewCard[1].startMovingCard(30, 10, 2, 380);
-					Thread.sleep(200);
-					myViewCard[2].startMovingCard(30, 10, 2, 380);
-					rivalViewCard[2].startMovingCard(30, 10, 2, 380);
-					Thread.sleep(200);
-					myViewCard[3].startMovingCard(30, 10, 2, 380);
-					rivalViewCard[3].startMovingCard(30, 10, 2, 380);
-					Thread.sleep(200);
-					myViewCard[4].startMovingCard(30, 10, 2, 380);
-					rivalViewCard[4].startMovingCard(30, 10, 2, 380);
-					Thread.sleep(200);
+					myViewCard[0].startMovingCard(100, 225, 2, 380);
+					rivalViewCard[0].startMovingCard(100, 125, 2, 0);
+					Thread.sleep(300);
+					myViewCard[1].startMovingCard(100, 225, 67, 380);
+					rivalViewCard[1].startMovingCard(100, 125, 67, 0);
+					Thread.sleep(300);
+					myViewCard[2].startMovingCard(100, 225, 132, 380);
+					rivalViewCard[2].startMovingCard(100, 125, 132, 0);
+					Thread.sleep(300);
+					myViewCard[3].startMovingCard(100, 225, 197, 380);
+					rivalViewCard[3].startMovingCard(100, 125, 197, 0);
+					Thread.sleep(300);
+					myViewCard[4].startMovingCard(100, 225, 262, 380);
+					rivalViewCard[4].startMovingCard(100, 125, 262, 0);
+					Thread.sleep(1000);
 					setFinishCard();
+					Thread.sleep(300);
+					for(Integer i = 0; i <= 4; i++){
+						Thread.sleep(300);
+						// Handler に対し、" 100 ms 後に mUpdateTimeTask() を呼び出す
+						switch (i){
+						case 0:
+							posLeft = 2;
+							posTop = 380;
+							posIx = 0;
+							break;
+						case 1:
+							posLeft = 67;
+							posTop = 380;
+							posIx = 1;
+							break;
+						case 2:
+							posLeft = 132;
+							posTop = 380;
+							posIx = 2;
+							break;
+						case 3:
+							posLeft = 197;
+							posTop = 380;
+							posIx = 3;
+							break;
+						case 4:
+							posLeft = 262;
+							posTop = 380;
+							posIx = 4;
+							break;
+						}
+						mHandler.postDelayed(mDisplayTimeTask, 0);
+						myViewCard[i].setCard();
+					}
 				} catch (InterruptedException e) {
 				}
 			}
 		}).start();
-
+		
 	}
 	
 	/**
@@ -230,18 +261,18 @@ public class BattleActivity extends Activity{
 //	private Runnable setFinishCard = new Runnable() {
 //		public void run() {
 	public void setFinishCard(){
-			// 戦闘画面のベース部品を取得
+		// 戦闘画面のベース部品を取得
 		BattleCardDetail vgroup = (BattleCardDetail)findViewById(R.id.battle_base_layout);
 		
 		// 山札として残っているカードを削除
 		for(int i = cardCount + 2; i >= 5; i--){
-			vgroup.removeView(myViewCard[i]);
-			vgroup.removeView(rivalViewCard[i]);
+			Log.d("F","2");
+			myViewCard[i].startDeleteCard(vgroup);
+			rivalViewCard[i].startDeleteCard(vgroup);
 		}
 		// ユーザー手札を削除し、表面を表示させる
 		for(Integer i = 0; i <= 4; i++){
-			vgroup.removeView(myViewCard[i]);
-			this.displayMyCards(i*65,380,i,true);
+			myViewCard[i].startDeleteCard(vgroup);
 		}
 	}
 		
@@ -271,6 +302,56 @@ public class BattleActivity extends Activity{
 					(int)50,
 					(int)50;
 */				
+	
+	// ハンドラーを取得
+	private Handler mHandler = new Handler();
+	private int posLeft = 0;
+	private int posTop = 0;
+	private int posIx = 0;
+	private BattleActivity bA = this;
+	
+//	public void displayMyCards1(int left, int top, int ix, boolean onClick) {
+		
+	// 定期的に呼び出されるためのRunnnableのインナークラス定義
+	private Runnable mDisplayTimeTask = new Runnable() {
+		public void run() {
+			// CARD用View取得
+			View viewCard = null;
+			viewCard = ((LayoutInflater)
+						getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+						R.layout.cardbattle_detail, null);
+			// カードビュークラスにActivityを渡す
+			((BattleCards) viewCard).setControlActivity(bA);
+			// カードインスタンスを変数として保持する
+			myViewCard[posIx] = (BattleCards)viewCard;
+			// カードを長押しした場合のイベントリスナ
+			viewCard.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					
+					// ボタン長押しでカード詳細画面を表示
+					viewDetailCards(40, 10);
+					
+					return false;
+				}
+			});
+			// Densityの値を取得
+			float tmpDensity = getResources().getDisplayMetrics().density;
+			
+			BattleCardDetail.LayoutParams cartParams = new BattleCardDetail.LayoutParams(
+					(int)(getResources().getDimensionPixelSize(R.dimen.card_width)),
+					(int)(getResources().getDimensionPixelSize(R.dimen.card_height)));
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			cartParams.setMargins((int)(posLeft*tmpDensity), (int)(posTop*tmpDensity), 0, 0);
+			
+			// 戦闘画面のベース部品を取得
+			BattleCardDetail vgroup = (BattleCardDetail)findViewById(R.id.battle_base_layout);
+	
+			// 戦闘ベース部品にcard追加する
+			vgroup.addView(viewCard, cartParams);
+		}
+	};
 
 	
 }

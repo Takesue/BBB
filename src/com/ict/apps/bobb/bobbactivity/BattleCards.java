@@ -5,11 +5,14 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class BattleCards extends LinearLayout {
+//public class BattleCards extends View {
 	
 	public BattleCards(Context context) {
 		super(context);
@@ -17,11 +20,6 @@ public class BattleCards extends LinearLayout {
 
 	public BattleCards(Context context, AttributeSet attrs) {
 		super(context, attrs);
-	}
-
-	private Activity activity = null;
-	public void setControlActivity(Activity activity) {
-		this.activity = activity;
 	}
 	
 	@Override
@@ -50,6 +48,11 @@ public class BattleCards extends LinearLayout {
 			break;
 		}
 		return true;
+	}
+
+	private Activity activity = null;
+	public void setControlActivity(Activity activity) {
+		this.activity = activity;
 	}
 	
 	// カードの定位置
@@ -103,6 +106,8 @@ public class BattleCards extends LinearLayout {
 	private int stopPosTop = 0;
 	
 	private View moveView = null;
+	
+	private BattleCardDetail vgroup;
 
 	private int counter = 0;
 	private int baseLeft = 0;
@@ -163,6 +168,16 @@ public class BattleCards extends LinearLayout {
 		}
 	};
 
+	private Runnable mDeleteTimeTask = new Runnable() {
+		public void run() {
+			
+			// 山札として残っているカードを削除
+			vgroup.removeView(moveView);
+			// 画面再描画を要求
+			vgroup.invalidate();
+		}
+	};
+
 	/**
 	 * カード移動開始
 	 */
@@ -194,5 +209,17 @@ public class BattleCards extends LinearLayout {
 		
 		status = false;
 	}
+
+	public void startDeleteCard(BattleCardDetail vgroup){
+		this.moveView = this;
+		this.vgroup = vgroup;
+		// Handler に対し、" 100 ms 後に mDeleteTimeTask() を呼び出す
+		this.mHandler.postDelayed(this.mDeleteTimeTask, 10);
+	}
+	
+	public void setCard(){
+		this.moveView = this;
+	}
+	
 
 }
