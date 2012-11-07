@@ -30,6 +30,8 @@ public class BeetleKit {
 	private String introduction = null;
 	// 特殊効果説明
 	private String effect = null;
+	// 特殊効果ID
+	private int effectId = 0;
 
 	/**
 	 * コンストラクタ
@@ -123,6 +125,14 @@ public class BeetleKit {
 
 	public void setEffect(String effect) {
 		this.effect = effect;
+	}
+	
+	public int getEffectId() {
+		return effectId;
+	}
+
+	public void setEffectId(int effectId) {
+		this.effectId = effectId;
 	}
 	
 	/**

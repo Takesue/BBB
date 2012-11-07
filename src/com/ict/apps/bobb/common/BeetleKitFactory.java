@@ -67,6 +67,7 @@ public class BeetleKitFactory {
 					kit.setType(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_TYPE)));
 					kit.setIntroduction(cursor.getString(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_INTRODUCTION)));
 					kit.setEffect(cursor.getString(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_EFFECT)));
+					kit.setEffectId(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_EFFECT_ID)));
 					kitList.add(kit);
 
 					cursor.moveToNext();
@@ -134,6 +135,7 @@ public class BeetleKitFactory {
 				imageInfo.setFileName(cursor.getString(this.beetleDb.getImageColIndex(BoBBDBHelper.CARD_IMAGE_FILENAME)));
 				imageInfo.setIntroduction(cursor.getString(this.beetleDb.getImageColIndex(BoBBDBHelper.CARD_IMAGE_INTRODUCTION)));
 				imageInfo.setEffect(cursor.getString(this.beetleDb.getImageColIndex(BoBBDBHelper.CARD_IMAGE_EFFECT)));
+				imageInfo.setEffectId(cursor.getInt(this.beetleDb.getImageColIndex(BoBBDBHelper.CARD_IMAGE_EFFECT_ID)));
 			}
 			cursor.close();
 		}
@@ -155,8 +157,7 @@ public class BeetleKitFactory {
 	//   画像IDテーブルは、インストール時か初期起動時にDBに入れ込む必要あり。
 	public void setImageInfo(int id, String name, int category, int level, String filename, String intro, String effect) {
 		
-		this.beetleDb.insertCardImageInfo(id, name, category, level, filename, intro, effect);
-//		this.beetleDb.insertCardImageInfo(1, "クマモン", 1, 1, "ic_launcher", "ゆるキャラNo1から陥落？？", "無し");
+		this.beetleDb.insertCardImageInfo(id, name, category, level, filename, intro, effect, 1);
 		
 	}
 	

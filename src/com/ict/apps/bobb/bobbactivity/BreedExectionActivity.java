@@ -76,6 +76,8 @@ public class BreedExectionActivity extends BaseActivity {
 			BreedManager bm = new BreedManager();
 			BeetleKit newBeetleKit = bm.breedBeetle(this, BreedExectionActivity.selectedKit1, BreedExectionActivity.selectedKit2);
 
+			this.playEffect(R.raw.breed_create2);
+			
 			// 詳細画面表示
 			Intent intent = new Intent(this, BeetleKitDetailActivity.class);
 			

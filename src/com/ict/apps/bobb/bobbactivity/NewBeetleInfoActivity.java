@@ -46,6 +46,10 @@ public class NewBeetleInfoActivity extends BaseActivity {
 			finish();
 			return;
 		}
+		else {
+			// 生成効果音再生
+			this.playEffect(R.raw.breed_create1);
+		}
 		
 		LinearLayout vgroup = (LinearLayout)this.findViewById(R.id.newBeetleKit);
 		vgroup.setGravity(Gravity.CENTER_HORIZONTAL);

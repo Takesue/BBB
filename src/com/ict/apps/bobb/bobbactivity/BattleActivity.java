@@ -1,6 +1,8 @@
 package com.ict.apps.bobb.bobbactivity;
 
 
+import com.ict.apps.bobb.base.BaseActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class BattleActivity extends Activity implements OnTouchListener {
+public class BattleActivity extends BaseActivity implements OnTouchListener {
 
 	int cardCount = 30;
 	int maxTime = 5;
