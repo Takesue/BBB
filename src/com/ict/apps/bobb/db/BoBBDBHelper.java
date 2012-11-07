@@ -37,7 +37,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	public static final String BEETLE_KIT_FILENAME = "file_name";
 	public static final String BEETLE_KIT_NAME = "name";
 	public static final String BEETLE_KIT_ATTACK = "attack";
-	public static final String BEETLE_KIT_DEFENCE = "defence";
+	public static final String BEETLE_KIT_DEFENSE = "defense";
 	public static final String BEETLE_KIT_BREEDCOUNT = "breedcount";
 	public static final String BEETLE_KIT_TYPE = "type";
 	public static final String BEETLE_KIT_INTRODUCTION = "introduction";
@@ -65,7 +65,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		BoBBDBHelper.BEETLE_KIT_FILENAME,
 		BoBBDBHelper.BEETLE_KIT_NAME,
 		BoBBDBHelper.BEETLE_KIT_ATTACK,
-		BoBBDBHelper.BEETLE_KIT_DEFENCE,
+		BoBBDBHelper.BEETLE_KIT_DEFENSE,
 		BoBBDBHelper.BEETLE_KIT_BREEDCOUNT,
 		BoBBDBHelper.BEETLE_KIT_TYPE,
 		BoBBDBHelper.BEETLE_KIT_INTRODUCTION,
@@ -123,7 +123,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 				+ BoBBDBHelper.BEETLE_KIT_FILENAME + " TEXT ,"					// ファイル名
 				+ BoBBDBHelper.BEETLE_KIT_NAME + " TEXT, "						// 名前
 				+ BoBBDBHelper.BEETLE_KIT_ATTACK + " INTEGER, "					// 攻撃力
-				+ BoBBDBHelper.BEETLE_KIT_DEFENCE + " INTEGER, "				// 防御力
+				+ BoBBDBHelper.BEETLE_KIT_DEFENSE + " INTEGER, "				// 防御力
 				+ BoBBDBHelper.BEETLE_KIT_BREEDCOUNT + " INTEGER, "				// 対戦使用回数
 				+ BoBBDBHelper.BEETLE_KIT_TYPE + " INTEGER, "					// タイプ (一般、特殊)
 				+ BoBBDBHelper.BEETLE_KIT_INTRODUCTION + " TEXT, "				// 説明文
@@ -169,7 +169,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_FILENAME, kit.getImageFileName());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_NAME, kit.getName());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_ATTACK, kit.getAttack());
-		contentValues.put(BoBBDBHelper.BEETLE_KIT_DEFENCE, kit.getDefence());
+		contentValues.put(BoBBDBHelper.BEETLE_KIT_DEFENSE, kit.getDefense());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_BREEDCOUNT, kit.getBreedcount());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_TYPE, kit.getType());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_INTRODUCTION, kit.getIntroduction());

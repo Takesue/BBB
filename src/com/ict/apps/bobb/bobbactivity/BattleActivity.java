@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class BattleActivity extends BaseActivity implements OnTouchListener {
+public class BattleActivity extends Activity implements OnTouchListener {
 
 	int cardCount = 30;
 	int maxTime = 5;

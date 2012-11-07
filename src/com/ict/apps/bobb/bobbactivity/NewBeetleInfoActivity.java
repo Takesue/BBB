@@ -63,7 +63,7 @@ public class NewBeetleInfoActivity extends BaseActivity {
 			// 説明設定
 			((TextView)view.findViewById(R.id.beetlekit_carddetail_atk)).setText("攻：" + kit.getAttack());
 			// 説明設定
-			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText("守：" + kit.getDefence());
+			((TextView)view.findViewById(R.id.beetlekit_carddetail_def)).setText("守：" + kit.getDefense());
 			
 		}
 		else if (kit.getType() == 2) {

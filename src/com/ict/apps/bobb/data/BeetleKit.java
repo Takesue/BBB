@@ -21,7 +21,7 @@ public class BeetleKit {
 	// 攻撃力
 	private int attack = 0;
 	// 防御力
-	private int defence = 0;
+	private int defense = 0;
 	// ブリード回数
 	private int breedcount = 0;
 	// タイプ（一般 = 1 or 特殊 = 2）
@@ -87,12 +87,12 @@ public class BeetleKit {
 		this.attack = attack;
 	}
 
-	public int getDefence() {
-		return defence;
+	public int getDefense() {
+		return defense;
 	}
 
-	public void setDefence(int defence) {
-		this.defence = defence;
+	public void setDefense(int defense) {
+		this.defense = defense;
 	}
 
 	public int getBreedcount() {
@@ -159,7 +159,7 @@ public class BeetleKit {
 				}
 				else {
 					// 守備カード
-					bc.setTypeDefence();
+					bc.setTypeDefense();
 				}
 				
 				if (i % 3 == 0) {

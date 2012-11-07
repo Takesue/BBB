@@ -36,8 +36,8 @@ public abstract class BaseActivity extends Activity {
 		// 効果音をロードしておく
 		this.loadEffect();
 		
-		// メモリ残量表示
-		this.MemoryDisplay();
+//		// メモリ残量表示
+//		this.MemoryDisplay();
 
 	}
 	

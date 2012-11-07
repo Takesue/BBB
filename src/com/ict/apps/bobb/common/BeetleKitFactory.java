@@ -62,7 +62,7 @@ public class BeetleKitFactory {
 					kit.setImageFileName(cursor.getString(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_FILENAME)));
 					kit.setName(cursor.getString(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_NAME)));
 					kit.setAttack(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_ATTACK)));
-					kit.setDefence(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_DEFENCE)));
+					kit.setDefense(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_DEFENSE)));
 					kit.setBreedcount(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_BREEDCOUNT)));
 					kit.setType(cursor.getInt(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_TYPE)));
 					kit.setIntroduction(cursor.getString(this.beetleDb.getKitColIndex(BoBBDBHelper.BEETLE_KIT_INTRODUCTION)));
