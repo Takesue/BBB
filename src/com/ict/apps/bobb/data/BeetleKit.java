@@ -147,7 +147,7 @@ public class BeetleKit {
 		
 		// 一般カードの場合
 		if(this.type == 1) {
-			cards = new Card[6];
+			cards = new BeetleCard[6];
 			
 			for(int i = 0; i < cards.length; i++) {
 				BeetleCard bc = new BeetleCard();
@@ -182,7 +182,7 @@ public class BeetleKit {
 		}
 		// 特殊カードの場合
 		if(this.type == 2) {
-			cards = new Card[1];
+			cards = new SpecialCard[1];
 
 			// 特殊カード
 			cards[0] = new SpecialCard();
