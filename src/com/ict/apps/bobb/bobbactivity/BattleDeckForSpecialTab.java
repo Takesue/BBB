@@ -50,7 +50,7 @@ public class BattleDeckForSpecialTab extends BaseActivity {
 		
 		TypedArray titles = getResources().obtainTypedArray(R.array.spe_deck_title);
 		TypedArray attacks = getResources().obtainTypedArray(R.array.spe_deck_attack);
-		TypedArray defences = getResources().obtainTypedArray(R.array.spe_deck_defence);
+		TypedArray defenses = getResources().obtainTypedArray(R.array.spe_deck_defense);
 		TypedArray ic = getResources().obtainTypedArray(R.array.spe_deck_ic);
 		
 		// 名前設定
@@ -61,7 +61,7 @@ public class BattleDeckForSpecialTab extends BaseActivity {
 		// 攻撃値設定
 		((TextView)this.findViewById(attacks.getResourceId(i, -1))).setText("効果：" + kit.getEffect());
 		// 守備値設定
-		((TextView)this.findViewById(defences.getResourceId(i, -1))).setText(" ");
+		((TextView)this.findViewById(defenses.getResourceId(i, -1))).setText(" ");
 		
 	}
 	

@@ -76,7 +76,7 @@
 
 
                 <TextView
-                    android:id="@+id/spe_deck1_defence"
+                    android:id="@+id/spe_deck1_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spe_deck1_title"
@@ -147,7 +147,7 @@
 
 
                 <TextView
-                    android:id="@+id/spe_deck2_defence"
+                    android:id="@+id/spe_deck2_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spe_deck2_title"
@@ -218,7 +218,7 @@
 
 
                 <TextView
-                    android:id="@+id/spe_deck3_defence"
+                    android:id="@+id/spe_deck3_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spe_deck3_title"

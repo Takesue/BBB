@@ -50,7 +50,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/kit_defence"
+                    android:id="@+id/kit_defense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

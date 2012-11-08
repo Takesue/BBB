@@ -21,12 +21,12 @@
         <item>@+id/deck4_attack</item>
         <item>@+id/deck5_attack</item>
     </integer-array>
-    <integer-array name="deck_defence">
-        <item>@+id/deck1_defence</item>
-        <item>@+id/deck2_defence</item>
-        <item>@+id/deck3_defence</item>
-        <item>@+id/deck4_defence</item>
-        <item>@+id/deck5_defence</item>
+    <integer-array name="deck_defense">
+        <item>@+id/deck1_defense</item>
+        <item>@+id/deck2_defense</item>
+        <item>@+id/deck3_defense</item>
+        <item>@+id/deck4_defense</item>
+        <item>@+id/deck5_defense</item>
     </integer-array>
     <integer-array name="deck_ic">
         <item>@+id/deck1_ic</item>

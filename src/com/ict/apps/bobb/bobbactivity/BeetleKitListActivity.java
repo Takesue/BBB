@@ -122,14 +122,14 @@ public class BeetleKitListActivity extends BaseActivity {
 			// 攻撃値設定
 			((TextView)view.findViewById(R.id.kit_attack)).setText("攻  ：  " + kit.getAttack());
 			// 守備値設定
-			((TextView)view.findViewById(R.id.kit_defence)).setText("守  ：  " + kit.getDefence());
+			((TextView)view.findViewById(R.id.kit_defense)).setText("守  ：  " + kit.getDefense());
 		}
 		else if (kit.getType() == 2){
 			// 特殊虫キットの場合
 			// 効果説明設定
 			((TextView)view.findViewById(R.id.kit_attack)).setText("効果 ：  " + kit.getEffect());
 			// 効果説明内容
-			((TextView)view.findViewById(R.id.kit_defence)).setText("  ");
+			((TextView)view.findViewById(R.id.kit_defense)).setText("  ");
 		}
 		
 		// リスナーの設定

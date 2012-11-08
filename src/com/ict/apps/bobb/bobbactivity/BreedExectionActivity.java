@@ -76,6 +76,8 @@ public class BreedExectionActivity extends BaseActivity {
 			BreedManager bm = new BreedManager();
 			BeetleKit newBeetleKit = bm.breedBeetle(this, BreedExectionActivity.selectedKit1, BreedExectionActivity.selectedKit2);
 
+			this.playEffect(R.raw.breed_create2);
+			
 			// 詳細画面表示
 			Intent intent = new Intent(this, BeetleKitDetailActivity.class);
 			
@@ -104,10 +106,10 @@ public class BreedExectionActivity extends BaseActivity {
 		((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage2)).setImageResource(R.drawable.breed_kit_unset);
 		((TextView)this.findViewById(R.id.breedkit_name_1)).setText("虫キットを");
 		((TextView)this.findViewById(R.id.breedkit_attack_1)).setText("設定して");
-		((TextView)this.findViewById(R.id.breedkit_defence_1)).setText("ください");
+		((TextView)this.findViewById(R.id.breedkit_defense_1)).setText("ください");
 		((TextView)this.findViewById(R.id.breedkit_name_2)).setText("虫キットを");
 		((TextView)this.findViewById(R.id.breedkit_attack_2)).setText("設定して");
-		((TextView)this.findViewById(R.id.breedkit_defence_2)).setText("ください");
+		((TextView)this.findViewById(R.id.breedkit_defense_2)).setText("ください");
 		
 	}
 	
@@ -131,7 +133,7 @@ public class BreedExectionActivity extends BaseActivity {
 					((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage1)).setImageResource(kit.getImageResourceId(this));
 					((TextView)this.findViewById(R.id.breedkit_name_1)).setText(kit.getName());
 					((TextView)this.findViewById(R.id.breedkit_attack_1)).setText("攻：" + kit.getAttack());
-					((TextView)this.findViewById(R.id.breedkit_defence_1)).setText("守：" + kit.getDefence());
+					((TextView)this.findViewById(R.id.breedkit_defense_1)).setText("守：" + kit.getDefense());
 					
 				}
 				else if (BreedExectionActivity.settingDeckNum == R.id.breed_exe_beetlekit2) {
@@ -140,7 +142,7 @@ public class BreedExectionActivity extends BaseActivity {
 					((ImageView)this.findViewById(R.id.breed_exe_beetlekitImage2)).setImageResource(kit.getImageResourceId(this));
 					((TextView)this.findViewById(R.id.breedkit_name_2)).setText(kit.getName());
 					((TextView)this.findViewById(R.id.breedkit_attack_2)).setText("攻：" + kit.getAttack());
-					((TextView)this.findViewById(R.id.breedkit_defence_2)).setText("守：" + kit.getDefence());
+					((TextView)this.findViewById(R.id.breedkit_defense_2)).setText("守：" + kit.getDefense());
 				}
 				
 			}

@@ -119,7 +119,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("国産カブトムシA");					// 名前
 		kit.setAttack(1500);						// 攻撃
-		kit.setDefence(1000);						// 守備
+		kit.setDefense(1000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -134,7 +134,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(299911116767l);			// バーコードID
 		kit.setName("韓国カブトムシB");					// 名前
 		kit.setAttack(500);						// 攻撃
-		kit.setDefence(1500);						// 守備
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");		// 画像ファイル名
@@ -149,7 +149,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(388711111111l);			// バーコードID
 		kit.setName("米産カブトムシC");					// 名前
 		kit.setAttack(2000);						// 攻撃
-		kit.setDefence(500);						// 守備
+		kit.setDefense(500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
@@ -164,7 +164,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(411111118989l);			// バーコードID
 		kit.setName("仏産カブトムシD");					// 名前
 		kit.setAttack(1000);						// 攻撃
-		kit.setDefence(1000);						// 守備
+		kit.setDefense(1000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -179,7 +179,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(566711118889l);			// バーコードID
 		kit.setName("露産カブトムシE");					// 名前
 		kit.setAttack(700);							// 攻撃
-		kit.setDefence(1300);						// 守備
+		kit.setDefense(1300);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -194,7 +194,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(598711118888l);			// バーコードID
 		kit.setName("ミヤマクワガタ");					// 名前
 		kit.setAttack(700);							// 攻撃
-		kit.setDefence(1300);						// 守備
+		kit.setDefense(1300);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -207,7 +207,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		kit.setBarcode_id(545911119999l);			// バーコードID
 		kit.setName("ヘラクレスオオカブト");				// 名前
 		kit.setAttack(1200);						// 攻撃
-		kit.setDefence(1200);						// 守備
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -297,7 +297,7 @@ public class BreedersMenuActivity extends BaseActivity {
 		Log.d("★", "ID　：　" + beetlekit1.getBeetleKitId());
 		Log.d("★", "名前　： " + beetlekit1.getName());
 		Log.d("★", "攻撃　： " + beetlekit1.getAttack());
-		Log.d("★", "防御　： " + beetlekit1.getDefence());
+		Log.d("★", "防御　： " + beetlekit1.getDefense());
 		Log.d("★★★★★★★★", "-----------------------------------");
 
 		// 取得した虫キットからカード生成
@@ -309,7 +309,7 @@ public class BreedersMenuActivity extends BaseActivity {
 			Log.d("★", "種別　： " + cards[j].getType());
 			Log.d("★", "属性　： " + ((BeetleCard)cards[j]).getAttribute());
 			Log.d("★", "攻撃　： " + ((BeetleCard)cards[j]).getAttack());
-			Log.d("★", "防御　： " + ((BeetleCard)cards[j]).getDefence());
+			Log.d("★", "防御　： " + ((BeetleCard)cards[j]).getDefense());
 			Log.d("★", "FILE　： " + cards[j].getImageFileName());
 			Log.d("★", "説明　： " + cards[j].getIntroduction());
 			Log.d("★", "-----------------------------------");
@@ -384,8 +384,6 @@ public class BreedersMenuActivity extends BaseActivity {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == 0) {
 				String barcode = data.getStringExtra("SCAN_RESULT");
-				
-				this.playEffect(R.raw.bane);
 				
 				// バーコード情報を渡して取得結果画面へ遷移する。
 				Intent intent = new Intent(BreedersMenuActivity.this, NewBeetleInfoActivity.class);

@@ -73,7 +73,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/deck1_defence"
+                    android:id="@+id/deck1_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deck1_title"
@@ -140,7 +140,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/deck2_defence"
+                    android:id="@+id/deck2_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deck2_title"
@@ -207,7 +207,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/deck3_defence"
+                    android:id="@+id/deck3_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deck3_title"
@@ -274,7 +274,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/deck4_defence"
+                    android:id="@+id/deck4_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deck4_title"
@@ -341,7 +341,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/deck5_defence"
+                    android:id="@+id/deck5_defense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deck5_title"

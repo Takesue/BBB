@@ -37,11 +37,12 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	public static final String BEETLE_KIT_FILENAME = "file_name";
 	public static final String BEETLE_KIT_NAME = "name";
 	public static final String BEETLE_KIT_ATTACK = "attack";
-	public static final String BEETLE_KIT_DEFENCE = "defence";
+	public static final String BEETLE_KIT_DEFENSE = "defense";
 	public static final String BEETLE_KIT_BREEDCOUNT = "breedcount";
 	public static final String BEETLE_KIT_TYPE = "type";
 	public static final String BEETLE_KIT_INTRODUCTION = "introduction";
 	public static final String BEETLE_KIT_EFFECT = "effect";
+	public static final String BEETLE_KIT_EFFECT_ID = "effect_id";
 
 	// カラム名　カード画像テーブル
 	public static final String CARD_IMAGE_IMAGE_ID = "iname_id";
@@ -51,6 +52,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	public static final String CARD_IMAGE_FILENAME = "file_name";
 	public static final String CARD_IMAGE_INTRODUCTION = "introduction";
 	public static final String CARD_IMAGE_EFFECT = "effect";
+	public static final String CARD_IMAGE_EFFECT_ID = "effect_id";
 	
 	// カラム名　バーコード読み込み履歴テーブル
 	public static final String READ_BARCODE = "barcode";
@@ -63,11 +65,12 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		BoBBDBHelper.BEETLE_KIT_FILENAME,
 		BoBBDBHelper.BEETLE_KIT_NAME,
 		BoBBDBHelper.BEETLE_KIT_ATTACK,
-		BoBBDBHelper.BEETLE_KIT_DEFENCE,
+		BoBBDBHelper.BEETLE_KIT_DEFENSE,
 		BoBBDBHelper.BEETLE_KIT_BREEDCOUNT,
 		BoBBDBHelper.BEETLE_KIT_TYPE,
 		BoBBDBHelper.BEETLE_KIT_INTRODUCTION,
-		BoBBDBHelper.BEETLE_KIT_EFFECT
+		BoBBDBHelper.BEETLE_KIT_EFFECT,
+		BoBBDBHelper.BEETLE_KIT_EFFECT_ID
 	};
 	
 	// 検索時取得カラム　カード画像テーブル
@@ -78,7 +81,8 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		BoBBDBHelper.CARD_IMAGE_LEVEL,
 		BoBBDBHelper.CARD_IMAGE_FILENAME,
 		BoBBDBHelper.CARD_IMAGE_INTRODUCTION,
-		BoBBDBHelper.CARD_IMAGE_EFFECT
+		BoBBDBHelper.CARD_IMAGE_EFFECT,
+		BoBBDBHelper.CARD_IMAGE_EFFECT_ID
 	};
 
 	// 検索時取得カラム　バーコード読み込み履歴テーブル
@@ -119,11 +123,12 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 				+ BoBBDBHelper.BEETLE_KIT_FILENAME + " TEXT ,"					// ファイル名
 				+ BoBBDBHelper.BEETLE_KIT_NAME + " TEXT, "						// 名前
 				+ BoBBDBHelper.BEETLE_KIT_ATTACK + " INTEGER, "					// 攻撃力
-				+ BoBBDBHelper.BEETLE_KIT_DEFENCE + " INTEGER, "				// 防御力
+				+ BoBBDBHelper.BEETLE_KIT_DEFENSE + " INTEGER, "				// 防御力
 				+ BoBBDBHelper.BEETLE_KIT_BREEDCOUNT + " INTEGER, "				// 対戦使用回数
 				+ BoBBDBHelper.BEETLE_KIT_TYPE + " INTEGER, "					// タイプ (一般、特殊)
 				+ BoBBDBHelper.BEETLE_KIT_INTRODUCTION + " TEXT, "				// 説明文
-				+ BoBBDBHelper.BEETLE_KIT_EFFECT + " TEXT);";					// 特殊効果説明
+				+ BoBBDBHelper.BEETLE_KIT_EFFECT + " TEXT, "					// 特殊効果説明
+				+ BoBBDBHelper.BEETLE_KIT_EFFECT_ID + " INTEGER);";				// 特殊効果ID
 		db.execSQL(sql1);
 
 		/* カード画像テーブル */
@@ -134,7 +139,8 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 				+ BoBBDBHelper.CARD_IMAGE_LEVEL + " INTEGER, "					// レベル
 				+ BoBBDBHelper.CARD_IMAGE_FILENAME + " TEXT, "					// ファイル名
 				+ BoBBDBHelper.CARD_IMAGE_INTRODUCTION + " TEXT, "				// 説明文
-				+ BoBBDBHelper.CARD_IMAGE_EFFECT + " TEXT);";					// 特殊効果説明
+				+ BoBBDBHelper.CARD_IMAGE_EFFECT + " TEXT, "					// 特殊効果説明
+				+ BoBBDBHelper.CARD_IMAGE_EFFECT_ID + " INTEGER);";				// 特殊効果ID
 		db.execSQL(sql2);
 		
 		/* バーコード読み込みテーブル */
@@ -163,11 +169,12 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_FILENAME, kit.getImageFileName());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_NAME, kit.getName());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_ATTACK, kit.getAttack());
-		contentValues.put(BoBBDBHelper.BEETLE_KIT_DEFENCE, kit.getDefence());
+		contentValues.put(BoBBDBHelper.BEETLE_KIT_DEFENSE, kit.getDefense());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_BREEDCOUNT, kit.getBreedcount());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_TYPE, kit.getType());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_INTRODUCTION, kit.getIntroduction());
 		contentValues.put(BoBBDBHelper.BEETLE_KIT_EFFECT, kit.getEffect());
+		contentValues.put(BoBBDBHelper.BEETLE_KIT_EFFECT_ID, kit.getEffectId());
 		
 		db.insertOrThrow(BoBBDBHelper.BEETLE_KIT_INFO_TBL, null, contentValues);
 		db.close();
@@ -180,8 +187,11 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 	 * @param category　攻撃型　バランス型　守備型
 	 * @param level　画像レベル
 	 * @param filename　ファイル名
+	 * @param 　intro 説明文
+	 * @param 　effect 　効果説明
+	 * @param 　effectId 効果ID
 	 */
-	public void insertCardImageInfo(int id, String name, int category, int level, String filename, String intro, String effect) {
+	public void insertCardImageInfo(int id, String name, int category, int level, String filename, String intro, String effect, int effectId) {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		
@@ -193,6 +203,7 @@ public class BoBBDBHelper extends SQLiteOpenHelper{
 		contentValues.put(BoBBDBHelper.CARD_IMAGE_FILENAME, filename);
 		contentValues.put(BoBBDBHelper.CARD_IMAGE_INTRODUCTION, intro);
 		contentValues.put(BoBBDBHelper.CARD_IMAGE_EFFECT, effect);
+		contentValues.put(BoBBDBHelper.CARD_IMAGE_EFFECT_ID, effectId);
 		
 		db.insertOrThrow(BoBBDBHelper.CARD_IMAGE_TBL, null, contentValues);
 		db.close();

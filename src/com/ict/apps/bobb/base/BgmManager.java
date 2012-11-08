@@ -56,6 +56,7 @@ public class BgmManager {
 				this.player = MediaPlayer.create(BgmManager.context, this.currentPlayBgm);
 				this.player.setLooping(true);
 				this.player.start();
+				this.player.setVolume(0.3f, 0.3f);
 			}
 		}
 	}

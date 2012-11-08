@@ -1,5 +1,7 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 
 
-public class StartActivity extends Activity {
+public class StartActivity extends BaseActivity {
 
 //一回目のインなのかの判断で使用しているだけですので、後で正しく組み直してください。
 	public Boolean count = false;

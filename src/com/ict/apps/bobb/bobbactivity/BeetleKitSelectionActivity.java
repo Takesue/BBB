@@ -93,12 +93,12 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 			// 攻撃値設定
 			((TextView)view.findViewById(R.id.kit_attack)).setText("攻  ：  " + kit.getAttack());
 			// 守備値設定
-			((TextView)view.findViewById(R.id.kit_defence)).setText("守  ：  " + kit.getDefence());
+			((TextView)view.findViewById(R.id.kit_defense)).setText("守  ：  " + kit.getDefense());
 		}
 		else {
 			// 効果設定
 			((TextView)view.findViewById(R.id.kit_attack)).setText("効果  ：  " + kit.getEffect());
-			((TextView)view.findViewById(R.id.kit_defence)).setText("  ");
+			((TextView)view.findViewById(R.id.kit_defense)).setText("  ");
 		}
 
 		// ★　もし、対戦時に使用する設定にしており選択できないアイテムの場合、無効にするためリスナーを設定しない。
