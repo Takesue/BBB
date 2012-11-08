@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ict.apps.bobb.bobbactivity.BattleCards xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/card_width"
+    android:layout_height="@dimen/card_height"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/carddetail_bg" >
+
+    <ImageView
+        android:id="@+id/carddetail_attrribute"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/fire" />
+    
+    <ImageView
+        android:id="@+id/carddetail_icon"
+        android:layout_width="50dp"
+        android:layout_height="80dp"
+        android:src="@drawable/beetle1" />
+
+    <TextView
+        android:id="@+id/carddetail_name"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignRight="@+id/carddetail_icon"
+        android:layout_alignTop="@+id/carddetail_attrribute"
+        android:background="#BDB76B"
+        android:paddingLeft="10dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/carddetail_attrribute"
+        android:layout_below="@+id/linearLayout1"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/carddetail_atk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/carddetail_intoro"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="攻：XXX"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/carddetail_def"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/carddetail_atk"
+        android:layout_alignBottom="@+id/carddetail_atk"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/carddetail_atk"
+        android:text="守：XXX"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</com.ict.apps.bobb.bobbactivity.BattleCards>

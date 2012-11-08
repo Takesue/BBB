@@ -10,7 +10,7 @@ public class BeetleCard extends Card {
 	private int attack = 0;
 	
 	// 防御力
-	private int defence = 0;
+	private int defense = 0;
 	
 	// 属性
 	private CardAttribute attribute;
@@ -23,12 +23,12 @@ public class BeetleCard extends Card {
 		this.attack = attack;
 	}
 
-	public int getDefence() {
-		return defence;
+	public int getDefense() {
+		return defense;
 	}
 
-	public void setDefence(int defence) {
-		this.defence = defence;
+	public void setDefense(int defense) {
+		this.defense = defense;
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class BeetleCard extends Card {
 	/**
 	 * カード種別：防御
 	 */
-	public void setTypeDefence() {
+	public void setTypeDefense() {
 		this.setType(4);
 	}
 
@@ -58,7 +58,7 @@ public class BeetleCard extends Card {
 		super.setValues(bk);
 		
 		this.setAttack(bk.getAttack());
-		this.setDefence(bk.getDefence());
+		this.setDefense(bk.getDefense());
 
 	}
 

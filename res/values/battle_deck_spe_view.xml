@@ -16,10 +16,10 @@
         <item>@+id/spe_deck2_attack</item>
         <item>@+id/spe_deck3_attack</item>
     </integer-array>
-    <integer-array name="spe_deck_defence">
-        <item>@+id/spe_deck1_defence</item>
-        <item>@+id/spe_deck2_defence</item>
-        <item>@+id/spe_deck3_defence</item>
+    <integer-array name="spe_deck_defense">
+        <item>@+id/spe_deck1_defense</item>
+        <item>@+id/spe_deck2_defense</item>
+        <item>@+id/spe_deck3_defense</item>
     </integer-array>
     <integer-array name="spe_deck_ic">
         <item>@+id/spe_deck1_ic</item>

@@ -88,12 +88,12 @@ public class BreedManager {
 		// バーコードから攻撃力算出
 		int attack = this.getAttack(barcode);
 		// バーコードから攻撃力算出
-		int defence = this.getDefence(barcode);
+		int defense = this.getDefense(barcode);
 
 		// 攻守の値からレベルを算出
-		int level = this.getLevel(attack, defence);
+		int level = this.getLevel(attack, defense);
 		// 攻守の値からカテゴリを算出
-		int category = this.getCategory(attack, defence);
+		int category = this.getCategory(attack, defense);
 		
 		// レベルとカテゴリからImageIDを算出
 		int imageId = this.getImageId(context, level, category);
@@ -108,7 +108,7 @@ public class BreedManager {
 		bk.setImage_id(imageId);
 		bk.setBarcode_id(barcode);
 		bk.setAttack(attack);
-		bk.setDefence(defence);
+		bk.setDefense(defense);
 		bk.setBreedcount(0);
 		bk.setEffect(imageInfo.getEffect());
 		bk.setIntroduction(imageInfo.getIntroduction());
@@ -204,10 +204,10 @@ public class BreedManager {
 			// 値は400～2400の範囲で収束する
 			
 			int attack = ((typeA + typeD)*typeE/1000*100) + 400;
-			int defence = ((typeB + typeF)*typeC/1000*100) + 400;
+			int defense = ((typeB + typeF)*typeC/1000*100) + 400;
 			
 			System.out.println(attack);
-			System.out.println(defence);
+			System.out.println(defense);
 			
 			// 高い値が出た場合、割合を下げる
 			int total = 0;
@@ -218,11 +218,11 @@ public class BreedManager {
 			if (attack > 1500) {
 				attack = attack*(10 - (total % 5))/10;
 			}
-			if (defence > 1500) {
-				defence = defence*(10 -(total % 5))/10;
+			if (defense > 1500) {
+				defense = defense*(10 -(total % 5))/10;
 			}
 			
-			retValue = ((ptype == 0) ? attack : defence);
+			retValue = ((ptype == 0) ? attack : defense);
 		}
 		
 		
@@ -243,17 +243,17 @@ public class BreedManager {
 	 * @param barcode
 	 * @return
 	 */
-	private int getDefence(long barcode) {
+	private int getDefense(long barcode) {
 		return this.calculateCardValue(barcode, 1);
 	}
 
 	/**
 	 * カードレベル取得
 	 * @param attack
-	 * @param defence
+	 * @param defense
 	 * @return
 	 */
-	private int getLevel(int attack, int defence) {
+	private int getLevel(int attack, int defense) {
 		// xmlに切り出して動的に変更できるようにしたい。
 		int lv0_max = 0;
 		int lv1_max = 2000;
@@ -262,7 +262,7 @@ public class BreedManager {
 		
 		int level = 0;
 		
-		int total = attack + defence;
+		int total = attack + defense;
 		
 		if (lv0_max < total && total <= lv1_max) {
 			// レベル１
@@ -286,20 +286,20 @@ public class BreedManager {
 	/**
 	 * 種別取得
 	 * @param attack
-	 * @param defence
+	 * @param defense
 	 * @return
 	 */
-	private int getCategory(int attack, int defence) {
+	private int getCategory(int attack, int defense) {
 		int category = 0;
 		
 		// 比率
 		int rate = 2;
 		
-		if (defence * rate <= attack) {
+		if (defense * rate <= attack) {
 			// 攻撃型
 			category = 1;
 		}
-		else if (attack * rate <= defence) {
+		else if (attack * rate <= defense) {
 			// 守備型
 			category = 3;
 		}
@@ -408,7 +408,7 @@ public class BreedManager {
 		// 基礎値×ブリード回数の合計が加算される
 		int base = 20;
 		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
-		newBeetle.setDefence(newBeetle.getDefence() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
+		newBeetle.setDefense(newBeetle.getDefense() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
 		
 		// ★親のバーコードは削除するのか？
 		

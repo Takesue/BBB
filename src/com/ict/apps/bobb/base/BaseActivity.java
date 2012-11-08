@@ -5,8 +5,12 @@ import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.bobbactivity.RuleActivity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +35,10 @@ public abstract class BaseActivity extends Activity {
 		
 		// 効果音をロードしておく
 		this.loadEffect();
+		
+//		// メモリ残量表示
+//		this.MemoryDisplay();
+
 	}
 	
 	@Override
@@ -68,8 +76,8 @@ public abstract class BaseActivity extends Activity {
 		
 		// 効果音をロードしておく
 		BaseActivity.effect = SoundEffectManager.getInstance(this);
-		BaseActivity.effect.loadEffect(R.raw.bane);
-		
+		BaseActivity.effect.loadEffect(R.raw.breed_create1);
+		BaseActivity.effect.loadEffect(R.raw.breed_create2);
 	}
 	
 	/**
@@ -95,6 +103,9 @@ public abstract class BaseActivity extends Activity {
 //			Toast.makeText(getApplicationContext(), "releace BGM instance", Toast.LENGTH_SHORT).show();
 		}
 		
+		// 解放できていなかった場合
+		this.running = false;
+		th = null;
 	}
 
 	@Override
@@ -107,6 +118,11 @@ public abstract class BaseActivity extends Activity {
 //			BaseActivity.bgm = null;
 		}
 //		Toast.makeText(getApplicationContext(), "onUserLeaveHint", Toast.LENGTH_SHORT).show();
+		
+		// 解放できていなかった場合
+		this.running = false;
+		th = null;
+
 
 	}
 
@@ -147,5 +163,71 @@ public abstract class BaseActivity extends Activity {
 		Intent intent = new Intent(this, RuleActivity.class);
 		this.startActivity(intent); 
 	}
+	
+	
+	
+	// メモリ表示再描画用のスレッド
+	private static Thread th = null;
+	// メモリ表示再描画用のハンドラ
+	private Handler mHandler = new Handler();
+	// メモリ表示再描画用スレッドの実行フラグ
+	private boolean running = true;
+
+	public void MemoryDisplay() {
+//		final TextView titleText = (TextView) this.findViewById(android.R.id.title);
+
+		final Context con = this;
+		// 初回に一回だけ実行
+		if (th == null) {
+			running = true;
+			th = new Thread(new Runnable() {
+				public void run() {
+					while(running) {
+						// 再描画のキューをセット
+						mHandler.post(new Runnable() {
+							public void run() {
+//								titleText.setText("AvaMem:" + cmnUtil.getAvailMemorySize());
+								Toast.makeText(con, "AvaMem:" + getAvailMemorySize() , 100).show();
+							}
+						});
+
+						// スリープ
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			
+			Log.d("★", "Thread Start ");
+			th.start();
+		}
+	}
+
+	
+	
+	/**
+	 * 	空きメモリ量取得
+	 * @return 使用可能メモリ量（MB）
+	 */
+	public long getAvailMemorySize() {
+		long size = 0;
+
+		ActivityManager activityManager = ((ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE));
+
+		//メモリ情報の取得
+		ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+		activityManager.getMemoryInfo(memoryInfo);
+		size = memoryInfo.availMem;		// 使用可能メモリ
+		
+		return size/1000000;
+	}
+
+	
+	
+	
+	
 	
 }
