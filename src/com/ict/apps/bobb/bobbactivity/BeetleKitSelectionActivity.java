@@ -72,7 +72,7 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 	/**
 	 * アイコン表示付きリストに虫キット情報追加
 	 * @param mInflater
-	 * @param vgroup
+	 * @param baseLayout
 	 * @param kit
 	 */
 	private View addBeeetleKitList(BeetleKit kit) {

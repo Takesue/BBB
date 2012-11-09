@@ -1,6 +1,7 @@
 package com.ict.apps.bobb.battle;
 
-import android.view.View;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
+
 
 public interface BattleScene {
 
@@ -14,11 +15,21 @@ public interface BattleScene {
 	 * @param view
 	 * @param action 
 	 */
-	public void moveCard(View view, int action);
+	public void moveCard(BattleCardView view, int action);
 	
 	/**
 	 *  終了メソッド
 	 */
 	public void finish();
+	
+	/**
+	 * カードオブジェクトが長押しされた場合に呼ばれる
+	 */
+	public void onLongClickCard(BattleCardView view);
+
+	/**
+	 * カードオブジェクトから手を離す場合に呼ばれる
+	 */
+	public void actionUpCard(BattleCardView view);
 	
 }

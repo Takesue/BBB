@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ict.apps.bobb.bobbactivity.BattleCards xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ict.apps.bobb.bobbactivity.BattleCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/myCardLayout"
     android:layout_width="@dimen/card_width"
     android:layout_height="@dimen/card_height"
@@ -39,4 +39,4 @@
         android:textSize="10sp"
         android:textStyle="bold" />
     
-</com.ict.apps.bobb.bobbactivity.BattleCards>
+</com.ict.apps.bobb.bobbactivity.BattleCardView>

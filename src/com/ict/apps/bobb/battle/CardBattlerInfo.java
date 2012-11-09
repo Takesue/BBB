@@ -2,8 +2,9 @@ package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
-import com.ict.apps.bobb.bobbactivity.BattleCards;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 
 /**
  * 対戦者の情報を一括管理するクラス
@@ -15,10 +16,10 @@ public class CardBattlerInfo {
 	private int lifepoint = 0;
 	
 	// 使用するカードを３０枚保持
-	private ArrayList<BattleCards> cardList = new ArrayList<BattleCards>();
+	private ArrayList<BattleCardView> cardList = new ArrayList<BattleCardView>();
 	
 	// 状況　未配布：0　手札：１　選択：２ 　使用済：3
-	private HashMap<BattleCards, Integer> cardStatusList = new HashMap<BattleCards, Integer>();
+	private HashMap<BattleCardView, Integer> cardStatusList = new HashMap<BattleCardView, Integer>();
 	
 	// 現時点の配布予定カードのindex
 	private int curPos = 0;
@@ -31,7 +32,7 @@ public class CardBattlerInfo {
 	 * バトルカードを登録
 	 * @param card
 	 */
-	public void setBattleCards(BattleCards card) {
+	public void setBattleCards(BattleCardView card) {
 		this.cardList.add(card);
 		this.cardStatusList.put(card, 0);
 		
@@ -73,8 +74,8 @@ public class CardBattlerInfo {
 	 * 山札にあるカードから次の配布カードを取得
 	 * @return
 	 */
-	public BattleCards getNextCard() {
-		BattleCards card = this.cardList.get(this.curPos++);
+	public BattleCardView getNextCard() {
+		BattleCardView card = this.cardList.get(this.curPos++);
 		this.dealCard(card);
 		return card;
 	}
@@ -82,7 +83,7 @@ public class CardBattlerInfo {
 	/**
 	 * 状況を未配布→手札へ変更
 	 */
-	public void dealCard(BattleCards card) {
+	public void dealCard(BattleCardView card) {
 		// ステータスを手札に上書き
 		this.cardStatusList.put(card, 1);
 		
@@ -91,7 +92,7 @@ public class CardBattlerInfo {
 	/**
 	 * 状況を手札から選択へ変更
 	 */
-	public void selectCard(BattleCards card) {
+	public void selectCard(BattleCardView card) {
 		// ステータスを手札に上書き
 		this.cardStatusList.put(card, 2);
 		
@@ -100,7 +101,7 @@ public class CardBattlerInfo {
 	/**
 	 * 状況を使用済みへ変更
 	 */
-	public void dustCard(BattleCards card) {
+	public void dustCard(BattleCardView card) {
 		// ステータスを手札に上書き
 		this.cardStatusList.put(card, 3);
 		
@@ -109,7 +110,7 @@ public class CardBattlerInfo {
 	/**
 	 * カードビューオブジェクトをすべて渡す
 	 */
-	public ArrayList<BattleCards> getAllCards() {
+	public ArrayList<BattleCardView> getAllCards() {
 		return this.cardList;
 	}
 	
@@ -117,15 +118,15 @@ public class CardBattlerInfo {
 	 * 手札のカードを渡す
 	 * @return
 	 */
-	public ArrayList<BattleCards> getHoldCard() {
+	public ArrayList<BattleCardView> getHoldCard() {
 		
-		ArrayList<BattleCards> newList = new ArrayList<BattleCards>();
+		ArrayList<BattleCardView> newList = new ArrayList<BattleCardView>();
 		
 		int length = this.cardList.size();
 		for (int i = 0; i < length; i++) {
 			
 			// カードの状況＝１or2のカードを集める
-			BattleCards card = this.cardList.get(i);
+			BattleCardView card = this.cardList.get(i);
 			if((this.getStatus(card) == 1) || (this.getStatus(card) == 2)){
 				newList.add(card);
 			}
@@ -135,18 +136,40 @@ public class CardBattlerInfo {
 	}
 	
 	/**
+	 * 手札の内選択したカードを渡す
+	 * @return
+	 */
+	public ArrayList<BattleCardView> getSelectedCard() {
+		
+		ArrayList<BattleCardView> newList = new ArrayList<BattleCardView>();
+		
+		int length = this.cardList.size();
+		for (int i = 0; i < length; i++) {
+			
+			// カードの状況＝１or2のカードを集める
+			BattleCardView card = this.cardList.get(i);
+			if(this.getStatus(card) == 2){
+				newList.add(card);
+			}
+		}
+		
+		return newList;
+	}
+
+	
+	/**
 	 * 山札のカードを渡す
 	 * @return
 	 */
-	public ArrayList<BattleCards> getUnUsedCard() {
+	public ArrayList<BattleCardView> getUnUsedCard() {
 		
-		ArrayList<BattleCards> newList = new ArrayList<BattleCards>();
+		ArrayList<BattleCardView> newList = new ArrayList<BattleCardView>();
 		
 		int length = this.cardList.size();
 		for (int i = 0; i < length; i++) {
 			
 			// カードの状況＝0のカードを集める
-			BattleCards card = this.cardList.get(i);
+			BattleCardView card = this.cardList.get(i);
 			if(this.getStatus(card) == 0){
 				newList.add(card);
 			}
@@ -160,7 +183,7 @@ public class CardBattlerInfo {
 	 * @param card
 	 * @return
 	 */
-	public int getStatus(BattleCards card) {
+	public Integer getStatus(BattleCardView card) {
 		return this.cardStatusList.get(card);
 	}
 
@@ -170,6 +193,26 @@ public class CardBattlerInfo {
 	 */
 	public int getCounter() {
 		return this.cardList.size() - this.curPos;
+	}
+	
+	/**
+	 * カードをシャッフルする。
+	 */
+	public void shuffle() {
+		
+		ArrayList<BattleCardView> list = this.getAllCards();
+		
+		ArrayList<BattleCardView> tmpList = new ArrayList<BattleCardView>();
+		Random random = new Random();
+		
+		while( list.size() > 0 ) {
+			int r = random.nextInt( list.size() );
+			tmpList.add( list.remove(r) );
+		}
+		
+		for (BattleCardView card : tmpList) {
+			list.add(card);
+		}
 	}
 
 }

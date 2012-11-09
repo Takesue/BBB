@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/carddetail_bg"
     android:layout_width="266dp"
     android:layout_height="400dp"
     android:layout_gravity="center_horizontal"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/carddetail_bg" >
-
+
     <TextView
         android:id="@+id/carddetail_intoro"
         android:layout_width="213dp"
@@ -14,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
-        android:background="@drawable/textarea"
+        android:background="#000000"
         android:inputType="textMultiLine"
         android:paddingLeft="10dp"
         android:paddingTop="40dp"
@@ -36,9 +37,10 @@
         android:layout_height="30dp"
         android:layout_alignRight="@+id/carddetail_icon"
         android:layout_alignTop="@+id/carddetail_attrribute"
-        android:background="#BDB76B"
+        android:background="#ffffff"
         android:paddingLeft="10dp"
         android:text="Large Text"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView

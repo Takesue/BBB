@@ -1,5 +1,9 @@
 package com.ict.apps.bobb.battle.cpu;
 
+import java.util.ArrayList;
+
+import com.ict.apps.bobb.battle.CardBattlerInfo;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.Card;
 
 /**
@@ -10,7 +14,7 @@ import com.ict.apps.bobb.data.Card;
 public class IdeaSpeRecoverLifePoint20 extends IdeaForSelectSpeCard {
 	
 	@Override
-	protected Card[] judge(Object info) {
+	protected ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
 		
 		// カードを保持しているかどうか確認
 		

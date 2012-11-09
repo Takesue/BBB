@@ -20,15 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".MainMenuActivity">
+		<activity android:name=".MainMenuActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".RuleActivity">
+		<activity android:name=".RuleActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".UserInfoRegistrationActivity">
+		<activity android:name=".UserInfoRegistrationActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BattleActivity">
+		<activity android:name=".BattleActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BattleUserSelectActivity">
+		<activity android:name=".BattleUserSelectActivity" android:screenOrientation="portrait">
 		</activity>
 		<activity android:name=".BreedersMenuActivity" android:screenOrientation="portrait">
 		</activity>
