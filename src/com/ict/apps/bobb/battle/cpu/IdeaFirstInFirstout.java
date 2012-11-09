@@ -18,6 +18,8 @@ public class IdeaFirstInFirstout extends IdeaForSelectCard {
 		int length = 3;
 		for (int i = 0; i < length; i++) {
 			cardList.add(cards.get(i));
+			// ステータスを選択済みに変更
+			enemyInfo.selectCard(cards.get(i));
 		}
 		
 		return cardList;

@@ -417,7 +417,7 @@ public class BattleSceneCardSelection implements BattleScene {
 			this.threeCardselected = true;
 			
 			// 3枚をデカくする？
-			this.checkSelectedCardDisp();
+			this.viewSelectedBigCardDisp();
 			
 		}
 	}
@@ -455,9 +455,9 @@ public class BattleSceneCardSelection implements BattleScene {
 	ArrayList<BattleCardView> bigCards = new ArrayList<BattleCardView>();
 	
 	/**
-	 * 選択カードの確認表示
+	 * 選択カードの確認拡大表示
 	 */
-	private void checkSelectedCardDisp() {
+	private void viewSelectedBigCardDisp() {
 		// 表示を一旦クリア
 		this.finish();
 		this.bigCards.clear();
@@ -524,7 +524,6 @@ public class BattleSceneCardSelection implements BattleScene {
 		});
 		
 		
-//		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
 				BattleLayout.LayoutParams.MATCH_PARENT,
 				this.activity.baseLayout.getHeight()*1/3);
@@ -539,6 +538,8 @@ public class BattleSceneCardSelection implements BattleScene {
 		this.activity.baseLayout.addView(button, params);
 
 	}
+	
+	
 
 	// ハンドラー取得
 	private Handler mHandler = new Handler();
