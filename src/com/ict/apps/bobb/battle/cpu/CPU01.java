@@ -13,8 +13,9 @@ public class CPU01 extends CPU {
 		// 判断の優先度順に設定する。
 		this.setIdeaSpacialList(new IdeaSpeRecoverLifePoint20());
 		this.setIdeaSpacialList(new IdeaSpeUpAttack10());
+		
+		this.setIdeaList(new IdeaFirstInFirstout());
+		
 	}
-	
-	
 
 }

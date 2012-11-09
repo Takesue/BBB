@@ -1,6 +1,9 @@
 package com.ict.apps.bobb.battle.cpu;
 
-import com.ict.apps.bobb.data.Card;
+import java.util.ArrayList;
+
+import com.ict.apps.bobb.battle.CardBattlerInfo;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 
 public class IdeaSpeUpAttack10 extends IdeaForSelectSpeCard {
 
@@ -10,7 +13,7 @@ public class IdeaSpeUpAttack10 extends IdeaForSelectSpeCard {
 	}
 
 	@Override
-	protected Card[] judge(Object info) {
+	protected ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
 		return null;
 	}
 

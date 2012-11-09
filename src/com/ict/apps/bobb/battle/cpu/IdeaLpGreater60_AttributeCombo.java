@@ -1,5 +1,9 @@
 package com.ict.apps.bobb.battle.cpu;
 
+import java.util.ArrayList;
+
+import com.ict.apps.bobb.battle.CardBattlerInfo;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.Card;
 
 /**
@@ -15,12 +19,12 @@ public class IdeaLpGreater60_AttributeCombo extends IdeaForSelectCard {
 	private int lpmax = 0;
 	
 	@Override
-	protected Card[] judge(Object info) {
+	protected ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
 		
-		Card[] cardList = null;
+		ArrayList<BattleCardView> cardList = null;
 		
 		if (lp >= lpmax*80/100) {
-			cardList = new IdeaAttributeCombo().judge(info);
+			cardList = new IdeaAttributeCombo().judge(userInfo, enemyInfo);
 		}
 		
 		return cardList;

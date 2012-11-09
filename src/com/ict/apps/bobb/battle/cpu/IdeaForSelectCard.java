@@ -1,5 +1,9 @@
 package com.ict.apps.bobb.battle.cpu;
 
+import java.util.ArrayList;
+
+import com.ict.apps.bobb.battle.CardBattlerInfo;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.Card;
 
 /**
@@ -26,14 +30,14 @@ public abstract class IdeaForSelectCard {
 	 * 使用するカードを選択する
 	 * @return 使用するカードの配列を返却する。
 	 */
-	public Card[] choiceCard(Object info) {
+	public ArrayList<BattleCardView> choiceCard(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
 
-		Card[] selectedCards = this.judge(info);
+		ArrayList<BattleCardView> selectedCards = this.judge(userInfo, enemyInfo);
 		
 		if(selectedCards == null) {
 			// 判断できなかったため、次のIdeaを検討する。
 			if (this.next != null) {
-				selectedCards = this.next.choiceCard(info);
+				selectedCards = this.next.choiceCard(userInfo, enemyInfo);
 			}
 		}
 		return selectedCards;
@@ -44,7 +48,7 @@ public abstract class IdeaForSelectCard {
 	 * アイデア採用時には真を返す
 	 * @return
 	 */
-	protected abstract Card[] judge(Object info);
+	protected abstract ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo);
 	
 
 }
