@@ -21,7 +21,7 @@ public class BeetleKit {
 	// 攻撃力
 	private int attack = 0;
 	// 防御力
-	private int defence = 0;
+	private int defense = 0;
 	// ブリード回数
 	private int breedcount = 0;
 	// タイプ（一般 = 1 or 特殊 = 2）
@@ -30,6 +30,8 @@ public class BeetleKit {
 	private String introduction = null;
 	// 特殊効果説明
 	private String effect = null;
+	// 特殊効果ID
+	private int effectId = 0;
 
 	/**
 	 * コンストラクタ
@@ -85,12 +87,12 @@ public class BeetleKit {
 		this.attack = attack;
 	}
 
-	public int getDefence() {
-		return defence;
+	public int getDefense() {
+		return defense;
 	}
 
-	public void setDefence(int defence) {
-		this.defence = defence;
+	public void setDefense(int defense) {
+		this.defense = defense;
 	}
 
 	public int getBreedcount() {
@@ -125,6 +127,14 @@ public class BeetleKit {
 		this.effect = effect;
 	}
 	
+	public int getEffectId() {
+		return effectId;
+	}
+
+	public void setEffectId(int effectId) {
+		this.effectId = effectId;
+	}
+	
 	/**
 	 * 虫キットからカードインスタンスを生成します。
 	 * 通常カードのキットからは虫カードインスタンスを６つ
@@ -137,7 +147,7 @@ public class BeetleKit {
 		
 		// 一般カードの場合
 		if(this.type == 1) {
-			cards = new Card[6];
+			cards = new BeetleCard[6];
 			
 			for(int i = 0; i < cards.length; i++) {
 				BeetleCard bc = new BeetleCard();
@@ -149,7 +159,7 @@ public class BeetleKit {
 				}
 				else {
 					// 守備カード
-					bc.setTypeDefence();
+					bc.setTypeDefense();
 				}
 				
 				if (i % 3 == 0) {
@@ -172,7 +182,7 @@ public class BeetleKit {
 		}
 		// 特殊カードの場合
 		if(this.type == 2) {
-			cards = new Card[1];
+			cards = new SpecialCard[1];
 
 			// 特殊カード
 			cards[0] = new SpecialCard();

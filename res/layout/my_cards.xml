@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ict.apps.bobb.bobbactivity.BattleCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myCardLayout"
+    android:layout_width="@dimen/card_width"
+    android:layout_height="@dimen/card_height"
+    android:background="@drawable/cards"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/myCardAttr"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/fire" />
+
+    <ImageView
+        android:id="@+id/myCardImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:src="@drawable/beetle1" />
+
+    <TextView
+        android:id="@+id/myCardAD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="攻:"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/myCardValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:text="１０００"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+    
+</com.ict.apps.bobb.bobbactivity.BattleCardView>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="deck_buttons">
+        <item>@+id/deck1</item>
+        <item>@+id/deck2</item>
+        <item>@+id/deck3</item>
+        <item>@+id/deck4</item>
+        <item>@+id/deck5</item>
+    </integer-array>
+    <integer-array name="deck_title">
+        <item>@+id/deck1_title</item>
+        <item>@+id/deck2_title</item>
+        <item>@+id/deck3_title</item>
+        <item>@+id/deck4_title</item>
+        <item>@+id/deck5_title</item>
+    </integer-array>
+    <integer-array name="deck_attack">
+        <item>@+id/deck1_attack</item>
+        <item>@+id/deck2_attack</item>
+        <item>@+id/deck3_attack</item>
+        <item>@+id/deck4_attack</item>
+        <item>@+id/deck5_attack</item>
+    </integer-array>
+    <integer-array name="deck_defense">
+        <item>@+id/deck1_defense</item>
+        <item>@+id/deck2_defense</item>
+        <item>@+id/deck3_defense</item>
+        <item>@+id/deck4_defense</item>
+        <item>@+id/deck5_defense</item>
+    </integer-array>
+    <integer-array name="deck_ic">
+        <item>@+id/deck1_ic</item>
+        <item>@+id/deck2_ic</item>
+        <item>@+id/deck3_ic</item>
+        <item>@+id/deck4_ic</item>
+        <item>@+id/deck5_ic</item>
+    </integer-array>
+    
+</resources>

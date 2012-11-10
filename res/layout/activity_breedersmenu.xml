@@ -24,7 +24,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/listitem_bg"
         android:onClick="newBeetleInfoOnClick"
-        android:text="採取"
+        android:text="採取(バーコード)"
         android:textSize="30sp" />
 
     <Button
@@ -44,7 +44,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/listitem_bg"
         android:onClick="battleDeckManageOnClick"
-        android:text="対戦キット"
+        android:text="対戦デッキ"
         android:textSize="30sp" />
     
     <Button

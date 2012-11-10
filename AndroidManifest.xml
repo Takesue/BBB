@@ -8,7 +8,7 @@
         android:targetSdkVersion="15" />
 
     <application
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/beetleicon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -20,29 +20,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".MainMenuActivity">
+		<activity android:name=".MainMenuActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".RuleActivity">
+		<activity android:name=".RuleActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".UserInfoRegistrationActivity">
+		<activity android:name=".UserInfoRegistrationActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BattleActivity">
+		<activity android:name=".BattleActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BattleUserSelectActivity">
+		<activity android:name=".BattleUserSelectActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BreedersMenuActivity">
+		<activity android:name=".BreedersMenuActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".NewBeetleInfoActivity">
+		<activity android:name=".NewBeetleInfoActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BreedExectionActivity">
+		<activity android:name=".BreedExectionActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BattleDeckManageActivity">
+		<activity android:name=".BattleDeckManageActivity" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BeetleKitListActivity">
+		<activity android:name=".BattleDeckForNormalTab" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BeetleKitDetailActivity">
+		<activity android:name=".BattleDeckForSpecialTab" android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".BeetleKitSelectionActivity">
+		<activity android:name=".BeetleKitListActivity" android:screenOrientation="portrait">
+		</activity>
+		<activity android:name=".BeetleKitDetailActivity" android:screenOrientation="portrait">
+		</activity>
+		<activity android:name=".BeetleKitSelectionActivity" android:screenOrientation="portrait">
 		</activity>
 		</application>
 
