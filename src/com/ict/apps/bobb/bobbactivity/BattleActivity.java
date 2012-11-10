@@ -77,26 +77,6 @@ public class BattleActivity extends BaseActivity{
 	}
 	
 
-
-	/**
-	 * 配るボタン押下時に呼ばれる
-	 * @param v
-	 */
-	public void finishOnClick(View v){
-		
-		// ボタンを表示から消す
-		this.baseLayout.removeView(v);
-		
-		// 相手のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealEnemyDards(5);
-		
-		// 自分のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealDards(5);
-
-	}
-	
-
-
 	/**
 	 * カードオブジェクトのタッチイベントがきた場合に呼ばれる
 	 * @param view

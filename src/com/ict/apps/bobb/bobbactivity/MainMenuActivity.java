@@ -90,7 +90,7 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBeetleKitId(1l);						// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("国産カブトムシA");					// 名前
-		kit.setAttack(1500);						// 攻撃
+		kit.setAttack(1200);						// 攻撃
 		kit.setDefense(1000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
@@ -106,7 +106,7 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBarcode_id(299911116767l);			// バーコードID
 		kit.setName("韓国カブトムシB");					// 名前
 		kit.setAttack(500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setDefense(700);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");		// 画像ファイル名
@@ -120,7 +120,7 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBeetleKitId(3l);						// 虫キットID
 		kit.setBarcode_id(388711111111l);			// バーコードID
 		kit.setName("米産カブトムシC");					// 名前
-		kit.setAttack(2000);						// 攻撃
+		kit.setAttack(1350);						// 攻撃
 		kit.setDefense(500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
@@ -135,8 +135,8 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBeetleKitId(4l);						// 虫キットID
 		kit.setBarcode_id(411111118989l);			// バーコードID
 		kit.setName("仏産カブトムシD");					// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1150);						// 攻撃
+		kit.setDefense(600);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -151,7 +151,7 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBarcode_id(566711118889l);			// バーコードID
 		kit.setName("露産カブトムシE");					// 名前
 		kit.setAttack(700);							// 攻撃
-		kit.setDefense(1300);						// 守備
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -166,7 +166,7 @@ public class MainMenuActivity extends BaseActivity {
 		kit.setBarcode_id(598711118888l);			// バーコードID
 		kit.setName("ミヤマクワガタ");					// 名前
 		kit.setAttack(700);							// 攻撃
-		kit.setDefense(1300);						// 守備
+		kit.setDefense(1050);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
