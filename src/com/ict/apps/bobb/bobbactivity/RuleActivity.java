@@ -1,11 +1,13 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class RuleActivity extends Activity {
+public class RuleActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +17,9 @@ public class RuleActivity extends Activity {
 	
     public void returnOnClick(View v){
     	
-		Intent intent = new Intent(RuleActivity.this, StartActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(RuleActivity.this, StartActivity.class);
+//		startActivity(intent);
+    	this.finish();
 		
     }
     

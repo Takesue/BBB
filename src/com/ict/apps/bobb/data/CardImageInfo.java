@@ -27,6 +27,9 @@ public class CardImageInfo {
 
 	// 効果
 	private String effect;
+	
+	// 効果ID
+	private int effectId;
 
 	public int getInameId() {
 		return iname_id;
@@ -84,5 +87,14 @@ public class CardImageInfo {
 		this.effect = effect;
 	}
 
+	public int getEffectId() {
+		return effectId;
+	}
+
+	public void setEffectId(int effectId) {
+		this.effectId = effectId;
+	}
+
+	
 
 }
