@@ -78,7 +78,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.calcDelete(enemyTotal, myTotal);
 		
 		// ダメージをtoastで表示する
-		this.damegeMesege();
+//		this.damegeMesege();
 		
 		// カードをアニメーションさせる
 		this.animationCards(1, this.activity.enemyInfo, enemyTotal);
