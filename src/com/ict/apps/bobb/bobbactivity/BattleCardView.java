@@ -129,6 +129,8 @@ public class BattleCardView extends LinearLayout {
 	private int baseLeft = 0;
 	private int baseTop = 0;
 	
+	private int timer = 0;
+	
 	/**
 	 * 座標X取得
 	 * @return
@@ -151,7 +153,7 @@ public class BattleCardView extends LinearLayout {
 		public void run() {
 			
 			// 移動中の表示回数
-			int time = 3;
+			int time = timer;
 			
 			// 座標移動
 			// 状態
@@ -204,11 +206,12 @@ public class BattleCardView extends LinearLayout {
 	/**
 	 * カード移動開始
 	 */
-	public void startMovingCard(int stopX, int stopY){
+	public void startMovingCard(int stopX, int stopY, int time){
 
 		this.stopPosLeft = stopX;
 		this.stopPosTop = stopY;
 		this.moveView = this;
+		this.timer = time;
 
 		// Handler に対し、" 100 ms 後に mUpdateTimeTask() を呼び出す
 		this.mHandler.postDelayed(this.mMoveCardTask, 10);

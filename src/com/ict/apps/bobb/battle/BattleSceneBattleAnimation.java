@@ -2,6 +2,8 @@ package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
 
+import org.apache.http.entity.SerializableEntity;
+
 import com.ict.apps.bobb.battle.cpu.CPU01;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
@@ -10,11 +12,13 @@ import com.ict.apps.bobb.bobbactivity.R;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BattleSceneBattleAnimation implements BattleScene {
 
@@ -28,6 +32,16 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	// 相手の３つ選択して大きくなった状態のカードを生成して保持する。
 	ArrayList<BattleCardView> bigEnemyCards = new ArrayList<BattleCardView>();
 
+	// 相手の攻撃力
+	int enemyAttack = 0;
+	// 相手の守備力
+	int enemyDefense = 0;
+	// 自分の攻撃力
+	int myAttack = 0;
+	// 自分の守備力
+	int myDefense = 0;
+	
+	
 	/**
 	 * コンストラクタ
 	 * @param activity 対戦画面のアクティビティ
@@ -51,15 +65,30 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		// 相手の合計値表示
 		LinearLayout enemyTotal = this.viewTotal(200, 180);
-		this.calcAndViewTotal(cards, enemyTotal);
+		this.calcAndViewTotal(1, cards, enemyTotal);
 		
 		// 自分の合計値表示
 		LinearLayout myTotal = this.viewTotal(5, 180);
-		this.calcAndViewTotal(this.activity.myInfo.getSelectedCard(), myTotal);
+		this.calcAndViewTotal(0, this.activity.myInfo.getSelectedCard(), myTotal);
 		
+		// 合計値を消す
+//		this.calcDelete(enemyTotal, myTotal);
 		
+		// ダメージをtoastで表示する
+//		this.damegeMesege();
 		
-
+		// カードをアニメーションさせる
+//		this.animationCards(1, this.activity.enemyInfo, enemyTotal);
+//		this.animationCards(0, this.activity.myInfo, myTotal);
+		
+		// 各ライフポイントを削る
+		this.lifePointRecalc();
+		
+		// カード使用済み
+		this.battleAnimationDustCard();
+		
+		//次のシーンへ移る
+		this.callChangeNexrScene();
 	}
 
 	@Override
@@ -103,14 +132,22 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void callChangeNexrScene() {
 		
+//		this.activity.changeNextScene();
 		// 別スレッドから呼ぶので、ハンドラーで実装する
 		this.mHandler.post(new Runnable() {
 			public void run() {
-				activity.changeNextScene();
+				try {
+					Thread.sleep(3000);
+					finish();
+					activity.changeNextScene();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		});
-	}
 	
+	}
+
 	
 	/**
 	 * 選択カードの確認拡大表示
@@ -201,6 +238,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 戦闘ベース部品にカード詳細を追加する
 		this.activity.baseLayout.addView(totalView, cartParams);
 		
+		
 		return totalView;
 	}
 
@@ -210,7 +248,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * @param cards
 	 * @param view   合計を表示しているLayoutView
 	 */
-	private void calcAndViewTotal(ArrayList<BattleCardView> cards, View view) {
+	private void calcAndViewTotal(int typeH, ArrayList<BattleCardView> cards, View view) {
 		
 		int totalAttack = 0;
 		int totalDefense = 0;
@@ -233,6 +271,240 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 守備力合計
 		((TextView)view.findViewById(R.id.battle_total_defense)).setText(Integer.toString(totalDefense));
 		
+		if(typeH == 0){
+			this.myAttack = totalAttack;
+			this.myDefense = totalDefense;
+		}else{
+			this.enemyAttack = totalAttack;
+			this.enemyDefense = totalDefense;
+		}
+		
+	}
+	
+	/**
+	 * 合計表示を画面から消す
+	 */
+	public void calcDelete(LinearLayout enemyTotal, LinearLayout myTotal){
+		final LinearLayout eT = enemyTotal;
+		final LinearLayout mT = myTotal;
+		// 別スレッドから呼ぶので、ハンドラーで実装する
+		this.mHandler.post(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(1500);
+					activity.baseLayout.removeView(eT);
+					activity.baseLayout.removeView(mT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 相手カード自分カードを上下に動かしてアニメーションさせる
+	 */
+	public void animationCards(int type, CardBattlerInfo info, LinearLayout totalDisp) {
+		
+		// 合計表示削除用
+		final LinearLayout total = totalDisp;
+		
+		ArrayList<BattleCardView> bigCardList = null;
+		if (type == 0) {
+			bigCardList = this.bigCards;
+		}else{
+			bigCardList = this.bigEnemyCards;
+		}
+		final ArrayList<BattleCardView> cards = bigCardList;
+		
+		final CardBattlerInfo cBInfo = info;
+		
+		final int posX = 10;
+		int num = 0;
+		if(type == 0){
+			num = 100;
+		}else{
+			num = 100;
+		}
+		final int stopPosY = num;
+		
+		if(type == 0){
+			num = 120;
+		}else{
+			num = 80;
+		}
+		final int centerPosY = num;
+		
+		if(type == 0){
+			num = 200;
+		}else{
+			num = 30;
+		}
+		final int startPosY = num;
+		
+		final int runType = type;
+		
+		// Densityの値を取得
+		final float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		final int myCardMarginX = (int) ((new Float(this.activity.baseLayout.getWidth())/tmpDensity - (new Float(posX)*2))/3);
+		
+/*		// 別スレッドから呼ぶので、ハンドラーで実装する
+		this.mHandler.post(new Runnable() {
+			public void run() {
+				
+				try {
+					if(runType == 0){
+						Thread.sleep(500);
+					}else{
+						Thread.sleep(500);
+					}
+					// 合計表示削除
+					activity.baseLayout.removeView(total);
+					
+					int length = cards.size();
+					for (int i = 0; i < length; i++) {
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 3);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
+					}
+					
+					// ダメージをtoastで表示
+					int myAttack = getMyAttack();
+					int enemyAttack = getEnemyAttack();
+					Toast.makeText(activity, myAttack + "のダメージを与えた", 1000).show();
+					Toast.makeText(activity, enemyAttack + "のダメージを与えられた", 1000).show();
+					
+					Thread.sleep(2000);
+					// 次のシーンへ
+					callChangeNexrScene();
+					
+				}
+				catch (InterruptedException e) {
+				}
+			}
+		});
+*/
+		// スレッド起動
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				try {
+					if(runType == 0){
+						Thread.sleep(1500);
+					}else{
+						Thread.sleep(1500);
+					}
+					
+					int length = cards.size();
+					for (int i = 0; i < length; i++) {
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 3);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+						
+						Thread.sleep(100);
+						
+						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
+					}
+					
+				}
+				catch (InterruptedException e) {
+				}
+			}
+		}).start();
+
+	}
+	/**
+	 * ダメージをtoastで表示する
+	 */
+	public void damegeMesege(){
+		// 別スレッドから呼ぶので、ハンドラーで実装する
+		this.mHandler.post(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					int myAttack = getMyAttack();
+					int enemyAttack = getEnemyAttack();
+					Toast.makeText(activity, myAttack + "のダメージを与えた", 1000).show();
+					Toast.makeText(activity, enemyAttack + "のダメージを与えられた", 1000).show();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	/**
+	 * 各ライフポイントを削る
+	 */
+	public void lifePointRecalc(){
+		int enemyLp = this.activity.enemyInfo.getLifepoint() - getMyAttack(); 
+		int myLp = this.activity.myInfo.getLifepoint() - getEnemyAttack(); 
+		this.activity.enemyInfo.setLifepoint(enemyLp);
+		this.activity.myInfo.setLifepoint(myLp);
+	}
+	
+	/**
+	 * ダメージ計算
+	 */
+	public int getMyAttack(){
+		int atack = 0;
+		if((this.myAttack - this.enemyDefense) > 0){
+			atack = this.myAttack - this.enemyDefense; 
+		}else{
+			atack = 0;
+		}
+		return atack;
+	}
+	public int getEnemyAttack(){
+		int atack = 0;
+		if((this.myAttack - this.enemyDefense) > 0){
+			atack = this.enemyAttack - this.myDefense; 
+		}else{
+			atack = 0;
+		}
+		return atack;
+	}
+	
+	/**
+	 * カード使用済みカードを使用済みへ変更する
+	 */
+	public void battleAnimationDustCard(){
+		for (BattleCardView card : this.activity.enemyInfo.getSelectedCard()) {
+			this.activity.enemyInfo.dustCard(card);
+		}
+		for (BattleCardView card : this.activity.myInfo.getSelectedCard()) {
+			this.activity.myInfo.dustCard(card);
+		}
 	}
 
 }
