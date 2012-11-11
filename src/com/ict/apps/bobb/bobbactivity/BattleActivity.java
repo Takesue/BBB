@@ -35,6 +35,8 @@ public class BattleActivity extends BaseActivity{
 			new BattleSceneBattleAnimation(this)
 	};
 	
+	public boolean dealflg = false;
+	
 
 	/**
 	 * シーン設定
@@ -87,11 +89,18 @@ public class BattleActivity extends BaseActivity{
 		// ボタンを表示から消す
 		this.baseLayout.removeView(v);
 		
+		// １ターン目は５枚配布、それ以降は３枚配布
+		int num = 0;
+		if(this.dealflg){
+			num = 3;
+		}else{
+			num = 5;
+		}
 		// 相手のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealEnemyDards(5);
+		((BattleSceneDealCard)this.scenes[this.currentScene]).dealEnemyCards(num);
 		
 		// 自分のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealDards(5);
+		((BattleSceneDealCard)this.scenes[this.currentScene]).dealCards(num);
 
 	}
 	

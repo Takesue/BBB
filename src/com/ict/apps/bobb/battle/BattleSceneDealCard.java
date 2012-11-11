@@ -28,8 +28,8 @@ public class BattleSceneDealCard implements BattleScene {
 	// 山札の表示開始位置を定義
 	private final int[][] initialCardsPos = 
 		{
-			{50,225},	// 自分
-			{50,125}	// 相手
+			{50,225,5,380},	// 自分
+			{50,125,5, 20}	// 相手
 		};
 	
 	// 手札の左右のマージン
@@ -70,13 +70,23 @@ public class BattleSceneDealCard implements BattleScene {
 		this.activity.myInfo.shuffle();
 		this.activity.enemyInfo.shuffle();
 		
+		// 配布予定カードのindexを初期化する
+		this.activity.myInfo.curPos = 0;
+		this.activity.enemyInfo.curPos = 0;
+		
+		// ２ターン以降であれば、手札を端に表示する
+		if(this.activity.dealflg){
+			this.dealConpCard(0);
+			this.dealConpCard(1);
+		}
+		
+		
 		// 山札を表示する
 		// プレイヤ分
 		// 相手分
 		this.displayCards(0);
 		
 		this.displayCards(1);
-		
 		
 	}
 
@@ -107,10 +117,13 @@ public class BattleSceneDealCard implements BattleScene {
 		ArrayList<BattleCardView> viewCards = null;
 		// 自分のカードを全部取得
 		if (type == 0) {
-			viewCards = this.activity.myInfo.getAllCards();
+//			viewCards = this.activity.myInfo.getAllCards();
+			viewCards = this.activity.myInfo.getUnUsedCard();
+			
 		}
 		else {
-			viewCards = this.activity.enemyInfo.getAllCards();
+//			viewCards = this.activity.enemyInfo.getAllCards();
+			viewCards = this.activity.enemyInfo.getUnUsedCard();
 		}
 		
 		int length = viewCards.size();
@@ -127,6 +140,51 @@ public class BattleSceneDealCard implements BattleScene {
 			viewCards.get(i).setPosXY((int)((this.initialCardsPos[type][0] + (5*i)) ), (int)(this.initialCardsPos[type][1]));
 			
 			viewCards.get(i).flippedCardBack();
+			
+			// 戦闘ベース部品にcard追加する
+			this.activity.baseLayout.addView(viewCards.get(i), 0, cartParams);
+		}
+		
+	}
+	
+	/**
+	 * 残った手札カードを表示する
+	 * @param type
+	 */
+	public void dealConpCard(int type) {
+		
+		ArrayList<BattleCardView> viewCards = null;
+		
+		
+		// 自分のカードを全部取得
+		if (type == 0) {
+			viewCards = this.activity.myInfo.getHoldCard();
+			
+		}
+		else {
+			viewCards = this.activity.enemyInfo.getHoldCard();
+		}
+		
+		int length = viewCards.size();
+		for (int i = 0; i < length; i++) {
+			// Densityの値を取得
+			float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+			final int myCardMarginX = (int) ((new Float(this.activity.baseLayout.getWidth())/tmpDensity - (new Float(this.leftMargin)*2))/5);
+
+			BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+					(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_width)),
+					(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_height)));
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			cartParams.setMargins((int)((this.initialCardsPos[type][2] + myCardMarginX*i) *tmpDensity), (int)(this.initialCardsPos[type][3]*tmpDensity), 0, 0);
+			
+			if(type == 0){
+				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , this.myCardsPosY);
+				viewCards.get(i).flippedCardFace();
+			}else{
+				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , this.enemyCardsPosY);
+				viewCards.get(i).flippedCardBack();
+			}
 			
 			// 戦闘ベース部品にcard追加する
 			this.activity.baseLayout.addView(viewCards.get(i), 0, cartParams);
@@ -163,7 +221,7 @@ public class BattleSceneDealCard implements BattleScene {
 
 	}
 
-	public void dealEnemyDards(int num) {
+	public void dealEnemyCards(int num) {
 		
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -177,12 +235,13 @@ public class BattleSceneDealCard implements BattleScene {
 				
 				try {
 					BattleCardView[] cardList = new BattleCardView[count];
-						for (int i=0;i < count; i++) {
-							cardList[i] = activity.enemyInfo.getNextCard();
-							cardList[i].startMovingCard(leftMargin + myCardMarginX*i , enemyCardsPosY);
-							
-							Thread.sleep(200);
-						}
+					int init = 5 - count;
+					for (int i = init; i < 5; i++) {
+						cardList[i - init] = activity.enemyInfo.getNextCard();
+						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , enemyCardsPosY, 3);
+						
+						Thread.sleep(200);
+					}
 				}
 				catch (InterruptedException e) {
 					e.printStackTrace();
@@ -198,7 +257,7 @@ public class BattleSceneDealCard implements BattleScene {
 	 * カードを枚数分配る
 	 * @param num
 	 */
-	public void dealDards(int num) {
+	public void dealCards(int num) {
 		
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -217,7 +276,7 @@ public class BattleSceneDealCard implements BattleScene {
 					int init = 5 - count;
 					for (int i = init; i < 5; i++) {
 						cardList[i - init] = activity.myInfo.getNextCard();
-						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*i , myCardsPosY);
+						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , myCardsPosY, 3);
 						
 						Thread.sleep(200);
 					}
@@ -265,6 +324,7 @@ public class BattleSceneDealCard implements BattleScene {
 		// 別スレッドから呼ぶので、ハンドラーで実装する
 		this.mHandler.post(new Runnable() {
 			public void run() {
+				activity.dealflg = true;
 				activity.changeNextScene();
 			}
 		});

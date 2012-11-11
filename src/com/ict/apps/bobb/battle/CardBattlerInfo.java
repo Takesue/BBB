@@ -22,7 +22,8 @@ public class CardBattlerInfo {
 	private HashMap<BattleCardView, Integer> cardStatusList = new HashMap<BattleCardView, Integer>();
 	
 	// 現時点の配布予定カードのindex
-	private int curPos = 0;
+//	private int curPos = 0;
+	public int curPos = 0;
 	
 	
 	public CardBattlerInfo() {
