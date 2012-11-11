@@ -70,10 +70,10 @@ public class StartActivity extends BaseActivity {
 
 
 		// 画像テーブル挿入  インストール直後の初回起動時に一回だけ実行する必要がある。
-		factory.setImageInfo(1, "カブトムシ", 1, 1, "beetle1", "ゆるキャラNo1から陥落？？", "無し");
-		factory.setImageInfo(2, "アトラスカブト", 2, 1, "beetle2", "顔デカイでえ！", "無し");
-		factory.setImageInfo(3, "ヒラタクワガタ", 3, 1, "beetle3", "のりさん大好き♪", "無し");
-		factory.setImageInfo(4, "九州産カブトムシ", 1, 2, "beetle1", "ぼくドラモン", "無し");
+		factory.setImageInfo(1, "カブトムシ", 1, 1, "kabuto01", "ゆるキャラNo1から陥落？？", "無し");
+		factory.setImageInfo(2, "アトラスカブト", 2, 1, "imomusi01", "顔デカイでえ！", "無し");
+		factory.setImageInfo(3, "ヒラタクワガタ", 3, 1, "kuwagata01", "のりさん大好き♪", "無し");
+		factory.setImageInfo(4, "九州産カブトムシ", 1, 2, "kuwagata01", "ぼくドラモン", "無し");
 		factory.setImageInfo(5, "アトラスネオ", 2, 2, "beetle2", "ひゅうーひゅうだよ～", "無し");
 		factory.setImageInfo(6, "虫A", 3, 2, "beetle3", "ゆるキャラNo6から陥落？？", "無し");
 		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し");
@@ -152,7 +152,7 @@ public class StartActivity extends BaseActivity {
 		kit.setDefense(700);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setImageFileName("kabuto01");			// 画像ファイル名
 		kit.setIntroduction("ジュテーム");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
@@ -167,7 +167,7 @@ public class StartActivity extends BaseActivity {
 		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setImageFileName("imomusi01");			// 画像ファイル名
 		kit.setIntroduction("ミキティ～");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
@@ -182,7 +182,7 @@ public class StartActivity extends BaseActivity {
 		kit.setDefense(1050);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setImageFileName("kuwagata01");			// 画像ファイル名
 		kit.setIntroduction("はじめましてミヤマです。");		// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
@@ -195,7 +195,7 @@ public class StartActivity extends BaseActivity {
 		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setImageFileName("kabuto01");			// 画像ファイル名
 		kit.setIntroduction("世界一でかいで！！");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
