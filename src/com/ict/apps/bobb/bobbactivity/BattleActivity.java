@@ -90,11 +90,16 @@ public class BattleActivity extends BaseActivity{
 		
 		// １ターン目は５枚配布、それ以降は３枚配布
 		int num = 0;
-		if(this.dealflg){
+		int cardcount = this.myInfo.getUnUsedCardCount();
+		if(cardcount == 30){
+			num = 5;
+		}else if(cardcount >= 3){
 			num = 3;
 		}else{
-			num = 5;
+			num = cardcount;
 		}
+		
+		
 		// 相手のカードを配る
 		((BattleSceneDealCard)this.scenes[this.currentScene]).dealEnemyCards(num);
 		

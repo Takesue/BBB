@@ -66,18 +66,20 @@ public class BattleSceneDealCard implements BattleScene {
 		// 配布ボタンを表示する。
 		this.setDealButton();
 		
-		// カードをシャッフルする。
-		this.activity.myInfo.shuffle();
-		this.activity.enemyInfo.shuffle();
-		
-		// 配布予定カードのindexを初期化する
-		this.activity.myInfo.curPos = 0;
-		this.activity.enemyInfo.curPos = 0;
-		
 		// ２ターン以降であれば、手札を端に表示する
 		if(this.activity.dealflg){
 			this.dealConpCard(0);
 			this.dealConpCard(1);
+		}
+		else {
+			// カードをシャッフルする。
+			this.activity.myInfo.shuffle();
+			this.activity.enemyInfo.shuffle();
+			
+			// 配布予定カードのindexを初期化する
+			this.activity.myInfo.curPos = 0;
+			this.activity.enemyInfo.curPos = 0;
+
 		}
 		
 		

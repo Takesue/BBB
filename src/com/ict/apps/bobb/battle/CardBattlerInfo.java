@@ -215,5 +215,26 @@ public class CardBattlerInfo {
 			list.add(card);
 		}
 	}
+	
+	/**
+	 * 山札のカードの枚数を取得
+	 * @return
+	 */
+	public int getUnUsedCardCount() {
+				
+		int counter = 0;
+		int length = this.cardList.size();
+		for (int i = 0; i < length; i++) {
+			
+			// カードの状況＝0のカードを集める
+			BattleCardView card = this.cardList.get(i);
+			if(this.getStatus(card) == 0){
+				counter++;
+			}
+		}
+		
+		return counter;
+	}
+
 
 }
