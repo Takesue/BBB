@@ -413,7 +413,6 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		// 3枚選択された場合
 		if (cards.size() == 3) {
-			Toast.makeText(this.activity, "3枚選択されました。", 1000).show();
 			// ボタンUPに蓋をする。
 			this.threeCardselected = true;
 			
