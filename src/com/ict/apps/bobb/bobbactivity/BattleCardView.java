@@ -126,8 +126,8 @@ public class BattleCardView extends LinearLayout {
 	private View moveView = null;
 	
 	private int counter = 0;
-	private int baseLeft = 0;
-	private int baseTop = 0;
+	private float baseLeft = 0;
+	private float baseTop = 0;
 	
 	private int timer = 0;
 	
@@ -151,7 +151,6 @@ public class BattleCardView extends LinearLayout {
 	// 定期的に呼び出されるためのRunnnableのインナークラス定義
 	private Runnable mMoveCardTask = new Runnable() {
 		public void run() {
-			
 			// 移動中の表示回数
 			int time = timer;
 			
@@ -160,8 +159,8 @@ public class BattleCardView extends LinearLayout {
 			if (moveFlag == false) {
 				// 最初だけ実施する
 				// 座標の差分を算出
-				int sabunLeft = stopPosLeft - startPosLeft;
-				int sabunTop = stopPosTop - startPosTop;
+				float sabunLeft = stopPosLeft - startPosLeft;
+				float sabunTop = stopPosTop - startPosTop;
 				baseLeft = sabunLeft/time;
 				baseTop = sabunTop/time;
 				
@@ -169,8 +168,8 @@ public class BattleCardView extends LinearLayout {
 				moveFlag = true;
 			}
 			
-			int posLeft = startPosLeft + counter * baseLeft;
-			int posTop = startPosTop + counter * baseTop;
+			float posLeft = startPosLeft + counter * baseLeft;
+			float posTop = startPosTop + counter * baseTop;
 
 			Log.d("★★★★", "status:" + moveFlag + " posLeft:" + posLeft + " posTop:" + posTop);
 
@@ -301,7 +300,7 @@ public class BattleCardView extends LinearLayout {
 			// 攻撃カード
 			
 			// 背景設定
-			this.setBackgroundColor(Color.parseColor("#DA70D6"));
+			this.setBackgroundResource(R.drawable.card_red);
 			
 			// 攻、守
 			((TextView)this.findViewById(R.id.myCardAD)).setText("攻撃：");
@@ -313,7 +312,7 @@ public class BattleCardView extends LinearLayout {
 			// 守備カード
 
 			// 背景設定
-			this.setBackgroundColor(Color.parseColor("#6495ED"));
+			this.setBackgroundResource(R.drawable.card_blue);
 			
 			// 攻、守
 			((TextView)this.findViewById(R.id.myCardAD)).setText("守備：");

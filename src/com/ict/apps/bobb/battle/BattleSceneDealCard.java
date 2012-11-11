@@ -202,6 +202,7 @@ public class BattleSceneDealCard implements BattleScene {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+//				dealCardsOnClick(v);
 				activity.finishOnClick(v);
 			}
 		});
@@ -260,7 +261,7 @@ public class BattleSceneDealCard implements BattleScene {
 	public void dealCards(int num) {
 		
 		// Densityの値を取得
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		final float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		final int count = num;
 		final int myCardMarginX = (int) ((new Float(this.activity.baseLayout.getWidth())/tmpDensity - (new Float(this.leftMargin)*2))/5);
 		
@@ -270,13 +271,14 @@ public class BattleSceneDealCard implements BattleScene {
 			public void run() {
 				
 				try {
-					Thread.sleep(1000);
 					
 					BattleCardView[] cardList = new BattleCardView[count];
 					int init = 5 - count;
 					for (int i = init; i < 5; i++) {
 						cardList[i - init] = activity.myInfo.getNextCard();
 						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , myCardsPosY, 3);
+//						cardList[i - init].startMovingCard(leftMargin + (int)((myCardMarginX - cardList[i - init].getWidth()/tmpDensity)/2) 
+//								+ myCardMarginX*i , myCardsPosY);
 						
 						Thread.sleep(200);
 					}
@@ -312,6 +314,38 @@ public class BattleSceneDealCard implements BattleScene {
 		}).start();
 
 	}
+
+	
+//	/**
+//	 * 配るボタン押下時に呼ばれる
+//	 * @param v
+//	 */
+//	public void dealCardsOnClick(View v){
+//		
+//		// ボタンを表示から消す
+//		this.activity.baseLayout.removeView(v);
+//		
+//		
+//		
+//		// スレッド起動
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				try {
+//					// 相手のカードを配る
+//					dealEnemyDards(5);
+//
+//					// 自分のカードを配る
+//					dealDards(5);
+//				}
+//				catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}).start();
+//
+//	}
+	
 
 	// ハンドラー取得
 	private Handler mHandler = new Handler();

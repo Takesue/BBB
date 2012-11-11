@@ -79,7 +79,6 @@ public class BattleActivity extends BaseActivity{
 	}
 	
 
-
 	/**
 	 * 配るボタン押下時に呼ばれる
 	 * @param v
@@ -104,7 +103,6 @@ public class BattleActivity extends BaseActivity{
 
 	}
 	
-
 
 	/**
 	 * カードオブジェクトのタッチイベントがきた場合に呼ばれる

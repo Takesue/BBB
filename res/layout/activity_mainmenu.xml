@@ -8,31 +8,36 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="メインメニュー" 
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
     
     <Button
         android:id="@+id/button1"
-        android:onClick="breedersMenuOnClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="B R E E D" 
-        android:textSize="30sp"/>
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="breedersMenuOnClick"
+        android:text="ブリーダーメニュー"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button2"
-        android:onClick="battleCpuOnClick"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BATTLE of CPU" 
-        android:textSize="30sp"/>
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="battleCpuOnClick"
+        android:text="CPU対戦"
+        android:textSize="30sp" />
     
     <Button
         android:id="@+id/button3"
-        android:onClick="battleHumanOnClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BATTLE of HUMAN"
+        android:layout_margin="5dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="battleHumanOnClick"
+        android:text="ユーザ対戦"
         android:textSize="30sp" />
 
 </LinearLayout>
