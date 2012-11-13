@@ -284,17 +284,18 @@ public class BattleSceneCardSelection implements BattleScene {
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		
-
 		// CARD用View取得
 		this.myViewCardDerail = ((LayoutInflater) this.activity.getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.card_detailview, null);
 		
+		int posLeft = (int)(this.activity.baseLayout.getWidth()/2 - 266*tmpDensity/2);
+		
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				400,
-				600);
+				(int)(266*tmpDensity),
+				(int)(400*tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
+		cartParams.setMargins((int)(posLeft), (int)(top*tmpDensity), 0, 0);
 		
 		// 名前
 		((TextView)this.myViewCardDerail.findViewById(R.id.carddetail_name)).setText(
@@ -319,7 +320,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		if (type == 3) {
 			
 			// 背景設定
-			((RelativeLayout)this.myViewCardDerail.findViewById(R.id.carddetail_bg)).setBackgroundColor(Color.parseColor("#DA70D6"));
+			((RelativeLayout)this.myViewCardDerail.findViewById(R.id.carddetail_bg)).setBackgroundResource(R.drawable.card_red);
 			
 			// 攻、守
 			// 表示文字設定
@@ -329,7 +330,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		if (type == 4) {
 			
 			// 背景設定
-			((RelativeLayout)this.myViewCardDerail.findViewById(R.id.carddetail_bg)).setBackgroundColor(Color.parseColor("#6495ED"));
+			((RelativeLayout)this.myViewCardDerail.findViewById(R.id.carddetail_bg)).setBackgroundResource(R.drawable.card_blue);
 
 			// 攻、守
 			// 表示文字設定
@@ -412,7 +413,6 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		// 3枚選択された場合
 		if (cards.size() == 3) {
-			Toast.makeText(this.activity, "3枚選択されました。", 1000).show();
 			// ボタンUPに蓋をする。
 			this.threeCardselected = true;
 			
