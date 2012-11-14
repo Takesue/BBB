@@ -442,6 +442,16 @@ public class BattleSceneCardSelection implements BattleScene {
 				this.totalDefense += card.getCardInfo().getDefense();
 			}
 		}
+		
+		// 3枚選択された場合属性一致であれば、合計値を変更する
+		if (cards.size() == 3) {
+			CardAttribute myAtt = this.activity.myInfo.getAttribute(cards); 
+			if(myAtt != null){
+				int[] atts = this.activity.myInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
+				this.totalAttack = atts[0];
+				this.totalDefense = atts[1];
+			}
+		}
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
 		

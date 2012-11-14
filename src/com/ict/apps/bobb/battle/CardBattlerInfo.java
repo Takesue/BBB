@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import android.util.Log;
+
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
+import com.ict.apps.bobb.data.CardAttribute;
 
 /**
  * 対戦者の情報を一括管理するクラス
@@ -236,5 +239,71 @@ public class CardBattlerInfo {
 		return counter;
 	}
 
+	/**
+	 * 選択された三枚のカードでの属性を取得
+	 * @return
+	 */
+	public CardAttribute getAttribute(ArrayList<BattleCardView> bigCards){
+		CardAttribute att[] = new CardAttribute[3];
+		CardAttribute attret = null;
+		ArrayList<BattleCardView> CardList = bigCards;
+		for(int i = 0; i < 3; i++){
+			att[i] = CardList.get(i).getCardInfo().getAttribute();
+		}
+		if((att[0] == att[1])
+		 &&(att[0] == att[2])){
+			attret = att[0];
+		}
+		
+		return attret;
+	}
+	
+	/**
+	 * 属性合わせでの値を取得
+	 * @return
+	 */
+	public float winnum  = 1.8f;
+	public float losenum = 0.7f;
+	public float nullnum = 1.4f;
+	
+	public int[] judgeAttribute(CardAttribute myAtt, CardAttribute enemyAtt, int...total) {
+		
+		if(myAtt == enemyAtt){
+			total[0] = (int)(total[0] * 1.0f);
+			total[1] = (int)(total[1] * 1.0f);
+		}else if((myAtt == CardAttribute.FIRE)
+			   &&(enemyAtt ==CardAttribute.WIND)){
+				total[0] = (int)(total[0] * this.winnum);
+				total[1] = (int)(total[1] * this.winnum);
+		}else if((myAtt == CardAttribute.FIRE)
+			   &&(enemyAtt ==CardAttribute.WATER)){
+				total[0] = (int)(total[0] * this.losenum);
+				total[1] = (int)(total[1] * this.losenum);
+		}else if((myAtt == CardAttribute.WATER)
+			   &&(enemyAtt ==CardAttribute.FIRE)){
+				total[0] = (int)(total[0] * this.winnum);
+				total[1] = (int)(total[1] * this.winnum);
+		}else if((myAtt == CardAttribute.WATER)
+			   &&(enemyAtt ==CardAttribute.WIND)){
+				total[0] = (int)(total[0] * this.losenum);
+				total[1] = (int)(total[1] * this.losenum);
+		}else if((myAtt == CardAttribute.WIND)
+			   &&(enemyAtt ==CardAttribute.WATER)){
+				total[0] = (int)(total[0] * this.winnum);
+				total[1] = (int)(total[1] * this.winnum);
+		}else if((myAtt == CardAttribute.WIND)
+			   &&(enemyAtt ==CardAttribute.FIRE)){
+				total[0] = (int)(total[0] * this.losenum);
+				total[1] = (int)(total[1] * this.losenum);
+		}else if((myAtt != null)
+			   &&(enemyAtt == null)){
+				total[0] = (int)(total[0] * this.nullnum);
+				total[1] = (int)(total[1] * this.nullnum);
+		}		
+		
+		return total;
+	}
+	
+	
 
 }
