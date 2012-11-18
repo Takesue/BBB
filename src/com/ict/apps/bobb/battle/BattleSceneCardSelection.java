@@ -10,15 +10,21 @@ import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +66,95 @@ public class BattleSceneCardSelection implements BattleScene {
 		// 合計値表示
 		this.viewTotal(5, 180);
 		
+		// 特殊カード選択spinner表示
+		this.viewSpinner();
+	}
+	/**
+	 * 特殊カード選択spinner表示
+	 */
+//    private ArrayList<Integer>  spinnerId = new ArrayList<Integer>();
+	private int spinnerId = 0;
+	public String setSpinnerDate(int id) {
+		String spinnerStr = null;
+		switch (id) {
+		case 0:
+			spinnerStr = "特殊Ｃ使用しない";
+			break;
+		case 2:
+			spinnerStr = "攻撃２倍";
+			break;
+		case 4:
+			spinnerStr = "守備２倍";
+			break;
+		case 6:
+			spinnerStr = "相手攻守２分の１";
+			break;
+		default:
+			spinnerStr = "";
+			break;
+		}
+//        spinnerId.add(id);
+		return spinnerStr;
+	}
+	public void viewSpinner() {
+		
+		Spinner spinner = new Spinner(this.activity);
+
+		ArrayList<String>  spnStrings = new ArrayList<String>();
+	    ArrayList<Integer> spnId = new ArrayList<Integer>();
+/*		setSpinnerDate(i)の「i」の部分にはeffectIdを入れる予定
+ *		effectIdごとで説明文をspinnerにセットできれば・・・
+ *		ということでsetSpinnerDate(int id)メソッドを追加
+ *		使用済みなどの判断を追加して使用済みをspinnerにセット
+ *		しないようにできればいいと思うのだが・・・
+ *		指定したIDを使用したいので、よく考えよう。
+ */
+		for(int i = 0; i <= 6; i++){
+			spnStrings.add(this.setSpinnerDate(i));
+			spnId.add(i);
+			//テスト動作のため、i++
+			i++;
+		}
+	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(300),(int)(60));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(110 * tmpDensity),
+				(int)(180 * tmpDensity),0,0);
+		this.activity.baseLayout.addView(spinner,cartParams);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
+		android.R.layout.simple_spinner_item, spnStrings);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		
+		//スピナーのクリックイベントを取得する
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			//Itemが選択された時
+			public void onItemSelected(AdapterView parent,
+				View view, int position, long id) {
+				//parentのspinnerを指定
+				Spinner spinner = (Spinner) parent;
+				//選択されたitemを取得
+				String item = (String) spinner.getSelectedItem();
+
+				Long itemId = (Long) spinner.getSelectedItemId();
+				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+/*				//Toast表示
+				Toast.makeText(MainActivity.this,
+					String.format("%sが選択されました。", item),
+					Toast.LENGTH_SHORT).show();
+*/
+			}
+			//何も選択されなかったとき
+			public void onNothingSelected(AdapterView parent) {
+/*				Toast.makeText(MainActivity.this,
+						"何も選択されませんでした", Toast.LENGTH_SHORT).show();
+*/
+			}
+		});
 	}
 	
 	/**
@@ -239,6 +334,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		this.reviw(0);
 		this.reviw(1);
 		this.viewTotal(5, 180);
+		this.viewSpinner();
 	}
 	
 	@Override

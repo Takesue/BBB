@@ -15,6 +15,7 @@ import com.ict.apps.bobb.data.BeetleKit;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -195,7 +196,13 @@ public class BattleActivity extends BaseActivity{
 		// 取得した虫キットからカード生成
 		BeetleCard[] cards = (BeetleCard[])beetlekit.createBeetleCards();
 		
+		BeetleCard[] sp = (BeetleCard[])beetlekit.createBeetleCards();
+		
+		
 		for (int i = 0; i < cards.length; i++) {
+			
+			Integer ii = cards[i].getType();
+			Log.d("cardslength", ii.toString());
 			
 			BattleCardView viewCard = (BattleCardView)((LayoutInflater) this
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
