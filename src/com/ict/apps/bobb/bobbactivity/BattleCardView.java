@@ -3,6 +3,7 @@ package com.ict.apps.bobb.bobbactivity;
 import com.ict.apps.bobb.battle.BattleSceneCardSelection;
 import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.CardAttribute;
+import com.ict.apps.bobb.data.SpecialCard;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -234,6 +235,7 @@ public class BattleCardView extends LinearLayout {
 	
 	// カード情報を保持する
 	private BeetleCard cardInfo;
+	private SpecialCard specialCardInfo;
 	
 	public BeetleCard getCardInfo(){
 		return this.cardInfo;
@@ -245,6 +247,14 @@ public class BattleCardView extends LinearLayout {
 	 */
 	public void setBeetleCard(BeetleCard cardInfo) {
 		this.cardInfo = cardInfo;
+	}
+	
+	/**
+	 * 特殊カード情報を設定する
+	 * @param specialCardInfo
+	 */
+	public void setSpecialCard(SpecialCard cardInfo) {
+		this.specialCardInfo = cardInfo;
 	}
 	
 	
@@ -345,6 +355,19 @@ public class BattleCardView extends LinearLayout {
 			}
 		});
 	}
-
+	
+	/**
+	 *  特殊カードＩＤを戻す。
+	 */
+	public int getEffectId() {
+		return this.specialCardInfo.getEffectId();
+	}
+	
+	/**
+	 *  特殊カード効果を戻す。
+	 */
+	public String getEffect() {
+		return this.specialCardInfo.getEffect();
+	}
 
 }

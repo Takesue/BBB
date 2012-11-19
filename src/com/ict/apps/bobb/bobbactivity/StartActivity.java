@@ -206,12 +206,13 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1001l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("いいずカブト");					// 名前
-		kit.setEffect("一回やすみ");					// 効果
+		kit.setEffect("攻撃力２倍");					// 効果
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
 		kit.setIntroduction("つよいよ");				// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(2);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
@@ -220,12 +221,13 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1002l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブトガニ");						// 名前
-		kit.setEffect("攻撃力UP");					// 効果
+		kit.setEffect("守備力２倍");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");			// 画像ファイル名
 		kit.setIntroduction("触るとイタイヨ");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(3);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD2, kit);
@@ -234,12 +236,13 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1003l);					// 虫キットID
 		kit.setBarcode_id(111111111113l);			// バーコードID
 		kit.setName("タモリ");							// 名前
-		kit.setEffect("カード入替");					// 効果
+		kit.setEffect("相手攻撃力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");		// 画像ファイル名
 		kit.setIntroduction("髪切った？とよく聞きます");	// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(4);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD3, kit);
@@ -248,13 +251,16 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1004l);					// 虫キットID
 		kit.setBarcode_id(111111111114l);			// バーコードID
 		kit.setName("はしした");						// 名前
-		kit.setEffect("攻撃力UP");					// 効果
+		kit.setEffect("相手守備力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
 		kit.setIntroduction("教育委員会のクソ野郎");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
+		// 戦闘時使用特殊カードに設定
+//		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
 
 		
 		// ユーザ情報クラスのアクセス例

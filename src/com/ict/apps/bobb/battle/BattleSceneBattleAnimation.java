@@ -304,6 +304,34 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			this.enemyAttack = atts[0];
 			this.enemyDefense = atts[1];
 		}
+		// 特殊カード使用時、必要であれば値を変更する
+		if(typeH == 0){
+			// 自分で自分のステータス変更カード使用時
+			int[] special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			totalAttack = special[0];
+			totalDefense = special[1];
+			this.myAttack = special[0];
+			this.myDefense = special[1];
+			// 対戦相手から自分のステータス変更カード使用時
+			special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			totalAttack = special[2];
+			totalDefense = special[3];
+			this.myAttack = special[2];
+			this.myDefense = special[3];
+		}else{
+			// 対戦相手が対戦相手のステータス変更カード使用時
+			int[] special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			totalAttack = special[0];
+			totalDefense = special[1];
+			this.enemyAttack = special[0];
+			this.enemyDefense = special[1];
+			// 自分から対戦相手のステータス変更カード使用時
+			special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			totalAttack = special[2];
+			totalDefense = special[3];
+			this.enemyAttack = special[2];
+			this.enemyDefense = special[3];
+		}
 		// 攻撃力合計
 		((TextView)view.findViewById(R.id.battle_total_attack)).setText(Integer.toString(totalAttack));
 		
@@ -515,6 +543,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		for (BattleCardView card : this.activity.myInfo.getSelectedCard()) {
 			this.activity.myInfo.dustCard(card);
+		}
+		for (BattleCardView card : this.activity.enemySpecialInfo.getSelectedCard()) {
+			this.activity.enemySpecialInfo.dustCard(card);
+		}
+		for (BattleCardView card : this.activity.mySpecialInfo.getSelectedCard()) {
+			this.activity.mySpecialInfo.dustCard(card);
 		}
 	}
 	
