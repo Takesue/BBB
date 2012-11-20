@@ -7,10 +7,13 @@ import com.ict.apps.bobb.battle.BattleSceneBattleAnimation;
 import com.ict.apps.bobb.battle.BattleSceneCardSelection;
 import com.ict.apps.bobb.battle.BattleSceneDealCard;
 import com.ict.apps.bobb.battle.CardBattlerInfo;
+import com.ict.apps.bobb.battle.SpecialCardInfo;
 import com.ict.apps.bobb.battle.cpu.CPU01;
 import com.ict.apps.bobb.common.BattleUseKit;
+import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.BeetleKit;
+import com.ict.apps.bobb.data.SpecialCard;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +41,10 @@ public class BattleActivity extends BaseActivity{
 	
 	public boolean dealflg = false;
 	
+
+	// 使用している特殊カードを保持
+//	public int mySpinnerId = 0;
+//	public int enemySpinnerId = 0;
 
 	/**
 	 * シーン設定
@@ -143,8 +150,12 @@ public class BattleActivity extends BaseActivity{
 	}
 	// ユーザの対戦時ステータスを一元保持
 	public CardBattlerInfo myInfo = null;
+	// ユーザの対戦時特殊カードを一元保持
+	public SpecialCardInfo mySpecialInfo = null;
 	// 対戦相手の対戦時ステータスを一元保持
 	public CardBattlerInfo enemyInfo = null;
+	// 対戦相手の対戦時特殊カードを一元保持
+	public SpecialCardInfo enemySpecialInfo = null;
 
 	public CPU01 cpu = null;
 
@@ -158,18 +169,26 @@ public class BattleActivity extends BaseActivity{
 		this.myInfo.setName("まつこDX");
 		this.myInfo.setLifepoint(4000);
 		
+		this.mySpecialInfo = new SpecialCardInfo();
+		
 		// 戦闘時使用キットクラスの使用例
 		BeetleKit beetlekit1 = BattleUseKit.getUseKit(this, BattleUseKit.DeckNum.DECK1);
 		BeetleKit beetlekit2 = BattleUseKit.getUseKit(this, BattleUseKit.DeckNum.DECK2);
 		BeetleKit beetlekit3 = BattleUseKit.getUseKit(this, BattleUseKit.DeckNum.DECK3);
 		BeetleKit beetlekit4 = BattleUseKit.getUseKit(this, BattleUseKit.DeckNum.DECK4);
 		BeetleKit beetlekit5 = BattleUseKit.getUseKit(this, BattleUseKit.DeckNum.DECK5);
+		BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD1);
+		BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD2);
+		BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD3);
 
 		this.setCardInfoToCardBattlerInfo(beetlekit1, this.myInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit2, this.myInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit3, this.myInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit4, this.myInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit5, this.myInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit1, this.mySpecialInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit2, this.mySpecialInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit3, this.mySpecialInfo);
 		
 		
 		// 対戦相手がCPUの場合
@@ -178,6 +197,8 @@ public class BattleActivity extends BaseActivity{
 		this.enemyInfo.setName("CPU01");
 		this.enemyInfo.setLifepoint(4000);
 		
+		this.enemySpecialInfo = new SpecialCardInfo();
+		
 		// CPUの使用する使用する虫キットを取得する
 		// カードを管理テーブルに設定する。
 		this.setCardInfoToCardBattlerInfo(beetlekit1, this.enemyInfo);
@@ -185,6 +206,9 @@ public class BattleActivity extends BaseActivity{
 		this.setCardInfoToCardBattlerInfo(beetlekit3, this.enemyInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit4, this.enemyInfo);
 		this.setCardInfoToCardBattlerInfo(beetlekit5, this.enemyInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit1, this.enemySpecialInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit2, this.enemySpecialInfo);
+		this.setCardInfoToCardSpecialInfo(specialkit3, this.enemySpecialInfo);
 
 	}
 
@@ -230,6 +254,50 @@ public class BattleActivity extends BaseActivity{
 			
 		}
 	}
+	
+	/**
+	 * 対戦デッキに設定されている特殊虫キット情報を元にカードを、管理テーブルに設定する
+	 * @param specialkit
+	 */
+	private void setCardInfoToCardSpecialInfo(BeetleKit beetlekit, SpecialCardInfo info) {
+		// 取得した特殊虫キットからカード生成
+		SpecialCard[] cards = (SpecialCard[])beetlekit.createBeetleCards();
+		
+		SpecialCard[] sp = (SpecialCard[])beetlekit.createBeetleCards();
+		
+		
+		for (int i = 0; i < cards.length; i++) {
+			
+			Integer ii = cards[i].getType();
+			Log.d("cardslength", ii.toString());
+			
+			BattleCardView viewCard = (BattleCardView)((LayoutInflater) this
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+					R.layout.my_cards, null);
+			
+			viewCard.setControlActivity(this);
+			
+			// 自分の札だけクリックが利くようにする。
+			if (this.myInfo.equals(info)) {
+				// カードを長押しした場合のイベントリスナ
+				viewCard.setOnLongClickListener(new View.OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						
+						// ボタン長押
+						onLongClickCard((BattleCardView)v);
+						return true;
+					}
+				});
+			}
+			
+			viewCard.setSpecialCard(cards[i]);
+			
+			info.setSpecialCards(viewCard);
+			
+		}
+	}
+	
 	
 	@Override
 	protected void onDestroy() {

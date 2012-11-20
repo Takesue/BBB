@@ -77,8 +77,8 @@ public class BattleSceneDealCard implements BattleScene {
 			this.activity.enemyInfo.shuffle();
 			
 			// 配布予定カードのindexを初期化する
-			this.activity.myInfo.curPos = 0;
-			this.activity.enemyInfo.curPos = 0;
+//			this.activity.myInfo.curPos = 0;
+//			this.activity.enemyInfo.curPos = 0;
 
 		}
 		

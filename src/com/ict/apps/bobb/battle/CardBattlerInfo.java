@@ -25,8 +25,8 @@ public class CardBattlerInfo {
 	private HashMap<BattleCardView, Integer> cardStatusList = new HashMap<BattleCardView, Integer>();
 	
 	// 現時点の配布予定カードのindex
-//	private int curPos = 0;
-	public int curPos = 0;
+	private int curPos = 0;
+//	public int curPos = 0;
 	
 	
 	public CardBattlerInfo() {
@@ -227,13 +227,14 @@ public class CardBattlerInfo {
 				
 		int counter = 0;
 		int length = this.cardList.size();
-		for (int i = 0; i < length; i++) {
+		for (Integer i = 0; i < length; i++) {
 			
 			// カードの状況＝0のカードを集める
 			BattleCardView card = this.cardList.get(i);
 			if(this.getStatus(card) == 0){
 				counter++;
 			}
+			
 		}
 		
 		return counter;

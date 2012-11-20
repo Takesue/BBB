@@ -74,28 +74,6 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 //    private ArrayList<Integer>  spinnerId = new ArrayList<Integer>();
 	private int spinnerId = 0;
-	public String setSpinnerDate(int id) {
-		String spinnerStr = null;
-		switch (id) {
-		case 0:
-			spinnerStr = "特殊Ｃ使用しない";
-			break;
-		case 2:
-			spinnerStr = "攻撃２倍";
-			break;
-		case 4:
-			spinnerStr = "守備２倍";
-			break;
-		case 6:
-			spinnerStr = "相手攻守２分の１";
-			break;
-		default:
-			spinnerStr = "";
-			break;
-		}
-//        spinnerId.add(id);
-		return spinnerStr;
-	}
 	public void viewSpinner() {
 		
 		Spinner spinner = new Spinner(this.activity);
@@ -109,11 +87,15 @@ public class BattleSceneCardSelection implements BattleScene {
  *		しないようにできればいいと思うのだが・・・
  *		指定したIDを使用したいので、よく考えよう。
  */
-		for(int i = 0; i <= 6; i++){
-			spnStrings.add(this.setSpinnerDate(i));
-			spnId.add(i);
-			//テスト動作のため、i++
-			i++;
+		spnStrings.add("特殊Ｃ使用しない");
+		spnId.add(0);
+	    
+	    final ArrayList<BattleCardView> spCards =  this.activity.mySpecialInfo.getHoldCard();
+	    
+		int length = spCards.size();
+		for (int i = 0; i < length; i++) {
+			spnStrings.add(spCards.get(i).getEffect());
+			spnId.add(spCards.get(i).getEffectId());
 		}
 	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
 		// Densityの値を取得
@@ -142,6 +124,19 @@ public class BattleSceneCardSelection implements BattleScene {
 
 				Long itemId = (Long) spinner.getSelectedItemId();
 				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+				int length = spCards.size();
+				for (int i = 0; i < length; i++) {
+					//選択された効果が０であれば他の状態を０に戻す
+					if(itemId == 0){
+						activity.mySpecialInfo.resetCard(spCards.get(i));
+					//選択された効果のものは状態を１にする
+					}else if(itemId == i + 1){
+						activity.mySpecialInfo.selectCard(spCards.get(i));
+					//選択された効果の以外ものは状態を０に戻す
+					}else{
+						activity.mySpecialInfo.resetCard(spCards.get(i));
+					}
+				}
 /*				//Toast表示
 				Toast.makeText(MainActivity.this,
 					String.format("%sが選択されました。", item),
@@ -548,6 +543,12 @@ public class BattleSceneCardSelection implements BattleScene {
 				this.totalDefense = atts[1];
 			}
 		}
+		// 特殊カード使用時、必要であれば値を変更する
+		int[] special = this.activity.mySpecialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
+		this.totalAttack = special[0];
+		this.totalDefense = special[1];
+		this.activity.mySpecialInfo.spinnerId = this.spinnerId;
+		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
 		
