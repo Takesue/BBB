@@ -70,16 +70,16 @@ public class StartActivity extends BaseActivity {
 
 
 		// 画像テーブル挿入  インストール直後の初回起動時に一回だけ実行する必要がある。
-		factory.setImageInfo(1, "カブトムシ", 1, 1, "kabuto01", "ゆるキャラNo1から陥落？？", "無し");
-		factory.setImageInfo(2, "アトラスカブト", 2, 1, "imomusi01", "顔デカイでえ！", "無し");
-		factory.setImageInfo(3, "ヒラタクワガタ", 3, 1, "kuwagata01", "のりさん大好き♪", "無し");
-		factory.setImageInfo(4, "九州産カブトムシ", 1, 2, "kuwagata01", "ぼくドラモン", "無し");
-		factory.setImageInfo(5, "アトラスネオ", 2, 2, "beetle2", "ひゅうーひゅうだよ～", "無し");
-		factory.setImageInfo(6, "虫A", 3, 2, "beetle3", "ゆるキャラNo6から陥落？？", "無し");
-		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し");
-		factory.setImageInfo(8, "クマモン8", 2, 3, "beetle2", "ゆるキャラNo8から陥落？？", "無し");
-		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し");
-		factory.setImageInfo(1004, "橋下カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ");
+		factory.setImageInfo(1, "カブトムシ", 1, 1, "kabuto01", "ゆるキャラNo1から陥落？？", "無し",0);
+		factory.setImageInfo(2, "アトラスカブト", 2, 1, "imomusi01", "顔デカイでえ！", "無し",0);
+		factory.setImageInfo(3, "ヒラタクワガタ", 3, 1, "kuwagata01", "のりさん大好き♪", "無し",0);
+		factory.setImageInfo(4, "九州産カブトムシ", 1, 2, "kuwagata01", "ぼくドラモン", "無し",0);
+		factory.setImageInfo(5, "アトラスネオ", 2, 2, "beetle2", "ひゅうーひゅうだよ～", "無し",0);
+		factory.setImageInfo(6, "虫A", 3, 2, "beetle3", "ゆるキャラNo6から陥落？？", "無し",0);
+		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し",0);
+		factory.setImageInfo(8, "クマモン8", 2, 3, "beetle2", "ゆるキャラNo8から陥落？？", "無し",0);
+		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し",0);
+		factory.setImageInfo(1004, "橋下カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
 		
 		
 		// テストデータ挿入
@@ -206,7 +206,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1001l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("いいずカブト");					// 名前
-		kit.setEffect("一回やすみ");					// 効果
+		kit.setEffect("PL回復");						// 効果
+		kit.setEffectId(1);							// 特殊効果ID
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -221,6 +222,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブトガニ");						// 名前
 		kit.setEffect("攻撃力UP");					// 効果
+		kit.setEffectId(2);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");			// 画像ファイル名
@@ -235,6 +237,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(111111111113l);			// バーコードID
 		kit.setName("タモリ");							// 名前
 		kit.setEffect("カード入替");					// 効果
+		kit.setEffectId(3);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");		// 画像ファイル名
@@ -249,13 +252,13 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(111111111114l);			// バーコードID
 		kit.setName("はしした");						// 名前
 		kit.setEffect("攻撃力UP");					// 効果
+		kit.setEffectId(2);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
 		kit.setIntroduction("教育委員会のクソ野郎");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
-
 		
 		// ユーザ情報クラスのアクセス例
 		StatusInfo.setUserName(this, "Noririn");
@@ -304,6 +307,7 @@ public class StartActivity extends BaseActivity {
 		BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD1);
 		BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD2);
 		BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD3);
+		
 
 		Card[] specards = specialkit1.createBeetleCards();
 		for (int j = 0; j < specards.length; j++) {
@@ -316,7 +320,6 @@ public class StartActivity extends BaseActivity {
 			Log.d("★", "説明　： " + specards[j].getIntroduction());
 			Log.d("★", "-----------------------------------");
 		}
-
 
 	}
 

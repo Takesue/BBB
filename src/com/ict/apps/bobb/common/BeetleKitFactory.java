@@ -155,9 +155,9 @@ public class BeetleKitFactory {
 
 	// ★バーコード読み込みから、虫キットインスタンスを生成
 	//   画像IDテーブルは、インストール時か初期起動時にDBに入れ込む必要あり。
-	public void setImageInfo(int id, String name, int category, int level, String filename, String intro, String effect) {
+	public void setImageInfo(int id, String name, int category, int level, String filename, String intro, String effect, int effectId) {
 		
-		this.beetleDb.insertCardImageInfo(id, name, category, level, filename, intro, effect, 1);
+		this.beetleDb.insertCardImageInfo(id, name, category, level, filename, intro, effect, effectId);
 		
 	}
 	
