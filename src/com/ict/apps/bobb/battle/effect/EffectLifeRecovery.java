@@ -1,4 +1,4 @@
-package com.ict.apps.bobb.effect;
+package com.ict.apps.bobb.battle.effect;
 
 import com.ict.apps.bobb.battle.CardBattlerInfo;
 
@@ -14,5 +14,4 @@ public class EffectLifeRecovery extends EffectOfCard {
 		userInfo.setLifepoint((int)(userInfo.getLifepoint()*1.3f));
 		
 	}
-
 }

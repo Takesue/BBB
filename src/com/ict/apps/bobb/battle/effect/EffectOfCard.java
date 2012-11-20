@@ -1,4 +1,4 @@
-package com.ict.apps.bobb.effect;
+package com.ict.apps.bobb.battle.effect;
 
 import com.ict.apps.bobb.battle.CardBattlerInfo;
 import com.ict.apps.bobb.data.SpecialCard;

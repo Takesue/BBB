@@ -206,12 +206,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1001l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("いいずカブト");					// 名前
-<<<<<<< HEAD
-		kit.setEffect("PL回復");						// 効果
 		kit.setEffectId(1);							// 特殊効果ID
-=======
 		kit.setEffect("攻撃力２倍");					// 効果
->>>>>>> e92d60878148b924e6f794ad03d3f7787b4fff9d
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
@@ -226,12 +222,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1002l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブトガニ");						// 名前
-<<<<<<< HEAD
-		kit.setEffect("攻撃力UP");					// 効果
-		kit.setEffectId(2);							// 特殊効果ID
-=======
 		kit.setEffect("守備力２倍");					// 効果
->>>>>>> e92d60878148b924e6f794ad03d3f7787b4fff9d
+		kit.setEffectId(2);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");			// 画像ファイル名
@@ -246,12 +238,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1003l);					// 虫キットID
 		kit.setBarcode_id(111111111113l);			// バーコードID
 		kit.setName("タモリ");							// 名前
-<<<<<<< HEAD
-		kit.setEffect("カード入替");					// 効果
-		kit.setEffectId(3);							// 特殊効果ID
-=======
 		kit.setEffect("相手攻撃力１／２");					// 効果
->>>>>>> e92d60878148b924e6f794ad03d3f7787b4fff9d
+		kit.setEffectId(3);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");		// 画像ファイル名
@@ -266,12 +254,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1004l);					// 虫キットID
 		kit.setBarcode_id(111111111114l);			// バーコードID
 		kit.setName("はしした");						// 名前
-<<<<<<< HEAD
-		kit.setEffect("攻撃力UP");					// 効果
-		kit.setEffectId(2);							// 特殊効果ID
-=======
 		kit.setEffect("相手守備力１／２");					// 効果
->>>>>>> e92d60878148b924e6f794ad03d3f7787b4fff9d
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
@@ -279,12 +262,10 @@ public class StartActivity extends BaseActivity {
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
-<<<<<<< HEAD
-=======
+
 		// 戦闘時使用特殊カードに設定
 //		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
 
->>>>>>> e92d60878148b924e6f794ad03d3f7787b4fff9d
 		
 		// ユーザ情報クラスのアクセス例
 		StatusInfo.setUserName(this, "Noririn");
