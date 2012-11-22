@@ -1,5 +1,7 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import java.io.IOException;
+
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
@@ -9,6 +11,8 @@ import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
+import com.ict.apps.bobb.online.OnlineConnection;
+import com.ict.apps.bobb.online.UserRegistOnlineQuery;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -62,6 +66,18 @@ public class StartActivity extends BaseActivity {
     }
     
 	public void init() {
+		
+		// テスト、クエリ-発行
+		UserRegistOnlineQuery query = new UserRegistOnlineQuery();
+		query.setUserName("takemaru");
+		
+		try {
+			String response = OnlineConnection.post(query);
+			Log.d("StartActivity", response);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		BeetleKitFactory factory = new BeetleKitFactory(this);
 
@@ -206,7 +222,6 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(1001l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("いいずカブト");					// 名前
-		kit.setEffectId(1);							// 特殊効果ID
 		kit.setEffect("攻撃力２倍");					// 効果
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
@@ -223,7 +238,6 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブトガニ");						// 名前
 		kit.setEffect("守備力２倍");					// 効果
-		kit.setEffectId(2);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle2");			// 画像ファイル名
@@ -239,7 +253,6 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(111111111113l);			// バーコードID
 		kit.setName("タモリ");							// 名前
 		kit.setEffect("相手攻撃力１／２");					// 効果
-		kit.setEffectId(3);							// 特殊効果ID
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");		// 画像ファイル名
