@@ -78,7 +78,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.calcDelete(enemyTotal, myTotal);
 		
 		// ダメージをtoastで表示する
-//		this.damegeMesege();
+		this.mesegeDamege();
 		
 		// カードをアニメーションさせる
 		this.animationCards(1, this.activity.enemyInfo, enemyTotal);
@@ -284,10 +284,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				totalDefense += card.getCardInfo().getDefense();
 			}
 		}
+		CardAttribute myAtt = this.activity.myInfo.getAttribute(bigCards); 
+		CardAttribute enemyAtt = this.activity.enemyInfo.getAttribute(bigEnemyCards); 
+//		CardAttribute myAtt = this.getAttribute(0);
+//		CardAttribute enemyAtt = this.getAttribute(1);
 		if(typeH == 0){
-			CardAttribute myAtt = this.getAttribute(0);
-			CardAttribute enemyAtt = this.getAttribute(1);
-			int[] atts = judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
+			int[] atts = this.activity.myInfo.judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
 			
 			totalAttack = atts[0];
 			totalDefense = atts[1];
@@ -295,14 +297,40 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			this.myDefense = atts[1];
 			
 		}else{
-			CardAttribute myAtt = this.getAttribute(0);
-			CardAttribute enemyAtt = this.getAttribute(1);
-			int[] atts = judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
+			int[] atts = this.activity.enemyInfo.judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
 			
 			totalAttack = atts[0];
 			totalDefense = atts[1];
 			this.enemyAttack = atts[0];
 			this.enemyDefense = atts[1];
+		}
+		// 特殊カード使用時、必要であれば値を変更する
+		if(typeH == 0){
+			// 自分で自分のステータス変更カード使用時
+			int[] special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			totalAttack = special[0];
+			totalDefense = special[1];
+			this.myAttack = special[0];
+			this.myDefense = special[1];
+			// 対戦相手から自分のステータス変更カード使用時
+			special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			totalAttack = special[2];
+			totalDefense = special[3];
+			this.myAttack = special[2];
+			this.myDefense = special[3];
+		}else{
+			// 対戦相手が対戦相手のステータス変更カード使用時
+			int[] special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			totalAttack = special[0];
+			totalDefense = special[1];
+			this.enemyAttack = special[0];
+			this.enemyDefense = special[1];
+			// 自分から対戦相手のステータス変更カード使用時
+			special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			totalAttack = special[2];
+			totalDefense = special[3];
+			this.enemyAttack = special[2];
+			this.enemyDefense = special[3];
 		}
 		// 攻撃力合計
 		((TextView)view.findViewById(R.id.battle_total_attack)).setText(Integer.toString(totalAttack));
@@ -313,44 +341,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 	}
 
-	public int[] judgeAttribute(CardAttribute myAtt, CardAttribute enemyAtt, int...total) {
-		
-		
-		if(myAtt == enemyAtt){
-			total[0] = (int)(total[0] * 1.0f);
-			total[1] = (int)(total[1] * 1.0f);
-		}else if((myAtt == CardAttribute.FIRE)
-			   &&(enemyAtt ==CardAttribute.WIND)){
-				total[0] = (int)(total[0] * 1.8f);
-				total[1] = (int)(total[1] * 1.8f);
-		}else if((myAtt == CardAttribute.FIRE)
-			   &&(enemyAtt ==CardAttribute.WATER)){
-				total[0] = (int)(total[0] * 0.7f);
-				total[1] = (int)(total[1] * 0.7f);
-		}else if((myAtt == CardAttribute.WATER)
-			   &&(enemyAtt ==CardAttribute.FIRE)){
-				total[0] = (int)(total[0] * 1.8f);
-				total[1] = (int)(total[1] * 1.8f);
-		}else if((myAtt == CardAttribute.WATER)
-			   &&(enemyAtt ==CardAttribute.WIND)){
-				total[0] = (int)(total[0] * 0.7f);
-				total[1] = (int)(total[1] * 0.7f);
-		}else if((myAtt == CardAttribute.WIND)
-			   &&(enemyAtt ==CardAttribute.FIRE)){
-				total[0] = (int)(total[0] * 1.8f);
-				total[1] = (int)(total[1] * 1.8f);
-		}else if((myAtt == CardAttribute.WIND)
-			   &&(enemyAtt ==CardAttribute.WATER)){
-				total[0] = (int)(total[0] * 0.7f);
-				total[1] = (int)(total[1] * 0.7f);
-		}else if((myAtt != null)
-			   &&(enemyAtt == null)){
-				total[0] = (int)(total[0] * 1.4f);
-				total[1] = (int)(total[1] * 1.4f);
-		}		
-		
-		return total;
-	}
+	
 	
 	/**
 	 * 合計表示を画面から消す
@@ -434,7 +425,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					int length = cards.size();
 					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
-						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 3);
+						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
 						
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
@@ -461,24 +452,30 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}).start();
 
 	}
+	
 	/**
 	 * ダメージをtoastで表示する
 	 */
-	public void damegeMesege(){
-		// 別スレッドから呼ぶので、ハンドラーで実装する
-		this.mHandler.post(new Runnable() {
+	public void mesegeDamege(){
+		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					Thread.sleep(1500);
-					int myAttack = getMyAttack();
-					int enemyAttack = getEnemyAttack();
-					Toast.makeText(activity, myAttack + "のダメージを与えた", 1000).show();
-					Toast.makeText(activity, enemyAttack + "のダメージを与えられた", 1000).show();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
 				}
+				// 別スレッドから呼ぶので、ハンドラーで実装する
+				mHandler.post(new Runnable() {
+					public void run() {
+						int myAttack = getMyAttack();
+						int enemyAttack = getEnemyAttack();
+						Toast.makeText(activity, myAttack + "のダメージを与えた" + "\n"
+								+ enemyAttack +  "のダメージを与えられた", 500).show();
+					}
+				});
 			}
-		});
+		}).start();
 	}
 
 
@@ -507,7 +504,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	public int getEnemyAttack(){
 		int atack = 0;
-		if((this.myAttack - this.enemyDefense) > 0){
+		if((this.enemyAttack - this.myDefense) > 0){
 			atack = this.enemyAttack - this.myDefense; 
 		}else{
 			atack = 0;
@@ -515,7 +512,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		return atack;
 	}
 	
-	// 属性とり
+/*	// 属性とり
 	public CardAttribute getAttribute(int type){
 		CardAttribute attret = null;
 		ArrayList<BattleCardView> CardList = null;
@@ -529,12 +526,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			if(attret == null){
 				attret = att;
 			}else if(attret == att){
+				attret = att;
 			}else {
 				attret = null;
 			}
 		}
 		return attret;
 	}
+*/
 	/**
 	 * カード使用済みカードを使用済みへ変更する
 	 */
@@ -544,6 +543,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		for (BattleCardView card : this.activity.myInfo.getSelectedCard()) {
 			this.activity.myInfo.dustCard(card);
+		}
+		for (BattleCardView card : this.activity.enemySpecialInfo.getSelectedCard()) {
+			this.activity.enemySpecialInfo.dustCard(card);
+		}
+		for (BattleCardView card : this.activity.mySpecialInfo.getSelectedCard()) {
+			this.activity.mySpecialInfo.dustCard(card);
 		}
 	}
 	
@@ -591,6 +596,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					Thread.sleep(3000);
 					mHandler.post(new Runnable() {
 						public void run() {
+							finish();
 							if(endCount == 1){
 								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
 							}
@@ -601,6 +607,16 @@ public class BattleSceneBattleAnimation implements BattleScene {
 								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
 							}
 							
+/*							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+							}
+							activity.finish();*/
+						}
+					});
+					Thread.sleep(2000);
+					mHandler.post(new Runnable() {
+						public void run() {
 							activity.finish();
 						}
 					});
