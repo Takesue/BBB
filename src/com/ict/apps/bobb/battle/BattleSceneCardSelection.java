@@ -101,7 +101,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(300),(int)(60));
+				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		cartParams.setMargins((int)(110 * tmpDensity),
