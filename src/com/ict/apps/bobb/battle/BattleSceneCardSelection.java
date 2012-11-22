@@ -10,15 +10,21 @@ import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +66,90 @@ public class BattleSceneCardSelection implements BattleScene {
 		// 合計値表示
 		this.viewTotal(5, 180);
 		
+		// 特殊カード選択spinner表示
+		this.viewSpinner();
+	}
+	/**
+	 * 特殊カード選択spinner表示
+	 */
+//    private ArrayList<Integer>  spinnerId = new ArrayList<Integer>();
+	private int spinnerId = 0;
+	public void viewSpinner() {
+		
+		Spinner spinner = new Spinner(this.activity);
+
+		ArrayList<String>  spnStrings = new ArrayList<String>();
+	    ArrayList<Integer> spnId = new ArrayList<Integer>();
+/*		setSpinnerDate(i)の「i」の部分にはeffectIdを入れる予定
+ *		effectIdごとで説明文をspinnerにセットできれば・・・
+ *		ということでsetSpinnerDate(int id)メソッドを追加
+ *		使用済みなどの判断を追加して使用済みをspinnerにセット
+ *		しないようにできればいいと思うのだが・・・
+ *		指定したIDを使用したいので、よく考えよう。
+ */
+		spnStrings.add("特殊Ｃ使用しない");
+		spnId.add(0);
+	    
+	    final ArrayList<BattleCardView> spCards =  this.activity.mySpecialInfo.getHoldCard();
+	    
+		int length = spCards.size();
+		for (int i = 0; i < length; i++) {
+			spnStrings.add(spCards.get(i).getEffect());
+			spnId.add(spCards.get(i).getEffectId());
+		}
+	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(110 * tmpDensity),
+				(int)(180 * tmpDensity),0,0);
+		this.activity.baseLayout.addView(spinner,cartParams);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
+		android.R.layout.simple_spinner_item, spnStrings);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		
+		//スピナーのクリックイベントを取得する
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			//Itemが選択された時
+			public void onItemSelected(AdapterView parent,
+				View view, int position, long id) {
+				//parentのspinnerを指定
+				Spinner spinner = (Spinner) parent;
+				//選択されたitemを取得
+				String item = (String) spinner.getSelectedItem();
+
+				Long itemId = (Long) spinner.getSelectedItemId();
+				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+				int length = spCards.size();
+				for (int i = 0; i < length; i++) {
+					//選択された効果が０であれば他の状態を０に戻す
+					if(itemId == 0){
+						activity.mySpecialInfo.resetCard(spCards.get(i));
+					//選択された効果のものは状態を１にする
+					}else if(itemId == i + 1){
+						activity.mySpecialInfo.selectCard(spCards.get(i));
+					//選択された効果の以外ものは状態を０に戻す
+					}else{
+						activity.mySpecialInfo.resetCard(spCards.get(i));
+					}
+				}
+/*				//Toast表示
+				Toast.makeText(MainActivity.this,
+					String.format("%sが選択されました。", item),
+					Toast.LENGTH_SHORT).show();
+*/
+			}
+			//何も選択されなかったとき
+			public void onNothingSelected(AdapterView parent) {
+/*				Toast.makeText(MainActivity.this,
+						"何も選択されませんでした", Toast.LENGTH_SHORT).show();
+*/
+			}
+		});
 	}
 	
 	/**
@@ -239,6 +329,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		this.reviw(0);
 		this.reviw(1);
 		this.viewTotal(5, 180);
+		this.viewSpinner();
 	}
 	
 	@Override
@@ -442,6 +533,22 @@ public class BattleSceneCardSelection implements BattleScene {
 				this.totalDefense += card.getCardInfo().getDefense();
 			}
 		}
+		
+		// 3枚選択された場合属性一致であれば、合計値を変更する
+		if (cards.size() == 3) {
+			CardAttribute myAtt = this.activity.myInfo.getAttribute(cards); 
+			if(myAtt != null){
+				int[] atts = this.activity.myInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
+				this.totalAttack = atts[0];
+				this.totalDefense = atts[1];
+			}
+		}
+		// 特殊カード使用時、必要であれば値を変更する
+		int[] special = this.activity.mySpecialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
+		this.totalAttack = special[0];
+		this.totalDefense = special[1];
+		this.activity.mySpecialInfo.spinnerId = this.spinnerId;
+		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
 		

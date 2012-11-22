@@ -77,8 +77,8 @@ public class BattleSceneDealCard implements BattleScene {
 			this.activity.enemyInfo.shuffle();
 			
 			// 配布予定カードのindexを初期化する
-			this.activity.myInfo.curPos = 0;
-			this.activity.enemyInfo.curPos = 0;
+//			this.activity.myInfo.curPos = 0;
+//			this.activity.enemyInfo.curPos = 0;
 
 		}
 		
@@ -119,12 +119,10 @@ public class BattleSceneDealCard implements BattleScene {
 		ArrayList<BattleCardView> viewCards = null;
 		// 自分のカードを全部取得
 		if (type == 0) {
-//			viewCards = this.activity.myInfo.getAllCards();
 			viewCards = this.activity.myInfo.getUnUsedCard();
 			
 		}
 		else {
-//			viewCards = this.activity.enemyInfo.getAllCards();
 			viewCards = this.activity.enemyInfo.getUnUsedCard();
 		}
 		
@@ -241,7 +239,13 @@ public class BattleSceneDealCard implements BattleScene {
 					int init = 5 - count;
 					for (int i = init; i < 5; i++) {
 						cardList[i - init] = activity.enemyInfo.getNextCard();
-						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , enemyCardsPosY, 3);
+						if(init <= count){
+							// ３枚～５枚配り
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , enemyCardsPosY, 3);
+						}else{
+							// １枚～２枚配り
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , enemyCardsPosY, 3);
+						}
 						
 						Thread.sleep(200);
 					}
@@ -278,9 +282,13 @@ public class BattleSceneDealCard implements BattleScene {
 					int init = 5 - count;
 					for (int i = init; i < 5; i++) {
 						cardList[i - init] = activity.myInfo.getNextCard();
-						cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , myCardsPosY, 3);
-//						cardList[i - init].startMovingCard(leftMargin + (int)((myCardMarginX - cardList[i - init].getWidth()/tmpDensity)/2) 
-//								+ myCardMarginX*i , myCardsPosY);
+						if(init <= count){
+							// ３枚～５枚配り
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , myCardsPosY, 3);
+						}else{
+							// １枚～２枚配り
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , myCardsPosY, 3);
+						}
 						
 						Thread.sleep(200);
 					}
