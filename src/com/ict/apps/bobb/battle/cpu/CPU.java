@@ -9,7 +9,7 @@ import com.ict.apps.bobb.data.Card;
 /**
  * CPUの基底クラス
  */
-public class CPU {
+public class CPU implements Player{
 
 	// アイデアリストのルートインスタンス
 	private IdeaForSelectCard ideaRoot = null;
@@ -23,17 +23,23 @@ public class CPU {
 	 */
 	public void setIdeaList(IdeaForSelectCard idea) {
 		
-		IdeaForSelectCard ideaList = this.ideaRoot;
-		while (true) {
-			if(ideaList == null ) {
-				ideaList = idea;
-				break;
-			}
-			else {
-				ideaList = ideaList.getNext();
+		if (this.ideaRoot == null) {
+			// 基点がNULLなら設定して終了
+			this.ideaRoot = idea;
+		}
+		else {
+			
+			IdeaForSelectCard ideaList = this.ideaRoot;
+			while (true) {
+				if(ideaList.getNext() == null ) {
+					ideaList.setNext(idea);
+					break;
+				}
+				else {
+					ideaList = ideaList.getNext();
+				}
 			}
 		}
-		this.ideaRoot = ideaList;
 	}
 
 	
@@ -78,6 +84,7 @@ public class CPU {
 	 * 特殊カードを選択する
 	 * @return 特殊カード未使用の場合null
 	 */
+	@Override
 	public ArrayList<BattleCardView> getSelectSpacialCard(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
 		// カードを選ぶ
 		ArrayList<BattleCardView> selectedCards = this.ideaSpecialRoot.choiceCard(userInfo, enemyInfo);

@@ -59,6 +59,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		// 相手の選択したカード3枚
 		ArrayList<BattleCardView> cards = this.getEnemySelectCards();
+		
 		// 相手の選択カードを拡大表示
 		this.viewSelectedBigCardDisp(1, this.activity.enemyInfo);
 		
@@ -470,8 +471,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					public void run() {
 						int myAttack = getMyAttack();
 						int enemyAttack = getEnemyAttack();
-						Toast.makeText(activity, myAttack + "のダメージを与えた" + "\n"
-								+ enemyAttack +  "のダメージを与えられた", 500).show();
+						
+						BattleToast toast = new BattleToast(activity);
+						toast.setText(myAttack + "のダメージを与えた" + "\n"
+								+ enemyAttack +  "のダメージを与えられた");
+						toast.show();
+						
+//						Toast.makeText(activity, myAttack + "のダメージを与えた" + "\n"
+//								+ enemyAttack +  "のダメージを与えられた", 500).show();
 					}
 				});
 			}
