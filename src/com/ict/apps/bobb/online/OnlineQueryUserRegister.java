@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * ユーザ名を登録する
  */
-public class UserRegistOnlineQuery implements OnlineQuery {
+public class OnlineQueryUserRegister extends OnlineQuery {
 
 	// HTTPリクエストのパラメタ値
 	public Map<String, String> reqParams = new HashMap<String, String>();

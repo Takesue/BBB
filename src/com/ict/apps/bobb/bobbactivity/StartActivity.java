@@ -12,7 +12,9 @@ import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
 import com.ict.apps.bobb.online.OnlineConnection;
-import com.ict.apps.bobb.online.UserRegistOnlineQuery;
+import com.ict.apps.bobb.online.OnlineOneTimeTask;
+import com.ict.apps.bobb.online.OnlineQueryAccessLog;
+import com.ict.apps.bobb.online.OnlineQueryUserRegister;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -67,17 +69,26 @@ public class StartActivity extends BaseActivity {
     
 	public void init() {
 		
-		// テスト、クエリ-発行
-		UserRegistOnlineQuery query = new UserRegistOnlineQuery();
-		query.setUserName("takemaru");
+		// ブロードキャストの登録
 		
-		try {
-			String response = OnlineConnection.post(query);
-			Log.d("StartActivity", response);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// テスト、クエリ-発行
+//		OnlineQueryUserRegister query = new OnlineQueryUserRegister();
+//		query.setUserName("takemaru");
+		
+		OnlineQueryAccessLog query = new OnlineQueryAccessLog();
+		query.setUserId("1");
+		query.setLevel(1);
+		query.setRegistrationId("");
+		
+		new OnlineOneTimeTask(this).execute(query);
+		
+//		try {
+//			String response = OnlineConnection.post(query);
+//			Log.d("StartActivity", response);
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 		BeetleKitFactory factory = new BeetleKitFactory(this);
 
