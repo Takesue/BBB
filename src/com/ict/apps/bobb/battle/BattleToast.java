@@ -27,6 +27,9 @@ public class BattleToast extends Toast {
 	}
 	
 	
+	/**
+	 * Viewを取得してToastに設定し、デフォルト値を設定する。
+	 */
 	private void setDefaultVew(){
 		
 		LayoutInflater inflater = this.activity.getLayoutInflater();
@@ -45,6 +48,16 @@ public class BattleToast extends Toast {
 	public void setText(String message) {
 		TextView text = (TextView) layout.findViewById(R.id.battleToastText);
 		text.setText(message);
+	}
+	
+
+	/**
+	 * テキスト背景を設定
+	 * @param message
+	 */
+	public void setTextBackground(int resid) {
+		TextView text = (TextView) layout.findViewById(R.id.battleToastText);
+		text.setBackgroundResource(resid);
 	}
 
 }

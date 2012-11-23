@@ -475,6 +475,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						BattleToast toast = new BattleToast(activity);
 						toast.setText(myAttack + "のダメージを与えた" + "\n"
 								+ enemyAttack +  "のダメージを与えられた");
+						toast.setDuration(Toast.LENGTH_SHORT);
 						toast.show();
 						
 //						Toast.makeText(activity, myAttack + "のダメージを与えた" + "\n"
@@ -604,15 +605,22 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					mHandler.post(new Runnable() {
 						public void run() {
 							finish();
+							
+							BattleToast toast = new BattleToast(activity);
+
 							if(endCount == 1){
-								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
+//								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
+								toast.setTextBackground(R.drawable.toast_win);
 							}
 							if(endCount == 2){
-								Toast.makeText(activity, "ＬＯＳＥ！！！", 1000).show();
+//								Toast.makeText(activity, "ＬＯＳＥ！！！", 1000).show();
+								toast.setTextBackground(R.drawable.toast_lose);
 							}
 							if(endCount == 3){
-								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
+//								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
+								toast.setTextBackground(R.drawable.toast_draw);
 							}
+							toast.show();
 							
 /*							try {
 								Thread.sleep(2000);
