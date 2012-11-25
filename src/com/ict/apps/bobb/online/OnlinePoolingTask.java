@@ -41,14 +41,23 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		if (params[0] != null) {
 			OnlineQuery query = params[0];
 			try {
-				String response = OnlineConnection.post(query);
-				Log.d(TAG, "doInBackground - response = " + response);
 				
-				// クエリ-インスタンスにレスポンスデータを設定
-				query.setResponse(response);
+				// 最大30秒間実施する
+				for(int i = 0; i < 30; i++) {
+					String response = OnlineConnection.post(query);
+					Log.d(TAG, "doInBackground - response = " + response);
+					if (!this.analyzeResponse(response)) {
+						// クエリ-インスタンスにレスポンスデータを設定
+						query.setResponse(response);
+						retValue = 0;
+						break;
+					}
+					Thread.sleep(1000);
+				}
 				
-				retValue = 0;
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -74,6 +83,16 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		// キャンセルthis.cancelが呼ばれた状態でdoInBackgroundを終了した場合に呼ばれる
 		Log.d(TAG, "onCancelled");
 		this.dialog.dismiss();
+	}
+	
+	/**
+	 * レスポンスデータ解析
+	 * @param data
+	 * @return
+	 */
+	private boolean analyzeResponse(String data){
+		// 返却データが[]の場合、条件に合致したレコード無し
+		return "[]".equals(data);
 	}
 
 }

@@ -3,6 +3,8 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ict.apps.bobb.common.StatusInfo;
+
 /**
  * ユーザ名を登録する
  */
@@ -28,5 +30,4 @@ public class OnlineQueryUserRegister extends OnlineQuery {
 	public void setUserName(String name) {
 		this.reqParams.put("user_name", name);
 	}
-
 }

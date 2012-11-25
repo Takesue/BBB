@@ -30,6 +30,14 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 	}
 
 	/**
+	 * ユーザ名を設定する
+	 * @param name
+	 */
+	public void setUserName(String name) {
+		this.reqParams.put("user_name", name);
+	}
+
+	/**
 	 * Levelを設定する
 	 * @param name
 	 */

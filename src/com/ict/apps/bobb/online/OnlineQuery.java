@@ -37,6 +37,7 @@ public abstract class OnlineQuery {
 	 */
 	public abstract Map<String, String> getParam();
 	
+	
 	/**
 	 * リクエストの結果文字列を設定
 	 * @param response　NULLだとNullPointer発生
@@ -50,26 +51,30 @@ public abstract class OnlineQuery {
 		}
 	}
 	
-//	/**
-//	 * Json形式の結果を解析して、JsonObjectに格納して返却する
-//	 * 各々クラスによって異なる
-//	 */
-//	protected void parseJsonFormat(String...colnames ) {
-//		
-//		try {
-//			int cnt = this.response.length();
-//			for (int i = 0; i < cnt; i++) {
-//				JSONObject responseLine = this.response.getJSONObject(i);
-//				
-//				for (int j = 0; j < colnames.length; j++) {
-//					String aa = responseLine.getString(colnames[j]);
-//				}
-//			}
-//		} catch (JSONException e) {
-//			// TODO 自動生成された catch ブロック
-//			e.printStackTrace();
-//		}
-//
-//	}
+	/**
+	 *  レスポンスの取得レコード数取得
+	 * @return レコード数
+	 */
+	public int getResponseRecordCount() {
+		return this.response.length();
+	}
+	
+	/**
+	 * 取得したデータから取得対象の情報の行数、カラム名を指定して該当データを取得する。
+	 * @param recnum　行数
+	 * @param colname　カラム名
+	 * @return　データ　該当データなしの場合NULLを返却
+	 */
+	public String getResponseData(int recnum , String colname ) {
+		String responseData = null;
+		try {
+			responseData = this.response.getJSONObject(recnum).getString(colname);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return responseData;
+	}
+	
+	
 
 }

@@ -2,6 +2,7 @@ package com.ict.apps.bobb.bobbactivity;
 
 import java.io.IOException;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
@@ -11,12 +12,15 @@ import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
+import com.ict.apps.bobb.online.GcmUtil;
 import com.ict.apps.bobb.online.OnlineConnection;
 import com.ict.apps.bobb.online.OnlineOneTimeTask;
+import com.ict.apps.bobb.online.OnlinePoolingTask;
 import com.ict.apps.bobb.online.OnlineQueryAccessLog;
 import com.ict.apps.bobb.online.OnlineQueryUserRegister;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +50,18 @@ public class StartActivity extends BaseActivity {
         return true;
     } 
     
-    public void startOnClick(View v){
+    
+    
+    @Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// ブロードキャストの登録
+		GcmUtil.unregisterDevice(this);
+
+	}
+
+	public void startOnClick(View v){
     	
     	Intent intent;
 //    	if(this.count == true){
@@ -67,20 +82,66 @@ public class StartActivity extends BaseActivity {
 		
     }
     
+    
+    
 	public void init() {
 		
-		// ブロードキャストの登録
+		// 初回だけの処理
+		if (StatusInfo.getUserName(this).equals("")) {
+			StatusInfo.setUserName(this, "Q太郎");
+			OnlineQueryUserRegister query = new OnlineQueryUserRegister();
+			query.setUserName(StatusInfo.getUserName(this));
+			new OnlinePoolingTask(this).execute(query);
+			
+			// レスポンスで得られるユーザIDはブロードキャストでUserIdを設定する
+			// UserIdが設定されるまで、ループで待つ
+			while(true) {
+				try {
+					// ユーザIDが格納されたか確認
+					if (!"".equals(StatusInfo.getUserId(this))) {
+						// ユーザIDが格納されたらループを脱出
+						break;
+					}
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
 		
-		// テスト、クエリ-発行
-//		OnlineQueryUserRegister query = new OnlineQueryUserRegister();
-//		query.setUserName("takemaru");
 		
-		OnlineQueryAccessLog query = new OnlineQueryAccessLog();
-		query.setUserId("1");
-		query.setLevel(1);
-		query.setRegistrationId("");
+		// GCMへ端末情報を登録する
+		GcmUtil.registerDevice(this);
 		
-		new OnlineOneTimeTask(this).execute(query);
+		// アクセスログの投入
+		final Context context = this.getBaseContext();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				try {
+					for (int i = 0; i < 5; i++) {
+						String regId = GCMRegistrar.getRegistrationId(context);
+						if (!regId.equals("")) {
+							
+							OnlineQueryAccessLog query = new OnlineQueryAccessLog();
+							query.setUserId(StatusInfo.getUserId(context));
+							query.setUserName(StatusInfo.getUserName(context));
+							query.setLevel(StatusInfo.getLevel(context));
+							query.setRegistrationId(regId);
+							new OnlineOneTimeTask(context).execute(query);
+							break;
+						}
+						Thread.sleep(1000);
+					}
+				}
+				catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 		
 //		try {
 //			String response = OnlineConnection.post(query);
