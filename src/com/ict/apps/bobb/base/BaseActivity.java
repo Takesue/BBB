@@ -118,7 +118,6 @@ public abstract class BaseActivity extends Activity {
 		th = null;
 		
 		this.unregisterReceiver(mHandleMessageReceiver);
-		GCMRegistrar.onDestroy(this);
 		
 	}
 

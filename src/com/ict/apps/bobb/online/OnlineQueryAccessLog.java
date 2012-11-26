@@ -15,7 +15,7 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 
 	@Override
 	public String getServerURL() {
-		return OnlineQuery.SERVER_URL + "/regist_user";
+		return OnlineQuery.SERVER_URL + "/access_log";
 	}
 
 	@Override

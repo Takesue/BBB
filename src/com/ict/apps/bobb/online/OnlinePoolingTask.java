@@ -31,7 +31,7 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		Log.d(TAG, "onPreExecute");
 		this.dialog = new ProgressDialog(context);
 		this.dialog.setIndeterminate(true);
-		this.dialog.setMessage("対戦相手の応答待ちです。\nしばらくおまちください...");
+		this.dialog.setMessage("通信中です\nしばらくおまちください...");
 		this.dialog.show();
 	}
 
@@ -73,7 +73,7 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		Log.d(TAG, "onPostExecute - " + result);
 		
 		// Query固有の受信後処理を実施する
-		this.query.execAfterReceiveingAction(this.context);
+//		this.query.execAfterReceiveingAction(this.context);
 		this.dialog.dismiss();
 		
 		// データクリア

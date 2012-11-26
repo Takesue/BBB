@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ict.apps.bobb.common.StatusInfo;
 
@@ -29,6 +30,8 @@ public class OnlineQueryUserRegister extends OnlineQuery {
 	public void execAfterReceiveingAction(Context context) {
 		// 受信後にリファレンスにデータを保存する処理を呼び出す必要あり。
 		StatusInfo.setUserId(context, this.getResponseData(0, "id"));
+		Log.d("★★JsonData", this.getResponseData(0, "user_name"));
+
 	}
 	
 	/**

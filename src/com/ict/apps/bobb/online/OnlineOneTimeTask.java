@@ -15,8 +15,9 @@ import android.util.Log;
 public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> {
 
 	private final String TAG = "OnlineOneTimeTask";
-//	private ProgressDialog dialog = null;
 	private Context context = null;	
+	
+	private OnlineQuery query = null;
 	
 	/**
 	 * コンストラクタ
@@ -30,28 +31,30 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	protected Integer doInBackground(OnlineQuery... params) {
 		Log.d(TAG, "doInBackground - ");
 		
-		Integer retValue = -1;
+		Integer result = -1;
 		if (params[0] != null) {
-			OnlineQuery query = params[0];
+			this.query = params[0];
 			try {
-				String response = OnlineConnection.post(query);
+				String response = OnlineConnection.post(this.query);
 				Log.d(TAG, "doInBackground - response = " + response);
 				
 				// クエリ-インスタンスにレスポンスデータを設定
-				query.setResponse(response);
+				this.query.setResponse(response);
+				this.query.execAfterReceiveingAction(this.context);
 				
-				retValue = 0;
+				result = 0;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return retValue;
+		return result;
 	}
 	
 	@Override
 	protected void onPostExecute(Integer result) {
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
+//		this.query.execAfterReceiveingAction(this.context);
 		
 	}
 
