@@ -16,6 +16,8 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	private ProgressDialog dialog = null;
 	private Context context = null;	
 	
+	private OnlineQuery query = null;
+	
 	/**
 	 * コンストラクタ
 	 * @param context
@@ -39,16 +41,17 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		
 		Integer retValue = -1;
 		if (params[0] != null) {
-			OnlineQuery query = params[0];
+			this.query = params[0];
 			try {
 				
 				// 最大30秒間実施する
 				for(int i = 0; i < 30; i++) {
-					String response = OnlineConnection.post(query);
+					String response = OnlineConnection.post(this.query);
 					Log.d(TAG, "doInBackground - response = " + response);
 					if (!this.analyzeResponse(response)) {
 						// クエリ-インスタンスにレスポンスデータを設定
-						query.setResponse(response);
+						this.query.setResponse(response);
+						this.query.execAfterReceiveingAction(this.context);
 						retValue = 0;
 						break;
 					}
@@ -68,7 +71,14 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	protected void onPostExecute(Integer result) {
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
+		
+		// Query固有の受信後処理を実施する
+		this.query.execAfterReceiveingAction(this.context);
 		this.dialog.dismiss();
+		
+		// データクリア
+		this.query = null;
+		
 	}
 
 	@Override

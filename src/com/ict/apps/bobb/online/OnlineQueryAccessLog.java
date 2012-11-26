@@ -3,6 +3,8 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+
 /**
  * アクセスログを登録する
  */
@@ -20,7 +22,12 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 	public Map<String, String> getParam() {
 		return this.reqParams;
 	}
-	
+
+	@Override
+	public void execAfterReceiveingAction(Context context) {
+		// 受信後特になにもしない。
+	}
+
 	/**
 	 * ユーザIDを設定する
 	 * @param name
@@ -52,6 +59,7 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 	public void setRegistrationId(String registrationId) {
 		this.reqParams.put("transaction_id", registrationId);
 	}
+
 	
 	
 

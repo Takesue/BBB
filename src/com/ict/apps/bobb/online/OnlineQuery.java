@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 public abstract class OnlineQuery {
@@ -37,6 +38,10 @@ public abstract class OnlineQuery {
 	 */
 	public abstract Map<String, String> getParam();
 	
+	/**
+	 * データ受信後の固有アクションを実装する
+	 */
+	public abstract void execAfterReceiveingAction(Context context);
 	
 	/**
 	 * リクエストの結果文字列を設定
@@ -47,7 +52,14 @@ public abstract class OnlineQuery {
 			// 文字列をJson形式に取り込んで保持する
 			this.response = new JSONArray(response);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			
+			try {
+				JSONObject object = new JSONObject(response);
+				this.response = new JSONArray();
+				this.response.put(object);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	

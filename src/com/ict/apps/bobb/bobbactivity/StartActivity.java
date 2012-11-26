@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -86,9 +87,10 @@ public class StartActivity extends BaseActivity {
     
 	public void init() {
 		
+		String s = StatusInfo.getUserId(this);
 		// 初回だけの処理
-		if (StatusInfo.getUserName(this).equals("")) {
-			StatusInfo.setUserName(this, "Q太郎");
+		if (StatusInfo.getUserId(this).equals("")) {
+			StatusInfo.setUserName(this, "Noririn");
 			OnlineQueryUserRegister query = new OnlineQueryUserRegister();
 			query.setUserName(StatusInfo.getUserName(this));
 			new OnlinePoolingTask(this).execute(query);
@@ -107,23 +109,19 @@ public class StartActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 			}
-			
-			
 		}
-		
 		
 		// GCMへ端末情報を登録する
 		GcmUtil.registerDevice(this);
 		
 		// アクセスログの投入
-		final Context context = this.getBaseContext();
-		new Thread(new Runnable() {
-			@Override
+		final Context context = this;
+		new Handler().post(new Runnable() {
 			public void run() {
-				
 				try {
 					for (int i = 0; i < 5; i++) {
 						String regId = GCMRegistrar.getRegistrationId(context);
+						Log.d("★", "registrationid = " + regId);
 						if (!regId.equals("")) {
 							
 							OnlineQueryAccessLog query = new OnlineQueryAccessLog();
@@ -141,7 +139,8 @@ public class StartActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 			}
-		}).start();
+		});
+
 		
 //		try {
 //			String response = OnlineConnection.post(query);

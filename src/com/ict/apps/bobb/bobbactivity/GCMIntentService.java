@@ -1,5 +1,5 @@
 /* Copyright 2012 project BoBB */
-package com.ict.apps.bobb.online;
+package com.ict.apps.bobb.bobbactivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,7 +11,8 @@ import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 import com.ict.apps.bobb.bobbactivity.R;
-import com.ict.apps.bobb.bobbactivity.StartActivity;
+import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.online.OnlineQuery;
 
 /**
  * IntentService responsible for handling GCM messages.
