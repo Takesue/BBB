@@ -354,7 +354,7 @@ public class StartActivity extends BaseActivity {
 
 		
 		// ユーザ情報クラスのアクセス例
-		StatusInfo.setUserName(this, "Testユーザ名");
+//		StatusInfo.setUserName(this, "Testユーザ名");
 		StatusInfo.setLP(this, 2000);
 		StatusInfo.setLevel(this, 1);
 		StatusInfo.setButtleCount(this, 123);
