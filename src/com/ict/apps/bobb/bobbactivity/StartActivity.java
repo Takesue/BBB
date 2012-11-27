@@ -2,6 +2,7 @@ package com.ict.apps.bobb.bobbactivity;
 
 import java.io.IOException;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
@@ -11,12 +12,19 @@ import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
+import com.ict.apps.bobb.db.BoBBDBHelper;
+import com.ict.apps.bobb.online.GcmUtil;
 import com.ict.apps.bobb.online.OnlineConnection;
-import com.ict.apps.bobb.online.UserRegistOnlineQuery;
+import com.ict.apps.bobb.online.OnlineOneTimeTask;
+import com.ict.apps.bobb.online.OnlinePoolingTask;
+import com.ict.apps.bobb.online.OnlineQueryAccessLog;
+import com.ict.apps.bobb.online.OnlineQueryUserRegister;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,9 +41,18 @@ public class StartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_start);
-        
-		this.init();
 
+        // 初回だけ呼び出す
+		if (StatusInfo.getUserId(this).equals("")) {
+			
+	    	Intent intent;
+    		intent = new Intent(this, UserInfoRegistrationActivity.class);
+			this.startActivityForResult(intent, 0);
+			
+		}
+		else {
+			this.init();
+		}
     }
 
     @Override
@@ -44,7 +61,31 @@ public class StartActivity extends BaseActivity {
         return true;
     } 
     
-    public void startOnClick(View v){
+    
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (resultCode == RESULT_OK) {
+			if (requestCode == 0) {
+				this.init();
+			}
+		}
+	}
+
+    
+    
+    
+    @Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// ブロードキャストの登録解除
+		GcmUtil.unregisterDevice(this);
+
+	}
+
+	public void startOnClick(View v){
     	
     	Intent intent;
 //    	if(this.count == true){
@@ -63,21 +104,53 @@ public class StartActivity extends BaseActivity {
 		Intent intent = new Intent(StartActivity.this, RuleActivity.class);
 		startActivity(intent);
 		
-    }
-    
+	}
+
+	private Handler mHandlerAccessLogTask = new Handler();
 	public void init() {
 		
-		// テスト、クエリ-発行
-		UserRegistOnlineQuery query = new UserRegistOnlineQuery();
-		query.setUserName("takemaru");
+		// GCMへ端末情報を登録する
+		GcmUtil.registerDevice(this);
 		
-		try {
-			String response = OnlineConnection.post(query);
-			Log.d("StartActivity", response);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// アクセスログの投入
+		final Context context = this;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					for (int i = 0; i < 10; i++) {
+						final String regId = GCMRegistrar.getRegistrationId(context);
+						Log.d("★", "registrationid = " + regId);
+						if (!regId.equals("")) {
+							
+							mHandlerAccessLogTask.post(new Runnable() {
+								public void run() {
+									OnlineQueryAccessLog query = new OnlineQueryAccessLog();
+									query.setUserId(StatusInfo.getUserId(context));
+									query.setUserName(StatusInfo.getUserName(context));
+									query.setLevel(StatusInfo.getLevel(context));
+									query.setRegistrationId(regId);
+									new OnlineOneTimeTask(context).execute(query);
+								}
+							});
+							break;
+						}
+						Thread.sleep(2000);
+					}
+				}
+				catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+//		try {
+//			String response = OnlineConnection.post(query);
+//			Log.d("StartActivity", response);
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 		BeetleKitFactory factory = new BeetleKitFactory(this);
 
@@ -281,7 +354,7 @@ public class StartActivity extends BaseActivity {
 
 		
 		// ユーザ情報クラスのアクセス例
-		StatusInfo.setUserName(this, "Noririn");
+//		StatusInfo.setUserName(this, "Testユーザ名");
 		StatusInfo.setLP(this, 2000);
 		StatusInfo.setLevel(this, 1);
 		StatusInfo.setButtleCount(this, 123);

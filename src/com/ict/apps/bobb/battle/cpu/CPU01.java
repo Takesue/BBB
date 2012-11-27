@@ -14,6 +14,7 @@ public class CPU01 extends CPU {
 		this.setIdeaSpacialList(new IdeaSpeRecoverLifePoint20());
 		this.setIdeaSpacialList(new IdeaSpeUpAttack10());
 		
+		this.setIdeaList(new IdeaAttributeCombo());
 		this.setIdeaList(new IdeaFirstInFirstout());
 		
 	}

@@ -3,11 +3,16 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.ict.apps.bobb.common.StatusInfo;
+
 /**
  * ユーザ名を登録する
  */
-public class UserRegistOnlineQuery implements OnlineQuery {
-
+public class OnlineQueryUserRegister extends OnlineQuery {
+	
 	// HTTPリクエストのパラメタ値
 	public Map<String, String> reqParams = new HashMap<String, String>();
 
@@ -21,6 +26,14 @@ public class UserRegistOnlineQuery implements OnlineQuery {
 		return this.reqParams;
 	}
 	
+	@Override
+	public void execAfterReceiveingAction(Context context) {
+		// 受信後にリファレンスにデータを保存する処理を呼び出す必要あり。
+		StatusInfo.setUserId(context, this.getResponseData(0, "id"));
+		Log.d("★★JsonData", this.getResponseData(0, "user_name"));
+
+	}
+	
 	/**
 	 * ユーザ名を設定する
 	 * @param name
@@ -28,5 +41,4 @@ public class UserRegistOnlineQuery implements OnlineQuery {
 	public void setUserName(String name) {
 		this.reqParams.put("user_name", name);
 	}
-
 }

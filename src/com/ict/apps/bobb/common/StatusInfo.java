@@ -12,6 +12,8 @@ public class StatusInfo {
 	
 	// SharedPref名
 	private static final String NAME_STATUS_INFO = "StatusInfo";
+	// ユーザID
+	private static final String INFO_USER_ID = "user_id";
 	// ユーザ名
 	private static final String INFO_USER_NAME = "user_name";
 	// レベル
@@ -22,7 +24,31 @@ public class StatusInfo {
 	private static final String INFO_BUTTOLE_COUNT = "buttle_count";
 	// 経験値
 	private static final String INFO_EXP = "exp";
+	// レジストレーションID
+	private static final String INFO_REGISTRATION_ID = "registration_id";
 	
+
+	/**
+	 * ユーザID取得
+	 * @param context
+	 * @return
+	 */
+	public static String getUserId(Context context) {
+		SharedPreferences pref = StatusInfo.openPreferences(context);
+		return pref.getString(StatusInfo.INFO_USER_ID, "");
+	}
+	
+	/**
+	 * ユーザID設定
+	 * @param context
+	 * @return
+	 */
+	public static void setUserId(Context context, String id) {
+		SharedPreferences pref = StatusInfo.openPreferences(context);
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putString(StatusInfo.INFO_USER_ID, id);
+		editor.commit();
+	}
 
 	/**
 	 * ユーザ名取得
@@ -134,7 +160,29 @@ public class StatusInfo {
 		editor.commit();
 	}
 
+
+	/**
+	 * GCMレジストレーションID取得
+	 * @param context
+	 * @return
+	 */
+	public static String getRegistrationId(Context context) {
+		SharedPreferences pref = StatusInfo.openPreferences(context);
+		return pref.getString(StatusInfo.INFO_REGISTRATION_ID, "");
+	}
 	
+	/**
+	 * GCMレジストレーションID設定
+	 * @param context
+	 * @return
+	 */
+	public static void setEXP(Context context, String id) {
+		SharedPreferences pref = StatusInfo.openPreferences(context);
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putString(StatusInfo.INFO_REGISTRATION_ID, id);
+		editor.commit();
+	}
+
 	/**
 	 * SharedPreferencesへアクセス
 	 * @param context

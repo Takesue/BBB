@@ -1,16 +1,23 @@
 package com.ict.apps.bobb.base;
 
+
+import com.google.android.gcm.GCMRegistrar;
+import com.ict.apps.bobb.battle.BattleToast;
 import com.ict.apps.bobb.bobbactivity.MainMenuActivity;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.bobbactivity.RuleActivity;
+import com.ict.apps.bobb.online.GcmUtil;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,7 +45,10 @@ public abstract class BaseActivity extends Activity {
 		
 //		// メモリ残量表示
 //		this.MemoryDisplay();
-
+		
+		// ブロードキャストレシーバの登録
+		this.registerReceiver(this.mHandleMessageReceiver, new IntentFilter(GcmUtil.POPUP_MESSAGE_ACTION));
+		
 	}
 	
 	@Override
@@ -106,6 +116,9 @@ public abstract class BaseActivity extends Activity {
 		// 解放できていなかった場合
 		this.running = false;
 		th = null;
+		
+		this.unregisterReceiver(mHandleMessageReceiver);
+		
 	}
 
 	@Override
@@ -226,8 +239,22 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	
-	
-	
+	// ブロードキャストメッセージ
+	// 対戦相手通知があったことを受ける
+	private final BaseActivity content = this;
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String newMessage = intent.getExtras().getString(
+					GcmUtil.EXTRA_MESSAGE);
+			BattleToast toast = new BattleToast(content);
+			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
+			toast.setText(newMessage);
+			toast.setDuration(Toast.LENGTH_LONG);
+			toast.show();
+			
+		}
+	};
 	
 	
 }
