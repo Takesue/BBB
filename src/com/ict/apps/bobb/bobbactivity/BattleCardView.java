@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class BattleCardView extends LinearLayout {
 	
 	private BattleActivity activity = null;
-
+	
 	// カードUPフラグ
 	private boolean upFlag = false;
 

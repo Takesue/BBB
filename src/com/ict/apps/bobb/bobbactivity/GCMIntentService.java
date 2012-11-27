@@ -1,5 +1,5 @@
 /* Copyright 2012 project BoBB */
-package com.ict.apps.bobb.online;
+package com.ict.apps.bobb.bobbactivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,6 +10,9 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
+import com.ict.apps.bobb.bobbactivity.R;
+import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.online.OnlineQuery;
 
 /**
  * IntentService responsible for handling GCM messages.
@@ -26,30 +29,23 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onRegistered(Context context, String registrationId) {
 		Log.i(TAG, "Device registered: regId = " + registrationId);
-		// displayMessage(context, getString(R.string.gcm_registered));
-//		ServerUtilities.register(context, registrationId);
+//		displayMessage(context, "登録しました");
 	}
 
 	@Override
 	protected void onUnregistered(Context context, String registrationId) {
 		Log.i(TAG, "Device unregistered");
-		// displayMessage(context, getString(R.string.gcm_unregistered));
-		if (GCMRegistrar.isRegisteredOnServer(context)) {
-//			ServerUtilities.unregister(context, registrationId);
-		} else {
-			// This callback results from the call to unregister made on
-			// ServerUtilities when the registration to the server failed.
-			Log.i(TAG, "Ignoring unregister callback");
-		}
 	}
 
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
-		// String message = getString(R.string.gcm_message);
-		// displayMessage(context, message);
+		String message = "対戦要求がきています。";
+		
+		GcmUtil.popupMessage(context, message);
 		// notifies user
-		// generateNotification(context, message);
+		GCMIntentService.generateNotification(context, message);
+		
 	}
 
 	@Override
@@ -80,21 +76,19 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * Issues a notification to inform the user that server has sent a message.
 	 */
 	private static void generateNotification(Context context, String message) {
-		// int icon = R.drawable.ic_stat_gcm;
 		long when = System.currentTimeMillis();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		// Notification notification = new Notification(icon, message, when);
-		// String title = context.getString(R.string.app_name);
-		// Intent notificationIntent = new Intent(context, DemoActivity.class);
-		// set intent so it does not start a new activity
-		// notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-		// Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		// PendingIntent intent =
-		// PendingIntent.getActivity(context, 0, notificationIntent, 0);
-		// notification.setLatestEventInfo(context, title, message, intent);
-		// notification.flags |= Notification.FLAG_AUTO_CANCEL;
-		// notificationManager.notify(0, notification);
+		Notification notification = new Notification(R.drawable.beetleicon, message, when);
+		String title = context.getString(R.string.app_name);
+		
+		Intent notificationIntent = new Intent(context, StartActivity.class);
+		//set intent so it does not start a new activity
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+		notification.setLatestEventInfo(context, title, message, intent);
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		notificationManager.notify(0, notification);
 	}
 
 }
