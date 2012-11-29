@@ -3,19 +3,21 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ict.apps.bobb.bobbactivity.MainMenuActivity;
+
 import android.content.Context;
 
 /**
- * アクセスログを登録する
+ * 対戦ユーザ一覧要求
  */
-public class OnlineQueryAccessLog extends OnlineQuery {
+public class OnlineQueryOnlineUserList extends OnlineQuery {
 
 	// HTTPリクエストのパラメタ値
 	public Map<String, String> reqParams = new HashMap<String, String>();
 
 	@Override
 	public String getServerURL() {
-		return OnlineQuery.SERVER_URL + "/access_log";
+		return OnlineQuery.SERVER_URL + "/online_user_list";
 	}
 
 	@Override
@@ -25,7 +27,13 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 
 	@Override
 	public void execAfterReceiveingAction(Context context) {
-		// 受信後特になにもしない。
+		
+		if (context instanceof MainMenuActivity) {
+			// Qery発行がMainMenuActivityの場合
+			// Qery終了時に以下メソッドを呼び出す
+			((MainMenuActivity)context).viewPopupUserLis();
+		}
+		
 	}
 	
 	@Override
@@ -42,14 +50,6 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 	}
 
 	/**
-	 * ユーザ名を設定する
-	 * @param name
-	 */
-	public void setUserName(String name) {
-		this.reqParams.put("user_name", name);
-	}
-
-	/**
 	 * Levelを設定する
 	 * @param name
 	 */
@@ -57,12 +57,4 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 		this.reqParams.put("user_level", level.toString());
 	}
 	
-	/**
-	 * registrationIdを設定する
-	 * @param name
-	 */
-	public void setRegistrationId(String registrationId) {
-		this.reqParams.put("transaction_id", registrationId);
-	}
-
 }

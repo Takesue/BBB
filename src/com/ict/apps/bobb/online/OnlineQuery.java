@@ -10,6 +10,8 @@ import android.content.Context;
 import android.util.Log;
 
 public abstract class OnlineQuery {
+	
+	private int poolingCount = 30;
 
 	/**
 	 * Base URL of the Demo Server
@@ -42,6 +44,13 @@ public abstract class OnlineQuery {
 	 * データ受信後の固有アクションを実装する
 	 */
 	public abstract void execAfterReceiveingAction(Context context);
+	
+	/**
+	 * Poolingを終了させるべきかどうかを判定
+	 * @return true Pooling終了
+	 */
+	public abstract boolean isPoolingFinish(String response);
+	
 	
 	/**
 	 * リクエストの結果文字列を設定
@@ -87,6 +96,21 @@ public abstract class OnlineQuery {
 		return responseData;
 	}
 	
-	
+	/**
+	 * ポーリング数を取得
+	 * @return
+	 */
+	public int getPoolingCount() {
+		return poolingCount;
+	}
+
+	/**
+	 * ポーリング数を設定
+	 * @param poolingCount
+	 */
+	public void setPoolingCount(int poolingCount) {
+		this.poolingCount = poolingCount;
+	}
+
 
 }

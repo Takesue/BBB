@@ -6,7 +6,7 @@ import com.ict.apps.bobb.battle.BattleToast;
 import com.ict.apps.bobb.bobbactivity.MainMenuActivity;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.bobbactivity.RuleActivity;
-import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.online.OnlineUtil;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -47,7 +47,7 @@ public abstract class BaseActivity extends Activity {
 //		this.MemoryDisplay();
 		
 		// ブロードキャストレシーバの登録
-		this.registerReceiver(this.mHandleMessageReceiver, new IntentFilter(GcmUtil.POPUP_MESSAGE_ACTION));
+		this.registerReceiver(this.mHandleMessageReceiver, new IntentFilter(OnlineUtil.POPUP_MESSAGE_ACTION));
 		
 	}
 	
@@ -246,13 +246,12 @@ public abstract class BaseActivity extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(
-					GcmUtil.EXTRA_MESSAGE);
+					OnlineUtil.EXTRA_MESSAGE);
 			BattleToast toast = new BattleToast(content);
 			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
 			toast.setText(newMessage);
 			toast.setDuration(Toast.LENGTH_LONG);
 			toast.show();
-			
 		}
 	};
 	

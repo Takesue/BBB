@@ -125,14 +125,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * 相手のカードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectCards() {
-		return this.activity.cpu.getSelectCard(this.activity.myInfo, this.activity.enemyInfo);
+		return this.activity.enemyPlayer.getSelectCard(this.activity.myInfo, this.activity.enemyInfo);
 	}
 	
 	/**
 	 * 相手の特殊カードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
-		return this.activity.cpu.getSelectSpacialCard(this.activity.myInfo, this.activity.enemyInfo);
+		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myInfo, this.activity.enemyInfo);
 	}
 
 

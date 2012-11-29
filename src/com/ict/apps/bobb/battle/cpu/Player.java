@@ -11,6 +11,12 @@ import com.ict.apps.bobb.bobbactivity.BattleCardView;
 public interface Player {
 	
 	/**
+	 * 自分自身で使用するカード対戦時に必要な情報一式を生成する
+	 * @return
+	 */
+	public CardBattlerInfo createCardBattlerInfo();
+	
+	/**
 	 * 一般カードを選択する
 	 * @return  カードを3枚保持する配列、nullの場合選択失敗
 	 */

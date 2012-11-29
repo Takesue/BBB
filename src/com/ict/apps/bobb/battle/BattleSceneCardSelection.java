@@ -43,7 +43,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	private int totalDefense = 0;
 
 	// 3枚カードを選択済みフラグ
-	public static boolean threeCardselected = false;
+	public boolean threeCardselected = false;
 	
 	/**
 	 * コンストラクタ
@@ -260,7 +260,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		if (this.activity.myInfo.getStatus(view) == null) {
 			
 			for ( BattleCardView card : this.bigCards) {
-				if ((view.equals(card)) && (action == 1) && (BattleSceneCardSelection.threeCardselected == true)){
+				if ((view.equals(card)) && (action == 1) && (this.threeCardselected == true)){
 					// カードと押されたカードが同じで、且つ下げイベントで且つ、3枚選択されている状態の場合
 					
 					// 下げるビューを見つける。
@@ -284,7 +284,7 @@ public class BattleSceneCardSelection implements BattleScene {
 
 		if (status == 1) {
 			// カードを押さえてカードより上の座標ずらしたら、カードを上にずらす。
-			if ((action == 0) && (BattleSceneCardSelection.threeCardselected == false)){
+			if ((action == 0) && (this.threeCardselected == false)){
 				BattleLayout.LayoutParams params = (BattleLayout.LayoutParams)view.getLayoutParams();
 				params.setMargins((int)((view).getStartPosLeft() * tmpDensity), (int)(((view).getStartPosTop() - 20)* tmpDensity), 0, 0);
 				view.setLayoutParams(params);
@@ -301,7 +301,7 @@ public class BattleSceneCardSelection implements BattleScene {
 			// カードを押さえてカードより下の座標にずらしたらカードを元の位置にに戻す
 			if (action == 1) {
 				
-				if (BattleSceneCardSelection.threeCardselected == true) {
+				if (this.threeCardselected == true) {
 					
 					this.rollbackBefoeThreeSelect();
 
@@ -326,7 +326,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * 3枚選ぶ前の状態に戻る
 	 */
 	private void rollbackBefoeThreeSelect() {
-		BattleSceneCardSelection.threeCardselected = false;
+		this.threeCardselected = false;
 		this.finish();
 		this.reviw(0);
 		this.reviw(1);
@@ -361,7 +361,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * 3枚カード選択時にフラグが立つ
 	 * @return
 	 */
-	public static boolean isThreeCardselected() {
+	public boolean isThreeCardselected() {
 		return threeCardselected;
 	}
 
@@ -625,10 +625,11 @@ public class BattleSceneCardSelection implements BattleScene {
 			@Override
 			public void onClick(View v) {
 				// 戦闘シーンへ移動するため、値を戻す
-				BattleSceneCardSelection.threeCardselected = false;
+				threeCardselected = false;
 				
 				// 戦闘シーンへ移動
-				callChangeNexrScene();
+//				callChangeNexrScene();
+				activity.changeNextScene();
 			}
 		});
 		

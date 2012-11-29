@@ -16,6 +16,7 @@ public class BattleUserSelectActivity extends Activity {
     public void userOnClick1(View v){
     	
 		Intent intent = new Intent(BattleUserSelectActivity.this, BattleActivity.class);
+		intent.putExtra("user_mode", "cpu");
 		startActivity(intent);
 		
     }

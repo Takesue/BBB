@@ -13,7 +13,7 @@ import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
 import com.ict.apps.bobb.db.BoBBDBHelper;
-import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.online.OnlineUtil;
 import com.ict.apps.bobb.online.OnlineConnection;
 import com.ict.apps.bobb.online.OnlineOneTimeTask;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
@@ -81,7 +81,7 @@ public class StartActivity extends BaseActivity {
 		super.onDestroy();
 
 		// ブロードキャストの登録解除
-		GcmUtil.unregisterDevice(this);
+		OnlineUtil.unregisterDevice(this);
 
 	}
 
@@ -110,7 +110,7 @@ public class StartActivity extends BaseActivity {
 	public void init() {
 		
 		// GCMへ端末情報を登録する
-		GcmUtil.registerDevice(this);
+		OnlineUtil.registerDevice(this);
 		
 		// アクセスログの投入
 		final Context context = this;
@@ -136,6 +136,10 @@ public class StartActivity extends BaseActivity {
 							break;
 						}
 						Thread.sleep(2000);
+						
+						if (i == 9) {
+							Log.d("★", " failure gettting registrationid");
+						}
 					}
 				}
 				catch (InterruptedException e) {

@@ -34,6 +34,11 @@ public class OnlineQueryUserRegister extends OnlineQuery {
 
 	}
 	
+	@Override
+	public boolean isPoolingFinish(String response) {
+		return true;
+	}
+
 	/**
 	 * ユーザ名を設定する
 	 * @param name

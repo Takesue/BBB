@@ -37,7 +37,7 @@ public class OnlineConnection {
 	 * @param endpoint POSTするアドレス
 	 * @param params リクエストのパラメタ
 	 */
-	public static String post(String endpoint, Map<String, String> params) throws IOException {
+	public static synchronized String post(String endpoint, Map<String, String> params) throws IOException {
 		
 		String responseString = null;
 		

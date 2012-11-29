@@ -2,6 +2,8 @@ package com.ict.apps.bobb.battle.cpu;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+
 import com.ict.apps.bobb.battle.CardBattlerInfo;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.Card;
@@ -10,6 +12,17 @@ import com.ict.apps.bobb.data.Card;
  * CPUの基底クラス
  */
 public class CPU implements Player{
+
+	// コンテキストを保持
+	protected Context context = null;
+
+	/**
+	 * コンストラクタ
+	 * @param context
+	 */
+	public CPU(Context context) {
+		this.context = context;
+	}
 
 	// アイデアリストのルートインスタンス
 	private IdeaForSelectCard ideaRoot = null;
@@ -91,6 +104,13 @@ public class CPU implements Player{
 		
 		// 使用するカードを設定する。。
 		
+		return null;
+	}
+
+
+	@Override
+	public CardBattlerInfo createCardBattlerInfo() {
+		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 	

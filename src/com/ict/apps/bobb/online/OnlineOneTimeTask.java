@@ -2,10 +2,7 @@ package com.ict.apps.bobb.online;
 
 import java.io.IOException;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,6 +23,11 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	public OnlineOneTimeTask(Context context) {
 		this.context = context;
 	}
+	
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
 
 	@Override
 	protected Integer doInBackground(OnlineQuery... params) {
@@ -40,7 +42,7 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 				
 				// クエリ-インスタンスにレスポンスデータを設定
 				this.query.setResponse(response);
-				this.query.execAfterReceiveingAction(this.context);
+//				this.query.execAfterReceiveingAction(this.context);
 				
 				result = 0;
 			} catch (IOException e) {
@@ -54,8 +56,13 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	protected void onPostExecute(Integer result) {
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
-//		this.query.execAfterReceiveingAction(this.context);
+		this.query.execAfterReceiveingAction(this.context);
 		
+		// Activityへブロードキャスト
+		OnlineUtil.completeQery(this.context, result == 0 ? "success" : "error");
+		
+		// データクリア
+		this.query = null;
 	}
 
 	@Override

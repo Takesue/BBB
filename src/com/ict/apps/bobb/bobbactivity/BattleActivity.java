@@ -2,6 +2,7 @@ package com.ict.apps.bobb.bobbactivity;
 
 
 import com.ict.apps.bobb.base.BaseActivity;
+import com.ict.apps.bobb.battle.BattleManager;
 import com.ict.apps.bobb.battle.BattleScene;
 import com.ict.apps.bobb.battle.BattleSceneBattleAnimation;
 import com.ict.apps.bobb.battle.BattleSceneCardSelection;
@@ -9,6 +10,8 @@ import com.ict.apps.bobb.battle.BattleSceneDealCard;
 import com.ict.apps.bobb.battle.CardBattlerInfo;
 import com.ict.apps.bobb.battle.SpecialCardInfo;
 import com.ict.apps.bobb.battle.cpu.CPU01;
+import com.ict.apps.bobb.battle.cpu.OnlinePlayer;
+import com.ict.apps.bobb.battle.cpu.Player;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.data.BeetleCard;
@@ -17,6 +20,7 @@ import com.ict.apps.bobb.data.SpecialCard;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +45,8 @@ public class BattleActivity extends BaseActivity{
 	
 	public boolean dealflg = false;
 	
+	// 対戦の采配を実施する
+	public BattleManager bm = null;
 
 	// 使用している特殊カードを保持
 //	public int mySpinnerId = 0;
@@ -71,6 +77,10 @@ public class BattleActivity extends BaseActivity{
 		this.scenes[this.currentScene].init();
 		
 	}
+	
+	public BattleScene getCurrentScene() {
+		return this.scenes[this.currentScene];
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +92,11 @@ public class BattleActivity extends BaseActivity{
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
 
 		this.initBattleAct();
-		this.scenes[this.currentScene].init();
+//		this.scenes[this.currentScene].init();
+		this.bm = new BattleManager(this);
 		
+		// 対戦開始
+		this.bm.startBattleScene();
 	}
 	
 
@@ -157,12 +170,13 @@ public class BattleActivity extends BaseActivity{
 	// 対戦相手の対戦時特殊カードを一元保持
 	public SpecialCardInfo enemySpecialInfo = null;
 
-	public CPU01 cpu = null;
+	public Player enemyPlayer = null;
 
 	/**
 	 * 対戦画面アクティビティの初期処理
 	 */
 	public void initBattleAct() {
+		
 		
 		// ユーザの対戦時情報を管理する管理テーブルに設定する
 		this.myInfo = new CardBattlerInfo();
@@ -191,24 +205,21 @@ public class BattleActivity extends BaseActivity{
 		this.setCardInfoToCardSpecialInfo(specialkit3, this.mySpecialInfo);
 		
 		
-		// 対戦相手がCPUの場合
-		this.cpu = new CPU01();
-		this.enemyInfo = new CardBattlerInfo();
-		this.enemyInfo.setName("CPU01");
-		this.enemyInfo.setLifepoint(4000);
 		
+		Intent intent = this.getIntent();
+		if ("online".equals(intent.getStringExtra("user_mode"))) {
+			this.enemyPlayer = new OnlinePlayer(this);
+		}
+		else {
+			// 対戦相手がCPUの場合
+			this.enemyPlayer = new CPU01(this);
+		}
+		this.enemyInfo = this.enemyPlayer.createCardBattlerInfo();
 		this.enemySpecialInfo = new SpecialCardInfo();
-		
-		// CPUの使用する使用する虫キットを取得する
-		// カードを管理テーブルに設定する。
-		this.setCardInfoToCardBattlerInfo(beetlekit1, this.enemyInfo);
-		this.setCardInfoToCardBattlerInfo(beetlekit2, this.enemyInfo);
-		this.setCardInfoToCardBattlerInfo(beetlekit3, this.enemyInfo);
-		this.setCardInfoToCardBattlerInfo(beetlekit4, this.enemyInfo);
-		this.setCardInfoToCardBattlerInfo(beetlekit5, this.enemyInfo);
 		this.setCardInfoToCardSpecialInfo(specialkit1, this.enemySpecialInfo);
 		this.setCardInfoToCardSpecialInfo(specialkit2, this.enemySpecialInfo);
 		this.setCardInfoToCardSpecialInfo(specialkit3, this.enemySpecialInfo);
+
 
 	}
 
@@ -302,9 +313,6 @@ public class BattleActivity extends BaseActivity{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		// 静的情報であるため、対戦画面終了時にクリアする。
-		BattleSceneCardSelection.threeCardselected = false;;
 	}
 
 }

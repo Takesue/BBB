@@ -84,7 +84,7 @@ public class BattleCardView extends LinearLayout {
 		// カードを押さえてカードより上の座標ずらしたら、カードを上にずらす。
 		if (height <= 0) {
 			
-			if ((this.upFlag == false) && (!BattleSceneCardSelection.isThreeCardselected())){
+			if ((this.upFlag == false) && (! ((BattleSceneCardSelection)this.activity.getCurrentScene()).isThreeCardselected())){
 				// カードが上にあがったときは第二引数：0
 				this.activity.moveCard(this, 0);
 				this.upFlag = true;
