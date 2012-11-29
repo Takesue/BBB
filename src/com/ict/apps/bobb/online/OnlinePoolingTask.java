@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * オンライン対戦のポーリング通信要求
@@ -76,10 +77,16 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
 		
-		// Query固有の受信後処理を実施する
-		this.query.execAfterReceiveingAction(this.context);
-		
 		this.dialog.dismiss();
+
+		if (result == 0) {
+			// Query固有の受信後処理を実施する
+			this.query.execAfterReceiveingAction(this.context);
+		}
+		else {
+			Toast.makeText(this.context, "通信タイムアウト", Toast.LENGTH_LONG).show();
+		}
+		
 		
 		// ブロードキャスト
 		OnlineUtil.completeQery(this.context, result == 0 ? "success" : "error");

@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * オンライン対戦のシングル通信要求
@@ -56,8 +57,12 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	protected void onPostExecute(Integer result) {
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
-		this.query.execAfterReceiveingAction(this.context);
 		
+		if (result == 0) {
+			// Query固有の受信後処理を実施する
+			this.query.execAfterReceiveingAction(this.context);
+		}
+
 		// Activityへブロードキャスト
 		OnlineUtil.completeQery(this.context, result == 0 ? "success" : "error");
 		
