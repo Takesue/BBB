@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.http.entity.SerializableEntity;
 
-import com.ict.apps.bobb.battle.cpu.CPU01;
+import com.ict.apps.bobb.battle.player.CPU01;
+import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
@@ -61,11 +62,11 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		ArrayList<BattleCardView> cards = this.getEnemySelectCards();
 		
 		// 相手の選択カードを拡大表示
-		this.viewSelectedBigCardDisp(1, this.activity.enemyInfo);
+		this.viewSelectedBigCardDisp(1, this.activity.enemyPlayer);
 		
 		
 		// 自分の選択カードを拡大表示
-		this.viewSelectedBigCardDisp(0, this.activity.myInfo);
+		this.viewSelectedBigCardDisp(0, this.activity.myPlayer);
 		
 		// 相手の合計値表示
 		LinearLayout enemyTotal = this.viewTotal(200, 180);
@@ -73,7 +74,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		// 自分の合計値表示
 		LinearLayout myTotal = this.viewTotal(5, 180);
-		this.calcAndViewTotal(0, this.activity.myInfo.getSelectedCard(), myTotal);
+		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
 		
 		// 合計値を消す
 		this.calcDelete(enemyTotal, myTotal);
@@ -82,8 +83,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.mesegeDamege();
 		
 		// カードをアニメーションさせる
-		this.animationCards(1, this.activity.enemyInfo, enemyTotal);
-		this.animationCards(0, this.activity.myInfo, myTotal);
+		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
+		this.animationCards(0, this.activity.myPlayer, myTotal);
 		
 		// 各ライフポイントを削る
 		this.lifePointRecalc();
@@ -125,14 +126,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * 相手のカードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectCards() {
-		return this.activity.enemyPlayer.getSelectCard(this.activity.myInfo, this.activity.enemyInfo);
+		return this.activity.enemyPlayer.getSelectCard(this.activity.myPlayer, this.activity.enemyPlayer);
 	}
 	
 	/**
 	 * 相手の特殊カードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
-		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myInfo, this.activity.enemyInfo);
+		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myPlayer, this.activity.enemyPlayer);
 	}
 
 
@@ -172,7 +173,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	/**
 	 * 選択カードの確認拡大表示
 	 */
-	private void viewSelectedBigCardDisp(int type, CardBattlerInfo info) {
+	private void viewSelectedBigCardDisp(int type, Player info) {
 		
 		ArrayList<BattleCardView> bigCardList = null;
 		
@@ -187,7 +188,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		// 選択した3つを中央に表示
 		// 多少拡大する
-		ArrayList<BattleCardView> cards = info.getSelectedCard();
+		ArrayList<BattleCardView> cards = info.cardInfo.getSelectedCard();
 		
 		
 		int posX = 10;
@@ -285,12 +286,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				totalDefense += card.getCardInfo().getDefense();
 			}
 		}
-		CardAttribute myAtt = this.activity.myInfo.getAttribute(bigCards); 
-		CardAttribute enemyAtt = this.activity.enemyInfo.getAttribute(bigEnemyCards); 
+		CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(bigCards); 
+		CardAttribute enemyAtt = this.activity.enemyPlayer.cardInfo.getAttribute(bigEnemyCards); 
 //		CardAttribute myAtt = this.getAttribute(0);
 //		CardAttribute enemyAtt = this.getAttribute(1);
 		if(typeH == 0){
-			int[] atts = this.activity.myInfo.judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
+			int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
 			
 			totalAttack = atts[0];
 			totalDefense = atts[1];
@@ -298,7 +299,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			this.myDefense = atts[1];
 			
 		}else{
-			int[] atts = this.activity.enemyInfo.judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
+			int[] atts = this.activity.enemyPlayer.cardInfo.judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
 			
 			totalAttack = atts[0];
 			totalDefense = atts[1];
@@ -308,26 +309,26 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 特殊カード使用時、必要であれば値を変更する
 		if(typeH == 0){
 			// 自分で自分のステータス変更カード使用時
-			int[] special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
 			totalAttack = special[0];
 			totalDefense = special[1];
 			this.myAttack = special[0];
 			this.myDefense = special[1];
 			// 対戦相手から自分のステータス変更カード使用時
-			special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
 			totalAttack = special[2];
 			totalDefense = special[3];
 			this.myAttack = special[2];
 			this.myDefense = special[3];
 		}else{
 			// 対戦相手が対戦相手のステータス変更カード使用時
-			int[] special = this.activity.enemySpecialInfo.judgeSpecial(this.activity.enemySpecialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+			int[] special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
 			totalAttack = special[0];
 			totalDefense = special[1];
 			this.enemyAttack = special[0];
 			this.enemyDefense = special[1];
 			// 自分から対戦相手のステータス変更カード使用時
-			special = this.activity.mySpecialInfo.judgeSpecial(this.activity.mySpecialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+			special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
 			totalAttack = special[2];
 			totalDefense = special[3];
 			this.enemyAttack = special[2];
@@ -367,7 +368,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	/**
 	 * 相手カード自分カードを上下に動かしてアニメーションさせる
 	 */
-	public void animationCards(int type, CardBattlerInfo info, LinearLayout totalDisp) {
+	public void animationCards(int type, Player info, LinearLayout totalDisp) {
 		
 		// 合計表示削除用
 		final LinearLayout total = totalDisp;
@@ -380,7 +381,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		final ArrayList<BattleCardView> cards = bigCardList;
 		
-		final CardBattlerInfo cBInfo = info;
+		final Player cBInfo = info;
 		
 		final int posX = 10;
 		int num = 0;
@@ -492,10 +493,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	public void lifePointRecalc(){
 		
-		int enemyLp = this.activity.enemyInfo.getLifepoint() - getMyAttack(); 
-		int myLp = this.activity.myInfo.getLifepoint() - getEnemyAttack(); 
-		this.activity.enemyInfo.setLifepoint(enemyLp);
-		this.activity.myInfo.setLifepoint(myLp);
+		int enemyLp = this.activity.enemyPlayer.getLifepoint() - getMyAttack(); 
+		int myLp = this.activity.myPlayer.getLifepoint() - getEnemyAttack(); 
+		this.activity.enemyPlayer.setLifepoint(enemyLp);
+		this.activity.myPlayer.setLifepoint(myLp);
 	}
 	
 	/**
@@ -546,17 +547,17 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * カード使用済みカードを使用済みへ変更する
 	 */
 	public void battleAnimationDustCard(){
-		for (BattleCardView card : this.activity.enemyInfo.getSelectedCard()) {
-			this.activity.enemyInfo.dustCard(card);
+		for (BattleCardView card : this.activity.enemyPlayer.cardInfo.getSelectedCard()) {
+			this.activity.enemyPlayer.cardInfo.dustCard(card);
 		}
-		for (BattleCardView card : this.activity.myInfo.getSelectedCard()) {
-			this.activity.myInfo.dustCard(card);
+		for (BattleCardView card : this.activity.myPlayer.cardInfo.getSelectedCard()) {
+			this.activity.myPlayer.cardInfo.dustCard(card);
 		}
-		for (BattleCardView card : this.activity.enemySpecialInfo.getSelectedCard()) {
-			this.activity.enemySpecialInfo.dustCard(card);
+		for (BattleCardView card : this.activity.enemyPlayer.specialInfo.getSelectedCard()) {
+			this.activity.enemyPlayer.specialInfo.dustCard(card);
 		}
-		for (BattleCardView card : this.activity.mySpecialInfo.getSelectedCard()) {
-			this.activity.mySpecialInfo.dustCard(card);
+		for (BattleCardView card : this.activity.myPlayer.specialInfo.getSelectedCard()) {
+			this.activity.myPlayer.specialInfo.dustCard(card);
 		}
 	}
 	
@@ -564,8 +565,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * 試合終了かどうか確認する
 	 */
 	public void battleEndCheck(){
-		int enemyLp = this.activity.enemyInfo.getLifepoint(); 
-		int myLp = this.activity.myInfo.getLifepoint(); 
+		int enemyLp = this.activity.enemyPlayer.getLifepoint(); 
+		int myLp = this.activity.myPlayer.getLifepoint(); 
 		if(enemyLp <= 0){
 			this.endCount = 1;
 		}
@@ -576,7 +577,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		 &&(myLp    <= 0)){
 			this.endCount = 3;
 		}
-		if(this.activity.myInfo.getUnUsedCardCount() <= 0){
+		if(this.activity.myPlayer.cardInfo.getUnUsedCardCount() <= 0){
 			if(enemyLp < myLp){
 				this.endCount = 1;
 			}

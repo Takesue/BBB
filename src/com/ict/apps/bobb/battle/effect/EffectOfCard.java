@@ -1,6 +1,7 @@
 package com.ict.apps.bobb.battle.effect;
 
-import com.ict.apps.bobb.battle.CardBattlerInfo;
+
+import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.data.SpecialCard;
 
 /**
@@ -34,7 +35,7 @@ public abstract class EffectOfCard {
 	/**
 	 * 効果を実装する。
 	 */
-	public abstract void execEffect(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo);
+	public abstract void execEffect(Player userInfo, Player enemyInfo);
 	
 	
 

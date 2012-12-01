@@ -2,6 +2,7 @@ package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
 
+import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
@@ -90,7 +91,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		spnStrings.add("特殊Ｃ使用しない");
 		spnId.add(0);
 	    
-	    final ArrayList<BattleCardView> spCards =  this.activity.mySpecialInfo.getHoldCard();
+	    final ArrayList<BattleCardView> spCards =  this.activity.myPlayer.specialInfo.getHoldCard();
 	    
 		int length = spCards.size();
 		for (int i = 0; i < length; i++) {
@@ -130,13 +131,13 @@ public class BattleSceneCardSelection implements BattleScene {
 				for (int i = 0; i < length; i++) {
 					//選択された効果が０であれば他の状態を０に戻す
 					if(itemId == 0){
-						activity.mySpecialInfo.resetCard(spCards.get(i));
+						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
 					//選択された効果のものは状態を１にする
 					}else if(itemId == i + 1){
-						activity.mySpecialInfo.selectCard(spCards.get(i));
+						activity.myPlayer.specialInfo.selectCard(spCards.get(i));
 					//選択された効果の以外ものは状態を０に戻す
 					}else{
-						activity.mySpecialInfo.resetCard(spCards.get(i));
+						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
 					}
 				}
 /*				//Toast表示
@@ -162,22 +163,22 @@ public class BattleSceneCardSelection implements BattleScene {
 		ArrayList<BattleCardView> viewCards = null;
 		
 		// 自分のカードを全部取得
-		CardBattlerInfo info = null;
+		Player info = null;
 		if (type == 0) {
-			info = this.activity.myInfo;
+			info = this.activity.myPlayer;
 		}
 		else {
-			info = this.activity.enemyInfo;
+			info = this.activity.enemyPlayer;
 		}
-		viewCards = info.getAllCards();
+		viewCards = info.cardInfo.getAllCards();
 		
 
 		int length = viewCards.size();
 		for (int i = 0; i < length; i++) {
 			
 			// 手札の場合、のみ表示する
-			if ((info.getStatus(viewCards.get(i)) == 1)
-					|| (info.getStatus(viewCards.get(i)) == 2)){
+			if ((info.cardInfo.getStatus(viewCards.get(i)) == 1)
+					|| (info.cardInfo.getStatus(viewCards.get(i)) == 2)){
 				
 				// 戦闘ベース部品にcard追加する
 				this.activity.baseLayout.addView(viewCards.get(i));
@@ -195,14 +196,14 @@ public class BattleSceneCardSelection implements BattleScene {
 		ArrayList<BattleCardView> viewCards = null;
 		
 		// 自分のカードを全部取得
-		CardBattlerInfo info = null;
+		Player info = null;
 		if (type == 0) {
-			info = this.activity.myInfo;
+			info = this.activity.myPlayer;
 		}
 		else {
-			info = this.activity.enemyInfo;
+			info = this.activity.enemyPlayer;
 		}
-		viewCards = info.getAllCards();
+		viewCards = info.cardInfo.getAllCards();
 		
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -211,8 +212,8 @@ public class BattleSceneCardSelection implements BattleScene {
 		for (int i = 0; i < length; i++) {
 			
 			// 手札の場合、のみ表示する
-			if ((info.getStatus(viewCards.get(i)) == 1)
-					|| (info.getStatus(viewCards.get(i)) == 2)){
+			if ((info.cardInfo.getStatus(viewCards.get(i)) == 1)
+					|| (info.cardInfo.getStatus(viewCards.get(i)) == 2)){
 				BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
 						(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_width)),
 						(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_height)));
@@ -241,7 +242,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		BattleCardView view = null;
 		BeetleCard info = bigCard.getCardInfo();
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		for(BattleCardView selectedCard : cards) {
 			if (info.equals(selectedCard.getCardInfo())) {
 				// 一致したら入れ替える
@@ -257,7 +258,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	@Override
 	public void moveCard(BattleCardView view, int action) {
 
-		if (this.activity.myInfo.getStatus(view) == null) {
+		if (this.activity.myPlayer.cardInfo.getStatus(view) == null) {
 			
 			for ( BattleCardView card : this.bigCards) {
 				if ((view.equals(card)) && (action == 1) && (this.threeCardselected == true)){
@@ -271,13 +272,13 @@ public class BattleSceneCardSelection implements BattleScene {
 					}
 				}
 			}
-			if (this.activity.myInfo.getStatus(view) == null) {
+			if (this.activity.myPlayer.cardInfo.getStatus(view) == null) {
 				// 入れ替えてもなおNULLなら何もしない
 				return;
 			}
 		}
 		
-		int status = this.activity.myInfo.getStatus((BattleCardView) view);
+		int status = this.activity.myPlayer.cardInfo.getStatus((BattleCardView) view);
 		// カードのステータスが　手札、手札から選択の場合、上げ下げ可能
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -290,7 +291,7 @@ public class BattleSceneCardSelection implements BattleScene {
 				view.setLayoutParams(params);
 				
 				// 選択
-				this.activity.myInfo.selectCard(view);
+				this.activity.myPlayer.cardInfo.selectCard(view);
 				
 				// 選択状況を解析
 				this.analyzeSelectCards();
@@ -312,7 +313,7 @@ public class BattleSceneCardSelection implements BattleScene {
 				view.setLayoutParams(params);
 
 				// 選択解除
-				this.activity.myInfo.dealCard(view);
+				this.activity.myPlayer.cardInfo.dealCard(view);
 
 				// 選択状況を解析
 				this.analyzeSelectCards();
@@ -345,7 +346,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	public void onLongClickCard(BattleCardView view) {
 		
 		// 手札の時だけ表示する。
-		if (this.activity.myInfo.getStatus(view) == 1) {
+		if (this.activity.myPlayer.cardInfo.getStatus(view) == 1) {
 			// 表示する
 			this.viewDetailCards(view, 20, 10);
 		}
@@ -499,7 +500,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 	private void analyzeSelectCards() {
 		
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		
 		// 攻撃力と守備力の合計値を算出して表示する
 		this.calcAndViewTotal(cards);
@@ -538,18 +539,18 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		// 3枚選択された場合属性一致であれば、合計値を変更する
 		if (cards.size() == 3) {
-			CardAttribute myAtt = this.activity.myInfo.getAttribute(cards); 
+			CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(cards); 
 			if(myAtt != null){
-				int[] atts = this.activity.myInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
+				int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
 				this.totalAttack = atts[0];
 				this.totalDefense = atts[1];
 			}
 		}
 		// 特殊カード使用時、必要であれば値を変更する
-		int[] special = this.activity.mySpecialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
+		int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
 		this.totalAttack = special[0];
 		this.totalDefense = special[1];
-		this.activity.mySpecialInfo.spinnerId = this.spinnerId;
+		this.activity.myPlayer.specialInfo.spinnerId = this.spinnerId;
 		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
@@ -573,7 +574,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		// 選択した3つを中央に表示
 		// 多少拡大する
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		
 		int posX = 10;
 		int posY = 160;
@@ -629,7 +630,8 @@ public class BattleSceneCardSelection implements BattleScene {
 				
 				// 戦闘シーンへ移動
 //				callChangeNexrScene();
-				activity.changeNextScene();
+//				activity.changeNextScene();
+				activity.bm.selectCardFinished();
 			}
 		});
 		
@@ -650,23 +652,6 @@ public class BattleSceneCardSelection implements BattleScene {
 	}
 	
 	
-
-	// ハンドラー取得
-	private Handler mHandler = new Handler();
-
-	/**
-	 * シーン変更（別スレッド呼び出し用）
-	 */
-	private void callChangeNexrScene() {
-		
-		// 別スレッドから呼ぶので、ハンドラーで実装する
-		this.mHandler.post(new Runnable() {
-			public void run() {
-				activity.changeNextScene();
-			}
-		});
-	}
-
 
 
 }

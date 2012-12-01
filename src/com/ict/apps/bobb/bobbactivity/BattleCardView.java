@@ -241,6 +241,10 @@ public class BattleCardView extends LinearLayout {
 		return this.cardInfo;
 	}
 	
+	public SpecialCard getSpecialInfo(){
+		return this.specialCardInfo;
+	}
+
 	/**
 	 * カード情報を設定する
 	 * @param cardInfo

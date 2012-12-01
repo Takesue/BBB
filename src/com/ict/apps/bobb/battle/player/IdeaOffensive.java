@@ -1,10 +1,10 @@
-package com.ict.apps.bobb.battle.cpu;
+package com.ict.apps.bobb.battle.player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import com.ict.apps.bobb.battle.CardBattlerInfo;
+
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 
 /**
@@ -14,11 +14,11 @@ import com.ict.apps.bobb.bobbactivity.BattleCardView;
 public class IdeaOffensive extends IdeaForSelectCard {
 
 	@Override
-	protected ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
+	protected ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo) {
 		ArrayList<BattleCardView> cardList = null;
 		
 		// 攻撃が２枚あるかどうか調べる
-		ArrayList<BattleCardView> cards = enemyInfo.getHoldCard();
+		ArrayList<BattleCardView> cards = enemyInfo.cardInfo.getHoldCard();
 		int attackCnt = 0;
 		int defenseCnt = 0;
 		for(BattleCardView card : cards) {

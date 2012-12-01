@@ -7,10 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ict.apps.bobb.bobbactivity.BattleActivity;
+
 import android.content.Context;
 
 /**
- * アクセスログを登録する
+ * 対戦ステータス確認
  */
 public class OnlineQueryBattleStatus extends OnlineQuery {
 
@@ -31,7 +33,7 @@ public class OnlineQueryBattleStatus extends OnlineQuery {
 
 	@Override
 	public void execAfterReceiveingAction(Context context) {
-		// 受信後特になにもしない。
+		((BattleActivity)context).bm.readyBattle();
 	}
 
 	@Override

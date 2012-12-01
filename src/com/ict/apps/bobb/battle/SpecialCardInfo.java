@@ -7,6 +7,7 @@ import java.util.Random;
 import android.util.Log;
 
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
+import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.CardAttribute;
 import com.ict.apps.bobb.data.SpecialCard;
 
@@ -35,8 +36,11 @@ public class SpecialCardInfo {
 		this.cardList.add(card);
 		this.cardStatusList.put(card, 0);
 		
+		// 対戦時にカードを一意に特定するためのカードNUMを振る、
+		SpecialCard cardInfo = card.getSpecialInfo();
+		cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
+
 	}
-	
 	
 	
 	/**
@@ -115,8 +119,21 @@ public class SpecialCardInfo {
 		
 		return newList;
 	}
-
 	
+	/**
+	 * カード情報一覧を取得
+	 * @return
+	 */
+	public SpecialCard[] getCardInfoList() {
+		
+		int length = this.cardList.size();
+		SpecialCard[] cardList = new SpecialCard[length];
+		for(int i = 0; i < length; i++) {
+			cardList[i] = this.cardList.get(i).getSpecialInfo();
+		}
+		return cardList;
+	}
+
 	
 	/**
 	 * 引数で渡したカードの状況を取得する

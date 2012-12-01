@@ -1,8 +1,8 @@
-package com.ict.apps.bobb.battle.cpu;
+package com.ict.apps.bobb.battle.player;
 
 import java.util.ArrayList;
 
-import com.ict.apps.bobb.battle.CardBattlerInfo;
+
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.CardAttribute;
 
@@ -12,10 +12,10 @@ import com.ict.apps.bobb.data.CardAttribute;
 public class IdeaAttributeCombo extends IdeaForSelectCard {
 
 	@Override
-	protected ArrayList<BattleCardView> judge(CardBattlerInfo userInfo, CardBattlerInfo enemyInfo) {
+	protected ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo) {
 		ArrayList<BattleCardView> cardList = null;
 		
-		ArrayList<BattleCardView> cards = enemyInfo.getHoldCard();
+		ArrayList<BattleCardView> cards = enemyInfo.cardInfo.getHoldCard();
 		
 		CardAttribute combo = this.getComboAttribute(cards);
 		
@@ -28,7 +28,7 @@ public class IdeaAttributeCombo extends IdeaForSelectCard {
 					// 属性が一致するやつだけを抽出
 					cardList.add(card);
 					// ステータスを選択済みに変更
-					enemyInfo.selectCard(card);
+					enemyInfo.cardInfo.selectCard(card);
 
 					if (cardList.size() == 3) {
 						break;

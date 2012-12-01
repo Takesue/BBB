@@ -45,7 +45,7 @@ public class OnlineConnection {
 		URI url = null;
 		try {
 			url = new URI(endpoint);
-			Log.d("OnlineConnection", "URLはOK");
+			Log.d("OnlineConnection", "URL:" + endpoint);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

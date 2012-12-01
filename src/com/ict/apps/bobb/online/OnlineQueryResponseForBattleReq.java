@@ -3,12 +3,13 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 
 import android.content.Context;
 
 /**
- * 対戦要求をする
+ * 対戦依頼への応答
  */
 public class OnlineQueryResponseForBattleReq extends OnlineQuery {
 
@@ -27,8 +28,8 @@ public class OnlineQueryResponseForBattleReq extends OnlineQuery {
 
 	@Override
 	public void execAfterReceiveingAction(Context context) {
-		// 対戦要求送信成功
-		((BattleActivity)context).bm.successBattleRequest();
+		// 対戦依頼への応答が成功したら、対戦準備に取り掛かる
+		((BattleActivity)context).bm.readyBattle();
 	}
 
 	@Override
