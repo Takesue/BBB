@@ -96,6 +96,7 @@ public abstract class BaseActivity extends Activity {
 		BaseActivity.effect.loadEffect(R.raw.deal_card);
 		BaseActivity.effect.loadEffect(R.raw.card_open);
 		BaseActivity.effect.loadEffect(R.raw.card_set);
+		BaseActivity.effect.loadEffect(R.raw.push);
 		
 	}
 	
@@ -114,7 +115,7 @@ public abstract class BaseActivity extends Activity {
 		
 //		Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
 		
-		if (BaseActivity.bgm.matchPlayContext(this)) {
+		if ((BaseActivity.bgm != null) && (BaseActivity.bgm.matchPlayContext(this))) {
 			// 回収処理
 			this.stopBgm();
 			BgmManager.release();
@@ -258,9 +259,14 @@ public abstract class BaseActivity extends Activity {
 					OnlineUtil.EXTRA_MESSAGE);
 			BattleToast toast = new BattleToast(content);
 			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
-			toast.setText(newMessage);
+			toast.setText(newMessage + "\n 「ユーザ対戦」から依頼者を選択すると対戦できます");
 			toast.setDuration(Toast.LENGTH_LONG);
+			toast.setTextBackground(R.drawable.toast_push);
+			toast.setTextSize(10f);
 			toast.show();
+			
+			// 効果音
+			playEffect(R.raw.push);
 		}
 	};
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 
 
 import com.ict.apps.bobb.battle.CardInfo;
@@ -116,6 +117,21 @@ public abstract class Player {
 			
 			viewCard.setControlActivity((BattleActivity)this.context);
 			
+			// 自分の札だけクリックが利くようにする。
+			if ((((BattleActivity)this.context).myPlayer != null) 
+				&& (((BattleActivity)this.context).myPlayer.equals(this))) {
+				// カードを長押しした場合のイベントリスナ
+				viewCard.setOnLongClickListener(new View.OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+
+						// ボタン長押
+						((BattleActivity)context).onLongClickCard((BattleCardView)v);
+						return true;
+					}
+				});
+			}
+			
 			viewCard.setBeetleCard(cards[i]);
 			
 			this.cardInfo.setBattleCards(viewCard);
@@ -142,6 +158,7 @@ public abstract class Player {
 					R.layout.my_cards, null);
 			
 			viewCard.setControlActivity((BattleActivity)this.context);
+			
 			
 			viewCard.setSpecialCard(cards[i]);
 			
