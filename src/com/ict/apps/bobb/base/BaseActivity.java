@@ -58,16 +58,21 @@ public abstract class BaseActivity extends Activity {
 		this.startBgm();
 	}
 
+	private int bgmNum = R.raw.breed_bgm;
+	
+	public void setBGM(int redId) {
+		this.bgmNum = redId;
+	}
+	
 	/**
 	 * BGM再生
 	 */
-	protected void startBgm() {
+	public void startBgm() {
 		
 		if (BaseActivity.bgm == null) {
 			BaseActivity.bgm = BgmManager.get(this);
 		}
-
-		BaseActivity.bgm.play(R.raw.breed_bgm);
+		BaseActivity.bgm.play(this.bgmNum);
 	}
 	
 	/**
@@ -88,13 +93,17 @@ public abstract class BaseActivity extends Activity {
 		BaseActivity.effect = SoundEffectManager.getInstance(this);
 		BaseActivity.effect.loadEffect(R.raw.breed_create1);
 		BaseActivity.effect.loadEffect(R.raw.breed_create2);
+		BaseActivity.effect.loadEffect(R.raw.deal_card);
+		BaseActivity.effect.loadEffect(R.raw.card_open);
+		BaseActivity.effect.loadEffect(R.raw.card_set);
+		
 	}
 	
 	/**
 	 * 指定したリソースIDの効果音を再生する
 	 * @param resId
 	 */
-	protected void playEffect(int resId) {
+	public void playEffect(int resId) {
 		BaseActivity.effect.play(resId);
 	}
 

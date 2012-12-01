@@ -108,35 +108,6 @@ public class BattleActivity extends BaseActivity{
 	
 
 	/**
-	 * 配るボタン押下時に呼ばれる
-	 * @param v
-	 */
-	public void finishOnClick(View v){
-		
-		// ボタンを表示から消す
-		this.baseLayout.removeView(v);
-		
-		// １ターン目は５枚配布、それ以降は３枚配布
-		int num = 0;
-		int cardcount = this.myPlayer.cardInfo.getUnUsedCardCount();
-		if(cardcount == 30){
-			num = 5;
-		}else if(cardcount >= 3){
-			num = 3;
-		}else{
-			num = cardcount;
-		}
-		
-		// 相手のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealEnemyCards(num);
-		
-		// 自分のカードを配る
-		((BattleSceneDealCard)this.scenes[this.currentScene]).dealCards(num);
-
-	}
-	
-
-	/**
 	 * カードオブジェクトのタッチイベントがきた場合に呼ばれる
 	 * @param view
 	 * @param action 0:up 1:down

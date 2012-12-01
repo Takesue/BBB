@@ -295,11 +295,14 @@ public class BattleSceneCardSelection implements BattleScene {
 				
 				// 選択状況を解析
 				this.analyzeSelectCards();
+				
+				// 効果音設定
+				this.activity.playEffect(R.raw.card_set);
 
 			}
 		}
 		else if (status == 2) {
-			// カードを押さえてカードより下の座標にずらしたらカードを元の位置にに戻す
+			// カードを押さえてカードより下の座標にずらしたらカードを元の位置に戻す
 			if (action == 1) {
 				
 				if (this.threeCardselected == true) {
@@ -318,6 +321,8 @@ public class BattleSceneCardSelection implements BattleScene {
 				// 選択状況を解析
 				this.analyzeSelectCards();
 
+				// 効果音設定
+				this.activity.playEffect(R.raw.card_set);
 			}
 		}
 		

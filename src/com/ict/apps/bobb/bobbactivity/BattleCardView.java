@@ -167,6 +167,10 @@ public class BattleCardView extends LinearLayout {
 				
 				// 状態を（移動）に設定
 				moveFlag = true;
+				
+				// 配る時の配布音
+				activity.playEffect(R.raw.deal_card);
+
 			}
 			
 			float posLeft = startPosLeft + counter * baseLeft;

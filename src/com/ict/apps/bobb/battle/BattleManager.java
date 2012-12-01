@@ -5,6 +5,7 @@ import com.ict.apps.bobb.battle.player.MyPlayer;
 import com.ict.apps.bobb.battle.player.OnlinePlayer;
 import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
+import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
 import com.ict.apps.bobb.online.OnlineQueryBattleReqest;
@@ -111,7 +112,7 @@ public class BattleManager {
 			this.activity.enemyPlayer.createCardBattlerInfo(null,null);
 
 			// ゲーム開始
-			this.activity.getCurrentScene().init();
+			this.startBattleSceneInit();
 		}
 		
 	}
@@ -174,10 +175,15 @@ public class BattleManager {
 				this.getEnemyUsingCardQery.getSpecialCards());
 		
 		// ゲーム開始
-		this.activity.getCurrentScene().init();
+		this.startBattleSceneInit();
 		
 	}
 
+	public void startBattleSceneInit() {
+		this.activity.setBGM(R.raw.battle_bgm);
+		this.activity.startBgm();
+		this.activity.getCurrentScene().init();
+	}
 
 	/**
 	 * 対戦時選択カード情報取得結果

@@ -202,8 +202,8 @@ public class BattleSceneDealCard implements BattleScene {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				dealCardsOnClick(v);
-				activity.finishOnClick(v);
+				dealCardsOnClick(v);
+//				activity.finishOnClick(v);
 			}
 		});
 		
@@ -219,6 +219,34 @@ public class BattleSceneDealCard implements BattleScene {
 
 		// 戦闘ベース部品にcard追加する
 		this.activity.baseLayout.addView(button, params);
+
+	}
+
+	/**
+	 * 配るボタン押下時に呼ばれる
+	 * @param v
+	 */
+	public void dealCardsOnClick(View v){
+		
+		// ボタンを表示から消す
+		this.activity.baseLayout.removeView(v);
+		
+		// １ターン目は５枚配布、それ以降は３枚配布
+		int num = 0;
+		int cardcount = this.activity.myPlayer.cardInfo.getUnUsedCardCount();
+		if(cardcount == 30){
+			num = 5;
+		}else if(cardcount >= 3){
+			num = 3;
+		}else{
+			num = cardcount;
+		}
+		
+		// 相手のカードを配る
+		this.dealEnemyCards(num);
+		
+		// 自分のカードを配る
+		this.dealCards(num);
 
 	}
 
@@ -289,7 +317,7 @@ public class BattleSceneDealCard implements BattleScene {
 							// １枚～２枚配り
 							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , myCardsPosY, 3);
 						}
-						
+
 						Thread.sleep(200);
 					}
 					
@@ -310,6 +338,9 @@ public class BattleSceneDealCard implements BattleScene {
 								cardList[i - init].callFlippedCardFace();
 							}
 							
+							// カードをひっくり返す効果音
+							activity.playEffect(R.raw.card_open);
+
 							// シーンを変更
 							callChangeNexrScene();
 						}
