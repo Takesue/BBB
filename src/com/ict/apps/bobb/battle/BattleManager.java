@@ -36,6 +36,8 @@ public class BattleManager {
 	
 	private String enemyUserName = null;
 	
+	// 現時点のターン数を保持
+	private int turnNum = 0;
 	
 	// 対戦要求クエリ-
 	private OnlineQueryBattleReqest battleRequestQery = null;
@@ -179,10 +181,16 @@ public class BattleManager {
 		
 	}
 
+	/**
+	 * ゲーム開始時の初期化処理（CPU、Online必ず呼ばれる）
+	 */
 	public void startBattleSceneInit() {
 		this.activity.setBGM(R.raw.battle_bgm);
 		this.activity.startBgm();
 		this.activity.getCurrentScene().init();
+		
+		// カウントを1ターンに設定する
+		this.turnNum = 1;
 	}
 
 	/**
@@ -236,6 +244,10 @@ public class BattleManager {
 	 * 対戦アニメーションシーン終了
 	 */
 	public void animationBattleFinished() {
+		
+		// １ターン終了したので、ターン数をカウントアップする。
+		this.turnNum++;
+		
 		this.activity.changeNextScene();
 	}
 	

@@ -14,8 +14,6 @@ import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.data.BeetleCard;
-import com.ict.apps.bobb.data.BeetleKit;
-import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
 
 /**

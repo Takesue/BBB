@@ -114,7 +114,7 @@ public class MainMenuActivity extends BaseActivity {
 		if (items.size() == 0) {
 			// 検索結果対象が0件の場合
 			// 対戦相手がいない
-			Toast.makeText(this, "オンラインに対戦相手が見当たりません", Toast.LENGTH_LONG);
+			Toast.makeText(this, "オンラインに対戦相手が見当たりません", Toast.LENGTH_LONG).show();
 			return;
 		}
 
