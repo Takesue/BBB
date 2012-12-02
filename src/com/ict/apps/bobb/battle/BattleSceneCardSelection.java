@@ -1,7 +1,10 @@
 package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.ict.apps.bobb.battle.player.MyPlayer;
 import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
@@ -57,8 +60,6 @@ public class BattleSceneCardSelection implements BattleScene {
 	@Override
 	public void init() {
 		
-		// 相手
-		
 		// 手札を表示する （自分）
 		this.displayCards(0);
 		// 手札を表示する （相手）
@@ -69,6 +70,9 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		// 特殊カード選択spinner表示
 		this.viewSpinner();
+		
+		// 制限時間タイマー開始
+		this.startLimitTimeCountDown(30);
 	}
 	/**
 	 * 特殊カード選択spinner表示
@@ -630,13 +634,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// 戦闘シーンへ移動するため、値を戻す
-				threeCardselected = false;
-				
-				// 戦闘シーンへ移動
-//				callChangeNexrScene();
-//				activity.changeNextScene();
-				activity.bm.selectCardFinished();
+				selectCardFinished();
 			}
 		});
 		
@@ -656,7 +654,78 @@ public class BattleSceneCardSelection implements BattleScene {
 
 	}
 	
+	/**
+	 * カード選択終了した場合に実行する。
+	 * カード選択終了処理及び、対戦管理クラスへ終了を通知
+	 * 本来はfinish()メソッドで実施すべきだが、本クラス内では、カード選択確定表示の際の
+	 * 画面クリアとしてfinishを使用しているため、実質的に本メソッドがこのクラスの終了処理メソッドとなる。
+	 */
+	private void selectCardFinished() {
+		
+		// 戦闘シーンへ移動するため、値を戻す
+		threeCardselected = false;
+		
+		// 制限時間タイマー停止
+		stopLimitTimeCountDown();
+		
+		// 戦闘シーンへ移動
+		activity.bm.selectCardFinished();
+
+	}
 	
+	// 
+	private Timer mTimer = null;
+	private int counter = -1;
+	
+	/**
+	 * タイマー開始
+	 * @param count
+	 */
+	public void startLimitTimeCountDown(int count) {
+		
+		// タイマー実行間隔　m秒
+		final int duration = 1000;	
+		final android.os.Handler handler = new android.os.Handler();
+		this.mTimer = new Timer();
+		
+		// カウントダウン時間を設定
+		this.counter = count;
+
+		this.mTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						// 残り秒数表示
+						((TextView)activity.findViewById(R.id.battle_timelimit)).setText("制限時間 :" + counter + "秒");
+						if (counter == 0) {
+							
+							// 制限時間経過時の処理
+							// 強制的にカード選択させる。
+							((MyPlayer)activity.myPlayer).forcedCardSelection();
+							
+							// カード選択シーン終了
+							selectCardFinished();
+						}
+						else {
+							// カウントダウン
+							counter--;
+						}
+					}
+				});
+			}
+		}, 0, duration);
+	}
+	
+	/**
+	 * タイマー停止
+	 * @param count
+	 */
+	public void stopLimitTimeCountDown() {
+		this.mTimer.cancel();
+	}
+
 
 
 }

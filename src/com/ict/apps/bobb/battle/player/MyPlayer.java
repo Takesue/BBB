@@ -75,4 +75,39 @@ public class MyPlayer extends Player {
 		return null;
 	}
 
+	/**
+	 * 強制的にカードを選択する。
+	 */
+	public void forcedCardSelection() {
+		
+		// 選択済みのカードの枚数から不足分の枚数を確定
+		int shortageNum = 3 - this.cardInfo.getSelectedCard().size();
+		
+		// 不足カードがある場合、カードを補填する。
+		if (shortageNum > 0) {
+			// 選択済みも含めた手札を取得
+			ArrayList<BattleCardView> holdCards = this.cardInfo.getHoldCard();
+			
+			// 3枚選択していない場合に不足枚数分のカードを強制的にカードを選択ステータスにする。
+			int length = holdCards.size();
+			for (int i = 0; i < length; i++) {
+				
+				BattleCardView card = holdCards.get(i);
+				if (this.cardInfo.getStatus(card) == 1) {
+					// 手札ステータスの場合、選択済みステータスにする
+					this.cardInfo.selectCard(card);
+					
+					// 不足数カウンタをデクリメントする
+					shortageNum--;
+				}
+				
+				// 選択カード不足数の確認
+				if (shortageNum == 0) {
+					// 不足分の追加が終わったらループ終了
+					break;
+				}
+			}
+		}
+	}
+	
 }
