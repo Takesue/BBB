@@ -15,10 +15,6 @@ import com.ict.apps.bobb.data.CardAttribute;
  */
 public class CardInfo {
 
-	private String name = null;
-	
-	private int lifepoint = 0;
-	
 	// 使用するカードを３０枚保持
 	private ArrayList<BattleCardView> cardList = new ArrayList<BattleCardView>();
 	
@@ -46,37 +42,6 @@ public class CardInfo {
 		cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
 	}
 	
-	/**
-	 * 名前を取得する
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 名前を設定する
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * ライフポイントを取得する
-	 * @return
-	 */
-	public int getLifepoint() {
-		return lifepoint;
-	}
-
-	/**
-	 * ライフポイントを設定する
-	 * @param lifepoint
-	 */
-	public void setLifepoint(int lifepoint) {
-		this.lifepoint = lifepoint;
-	}
 	
 	/**
 	 * 山札にあるカードから次の配布カードを取得

@@ -61,9 +61,9 @@ public class BattleSceneCardSelection implements BattleScene {
 	public void init() {
 		
 		// 手札を表示する （自分）
-		this.displayCards(0);
+		this.displayCards(this.activity.myPlayer);
 		// 手札を表示する （相手）
-		this.displayCards(1);
+		this.displayCards(this.activity.enemyPlayer);
 		
 		// 合計値表示
 		this.viewTotal(5, 180);
@@ -102,18 +102,20 @@ public class BattleSceneCardSelection implements BattleScene {
 			spnStrings.add(spCards.get(i).getEffect());
 			spnId.add(spCards.get(i).getEffectId());
 		}
+		
 	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
+	    
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
 				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		cartParams.setMargins((int)(110 * tmpDensity),
-				(int)(180 * tmpDensity),0,0);
+		cartParams.setMargins((int)(110 * tmpDensity), (int)(180 * tmpDensity),0,0);
 		this.activity.baseLayout.addView(spinner,cartParams);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
-		android.R.layout.simple_spinner_item, spnStrings);
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, spnStrings);
+		
 		//スピナーの背景に画像を張り付ける
 		spinner.setBackgroundResource(R.drawable.spn_view);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -162,20 +164,9 @@ public class BattleSceneCardSelection implements BattleScene {
 	/**
 	 * 再表示
 	 */
-	public void reviw(int type) {
+	public void review(Player info) {
 		
-		ArrayList<BattleCardView> viewCards = null;
-		
-		// 自分のカードを全部取得
-		Player info = null;
-		if (type == 0) {
-			info = this.activity.myPlayer;
-		}
-		else {
-			info = this.activity.enemyPlayer;
-		}
-		viewCards = info.cardInfo.getAllCards();
-		
+		ArrayList<BattleCardView> viewCards = info.cardInfo.getAllCards();
 
 		int length = viewCards.size();
 		for (int i = 0; i < length; i++) {
@@ -195,18 +186,10 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * カードを表示する
 	 * @param type
 	 */
-	public void displayCards(int type) {
+	public void displayCards(Player info) {
 		
 		ArrayList<BattleCardView> viewCards = null;
 		
-		// 自分のカードを全部取得
-		Player info = null;
-		if (type == 0) {
-			info = this.activity.myPlayer;
-		}
-		else {
-			info = this.activity.enemyPlayer;
-		}
 		viewCards = info.cardInfo.getAllCards();
 		
 		// Densityの値を取得
@@ -338,8 +321,8 @@ public class BattleSceneCardSelection implements BattleScene {
 	private void rollbackBefoeThreeSelect() {
 		this.threeCardselected = false;
 		this.finish();
-		this.reviw(0);
-		this.reviw(1);
+		this.review(this.activity.myPlayer);
+		this.review(this.activity.enemyPlayer);
 		this.viewTotal(5, 180);
 		this.viewSpinner();
 	}
