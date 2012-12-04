@@ -3,6 +3,10 @@ package com.ict.apps.bobb.bobbactivity;
 import java.util.ArrayList;
 
 import com.ict.apps.bobb.base.BaseActivity;
+import com.ict.apps.bobb.battle.player.CPU01;
+import com.ict.apps.bobb.battle.player.CPU02;
+import com.ict.apps.bobb.battle.player.Player;
+import com.ict.apps.bobb.battle.player.PlayerListAdapter;
 import com.ict.apps.bobb.common.BattleUseKit;
 import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.common.BeetleKitFactory;
@@ -25,7 +29,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenuActivity extends BaseActivity {
@@ -48,12 +58,13 @@ public class MainMenuActivity extends BaseActivity {
 		
     }
     
-    public void battleCpuOnClick(View v){
-    	
-		Intent bintent = new Intent(MainMenuActivity.this, BattleUserSelectActivity.class);
-		startActivity(bintent);
-		
-    }
+	public void battleCpuOnClick(View v) {
+
+		viewPopupPlayerLis();
+// 		Intent bintent = new Intent(MainMenuActivity.this, BattleUserSelectActivity.class);
+// 		startActivity(bintent);
+
+	}
 	
     private OnlineQueryOnlineUserList query = null;
     public void battleHumanOnClick(View v){
@@ -138,7 +149,75 @@ public class MainMenuActivity extends BaseActivity {
 						index.clear();
 					}
 				}).show();
+		
 
 	}
+	
+	
+	
+	/**
+	 * ポップアップでユーザリストを表示する
+	 */
+	public void viewPopupPlayerLis() {
+		
+		//コンテキストからインフレータを取得
+		LayoutInflater inflater = LayoutInflater.from(this.getBaseContext());
+
+		//レイアウトXMLからビュー(レイアウト)をインフレート
+		final View playerList = inflater.inflate(R.layout.player_list, null);
+		
+		final Player[] userList = {
+				new CPU01(this),
+				new CPU02(this)
+		};
+		
+		PlayerListAdapter userListAdapter = new PlayerListAdapter(this, userList);
+		
+		
+		final AlertDialog ad = new AlertDialog.Builder(this)
+//		.setIcon(R.drawable.beetleicon)
+//		.setTitle("対戦相手のCPUを選択")
+//		.setNegativeButton("cancel",
+//				new DialogInterface.OnClickListener() {
+//					public void onClick(DialogInterface dialog,
+//							int whichButton) {
+//					}
+//			})
+		.setView(playerList)
+		.show();
+
+		((TextView) playerList.findViewById(R.id.popupTitle)).setText("対戦CPU選択");
+		((TextView) playerList.findViewById(R.id.popupCancel)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// ×クリックでポップアップ閉じる
+				ad.cancel();
+			}
+		});
+
+		ListView listView = (ListView) playerList.findViewById(R.id.playerList);
+		
+		// アダプターを設定します
+		listView.setAdapter(userListAdapter);
+		
+		// リストビューのアイテムがクリックされた時に呼び出されるコールバックリスナーを登録します
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ListView listView = (ListView) parent;
+				// クリックされたアイテムを取得します
+				Intent cintent = new Intent(MainMenuActivity.this, BattleActivity.class);
+				cintent.putExtra("user_mode", "cpu");
+				cintent.putExtra("user_name", userList[position].getName());
+				startActivity(cintent);
+				
+				ad.cancel();
+
+			}
+		});
+
+	}
+
 
 }

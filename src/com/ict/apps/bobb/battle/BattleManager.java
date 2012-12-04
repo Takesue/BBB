@@ -1,6 +1,7 @@
 package com.ict.apps.bobb.battle;
 
 import com.ict.apps.bobb.battle.player.CPU01;
+import com.ict.apps.bobb.battle.player.CPU02;
 import com.ict.apps.bobb.battle.player.MyPlayer;
 import com.ict.apps.bobb.battle.player.OnlinePlayer;
 import com.ict.apps.bobb.battle.player.Player;
@@ -69,7 +70,15 @@ public class BattleManager {
 		}
 		else {
 			// 対戦相手がCPUの場合
-			this.activity.enemyPlayer = new CPU01(this.activity);
+			if ("CPU01".equals(intent.getStringExtra("user_name"))) {
+				this.activity.enemyPlayer = new CPU01(this.activity);
+			}
+			else if ("CPU02".equals(intent.getStringExtra("user_name"))) {
+				this.activity.enemyPlayer = new CPU02(this.activity);
+			}
+			else {
+				this.activity.enemyPlayer = new CPU01(this.activity);
+			}
 		}
 		
 	}

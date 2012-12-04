@@ -320,7 +320,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 	private void rollbackBefoeThreeSelect() {
 		this.threeCardselected = false;
-		this.finish();
+		this.activity.baseLayout.removeAllViews();
 		this.review(this.activity.myPlayer);
 		this.review(this.activity.enemyPlayer);
 		this.viewTotal(5, 180);
@@ -331,7 +331,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	public void finish() {
 		// 表示しているビューを全て削除する
 		this.activity.baseLayout.removeAllViews();
-
+		this.stopLimitTimeCountDown();
 	}
 
 	@Override
@@ -706,7 +706,9 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * @param count
 	 */
 	public void stopLimitTimeCountDown() {
-		this.mTimer.cancel();
+		if (this.mTimer != null) {
+			this.mTimer.cancel();
+		}
 	}
 
 

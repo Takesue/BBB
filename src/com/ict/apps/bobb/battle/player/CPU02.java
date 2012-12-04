@@ -20,23 +20,24 @@ import android.view.View;
 /**
  * 初期対戦用CPU
  */
-public class CPU01 extends CPU {
+public class CPU02 extends CPU {
 	
 	/**
 	 * コンストラクタ
 	 */
-	public CPU01(Context context) {
+	public CPU02(Context context) {
 		super(context);
 		
-		this.setName("CPU01");
+		this.setName("CPU02");
 		this.setLifepoint(4000);
-		this.setLevel(1);
+		this.setLevel(2);
 		
 		// CPU思考回路の設定
 		// 判断の優先度順に設定する。
 		this.setIdeaSpacialList(new IdeaSpeRecoverLifePoint20());
 		this.setIdeaSpacialList(new IdeaSpeUpAttack10());
 		
+		this.setIdeaList(new IdeaAttributeCombo());
 		this.setIdeaList(new IdeaFirstInFirstout());
 		
 	}

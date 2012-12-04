@@ -141,6 +141,10 @@ public class BattleActivity extends BaseActivity{
 	
 	@Override
 	protected void onDestroy() {
+		
+		if (this.getCurrentScene() instanceof BattleSceneCardSelection) {
+			((BattleSceneCardSelection)this.getCurrentScene()).stopLimitTimeCountDown();
+		}
 		super.onDestroy();
 	}
 

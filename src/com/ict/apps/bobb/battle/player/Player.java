@@ -27,6 +27,12 @@ public abstract class Player {
 	// LP
 	private int lifepoint = 0;
 
+	// Level
+	private int Level = 0;
+
+	// 対戦依頼
+	private int request = 0;
+
 	// ユーザの対戦時特殊カードを一元保持
 	public CardInfo cardInfo = null;
 
@@ -74,6 +80,38 @@ public abstract class Player {
 	 */
 	public void setLifepoint(int lifepoint) {
 		this.lifepoint = lifepoint;
+	}
+
+	/**
+	 * レベル取得
+	 * @return
+	 */
+	public int getLevel() {
+		return Level;
+	}
+
+	/**
+	 * レベル設定
+	 * @param level
+	 */
+	public void setLevel(int level) {
+		Level = level;
+	}
+
+	/**
+	 * 対戦要求有無取得　０：なし　１：あり
+	 * @return
+	 */
+	public int getRequest() {
+		return request;
+	}
+
+	/**
+	 * 対戦要求有無設定　０：なし　１：あり
+	 * @param request
+	 */
+	public void setRequest(int request) {
+		this.request = request;
 	}
 
 	
