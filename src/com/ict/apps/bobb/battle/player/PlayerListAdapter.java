@@ -47,7 +47,10 @@ public class PlayerListAdapter extends ArrayAdapter<Object> {
 		fDetail.setText("Lv : " + player[position].getLevel());
 
 		if (player[position] instanceof OnlinePlayer) {
-			  fIcon.setImageResource(R.drawable.beetle1);
+//			  fIcon.setImageResource(R.drawable.beetle1);
+			 if(!"0".equals(player[position].getRequest())) {
+				((TextView) convertView.findViewById(R.id.popup_request)).setText("要求");
+			 }
 		}
 		
 		return convertView;

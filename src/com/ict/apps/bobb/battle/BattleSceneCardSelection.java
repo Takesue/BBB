@@ -561,7 +561,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 	private void viewSelectedBigCardDisp() {
 		// 表示を一旦クリア
-		this.finish();
+		this.activity.baseLayout.removeAllViews();
 		this.bigCards.clear();
 		
 		// 選択した3つを中央に表示
@@ -646,13 +646,13 @@ public class BattleSceneCardSelection implements BattleScene {
 	private void selectCardFinished() {
 		
 		// 戦闘シーンへ移動するため、値を戻す
-		threeCardselected = false;
+		this.threeCardselected = false;
 		
 		// 制限時間タイマー停止
-		stopLimitTimeCountDown();
+		this.stopLimitTimeCountDown();
 		
 		// 戦闘シーンへ移動
-		activity.bm.selectCardFinished();
+		this.activity.bm.selectCardFinished();
 
 	}
 	

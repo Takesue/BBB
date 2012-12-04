@@ -41,11 +41,11 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 				String response = OnlineConnection.post(this.query);
 				Log.d(TAG, "doInBackground - response = " + response);
 				
-				// クエリ-インスタンスにレスポンスデータを設定
-				this.query.setResponse(response);
-//				this.query.execAfterReceiveingAction(this.context);
-				
-				result = 0;
+				if (response != null) {
+					// クエリ-インスタンスにレスポンスデータを設定
+					this.query.setResponse(response);
+					result = 0;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -31,7 +31,7 @@ public abstract class Player {
 	private int Level = 0;
 
 	// 対戦依頼
-	private int request = 0;
+	private String request = "0";
 
 	// ユーザの対戦時特殊カードを一元保持
 	public CardInfo cardInfo = null;
@@ -102,7 +102,7 @@ public abstract class Player {
 	 * 対戦要求有無取得　０：なし　１：あり
 	 * @return
 	 */
-	public int getRequest() {
+	public String getRequest() {
 		return request;
 	}
 
@@ -110,7 +110,7 @@ public abstract class Player {
 	 * 対戦要求有無設定　０：なし　１：あり
 	 * @param request
 	 */
-	public void setRequest(int request) {
+	public void setRequest(String request) {
 		this.request = request;
 	}
 
