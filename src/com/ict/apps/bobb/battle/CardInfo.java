@@ -7,17 +7,14 @@ import java.util.Random;
 import android.util.Log;
 
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
+import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.CardAttribute;
 
 /**
  * 対戦者の情報を一括管理するクラス
  */
-public class CardBattlerInfo {
+public class CardInfo {
 
-	private String name = null;
-	
-	private int lifepoint = 0;
-	
 	// 使用するカードを３０枚保持
 	private ArrayList<BattleCardView> cardList = new ArrayList<BattleCardView>();
 	
@@ -29,7 +26,7 @@ public class CardBattlerInfo {
 //	public int curPos = 0;
 	
 	
-	public CardBattlerInfo() {
+	public CardInfo() {
 	}
 	
 	/**
@@ -40,39 +37,11 @@ public class CardBattlerInfo {
 		this.cardList.add(card);
 		this.cardStatusList.put(card, 0);
 		
+		// 対戦時にカードを一意に特定するためのカードNUMを振る、
+		BeetleCard cardInfo = card.getCardInfo();
+		cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
 	}
 	
-	/**
-	 * 名前を取得する
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 名前を設定する
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * ライフポイントを取得する
-	 * @return
-	 */
-	public int getLifepoint() {
-		return lifepoint;
-	}
-
-	/**
-	 * ライフポイントを設定する
-	 * @param lifepoint
-	 */
-	public void setLifepoint(int lifepoint) {
-		this.lifepoint = lifepoint;
-	}
 	
 	/**
 	 * 山札にあるカードから次の配布カードを取得
@@ -239,6 +208,21 @@ public class CardBattlerInfo {
 		
 		return counter;
 	}
+	
+	/**
+	 * カード情報一覧を取得
+	 * @return
+	 */
+	public BeetleCard[] getCardInfoList() {
+		
+		int length = this.cardList.size();
+		BeetleCard[] cardList = new BeetleCard[length];
+		for(int i = 0; i < length; i++) {
+			cardList[i] = this.cardList.get(i).getCardInfo();
+		}
+		return cardList;
+	}
+
 
 	/**
 	 * 選択された三枚のカードでの属性を取得
@@ -304,7 +288,6 @@ public class CardBattlerInfo {
 		
 		return total;
 	}
-	
 	
 
 }

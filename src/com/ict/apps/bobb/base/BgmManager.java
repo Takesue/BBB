@@ -47,10 +47,10 @@ public class BgmManager {
 		if (id == this.currentPlayBgm) { // 現在再生しているので何もしない
 			return;
 		} else {
-			this.currentPlayBgm = id;
-			
 			// 現在の曲を止める。
 			this.stop();
+
+			this.currentPlayBgm = id;
 			
 			if (this.player == null) {
 				this.player = MediaPlayer.create(BgmManager.context, this.currentPlayBgm);

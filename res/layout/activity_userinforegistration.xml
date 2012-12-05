@@ -6,17 +6,44 @@
 
     <TextView
         android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/listitem_bg"
+        android:gravity="center"
+        android:text="ユーザー情報設定"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ユーザー情報" 
-        android:textSize="30sp"/>
-    
-    <Button
-        android:id="@+id/button1"
-        android:onClick="returnOnClick"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="名前"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/registUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="戻る" 
-        android:textSize="40sp"/>
+        android:layout_margin="10dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+    <Button
+        android:id="@+id/registButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/listitem_bg"
+        android:onClick="registOnClick"
+        android:text="登録する"
+        android:textSize="40sp" />
 
 </LinearLayout>

@@ -1,11 +1,13 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import com.ict.apps.bobb.base.BaseActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class BattleUserSelectActivity extends Activity {
+public class BattleUserSelectActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,7 @@ public class BattleUserSelectActivity extends Activity {
     public void userOnClick1(View v){
     	
 		Intent intent = new Intent(BattleUserSelectActivity.this, BattleActivity.class);
+		intent.putExtra("user_mode", "cpu");
 		startActivity(intent);
 		
     }

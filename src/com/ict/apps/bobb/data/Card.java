@@ -4,6 +4,8 @@ import android.content.Context;
 
 public class Card {
 
+	// 対戦時にカードを特定するために採番する
+	private int cardNum = 0;
 	// 虫キットID
 	private long beetleKitId = 0;
 	// 画像ID
@@ -30,7 +32,12 @@ public class Card {
 		this.setImageFileName(bk.getImageFileName());
 	}
 	
-	
+	public int getCardNum() {
+		return cardNum;
+	}
+	public void setCardNum(int battleNum) {
+		this.cardNum = battleNum;
+	}
 
 	public long getBeetleKitId() {
 		return beetleKitId;
