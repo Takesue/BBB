@@ -13,9 +13,9 @@ import com.ict.apps.bobb.data.Card;
 public abstract class IdeaForSelectSpeCard {
 	
 	// 効果カード種別
-	public static final int EFFECTID_LP_RECOVER = 1;
-	public static final int EFFECTID_LP_ATTACK_UP_10 = 2;
-	
+	public static final int EFFECTID_LP_RECOVER = 10;
+	public static final int EFFECTID_DOUBLE_ATTACK = 1;
+
 	private IdeaForSelectSpeCard next = null;
 	
 	/**
@@ -51,12 +51,6 @@ public abstract class IdeaForSelectSpeCard {
 	 * @return
 	 */
 	protected abstract ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo);
-	
-	/**
-	 * 効果IDを取得する
-	 * @return
-	 */
-	protected abstract int getEffectId();
 	
 
 }

@@ -74,17 +74,24 @@ public class BattleSceneCardSelection implements BattleScene {
 		// 制限時間タイマー開始
 		this.startLimitTimeCountDown(30);
 	}
+	
+	// 特殊カード選択用スピナー
+	private Spinner spinner = null;
+	
 	/**
 	 * 特殊カード選択spinner表示
 	 */
 //    private ArrayList<Integer>  spinnerId = new ArrayList<Integer>();
-	private int spinnerId = 0;
+//	private int spinnerId = 0;
+	
 	public void viewSpinner() {
 		
-		Spinner spinner = new Spinner(this.activity);
+		// スピナーを生成
+		this.spinner = new Spinner(this.activity);
 
-		ArrayList<String>  spnStrings = new ArrayList<String>();
-	    ArrayList<Integer> spnId = new ArrayList<Integer>();
+		ArrayList<String> spnStrings = new ArrayList<String>();
+		final ArrayList<Integer> spnId = new ArrayList<Integer>();
+
 /*		setSpinnerDate(i)の「i」の部分にはeffectIdを入れる予定
  *		effectIdごとで説明文をspinnerにセットできれば・・・
  *		ということでsetSpinnerDate(int id)メソッドを追加
@@ -92,60 +99,67 @@ public class BattleSceneCardSelection implements BattleScene {
  *		しないようにできればいいと思うのだが・・・
  *		指定したIDを使用したいので、よく考えよう。
  */
+
+		// 対戦に使用する特殊カード3枚を取得
+		final ArrayList<BattleCardView> spCards = this.activity.myPlayer.specialInfo.getHoldCard();
+		
+		// スピナーに不使用項目を設定
 		spnStrings.add("特殊Ｃ使用しない");
 		spnId.add(0);
-	    
-	    final ArrayList<BattleCardView> spCards =  this.activity.myPlayer.specialInfo.getHoldCard();
-	    
+		
+		// 取得した3枚をスピナーに設定
 		int length = spCards.size();
 		for (int i = 0; i < length; i++) {
 			spnStrings.add(spCards.get(i).getEffect());
 			spnId.add(spCards.get(i).getEffectId());
 		}
 		
-	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
-	    
-		// Densityの値を取得
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
-		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		cartParams.setMargins((int)(110 * tmpDensity), (int)(180 * tmpDensity),0,0);
-		this.activity.baseLayout.addView(spinner,cartParams);
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, spnStrings);
 		
 		//スピナーの背景に画像を張り付ける
-		spinner.setBackgroundResource(R.drawable.spn_view);
+		this.spinner.setBackgroundResource(R.drawable.spn_view);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
+		this.spinner.setAdapter(adapter);
 		
 		//スピナーのクリックイベントを取得する
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			//Itemが選択された時
-			public void onItemSelected(AdapterView parent,
-				View view, int position, long id) {
+			public void onItemSelected(AdapterView parent, View view, int position, long id) {
 				//parentのspinnerを指定
 				Spinner spinner = (Spinner) parent;
 				//選択されたitemを取得
-				String item = (String) spinner.getSelectedItem();
-
-				Long itemId = (Long) spinner.getSelectedItemId();
-				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+//				String item = (String) spinner.getSelectedItem();
+//				Long itemId = spinner.getSelectedItemId();
+//				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+//				int length = spCards.size();
+//				for (int i = 0; i < length; i++) {
+//					//選択された効果が０であれば他の状態を０に戻す
+//					if(itemId == 0){
+//						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
+//					//選択された効果のものは状態を１にする
+//					}else if(itemId == i + 1){
+//						activity.myPlayer.specialInfo.selectCard(spCards.get(i));
+//					//選択された効果の以外ものは状態を０に戻す
+//					}else{
+//						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
+//					}
+//				}
+				
+//				spinerImtemIndex = (int)spinner.getSelectedItemId();
+				int spinerImtemIndex = position;
+//				spinnerId = spnId.get(itemId);
+				
+				// 3つともリセットして初期化
 				int length = spCards.size();
 				for (int i = 0; i < length; i++) {
-					//選択された効果が０であれば他の状態を０に戻す
-					if(itemId == 0){
-						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
-					//選択された効果のものは状態を１にする
-					}else if(itemId == i + 1){
-						activity.myPlayer.specialInfo.selectCard(spCards.get(i));
-					//選択された効果の以外ものは状態を０に戻す
-					}else{
-						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
-					}
+					activity.myPlayer.specialInfo.resetCard(spCards.get(i));
 				}
+				// カード使用しない「０」以外の場合カードを選択状態の「１」にする
+				if (spinerImtemIndex != 0 ) {
+					activity.myPlayer.specialInfo.selectCard(spCards.get(spinerImtemIndex-1));
+				}
+				
 /*				//Toast表示
 				Toast.makeText(MainActivity.this,
 					String.format("%sが選択されました。", item),
@@ -159,6 +173,19 @@ public class BattleSceneCardSelection implements BattleScene {
 */
 			}
 		});
+		
+		
+		// スピナーを配置位置を設定する
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(110 * tmpDensity), (int)(180 * tmpDensity),0,0);
+
+		// スピナーを画面に設定
+		this.activity.baseLayout.addView(this.spinner, cartParams);
+
 	}
 	
 	/**
@@ -324,7 +351,8 @@ public class BattleSceneCardSelection implements BattleScene {
 		this.review(this.activity.myPlayer);
 		this.review(this.activity.enemyPlayer);
 		this.viewTotal(5, 180);
-		this.viewSpinner();
+//		this.viewSpinner();
+		this.activity.baseLayout.addView(this.spinner);
 	}
 	
 	@Override
@@ -462,16 +490,19 @@ public class BattleSceneCardSelection implements BattleScene {
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		
-
 		// CARD用View取得
 		LinearLayout totalView = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_totalpoint, null);
 		
+		int width = 100;
+		int height = 120;
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(100 * tmpDensity),
-				(int)(120 * tmpDensity));
+				(int)(width * tmpDensity),
+				(int)(height * tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		
+		
 		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
 		
 		// 攻撃力合計
@@ -529,20 +560,21 @@ public class BattleSceneCardSelection implements BattleScene {
 			}
 		}
 		
-		// 3枚選択された場合属性一致であれば、合計値を変更する
-		if (cards.size() == 3) {
-			CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(cards); 
-			if(myAtt != null){
-				int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
-				this.totalAttack = atts[0];
-				this.totalDefense = atts[1];
-			}
-		}
-		// 特殊カード使用時、必要であれば値を変更する
-		int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
-		this.totalAttack = special[0];
-		this.totalDefense = special[1];
-		this.activity.myPlayer.specialInfo.spinnerId = this.spinnerId;
+//		// 3枚選択された場合属性一致であれば、合計値を変更する
+//		if (cards.size() == 3) {
+//			CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(cards); 
+//			if(myAtt != null){
+//				int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
+//				this.totalAttack = atts[0];
+//				this.totalDefense = atts[1];
+//			}
+//		}
+		
+//		// 特殊カード使用時、必要であれば値を変更する
+//		int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
+//		this.totalAttack = special[0];
+//		this.totalDefense = special[1];
+//		this.activity.myPlayer.specialInfo.spinnerId = this.spinnerId;
 		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
@@ -554,7 +586,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	
 	
 	// ３つ選択して大きくなった状態のカードを生成して保持する。
-	ArrayList<BattleCardView> bigCards = new ArrayList<BattleCardView>();
+	private ArrayList<BattleCardView> bigCards = new ArrayList<BattleCardView>();
 	
 	/**
 	 * 選択カードの確認拡大表示
@@ -601,10 +633,83 @@ public class BattleSceneCardSelection implements BattleScene {
 		}
 
 		// 合計パネルを右上に表示
-		this.viewTotal(200, 10);
+		int left = (int) (new Float(this.activity.baseLayout.getWidth())/tmpDensity - (100 + 10));
+		
+		this.viewTotal(left, 10);
 		this.calcAndViewTotal(cards);
 		
+		// 特殊カード効果や属性について　 吹き出し表示
+		this.viewAddingStatus();
+		
+		// Battleボタンを表示
 		this.setDealButton();
+	}
+	
+	/**
+	 * 効果カードや属性など、選択したカードによる追加効果を説明表示する
+	 */
+	private void viewAddingStatus() {
+		
+		int left = 20;
+		int top = 10;
+		
+		int[] resIds = {
+				R.id.baloonTxt1,
+				R.id.baloonTxt2,
+				R.id.baloonTxt3,
+				R.id.baloonTxt4
+		};
+		
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+
+		// CARD用View取得
+		LinearLayout totalView = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_baloon, null);
+		
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(180 * tmpDensity),
+				(int)(120 * tmpDensity));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
+		
+		// 属性効果確認
+		int i = 0;
+		CardAttribute cardAttribute = this.activity.myPlayer.cardInfo.getAttribute(this.activity.myPlayer.cardInfo.getSelectedCard());
+		if (cardAttribute != null) {
+			
+			TextView text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("属性効果発動！！");
+			text.setTextColor(Color.RED);
+			
+			text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("  効果：" + "攻撃・守備力50" + "%UP!!");
+			text.setTextColor(Color.BLACK);
+			
+		}
+		
+		// 特殊カード効果確認
+		ArrayList<BattleCardView> specials = this.activity.myPlayer.specialInfo.getSelectedCard();
+		if (specials.size() == 1) {
+			TextView text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("特殊C使用！！");
+			text.setTextColor(Color.GREEN);
+			
+			text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("  効果：" + specials.get(0).getEffect());
+			text.setTextColor(Color.BLACK);
+		}
+		
+		if (i == 0) {
+			((TextView)totalView.findViewById(resIds[i++])).setText("追加効果なし");
+		}
+		
+		
+		// 戦闘ベース部品にカード詳細を追加する
+		this.activity.baseLayout.addView(totalView, cartParams);
+
 	}
 	
 	/**

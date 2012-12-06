@@ -58,9 +58,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	public void init() {
 		// 画面に必要な情報を設定
 		
-		// 相手の選択したカード3枚
-		ArrayList<BattleCardView> cards = this.getEnemySelectCards();
-		
 		// 相手の選択カードを拡大表示
 		this.viewSelectedBigCardDisp(1, this.activity.enemyPlayer);
 		
@@ -69,12 +66,20 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.viewSelectedBigCardDisp(0, this.activity.myPlayer);
 		
 		// 相手の合計値表示
-		LinearLayout enemyTotal = this.viewTotal(200, 180);
-		this.calcAndViewTotal(1, cards, enemyTotal);
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		int left = (int) (new Float(this.activity.baseLayout.getWidth())/tmpDensity - (100 + 10));
+		LinearLayout enemyTotal = this.viewTotal(left, 180);
+		this.calcAndViewTotal(1, this.activity.enemyPlayer.cardInfo.getSelectedCard(), enemyTotal);
 		
 		// 自分の合計値表示
 		LinearLayout myTotal = this.viewTotal(5, 180);
 		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
+		
+		
+		// 特殊効果/属性効果発動アニメーション
+		
+		
+		
 		
 		// 合計値を消す
 		this.calcDelete(enemyTotal, myTotal);
@@ -120,20 +125,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 	@Override
 	public void actionUpCard(BattleCardView view) {
-	}
-
-	/**
-	 * 相手のカードを取得
-	 */
-	private ArrayList<BattleCardView> getEnemySelectCards() {
-		return this.activity.enemyPlayer.getSelectCard(this.activity.myPlayer, this.activity.enemyPlayer);
-	}
-	
-	/**
-	 * 相手の特殊カードを取得
-	 */
-	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
-		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myPlayer, this.activity.enemyPlayer);
 	}
 
 
@@ -286,54 +277,54 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				totalDefense += card.getCardInfo().getDefense();
 			}
 		}
-		CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(bigCards); 
-		CardAttribute enemyAtt = this.activity.enemyPlayer.cardInfo.getAttribute(bigEnemyCards); 
-//		CardAttribute myAtt = this.getAttribute(0);
-//		CardAttribute enemyAtt = this.getAttribute(1);
-		if(typeH == 0){
-			int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
-			
-			totalAttack = atts[0];
-			totalDefense = atts[1];
-			this.myAttack = atts[0];
-			this.myDefense = atts[1];
-			
-		}else{
-			int[] atts = this.activity.enemyPlayer.cardInfo.judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
-			
-			totalAttack = atts[0];
-			totalDefense = atts[1];
-			this.enemyAttack = atts[0];
-			this.enemyDefense = atts[1];
-		}
-		// 特殊カード使用時、必要であれば値を変更する
-		if(typeH == 0){
-			// 自分で自分のステータス変更カード使用時
-			int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
-			totalAttack = special[0];
-			totalDefense = special[1];
-			this.myAttack = special[0];
-			this.myDefense = special[1];
-			// 対戦相手から自分のステータス変更カード使用時
-			special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
-			totalAttack = special[2];
-			totalDefense = special[3];
-			this.myAttack = special[2];
-			this.myDefense = special[3];
-		}else{
-			// 対戦相手が対戦相手のステータス変更カード使用時
-			int[] special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
-			totalAttack = special[0];
-			totalDefense = special[1];
-			this.enemyAttack = special[0];
-			this.enemyDefense = special[1];
-			// 自分から対戦相手のステータス変更カード使用時
-			special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
-			totalAttack = special[2];
-			totalDefense = special[3];
-			this.enemyAttack = special[2];
-			this.enemyDefense = special[3];
-		}
+//		CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(bigCards); 
+//		CardAttribute enemyAtt = this.activity.enemyPlayer.cardInfo.getAttribute(bigEnemyCards); 
+////		CardAttribute myAtt = this.getAttribute(0);
+////		CardAttribute enemyAtt = this.getAttribute(1);
+//		if(typeH == 0){
+//			int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, enemyAtt, totalAttack, totalDefense);
+//			
+//			totalAttack = atts[0];
+//			totalDefense = atts[1];
+//			this.myAttack = atts[0];
+//			this.myDefense = atts[1];
+//			
+//		}else{
+//			int[] atts = this.activity.enemyPlayer.cardInfo.judgeAttribute(enemyAtt, myAtt, totalAttack, totalDefense);
+//			
+//			totalAttack = atts[0];
+//			totalDefense = atts[1];
+//			this.enemyAttack = atts[0];
+//			this.enemyDefense = atts[1];
+//		}
+//		// 特殊カード使用時、必要であれば値を変更する
+//		if(typeH == 0){
+//			// 自分で自分のステータス変更カード使用時
+//			int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 0, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+//			totalAttack = special[0];
+//			totalDefense = special[1];
+//			this.myAttack = special[0];
+//			this.myDefense = special[1];
+//			// 対戦相手から自分のステータス変更カード使用時
+//			special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 1, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+//			totalAttack = special[2];
+//			totalDefense = special[3];
+//			this.myAttack = special[2];
+//			this.myDefense = special[3];
+//		}else{
+//			// 対戦相手が対戦相手のステータス変更カード使用時
+//			int[] special = this.activity.enemyPlayer.specialInfo.judgeSpecial(this.activity.enemyPlayer.specialInfo.spinnerId, 0, this.enemyAttack, this.enemyDefense, this.myAttack, this.myDefense);
+//			totalAttack = special[0];
+//			totalDefense = special[1];
+//			this.enemyAttack = special[0];
+//			this.enemyDefense = special[1];
+//			// 自分から対戦相手のステータス変更カード使用時
+//			special = this.activity.myPlayer.specialInfo.judgeSpecial(this.activity.myPlayer.specialInfo.spinnerId, 1, this.myAttack, this.myDefense, this.enemyAttack, this.enemyDefense);
+//			totalAttack = special[2];
+//			totalDefense = special[3];
+//			this.enemyAttack = special[2];
+//			this.enemyDefense = special[3];
+//		}
 		// 攻撃力合計
 		((TextView)view.findViewById(R.id.battle_total_attack)).setText(Integer.toString(totalAttack));
 		

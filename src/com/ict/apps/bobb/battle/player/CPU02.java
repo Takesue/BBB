@@ -34,9 +34,6 @@ public class CPU02 extends CPU {
 		
 		// CPU思考回路の設定
 		// 判断の優先度順に設定する。
-		this.setIdeaSpacialList(new IdeaSpeRecoverLifePoint20());
-		this.setIdeaSpacialList(new IdeaSpeUpAttack10());
-		
 		this.setIdeaList(new IdeaAttributeCombo());
 		this.setIdeaList(new IdeaFirstInFirstout());
 		

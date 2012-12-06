@@ -1,11 +1,14 @@
 package com.ict.apps.bobb.battle;
 
+import java.util.ArrayList;
+
 import com.ict.apps.bobb.battle.player.CPU01;
 import com.ict.apps.bobb.battle.player.CPU02;
 import com.ict.apps.bobb.battle.player.MyPlayer;
 import com.ict.apps.bobb.battle.player.OnlinePlayer;
 import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
@@ -244,6 +247,13 @@ public class BattleManager {
 			this.activity.changeNextScene();
 		}
 		else {
+			
+			// 相手のカード3枚を策定する
+			this.getEnemySelectCards();
+			
+			// 相手の特殊カードを策定する
+//			this.getEnemySelectSpecialCards();
+			
 			// CPUの場合、次のシーンに移動
 			this.activity.changeNextScene();
 		}
@@ -260,6 +270,21 @@ public class BattleManager {
 		this.activity.changeNextScene();
 	}
 	
+
+	/**
+	 * 相手のカードを取得
+	 */
+	private ArrayList<BattleCardView> getEnemySelectCards() {
+		return this.activity.enemyPlayer.getSelectCard(this.activity.myPlayer, this.activity.enemyPlayer);
+	}
+	
+	/**
+	 * 相手の特殊カードを取得
+	 */
+	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
+		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myPlayer, this.activity.enemyPlayer);
+	}
+
 
 	
 }

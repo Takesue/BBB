@@ -21,16 +21,16 @@
             android:text="一覧"
             android:textColor="#ffffff"
             android:textSize="20sp" />
-
+
         <TextView
             android:id="@+id/popupCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.96"
+            android:background="@drawable/close_ic"
             android:gravity="center"
             android:paddingRight="5dp"
-            android:text="×"
             android:textSize="30sp"
             android:textStyle="bold" />
 

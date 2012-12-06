@@ -9,13 +9,13 @@
         android:layout_height="60dp"
         android:background="@drawable/listitem_bg"
         android:orientation="horizontal" >
-
+
         <ImageView
             android:id="@android:id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:src="@drawable/beetleicon" />
+            android:src="@drawable/nophoto" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"

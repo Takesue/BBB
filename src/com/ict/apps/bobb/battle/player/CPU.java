@@ -52,25 +52,6 @@ public class CPU extends Player{
 
 	
 	/**
-	 * アイデアを設定する
-	 * @param idea
-	 */
-	public void setIdeaSpacialList(IdeaForSelectSpeCard idea) {
-		
-		IdeaForSelectSpeCard ideaList = this.ideaSpecialRoot;
-		while (true) {
-			if(ideaList == null ) {
-				ideaList = idea;
-				break;
-			}
-			else {
-				ideaList = ideaList.getNext();
-			}
-		}
-		this.ideaSpecialRoot = ideaList;
-	}
-
-	/**
 	 * 一般カードを選択する
 	 * @return  カードを3枚保持する配列、nullの場合選択失敗、適当に上位で設定してくださいますか？(左から順に３まいとか。）
 	 */
@@ -97,9 +78,24 @@ public class CPU extends Player{
 		// カードを選ぶ
 		ArrayList<BattleCardView> selectedCards = this.ideaSpecialRoot.choiceCard(userInfo, enemyInfo);
 		
+		
+		if (ideaSpecialRoot == null) {
+			// 初回に特殊カード選択順を設定する。
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
 		// 使用するカードを設定する。。
 		
-		return null;
+		return selectedCards;
 	}
 
 

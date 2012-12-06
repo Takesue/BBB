@@ -22,9 +22,4 @@ public class IdeaSpeRecoverLifePoint20 extends IdeaForSelectSpeCard {
 		return null;
 	}
 	
-	@Override
-	protected int getEffectId() {
-		return IdeaForSelectSpeCard.EFFECTID_LP_RECOVER;
-	}
-
 }

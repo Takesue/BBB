@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,34 +12,48 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="5dp" >
-
+
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/baloonTxt1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#000000" />
-
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/baloonTxt2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#000000" />
-
+            android:text=""
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/baloonTxt3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#000000" />
-
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/baloonTxt4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#000000" />
+            android:text=""
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:textColor="#000000"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

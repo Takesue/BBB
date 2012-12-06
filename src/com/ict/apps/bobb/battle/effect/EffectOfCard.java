@@ -1,7 +1,11 @@
 package com.ict.apps.bobb.battle.effect;
 
 
+import java.util.ArrayList;
+
+import com.ict.apps.bobb.battle.player.IdeaForSelectSpeCard;
 import com.ict.apps.bobb.battle.player.Player;
+import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.data.SpecialCard;
 
 /**
@@ -9,7 +13,8 @@ import com.ict.apps.bobb.data.SpecialCard;
  *
  */
 public abstract class EffectOfCard {
-	
+
+
 	/**
 	 * 効果IDが一致したインスタンスを返却する。
 	 * @param effectId

@@ -5,12 +5,7 @@ import java.util.ArrayList;
 
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 
-public class IdeaSpeUpAttack10 extends IdeaForSelectSpeCard {
-
-	@Override
-	protected int getEffectId() {
-		return IdeaForSelectSpeCard.EFFECTID_LP_ATTACK_UP_10;
-	}
+public class IdeaSpeDoubleAttack extends IdeaForSelectSpeCard {
 
 	@Override
 	protected ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo) {
