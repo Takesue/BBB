@@ -275,14 +275,14 @@ public class BattleManager {
 	 * 相手のカードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectCards() {
-		return this.activity.enemyPlayer.getSelectCard(this.activity.myPlayer, this.activity.enemyPlayer);
+		return this.activity.enemyPlayer.getSelectCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
 	
 	/**
 	 * 相手の特殊カードを取得
 	 */
 	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
-		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.myPlayer, this.activity.enemyPlayer);
+		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
 
 

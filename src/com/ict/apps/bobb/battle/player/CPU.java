@@ -1,6 +1,7 @@
 package com.ict.apps.bobb.battle.player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
 
@@ -76,26 +77,21 @@ public class CPU extends Player{
 	@Override
 	public ArrayList<BattleCardView> getSelectSpacialCard(Player userInfo, Player enemyInfo) {
 		// カードを選ぶ
-		ArrayList<BattleCardView> selectedCards = this.ideaSpecialRoot.choiceCard(userInfo, enemyInfo);
+//		ArrayList<BattleCardView> selectedCards = this.ideaSpecialRoot.choiceCard(userInfo, enemyInfo);
+		
+		// とりあえず、ランダムで１枚取得するロジックにする。
+		// あればかならず使用するロジックにする
+		
+		// 手持ちで未使用の特殊カードを取得する
+		ArrayList<BattleCardView> cards = userInfo.specialInfo.getHoldCard();
+		Random random = new Random();
+		
+		int r = random.nextInt( cards.size() );
+		BattleCardView card = cards.get(r);
+		userInfo.specialInfo.selectCard(card);
 		
 		
-		if (ideaSpecialRoot == null) {
-			// 初回に特殊カード選択順を設定する。
-			
-			
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-		// 使用するカードを設定する。。
-		
-		return selectedCards;
+		return null;
 	}
 
 

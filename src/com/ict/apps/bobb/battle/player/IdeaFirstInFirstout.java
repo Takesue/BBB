@@ -14,12 +14,12 @@ public class IdeaFirstInFirstout extends IdeaForSelectCard {
 	protected ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo) {
 		ArrayList<BattleCardView> cardList = new ArrayList<BattleCardView>();
 		
-		ArrayList<BattleCardView> cards = enemyInfo.cardInfo.getHoldCard();
+		ArrayList<BattleCardView> cards = userInfo.cardInfo.getHoldCard();
 		int length = 3;
 		for (int i = 0; i < length; i++) {
 			cardList.add(cards.get(i));
 			// ステータスを選択済みに変更
-			enemyInfo.cardInfo.selectCard(cards.get(i));
+			userInfo.cardInfo.selectCard(cards.get(i));
 		}
 		
 		return cardList;

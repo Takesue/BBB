@@ -339,12 +339,12 @@ public class StartActivity extends BaseActivity {
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD3, kit);
-		
+
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1004l);					// 虫キットID
 		kit.setBarcode_id(111111111114l);			// バーコードID
 		kit.setName("はしした");						// 名前
-		kit.setEffect("相手守備力１／２");					// 効果
+		kit.setEffect("相手守備力１／２");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
@@ -404,7 +404,6 @@ public class StartActivity extends BaseActivity {
 		BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD1);
 		BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD2);
 		BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this, BattleUseSpecialCard.CardNum.CARD3);
-		
 
 		Card[] specards = specialkit1.createBeetleCards();
 		for (int j = 0; j < specards.length; j++) {
