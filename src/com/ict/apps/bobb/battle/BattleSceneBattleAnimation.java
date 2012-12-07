@@ -17,6 +17,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,45 +70,45 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 相手の合計値表示
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		int left = (int) (new Float(this.activity.baseLayout.getWidth())/tmpDensity - (100 + 10));
-		LinearLayout enemyTotal = this.viewTotal(left, 180);
-		this.calcAndViewTotal(1, this.activity.enemyPlayer.cardInfo.getSelectedCard(), enemyTotal);
+//		LinearLayout enemyTotal = this.viewTotal(left, 180);
+//		this.calcAndViewTotal(1, this.activity.enemyPlayer.cardInfo.getSelectedCard(), enemyTotal);
 		
 		// 自分の合計値表示
-		LinearLayout myTotal = this.viewTotal(5, 180);
-		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
+//		LinearLayout myTotal = this.viewTotal(5, 180);
+//		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
 		
 		
 		// 特殊効果/属性効果発動アニメーション
-		
+		this.viewStatusPannel();
 		
 		
 		
 		// 合計値を消す
-		this.calcDelete(enemyTotal, myTotal);
+//		this.calcDelete(enemyTotal, myTotal);
 		
 		// ダメージをtoastで表示する
-		this.mesegeDamege();
+//		this.mesegeDamege();
 		
 		// カードをアニメーションさせる
-		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
-		this.animationCards(0, this.activity.myPlayer, myTotal);
+//		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
+//		this.animationCards(0, this.activity.myPlayer, myTotal);
 		
 		// 各ライフポイントを削る
-		this.lifePointRecalc();
+//		this.lifePointRecalc();
 		
 		// カード使用済み
-		this.battleAnimationDustCard();
+//		this.battleAnimationDustCard();
 		
 		// 試合終了かどうか確認する
-		this.battleEndCheck();
+//		this.battleEndCheck();
 		
 		// 試合終了であれば、トーストを表示して終わらせる
-		if(this.endCount > 0){
-			this.battleEnd();
-		}
-		
-		//次のシーンへ移る
-		this.callChangeNexrScene();
+//		if(this.endCount > 0){
+//			this.battleEnd();
+//		}
+//		
+//		//次のシーンへ移る
+//		this.callChangeNexrScene();
 	}
 
 	@Override
@@ -635,5 +637,33 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}).start();
 	
 	}
+	
+	
+	/**
+	 * 対戦相手、自分のステータス情報表示
+	 */
+	public void viewStatusPannel() {
+
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+		// ステータス表示View取得
+		LinearLayout statusPannel = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_status_view, null);
+
+		
+		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
+				BattleLayout.LayoutParams.MATCH_PARENT,
+				this.activity.baseLayout.getHeight());
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		params.setMargins((int)(0), (int)(0), 0, 0);
+		statusPannel.setLayoutParams(params);
+
+		// 戦闘ベース部品にcard追加する
+		this.activity.baseLayout.addView(statusPannel, params);
+
+	}
+
 
 }

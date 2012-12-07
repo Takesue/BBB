@@ -252,7 +252,7 @@ public class BattleManager {
 			this.getEnemySelectCards();
 			
 			// 相手の特殊カードを策定する
-//			this.getEnemySelectSpecialCards();
+			this.getEnemySelectSpecialCards();
 			
 			// CPUの場合、次のシーンに移動
 			this.activity.changeNextScene();
