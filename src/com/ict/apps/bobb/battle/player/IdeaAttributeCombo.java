@@ -15,7 +15,7 @@ public class IdeaAttributeCombo extends IdeaForSelectCard {
 	protected ArrayList<BattleCardView> judge(Player userInfo, Player enemyInfo) {
 		ArrayList<BattleCardView> cardList = null;
 		
-		ArrayList<BattleCardView> cards = enemyInfo.cardInfo.getHoldCard();
+		ArrayList<BattleCardView> cards = userInfo.cardInfo.getHoldCard();
 		
 		CardAttribute combo = this.getComboAttribute(cards);
 		
@@ -28,7 +28,7 @@ public class IdeaAttributeCombo extends IdeaForSelectCard {
 					// 属性が一致するやつだけを抽出
 					cardList.add(card);
 					// ステータスを選択済みに変更
-					enemyInfo.cardInfo.selectCard(card);
+					userInfo.cardInfo.selectCard(card);
 
 					if (cardList.size() == 3) {
 						break;
