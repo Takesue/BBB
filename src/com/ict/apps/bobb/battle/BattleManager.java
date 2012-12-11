@@ -249,10 +249,10 @@ public class BattleManager {
 		else {
 			
 			// 相手のカード3枚を策定する
-			this.getEnemySelectCards();
+			this.analyzeEnemySelectCards();
 			
 			// 相手の特殊カードを策定する
-			this.getEnemySelectSpecialCards();
+			this.analyzeEnemySelectSpecialCards();
 			
 			// CPUの場合、次のシーンに移動
 			this.activity.changeNextScene();
@@ -272,16 +272,16 @@ public class BattleManager {
 	
 
 	/**
-	 * 相手のカードを取得
+	 * 相手のカードを策定する
 	 */
-	private ArrayList<BattleCardView> getEnemySelectCards() {
+	private ArrayList<BattleCardView> analyzeEnemySelectCards() {
 		return this.activity.enemyPlayer.getSelectCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
 	
 	/**
-	 * 相手の特殊カードを取得
+	 * 相手の特殊カードを策定
 	 */
-	private ArrayList<BattleCardView> getEnemySelectSpecialCards() {
+	private ArrayList<BattleCardView> analyzeEnemySelectSpecialCards() {
 		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
 

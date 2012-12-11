@@ -77,7 +77,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 //		LinearLayout myTotal = this.viewTotal(5, 180);
 //		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
 		
-		
 		// 特殊効果/属性効果発動アニメーション
 		this.viewStatusPannel();
 		

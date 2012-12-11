@@ -17,4 +17,10 @@ public class EffectLifeRecovery extends EffectOfCard {
 		
 	}
 
+	@Override
+	public void execEffectAnimation(Player userInfo, Player enemyInfo) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
 }

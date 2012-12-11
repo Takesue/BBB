@@ -6,17 +6,18 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/score_panel_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical" >
-
+
             <TextView
-                android:id="@+id/TextView26"
+                android:id="@+id/enemyComment"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/baloon"
@@ -42,7 +43,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView24"
+                            android:id="@+id/enemyNameTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -54,7 +55,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView22"
+                            android:id="@+id/enemyName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -74,7 +75,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView23"
+                            android:id="@+id/enemyLpTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -86,7 +87,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView21"
+                            android:id="@+id/enemyLp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -112,7 +113,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView15"
+                            android:id="@+id/enemyDefenseTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -124,7 +125,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView17"
+                            android:id="@+id/enemyDefense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -145,7 +146,7 @@
 
 
                         <TextView
-                            android:id="@+id/TextView01"
+                            android:id="@+id/enemyAttackTitle"
                             android:layout_width="85dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -161,7 +162,7 @@
 
 
                         <TextView
-                            android:id="@+id/TextView02"
+                            android:id="@+id/enemyAttack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -181,7 +182,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView16"
+                            android:id="@+id/enemyAttributeTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -193,7 +194,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView19"
+                            android:id="@+id/enemyAttribute"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -213,7 +214,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView20"
+                            android:id="@+id/enemyEffectTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -225,7 +226,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView18"
+                            android:id="@+id/enemyEffect"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -238,12 +239,12 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
+
             <TextView
-                android:id="@+id/TextView25"
+                android:id="@+id/centerPannel"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="#ffffff"
+                android:background="@drawable/waku"
                 android:padding="10dp" />
 
             <LinearLayout
@@ -264,7 +265,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView14"
+                            android:id="@+id/myAttackTitle"
                             android:layout_width="85dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -276,7 +277,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView12"
+                            android:id="@+id/myAttack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -296,7 +297,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView13"
+                            android:id="@+id/myDefenseTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -308,7 +309,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView11"
+                            android:id="@+id/myDefense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -328,7 +329,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView10"
+                            android:id="@+id/myAttributeTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -340,7 +341,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView08"
+                            android:id="@+id/myAttribute"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -360,7 +361,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView07"
+                            android:id="@+id/myEffectTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -372,7 +373,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView09"
+                            android:id="@+id/myEffect"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -397,7 +398,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView05"
+                            android:id="@+id/myNameTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -409,7 +410,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView06"
+                            android:id="@+id/myName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -429,7 +430,7 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView03"
+                            android:id="@+id/myLpTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -441,7 +442,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/TextView04"
+                            android:id="@+id/myLp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -454,9 +455,9 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
+
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/myComment"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/baloon_rev"
