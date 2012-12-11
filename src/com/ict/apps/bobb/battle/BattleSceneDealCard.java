@@ -73,8 +73,8 @@ public class BattleSceneDealCard implements BattleScene {
 		}
 		else {
 			// カードをシャッフルする。
-			this.activity.myPlayer.cardInfo.shuffle();
-			this.activity.enemyPlayer.cardInfo.shuffle();
+//			this.activity.myPlayer.cardInfo.shuffle();
+//			this.activity.enemyPlayer.cardInfo.shuffle();
 			
 			// 配布予定カードのindexを初期化する
 //			this.activity.myInfo.curPos = 0;

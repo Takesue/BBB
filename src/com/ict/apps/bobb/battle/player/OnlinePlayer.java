@@ -3,6 +3,7 @@ package com.ict.apps.bobb.battle.player;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
@@ -58,8 +59,43 @@ public class OnlinePlayer extends Player{
 		return;
 	}
 	
+	/**
+	 * Onlineで選択した一般カードを設定する
+	 */
+	public void setSelectedCards(Integer[] cardNumList) {
+		
+		// Onlineユーザが保持しているカード情報を全て取得
+		ArrayList<BattleCardView> cards = this.cardInfo.getAllCards();
+
+		for (int i = 0; i < cardNumList.length; i++) {
+			for (BattleCardView card : cards) {
+				if (card.getCardInfo().getCardNum() == cardNumList[i]) {
+					// Online先で選択したカード番号と一致したカードビューオブジェクトの状態を選択状態に設定する
+					this.cardInfo.selectCard(card);
+					Log.d("setSelectedCards　カード情報", "Num:" + card.getCardInfo().getCardNum());
+				}
+			}
+		}
+	}
 	
-	
+	/**
+	 * Onlineで選択した特殊カードを設定する
+	 */
+	public void setSelectedSpecialCards(Integer[] cardNumList) {
+		
+		// Onlineユーザが対戦使用する特殊カード情報を取得
+		ArrayList<BattleCardView> cards = this.specialInfo.getAllCards();
+
+		for (int i = 0; i < cardNumList.length; i++) {
+			for (BattleCardView card : cards) {
+				if (card.getCardInfo().getCardNum() == cardNumList[i]) {
+					// Online先で選択した特殊カード番号と一致したカードビューオブジェクトの状態を選択状態に設定する
+					this.specialInfo.selectCard(card);
+				}
+			}
+		}
+	}
+
 	
 
 }

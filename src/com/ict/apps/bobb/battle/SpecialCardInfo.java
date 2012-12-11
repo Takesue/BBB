@@ -36,9 +36,9 @@ public class SpecialCardInfo {
 		this.cardList.add(card);
 		this.cardStatusList.put(card, 0);
 		
-		// 対戦時にカードを一意に特定するためのカードNUMを振る、
+		// 対戦時にカードを一意に特定するためのカードNUMを振る、1000番台
 		SpecialCard cardInfo = card.getSpecialInfo();
-		cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
+		cardInfo.setCardNum(1000 + this.cardList.indexOf(card) + 1);
 
 	}
 	

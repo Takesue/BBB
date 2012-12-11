@@ -14,8 +14,10 @@ import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
 import com.ict.apps.bobb.online.OnlineQueryBattleReqest;
 import com.ict.apps.bobb.online.OnlineQueryBattleStatus;
+import com.ict.apps.bobb.online.OnlineQueryEnemySelectedCard;
 import com.ict.apps.bobb.online.OnlineQueryEnemyUsingCard;
 import com.ict.apps.bobb.online.OnlineQueryOnlineUserList;
+import com.ict.apps.bobb.online.OnlineQueryRegistSelectedCard;
 import com.ict.apps.bobb.online.OnlineQueryRegistUsingCard;
 import com.ict.apps.bobb.online.OnlineQueryResponseForBattleReq;
 
@@ -51,6 +53,10 @@ public class BattleManager {
 	
 	// 対戦相手使用カード取得クエリ-
 	private OnlineQueryEnemyUsingCard getEnemyUsingCardQery = null;
+	
+	// 対戦相手使用カード取得クエリ-
+	private OnlineQueryEnemySelectedCard getEnemySelectedCardQery = null;
+
 
 	// カード選択シーンの最後に呼び出すメソッドを呼び出す
 	public BattleManager(BattleActivity activity) {
@@ -66,6 +72,8 @@ public class BattleManager {
 		// 自分の対戦時使用情報を生成
 		this.activity.myPlayer = new MyPlayer(this.activity);
 		this.activity.myPlayer.createCardBattlerInfo(null,null);
+		// カードをシャッフルする。
+		this.activity.myPlayer.cardInfo.shuffle();
 		
 		Intent intent = this.activity.getIntent();
 		if ("online".equals(intent.getStringExtra("user_mode"))) {
@@ -124,6 +132,9 @@ public class BattleManager {
 			
 			// 対戦相手（CPU）の情報生成
 			this.activity.enemyPlayer.createCardBattlerInfo(null,null);
+
+			// カードをシャッフルする。
+			this.activity.enemyPlayer.cardInfo.shuffle();
 
 			// ゲーム開始
 			this.startBattleSceneInit();
@@ -211,7 +222,11 @@ public class BattleManager {
 	public void responseEnemySelectedCard() {
 		
 		// OnlinePlayerに選択カードを設定
+		Integer[] cardNumlist = this.getEnemySelectedCardQery.getSelectedCardNum();
+		((OnlinePlayer)this.activity.enemyPlayer).setSelectedCards(cardNumlist);
 		
+		Integer[] specialCardNum = this.getEnemySelectedCardQery.getSelectedSpecialCardNum();
+		((OnlinePlayer)this.activity.enemyPlayer).setSelectedSpecialCards(specialCardNum);
 		
 		// シーンを変更
 		this.activity.changeNextScene();
@@ -233,18 +248,37 @@ public class BattleManager {
 		// 対戦相手がCPUかオンラインユーザかチェック
 		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
 			// オンラインユーザの場合、選択したカードを相手先に通知
+			OnlineQueryRegistSelectedCard query = new OnlineQueryRegistSelectedCard();
+			query.setBattleId(this.battleId);
+			query.setUserId(StatusInfo.getUserId(this.activity));
+			query.setTurnNum(this.turnNum);
+			query.setCardInfoList(this.activity.myPlayer.cardInfo.getSelectedCard());
+			query.setSpecialCardInfoList(this.activity.myPlayer.specialInfo.getSelectedCard());
+			query.finishedDataSet();
+			new OnlinePoolingTask(this.activity).execute(query);
+			
 			
 			// 相手先の選択カード取得ポーリングに入る
+			this.getEnemySelectedCardQery = new OnlineQueryEnemySelectedCard();
+			this.getEnemySelectedCardQery.setBattleId(this.battleId); // 対戦ID
+			this.getEnemySelectedCardQery.setUserId(this.enemyUserId); // 対戦相手のユーザID
+			this.getEnemySelectedCardQery.setTurnNum(this.turnNum);		// ターン番号
+			new OnlinePoolingTask(this.activity).execute(this.getEnemySelectedCardQery);
 			
-			// ★まだ、選択カードを取得する処理が無いので、
-			// 取得したカードを使用してCPUに代行してもらう。
-			Player dummy = new CPU01(this.activity);
-			dummy.setLifepoint(this.activity.enemyPlayer.getLifepoint());
-			dummy.setName(this.activity.enemyPlayer.getName());
-			dummy.cardInfo = this.activity.enemyPlayer.cardInfo;
-			dummy.specialInfo = this.activity.enemyPlayer.specialInfo;
-			this.activity.enemyPlayer = dummy;
-			this.activity.changeNextScene();
+			
+//			// ★まだ、選択カードを取得する処理が無いので、
+//			// 取得したカードを使用してCPUに代行してもらう。
+//			Player dummy = new CPU01(this.activity);
+//			dummy.setLifepoint(this.activity.enemyPlayer.getLifepoint());
+//			dummy.setName(this.activity.enemyPlayer.getName());
+//			dummy.cardInfo = this.activity.enemyPlayer.cardInfo;
+//			dummy.specialInfo = this.activity.enemyPlayer.specialInfo;
+//			this.activity.enemyPlayer = dummy;
+//			this.activity.changeNextScene();
+			
+			
+			
+			
 		}
 		else {
 			
@@ -284,7 +318,5 @@ public class BattleManager {
 	private ArrayList<BattleCardView> analyzeEnemySelectSpecialCards() {
 		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
-
-
 	
 }

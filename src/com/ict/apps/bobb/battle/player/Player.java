@@ -145,8 +145,8 @@ public abstract class Player {
 		
 		for (int i = 0; i < cards.length; i++) {
 			
-			Integer ii = cards[i].getType();
-			Log.d("cardslength", ii.toString());
+//			Integer ii = cards[i].getType();
+//			Log.d("cardslength", ii.toString());
 			
 			BattleCardView viewCard = (BattleCardView)((LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
 					R.layout.my_cards, null);

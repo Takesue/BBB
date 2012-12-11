@@ -84,11 +84,14 @@ public class CPU extends Player{
 		
 		// 手持ちで未使用の特殊カードを取得する
 		ArrayList<BattleCardView> cards = userInfo.specialInfo.getHoldCard();
-		Random random = new Random();
 		
-		int r = random.nextInt( cards.size() );
-		BattleCardView card = cards.get(r);
-		userInfo.specialInfo.selectCard(card);
+		if (cards.size() > 0) {
+			Random random = new Random();
+			
+			int r = random.nextInt( cards.size() );
+			BattleCardView card = cards.get(r);
+			userInfo.specialInfo.selectCard(card);
+		}
 		
 		
 		return null;

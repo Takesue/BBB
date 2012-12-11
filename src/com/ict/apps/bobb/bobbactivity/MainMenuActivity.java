@@ -145,7 +145,6 @@ public class MainMenuActivity extends BaseActivity {
 	
 	
 	
-	
 	/**
 	 * ポップアップでユーザリストを表示する
 	 */
@@ -192,7 +191,6 @@ public class MainMenuActivity extends BaseActivity {
 					cintent.putExtra("user_name", query.getResponseData(index.get(position), "user_name"));
 					cintent.putExtra("registration_id", query.getResponseData(index.get(position), "transaction_id"));
 					cintent.putExtra("battle_id", query.getResponseData(index.get(position), "battle_id"));
-					startActivity(cintent);
 					
 					// インデックスをクリア
 					index.clear();

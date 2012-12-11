@@ -70,12 +70,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 相手の合計値表示
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		int left = (int) (new Float(this.activity.baseLayout.getWidth())/tmpDensity - (100 + 10));
-//		LinearLayout enemyTotal = this.viewTotal(left, 180);
-//		this.calcAndViewTotal(1, this.activity.enemyPlayer.cardInfo.getSelectedCard(), enemyTotal);
+		LinearLayout enemyTotal = this.viewTotal(left, 180);
+		this.calcAndViewTotal(1, this.activity.enemyPlayer.cardInfo.getSelectedCard(), enemyTotal);
 		
 		// 自分の合計値表示
-//		LinearLayout myTotal = this.viewTotal(5, 180);
-//		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
+		LinearLayout myTotal = this.viewTotal(5, 180);
+		this.calcAndViewTotal(0, this.activity.myPlayer.cardInfo.getSelectedCard(), myTotal);
 		
 		// 特殊効果/属性効果発動アニメーション
 		this.viewStatusPannel();
@@ -83,31 +83,31 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		
 		// 合計値を消す
-//		this.calcDelete(enemyTotal, myTotal);
+		this.calcDelete(enemyTotal, myTotal);
 		
 		// ダメージをtoastで表示する
-//		this.mesegeDamege();
+		this.mesegeDamege();
 		
 		// カードをアニメーションさせる
-//		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
-//		this.animationCards(0, this.activity.myPlayer, myTotal);
+		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
+		this.animationCards(0, this.activity.myPlayer, myTotal);
 		
 		// 各ライフポイントを削る
-//		this.lifePointRecalc();
+		this.lifePointRecalc();
 		
 		// カード使用済み
-//		this.battleAnimationDustCard();
+		this.battleAnimationDustCard();
 		
 		// 試合終了かどうか確認する
-//		this.battleEndCheck();
+		this.battleEndCheck();
 		
 		// 試合終了であれば、トーストを表示して終わらせる
-//		if(this.endCount > 0){
-//			this.battleEnd();
-//		}
-//		
-//		//次のシーンへ移る
-//		this.callChangeNexrScene();
+		if(this.endCount > 0){
+			this.battleEnd();
+		}
+		
+		//次のシーンへ移る
+		this.callChangeNexrScene();
 	}
 
 	@Override
@@ -149,7 +149,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					mHandler.post(new Runnable() {
 						public void run() {
 							finish();
-							activity.changeNextScene();
+//							activity.changeNextScene();
+							activity.bm.animationBattleFinished();
 						}
 					});
 				}
