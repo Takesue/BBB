@@ -26,12 +26,6 @@ public class OnlineQueryBattleReqest extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 対戦要求送信成功
-		((BattleActivity)context).bm.successBattleRequest();
-	}
-
-	@Override
 	public boolean isPoolingFinish(String response) {
 		return true;
 	}

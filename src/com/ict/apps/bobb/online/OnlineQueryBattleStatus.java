@@ -32,11 +32,6 @@ public class OnlineQueryBattleStatus extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		((BattleActivity)context).bm.readyBattle();
-	}
-
-	@Override
 	public boolean isPoolingFinish(String response) {
 		boolean result = false;
 		

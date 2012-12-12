@@ -24,17 +24,6 @@ public class OnlineQueryOnlineUserList extends OnlineQuery {
 	public Map<String, String> getParam() {
 		return this.reqParams;
 	}
-
-	@Override
-	public void execAfterReceiveingAction(Context context) {
-		
-		if (context instanceof MainMenuActivity) {
-			// Qery発行がMainMenuActivityの場合
-			// Qery終了時に以下メソッドを呼び出す
-			((MainMenuActivity)context).viewPopupUserLis();
-		}
-		
-	}
 	
 	@Override
 	public boolean isPoolingFinish(String response) {

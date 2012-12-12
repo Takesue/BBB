@@ -27,12 +27,6 @@ public class OnlineQueryResponseForBattleReq extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 対戦依頼への応答が成功したら、対戦準備に取り掛かる
-		((BattleActivity)context).bm.readyBattle();
-	}
-
-	@Override
 	public boolean isPoolingFinish(String response) {
 		return true;
 	}

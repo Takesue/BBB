@@ -23,10 +23,6 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 		return this.reqParams;
 	}
 
-	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 受信後特になにもしない。
-	}
 	
 	@Override
 	public boolean isPoolingFinish(String response) {

@@ -33,12 +33,6 @@ public class OnlineQueryRegistUsingCard extends OnlineQuery {
 	public Map<String, String> getParam() {
 		return this.reqParams;
 	}
-
-	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 今は特に何もしない。
-		// 自カード情報登録に失敗した場合、どうする？　対戦を止めて、CPUに切り替えるか？
-	}
 	
 	@Override
 	public boolean isPoolingFinish(String response) {

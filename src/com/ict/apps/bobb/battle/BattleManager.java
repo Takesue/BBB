@@ -12,6 +12,7 @@ import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
+import com.ict.apps.bobb.online.OnlineQuery;
 import com.ict.apps.bobb.online.OnlineQueryBattleReqest;
 import com.ict.apps.bobb.online.OnlineQueryBattleStatus;
 import com.ict.apps.bobb.online.OnlineQueryEnemySelectedCard;
@@ -20,6 +21,7 @@ import com.ict.apps.bobb.online.OnlineQueryOnlineUserList;
 import com.ict.apps.bobb.online.OnlineQueryRegistSelectedCard;
 import com.ict.apps.bobb.online.OnlineQueryRegistUsingCard;
 import com.ict.apps.bobb.online.OnlineQueryResponseForBattleReq;
+import com.ict.apps.bobb.online.OnlineResponseListener;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,9 +49,6 @@ public class BattleManager {
 	
 	// 対戦要求クエリ-
 	private OnlineQueryBattleReqest battleRequestQery = null;
-	
-	// 対戦時使用カード登録クエリ-
-	private OnlineQueryRegistUsingCard registUsingCardQery = null;
 	
 	// 対戦相手使用カード取得クエリ-
 	private OnlineQueryEnemyUsingCard getEnemyUsingCardQery = null;
@@ -116,6 +115,14 @@ public class BattleManager {
 				this.battleRequestQery.setUserId(StatusInfo.getUserId(this.activity));
 				this.battleRequestQery.setEnemyUserId(this.enemyUserId);
 				this.battleRequestQery.setRegistrationId(registrationId);
+				this.battleRequestQery.setListner(
+						new OnlineResponseListener() {
+							@Override
+							public void response(Context context, OnlineQuery query, Integer result) {
+								// レスポンス復帰時
+								successBattleRequest();
+							}
+						});
 				new OnlinePoolingTask(this.activity).execute(this.battleRequestQery);
 			}
 			else {
@@ -123,6 +130,12 @@ public class BattleManager {
 				this.battleId = battle_id;
 				OnlineQueryResponseForBattleReq query = new OnlineQueryResponseForBattleReq();
 				query.setBattleId(this.battleId);
+				query.setListner(new OnlineResponseListener() {
+					@Override
+					public void response(Context context, OnlineQuery query, Integer result) {
+						readyBattle();
+					}
+				});
 				new OnlinePoolingTask(this.activity).execute(query);
 			}
 			
@@ -159,6 +172,13 @@ public class BattleManager {
     	query.setBattleId(this.battleId);
     	query.setPoolingCount(60);		// 最大60秒待つ
     	query.setLoopFinishStatus("1"); // 依頼中(0)→開始(1)になるまで、ループさせる。
+    	query.setListner(new OnlineResponseListener() {
+			@Override
+			public void response(Context context, OnlineQuery query, Integer result) {
+				// クエリ-結果受信時
+				readyBattle();
+			}
+		});
 		new OnlinePoolingTask(this.activity).execute(query);
 		
 	}
@@ -170,19 +190,26 @@ public class BattleManager {
 		// 応答した場合も、要求して対戦応答ループから戻った場合も本処理で合流する。
 		
 		// 対戦応答の場合、対戦使用カード情報登録
-		this.registUsingCardQery = new OnlineQueryRegistUsingCard();
-		this.registUsingCardQery.setBattleId(this.battleId);
-		this.registUsingCardQery.setUserId(StatusInfo.getUserId(this.activity));
-		this.registUsingCardQery.setCardInfoList(this.activity.myPlayer.cardInfo.getCardInfoList());
-		this.registUsingCardQery.setSpecialCardInfoList(this.activity.myPlayer.specialInfo.getCardInfoList());
-		this.registUsingCardQery.finishedDataSet();
-		new OnlinePoolingTask(this.activity).execute(this.registUsingCardQery);
-		
+		// 対戦時使用カード登録クエリ-
+
+		OnlineQueryRegistUsingCard qery = new OnlineQueryRegistUsingCard();
+		qery.setBattleId(this.battleId);
+		qery.setUserId(StatusInfo.getUserId(this.activity));
+		qery.setCardInfoList(this.activity.myPlayer.cardInfo.getCardInfoList());
+		qery.setSpecialCardInfoList(this.activity.myPlayer.specialInfo.getCardInfoList());
+		qery.finishedDataSet();
+		new OnlinePoolingTask(this.activity).execute(qery);
 		
 		// 対戦応答の場合、対戦相手カード情報取得要求
 		this.getEnemyUsingCardQery = new OnlineQueryEnemyUsingCard();
 		this.getEnemyUsingCardQery.setBattleId(this.battleId); // 対戦ID
 		this.getEnemyUsingCardQery.setUserId(this.enemyUserId); // 対戦相手のユーザID
+		this.getEnemyUsingCardQery.setListner(new OnlineResponseListener() {
+			@Override
+			public void response(Context context, OnlineQuery query, Integer result) {
+				responseEnemyUsingCard();
+			}
+		});
 		new OnlinePoolingTask(this.activity).execute(this.getEnemyUsingCardQery);
 		
 	}
@@ -263,6 +290,12 @@ public class BattleManager {
 			this.getEnemySelectedCardQery.setBattleId(this.battleId); // 対戦ID
 			this.getEnemySelectedCardQery.setUserId(this.enemyUserId); // 対戦相手のユーザID
 			this.getEnemySelectedCardQery.setTurnNum(this.turnNum);		// ターン番号
+			this.getEnemySelectedCardQery.setListner(new OnlineResponseListener() {
+				@Override
+				public void response(Context context, OnlineQuery query, Integer result) {
+					responseEnemySelectedCard();
+				}
+			});
 			new OnlinePoolingTask(this.activity).execute(this.getEnemySelectedCardQery);
 			
 			
@@ -275,8 +308,6 @@ public class BattleManager {
 //			dummy.specialInfo = this.activity.enemyPlayer.specialInfo;
 //			this.activity.enemyPlayer = dummy;
 //			this.activity.changeNextScene();
-			
-			
 			
 			
 		}

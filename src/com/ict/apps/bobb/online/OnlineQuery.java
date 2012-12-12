@@ -26,6 +26,9 @@ public abstract class OnlineQuery {
 	// リクエストの結果Json形式
 	private JSONArray response = null;
 	
+	// クエリ-のレスポンス返却時のリスナー
+	private OnlineResponseListener listener = null;
+	
 	/**
 	 * リクエストURLを返却
 	 * @return
@@ -40,10 +43,25 @@ public abstract class OnlineQuery {
 	 */
 	public abstract Map<String, String> getParam();
 	
+	
+	/**
+	 * リスナーを設定
+	 */
+	public void setListner(OnlineResponseListener listener) {
+		this.listener = listener;
+	}
+
 	/**
 	 * データ受信後の固有アクションを実装する
+	 * @param context  Qyeryを発行したcontext
+	 * @param result   結果
 	 */
-	public abstract void execAfterReceiveingAction(Context context);
+	public void execAfterReceiveingAction(Context context, Integer result) {
+		
+		if (this.listener != null) {
+			this.listener.response(context, this, result);
+		}
+	}
 	
 	/**
 	 * Poolingを終了させるべきかどうかを判定

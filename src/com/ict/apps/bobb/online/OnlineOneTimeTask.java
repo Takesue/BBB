@@ -60,7 +60,7 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		
 		if (result == 0) {
 			// Query固有の受信後処理を実施する
-			this.query.execAfterReceiveingAction(this.context);
+			this.query.execAfterReceiveingAction(this.context, result);
 		}
 
 		// Activityへブロードキャスト

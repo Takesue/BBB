@@ -2,6 +2,8 @@ package com.ict.apps.bobb.bobbactivity;
 
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.common.StatusInfo;
+import com.ict.apps.bobb.online.OnlineQuery;
+import com.ict.apps.bobb.online.OnlineResponseListener;
 import com.ict.apps.bobb.online.OnlineUtil;
 import com.ict.apps.bobb.online.OnlineOneTimeTask;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
@@ -69,6 +71,14 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		StatusInfo.setUserName(this, name);
 		OnlineQueryUserRegister query = new OnlineQueryUserRegister();
 		query.setUserName(StatusInfo.getUserName(this));
+		query.setListner(new OnlineResponseListener() {
+			@Override
+			public void response(Context context, OnlineQuery query, Integer result) {
+				// ユーザIDを端末に保存
+				StatusInfo.setUserId(context, query.getResponseData(0, "id"));
+				Log.d("★★JsonData", query.getResponseData(0, "user_name"));	
+			}
+		});
 		new OnlinePoolingTask(this).execute(query);
 
 	}

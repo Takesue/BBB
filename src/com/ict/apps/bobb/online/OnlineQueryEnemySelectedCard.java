@@ -30,12 +30,6 @@ public class OnlineQueryEnemySelectedCard extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 対戦相手カード情報取得要求結果処理
-		((BattleActivity)context).bm.responseEnemySelectedCard();
-	}
-
-	@Override
 	public boolean isPoolingFinish(String response) {
 		return true;
 	}

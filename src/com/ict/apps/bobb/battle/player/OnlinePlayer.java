@@ -96,7 +96,7 @@ public class OnlinePlayer extends Player{
 
 		for (int i = 0; i < cardNumList.length; i++) {
 			for (BattleCardView card : cards) {
-				if (card.getCardInfo().getCardNum() == cardNumList[i]) {
+				if (card.getSpecialInfo().getCardNum() == cardNumList[i]) {
 					// Online先で選択した特殊カード番号と一致したカードビューオブジェクトの状態を選択状態に設定する
 					this.specialInfo.selectCard(card);
 				}

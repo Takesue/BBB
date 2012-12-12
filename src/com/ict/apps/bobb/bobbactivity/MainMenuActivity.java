@@ -17,8 +17,10 @@ import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
+import com.ict.apps.bobb.online.OnlineQuery;
 import com.ict.apps.bobb.online.OnlineQueryOnlineUserList;
 import com.ict.apps.bobb.online.OnlineQueryUserRegister;
+import com.ict.apps.bobb.online.OnlineResponseListener;
 import com.ict.apps.bobb.online.OnlineUtil;
 
 import android.app.Activity;
@@ -81,6 +83,12 @@ public class MainMenuActivity extends BaseActivity {
 		this.query = new OnlineQueryOnlineUserList();
 		this.query.setUserId(StatusInfo.getUserId(this));
 		this.query.setLevel(StatusInfo.getLevel(this));
+		this.query.setListner(new OnlineResponseListener() {
+			@Override
+			public void response(Context context, OnlineQuery query, Integer result) {
+				viewPopupUserLis();
+			}
+		});
 		new OnlinePoolingTask(this).execute(this.query);
 
 		// Intent cintent = new Intent(MainMenuActivity.this,

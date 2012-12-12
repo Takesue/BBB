@@ -30,11 +30,6 @@ public class OnlineQueryBattleStop extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		return;
-	}
-
-	@Override
 	public boolean isPoolingFinish(String response) {
 		return true;
 	}
