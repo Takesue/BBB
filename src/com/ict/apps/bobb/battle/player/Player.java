@@ -170,6 +170,15 @@ public abstract class Player {
 			
 			viewCard.setBeetleCard(cards[i]);
 			
+			Log.d("setCardInfoToCardBattlerInfo", "=============================");
+			Log.d("setCardInfoToCardBattlerInfo", "cardNum:" + cards[i].getCardNum());
+			Log.d("setCardInfoToCardBattlerInfo", "Name:" + cards[i].getName());
+			Log.d("setCardInfoToCardBattlerInfo", "type:" + cards[i].getType());
+			Log.d("setCardInfoToCardBattlerInfo", "attack:" + cards[i].getAttack());
+			Log.d("setCardInfoToCardBattlerInfo", "defense:" + cards[i].getDefense());
+			Log.d("setCardInfoToCardBattlerInfo", "Attribute:" + cards[i].getAttribute());
+			
+			
 			this.cardInfo.setBattleCards(viewCard);
 			
 		}

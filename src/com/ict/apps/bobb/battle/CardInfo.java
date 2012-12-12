@@ -39,7 +39,10 @@ public class CardInfo {
 		
 		// 対戦時にカードを一意に特定するためのカードNUMを振る、
 		BeetleCard cardInfo = card.getCardInfo();
-		cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
+		if (cardInfo.getCardNum() == 0) {
+			// カード番号がまだ振られていない場合のみ。番号を振る
+			cardInfo.setCardNum(this.cardList.indexOf(card) + 1);
+		}
 	}
 	
 	

@@ -10,6 +10,7 @@ import com.ict.apps.bobb.data.CardAttribute;
 import com.ict.apps.bobb.data.SpecialCard;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * 対戦相手カード情報取得要求
@@ -83,6 +84,14 @@ public class OnlineQueryEnemyUsingCard extends OnlineQuery {
 						? CardAttribute.FIRE : "2".equals(this.getResponseData(i, "cardattr")) 
 						? CardAttribute.WATER : CardAttribute.WIND);
 				cardsList.add(card);
+				
+				Log.d("getBeetleCards", "=============================");
+				Log.d("getBeetleCards", "cardNum:" + card.getCardNum());
+				Log.d("getBeetleCards", "Name:" + card.getName());
+				Log.d("getBeetleCards", "type:" + card.getType());
+				Log.d("getBeetleCards", "attack:" + card.getAttack());
+				Log.d("getBeetleCards", "defense:" + card.getDefense());
+				Log.d("getBeetleCards", "Attribute:" + card.getAttribute());
 			}
 		}
 		

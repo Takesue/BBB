@@ -183,7 +183,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 多少拡大する
 		ArrayList<BattleCardView> cards = info.cardInfo.getSelectedCard();
 		
-		
 		int posX = 10;
 		int posY = 320;
 		if (type == 1) {

@@ -73,6 +73,14 @@ public class OnlinePlayer extends Player{
 					// Online先で選択したカード番号と一致したカードビューオブジェクトの状態を選択状態に設定する
 					this.cardInfo.selectCard(card);
 					Log.d("setSelectedCards　カード情報", "Num:" + card.getCardInfo().getCardNum());
+					
+					Log.d("setSelectedCards", "=============================");
+					Log.d("setSelectedCards", "cardNum:" + card.getCardInfo().getCardNum());
+					Log.d("setSelectedCards", "Name:" + card.getCardInfo().getName());
+					Log.d("setSelectedCards", "type:" + card.getCardInfo().getType());
+					Log.d("setSelectedCards", "attack:" + card.getCardInfo().getAttack());
+					Log.d("setSelectedCards", "defense:" + card.getCardInfo().getDefense());
+					Log.d("setSelectedCards", "Attribute:" + card.getCardInfo().getAttribute());
 				}
 			}
 		}
