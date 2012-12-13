@@ -6,6 +6,7 @@ import com.ict.apps.bobb.battle.BattleToast;
 import com.ict.apps.bobb.bobbactivity.MainMenuActivity;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.bobbactivity.RuleActivity;
+import com.ict.apps.bobb.bobbactivity.StartActivity;
 import com.ict.apps.bobb.online.OnlineUtil;
 
 import android.app.Activity;
@@ -163,7 +164,7 @@ public abstract class BaseActivity extends Activity {
 		case R.id.menu_top:
 			// TOPへ戻る
 			// いままでの画面スタックは削除してトップ画面に戻る
-			Intent intent = new Intent(this, MainMenuActivity.class);  
+			Intent intent = new Intent(this, StartActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 				Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			this.startActivity(intent); 
@@ -171,7 +172,6 @@ public abstract class BaseActivity extends Activity {
 			break;
 		case R.id.menu_rule:
 			// ルール説明
-			Toast.makeText(this, "ruleだよ", Toast.LENGTH_SHORT).show();
 			this.callRuleView();
 			break;
 		 }
@@ -186,7 +186,6 @@ public abstract class BaseActivity extends Activity {
 		Intent intent = new Intent(this, RuleActivity.class);
 		this.startActivity(intent); 
 	}
-	
 	
 	
 	// メモリ表示再描画用のスレッド

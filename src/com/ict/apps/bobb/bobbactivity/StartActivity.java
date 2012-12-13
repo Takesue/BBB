@@ -55,12 +55,6 @@ public class StartActivity extends BaseActivity {
 		}
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_start, menu);
-        return true;
-    } 
-    
     
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
