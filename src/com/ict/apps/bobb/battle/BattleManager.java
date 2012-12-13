@@ -11,10 +11,12 @@ import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.common.StatusInfo;
+import com.ict.apps.bobb.online.OnlineOneTimeTask;
 import com.ict.apps.bobb.online.OnlinePoolingTask;
 import com.ict.apps.bobb.online.OnlineQuery;
 import com.ict.apps.bobb.online.OnlineQueryBattleReqest;
 import com.ict.apps.bobb.online.OnlineQueryBattleStatus;
+import com.ict.apps.bobb.online.OnlineQueryBattleStop;
 import com.ict.apps.bobb.online.OnlineQueryEnemySelectedCard;
 import com.ict.apps.bobb.online.OnlineQueryEnemyUsingCard;
 import com.ict.apps.bobb.online.OnlineQueryOnlineUserList;
@@ -25,6 +27,7 @@ import com.ict.apps.bobb.online.OnlineResponseListener;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 /**
  * 対戦の管理をするクラス
@@ -120,7 +123,15 @@ public class BattleManager {
 							@Override
 							public void response(Context context, OnlineQuery query, Integer result) {
 								// レスポンス復帰時
-								successBattleRequest();
+								if (result == 0) {
+									// 正常終了持
+									successBattleRequest();
+								}
+								else{
+									// 異常終了時
+									// ステータスを中断へ変更
+									interruptedBattleqery();
+								}
 							}
 						});
 				new OnlinePoolingTask(this.activity).execute(this.battleRequestQery);
@@ -133,7 +144,14 @@ public class BattleManager {
 				query.setListner(new OnlineResponseListener() {
 					@Override
 					public void response(Context context, OnlineQuery query, Integer result) {
-						readyBattle();
+						if (result == 0) {
+							readyBattle();
+						}
+						else{
+							// 異常終了時
+							// ステータスを中断へ変更
+							interruptedBattleqery();
+						}
 					}
 				});
 				new OnlinePoolingTask(this.activity).execute(query);
@@ -169,14 +187,26 @@ public class BattleManager {
 		
 		// 対戦応答待ちループ実行
 		OnlineQueryBattleStatus query = new OnlineQueryBattleStatus();
-    	query.setBattleId(this.battleId);
-    	query.setPoolingCount(60);		// 最大60秒待つ
-    	query.setLoopFinishStatus("1"); // 依頼中(0)→開始(1)になるまで、ループさせる。
-    	query.setListner(new OnlineResponseListener() {
+		query.setBattleId(this.battleId);			
+		query.setPoolingCount(60); 					// 最大60秒待つ
+		query.setLoopFinishStatus("1"); 			// 依頼中(0)→開始(1)になるまで、ループさせる。
+		query.setListner(new OnlineResponseListener() {
 			@Override
 			public void response(Context context, OnlineQuery query, Integer result) {
 				// クエリ-結果受信時
-				readyBattle();
+				if (result == 0) {
+					readyBattle();
+				}
+				else{
+					// 異常終了時
+					// ステータスを中断へ変更
+					interruptedBattleqery();
+					
+					// 対戦相手のカードが取得できなかったので、ユーザへエラーの旨のポップアップを表示して終了する。
+					Toast.makeText(context, "依頼者から時間内に応答がありませんでした。", Toast.LENGTH_LONG).show();
+					changeEnemyToCPU();
+					finishedBattle();
+				}
 			}
 		});
 		new OnlinePoolingTask(this.activity).execute(query);
@@ -207,7 +237,19 @@ public class BattleManager {
 		this.getEnemyUsingCardQery.setListner(new OnlineResponseListener() {
 			@Override
 			public void response(Context context, OnlineQuery query, Integer result) {
-				responseEnemyUsingCard();
+				if (result == 0) {
+					responseEnemyUsingCard();
+				}
+				else{
+					// 異常終了時
+					// ステータスを中断へ変更
+					interruptedBattleqery();
+					
+					// 対戦相手のカードが取得できなかったので、ユーザへエラーの旨のポップアップを表示して終了する。
+					Toast.makeText(context, "対戦相手が対戦を取りやめました。", Toast.LENGTH_LONG).show();
+					changeEnemyToCPU();
+					finishedBattle();
+				}
 			}
 		});
 		new OnlinePoolingTask(this.activity).execute(this.getEnemyUsingCardQery);
@@ -293,22 +335,29 @@ public class BattleManager {
 			this.getEnemySelectedCardQery.setListner(new OnlineResponseListener() {
 				@Override
 				public void response(Context context, OnlineQuery query, Integer result) {
-					responseEnemySelectedCard();
+					if (result == 0) {
+						responseEnemySelectedCard();
+					}
+					else{
+						// 異常終了時
+						interruptedBattleqery();
+						
+						// CPUに途中から切り替える
+						changeEnemyToCPU();
+						
+						// 相手のカード3枚を策定する
+						analyzeEnemySelectCards();
+						
+						// 相手の特殊カードを策定する
+						analyzeEnemySelectSpecialCards();
+						
+						// CPUの場合、次のシーンに移動
+						activity.changeNextScene();
+					}
+
 				}
 			});
 			new OnlinePoolingTask(this.activity).execute(this.getEnemySelectedCardQery);
-			
-			
-//			// ★まだ、選択カードを取得する処理が無いので、
-//			// 取得したカードを使用してCPUに代行してもらう。
-//			Player dummy = new CPU01(this.activity);
-//			dummy.setLifepoint(this.activity.enemyPlayer.getLifepoint());
-//			dummy.setName(this.activity.enemyPlayer.getName());
-//			dummy.cardInfo = this.activity.enemyPlayer.cardInfo;
-//			dummy.specialInfo = this.activity.enemyPlayer.specialInfo;
-//			this.activity.enemyPlayer = dummy;
-//			this.activity.changeNextScene();
-			
 			
 		}
 		else {
@@ -335,7 +384,50 @@ public class BattleManager {
 		this.activity.changeNextScene();
 	}
 	
-
+	/**
+	 * 対戦終了
+	 */
+	public void finishedBattle() {
+		
+		// Onlineの場合、対戦終了フラグを立てるクエリ-発行
+		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+			OnlineQueryBattleStop query = new OnlineQueryBattleStop();
+			query.setBattleId(this.battleId);
+			query.setStatusIsFinished();
+			// Onetimeを使用
+			new OnlineOneTimeTask(this.activity).execute(query);
+		}
+		
+		
+		this.activity.finish();
+	}
+	
+	
+	/**
+	 * Online対戦を中断する場合に相手先に通知する
+	 */
+	private void interruptedBattleqery() {
+		
+		OnlineQueryBattleStop query = new OnlineQueryBattleStop();
+		query.setBattleId(this.battleId);
+		query.setStatusIsInterrupted();
+		// Onetimeを使用
+		new OnlineOneTimeTask(this.activity).execute(query);
+	}
+	
+	/**
+	 * Onlineで途中で対戦相手が中断された場合にCPUに途中から切り替える
+	 */
+	private void changeEnemyToCPU() {
+		// 取得したカードを使用してCPUに代行してもらう。
+		Player dummy = new CPU01(this.activity);
+		dummy.setLifepoint(this.activity.enemyPlayer.getLifepoint());
+		dummy.setName(this.activity.enemyPlayer.getName());
+		dummy.cardInfo = this.activity.enemyPlayer.cardInfo;
+		dummy.specialInfo = this.activity.enemyPlayer.specialInfo;
+		this.activity.enemyPlayer = dummy;
+	}
+	
 	/**
 	 * 相手のカードを策定する
 	 */

@@ -3,15 +3,15 @@ package com.ict.apps.bobb.battle.effect;
 import com.ict.apps.bobb.battle.player.Player;
 
 /**
- * 守備力2倍
+ * 相手攻撃力１／２
  */
-public class EffectDoubleAttack extends EffectOfCard {
+public class EffectHalfEnemyAttack extends EffectOfCard {
 
 	@Override
 	public void execEffect(Player userInfo, Player enemyInfo) {
 		
-		// 守備力2倍
-		userInfo.totalDefense = userInfo.totalDefense * 2;
+		// 相手攻撃力１／２
+		userInfo.totalAttack = userInfo.totalAttack / 2;
 		
 	}
 

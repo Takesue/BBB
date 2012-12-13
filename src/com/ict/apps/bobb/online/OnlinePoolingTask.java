@@ -79,13 +79,12 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		
 		this.dialog.dismiss();
 
-		if (result == 0) {
-			// Query固有の受信後処理を実施する
-			this.query.execAfterReceiveingAction(this.context, result);
+		if (result != 0) {
+			Toast.makeText(this.context, "通信タイムアウト", Toast.LENGTH_SHORT).show();
 		}
-		else {
-			Toast.makeText(this.context, "通信タイムアウト", Toast.LENGTH_LONG).show();
-		}
+		
+		// Query固有の受信後処理を実施する
+		this.query.execAfterReceiveingAction(this.context, result);
 		
 		
 		// ブロードキャスト

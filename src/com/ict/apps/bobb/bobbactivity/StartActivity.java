@@ -328,12 +328,12 @@ public class StartActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1003l);					// 虫キットID
 		kit.setBarcode_id(111111111113l);			// バーコードID
-		kit.setName("タモリ");							// 名前
+		kit.setName("超蝶々");							// 名前
 		kit.setEffect("相手攻撃力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");		// 画像ファイル名
-		kit.setIntroduction("髪切った？とよく聞きます");	// カード説明
+		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setIntroduction("美しすぎる・・・");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(4);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
@@ -343,12 +343,12 @@ public class StartActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1004l);					// 虫キットID
 		kit.setBarcode_id(111111111114l);			// バーコードID
-		kit.setName("はしした");						// 名前
+		kit.setName("ナナホシテントウ");					// 名前
 		kit.setEffect("相手守備力１／２");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
-		kit.setIntroduction("教育委員会のクソ野郎");		// カード説明
+		kit.setIntroduction("七つのホシを持つ男");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);

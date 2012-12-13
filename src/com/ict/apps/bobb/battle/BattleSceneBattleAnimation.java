@@ -625,7 +625,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					Thread.sleep(2000);
 					mHandler.post(new Runnable() {
 						public void run() {
-							activity.finish();
+							//activity.finish();
+							activity.bm.finishedBattle();
 						}
 					});
 				}

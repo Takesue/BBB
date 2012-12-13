@@ -46,10 +46,24 @@ public class OnlineQueryBattleStop extends OnlineQuery {
 	 * ステータスを設定する
 	 * @param name
 	 */
-	public void setBattleId(int status) {
+	public void setStatus(int status) {
 		this.reqParams.put("status", String.valueOf(status));
 	}
 
-
+	/**
+	 * ステータスに状態：中断を設定する
+	 * @param name
+	 */
+	public void setStatusIsInterrupted() {
+		this.setStatus(2);
+	}
+	
+	/**
+	 * ステータスに状態：終了（正常終了）を設定する
+	 * @param name
+	 */
+	public void setStatusIsFinished() {
+		this.setStatus(3);
+	}
 
 }

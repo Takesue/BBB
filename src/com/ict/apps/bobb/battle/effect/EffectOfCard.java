@@ -15,7 +15,7 @@ import com.ict.apps.bobb.data.SpecialCard;
 public abstract class EffectOfCard {
 
 	// LP回復
-	public static final int EFFECT_ID_LP_RECOVER = 2;
+	public static final int EFFECT_ID_LP_RECOVER = 1;
 	// 攻撃力2倍
 	public static final int EFFECT_ID_DOUBLE_ATTACK = 2;
 	// 守備力２倍
@@ -37,20 +37,20 @@ public abstract class EffectOfCard {
 		int effectId = card.getEffectId();
 		
 		switch (effectId) {
-		case 1:		// ライフポイント回復
+		case EffectOfCard.EFFECT_ID_LP_RECOVER:		// ライフポイント回復
 			returnValue = new EffectLifeRecovery();
 			break;
 		case EffectOfCard.EFFECT_ID_DOUBLE_ATTACK:		// 攻撃力2倍
-			returnValue = new EffectLifeRecovery();
+			returnValue = new EffectDoubleAttack();
 			break;
 		case EffectOfCard.EFFECT_ID_DOUBLE_DEFENSE:		// 守備力2倍
-			returnValue = new EffectLifeRecovery();
+			returnValue = new EffectDoubleDefense();
 			break;
 		case EffectOfCard.EFFECT_ID_HALF_ENEMY_ATTACK_:		// 相手攻撃力１／２
-			returnValue = new EffectLifeRecovery();
+			returnValue = new EffectHalfEnemyAttack();
 			break;
 		case EffectOfCard.EFFECT_ID_HALF_ENEMY_DEFENSE:		//　相手守備力１／２
-			returnValue = new EffectLifeRecovery();
+			returnValue = new EffectHalfEnemyDefense();
 			break;
 		default:
 			// 想定外の効果ID。エラー。
