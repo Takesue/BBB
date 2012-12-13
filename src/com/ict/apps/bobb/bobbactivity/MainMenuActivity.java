@@ -54,14 +54,21 @@ public class MainMenuActivity extends BaseActivity {
 		super.onDestroy();
 	}
 
-    public void breedersMenuOnClick(View v){
-    	
+	/**
+	 * ブリーダーメニューボタンクリック時
+	 * @param v
+	 */
+	public void breedersMenuOnClick(View v) {
+
 		Intent aintent = new Intent(MainMenuActivity.this, BreedersMenuActivity.class);
 		startActivity(aintent);
-		
-    }
-    
-    
+
+	}
+
+	/**
+	 * CPU対戦ボタンクリック時
+	 * @param v
+	 */
 	public void battleCpuOnClick(View v) {
 
 		final Player[] userList = {
@@ -70,13 +77,14 @@ public class MainMenuActivity extends BaseActivity {
 		};
 
 		this.viewPopupPlayerLis(userList);
-// 		Intent bintent = new Intent(MainMenuActivity.this, BattleUserSelectActivity.class);
-// 		startActivity(bintent);
-
 	}
 	
 	private OnlineQueryOnlineUserList query = null;
 
+	/**
+	 * オンライン対戦ボタンクリック時
+	 * @param v
+	 */
 	public void battleHumanOnClick(View v) {
 
 		// 通信して対戦相手のリストを取得要求を出す
@@ -90,11 +98,6 @@ public class MainMenuActivity extends BaseActivity {
 			}
 		});
 		new OnlinePoolingTask(this).execute(this.query);
-
-		// Intent cintent = new Intent(MainMenuActivity.this,
-		// BattleUserSelectActivity.class);
-		// startActivity(cintent);
-
 	}
 
 
