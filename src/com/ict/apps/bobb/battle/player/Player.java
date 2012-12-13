@@ -38,7 +38,13 @@ public abstract class Player {
 
 	// ユーザの対戦時特殊カードを一元保持
 	public SpecialCardInfo specialInfo = null;
-
+	
+	// 合計攻撃力
+	public int totalAttack = 0;
+	
+	// 合計守備力
+	public int totalDefense = 0;
+	
 	// コンテキストを保持
 	protected Context context = null;
 
