@@ -685,7 +685,7 @@ public class BattleSceneCardSelection implements BattleScene {
 			text.setTextColor(Color.RED);
 			
 			text = ((TextView)totalView.findViewById(resIds[i++]));
-			text.setText("  効果：" + "攻撃・守備力50" + "%UP!!");
+			text.setText("  効果：" + "攻撃・守備力" + "UP!!");
 			text.setTextColor(Color.BLACK);
 			
 		}

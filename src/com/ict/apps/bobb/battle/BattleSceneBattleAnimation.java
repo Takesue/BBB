@@ -2,23 +2,16 @@ package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
 
-import org.apache.http.entity.SerializableEntity;
-
-import com.ict.apps.bobb.battle.player.CPU01;
 import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
 import com.ict.apps.bobb.bobbactivity.R;
-import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -547,6 +540,16 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		for (BattleCardView card : this.activity.enemyPlayer.specialInfo.getSelectedCard()) {
 			this.activity.enemyPlayer.specialInfo.dustCard(card);
+			int cardNum = card.getSpecialInfo().getCardNum();
+			if (cardNum == 1001) {
+				((TextView)this.activity.findViewById(R.id.spe_card1)).setBackgroundResource(R.drawable.used_special_card);
+			}
+			else if (cardNum == 1002) {
+				((TextView)this.activity.findViewById(R.id.spe_card2)).setBackgroundResource(R.drawable.used_special_card);
+			}
+			else if (cardNum == 1003) {
+				((TextView)this.activity.findViewById(R.id.spe_card3)).setBackgroundResource(R.drawable.used_special_card);
+			}
 		}
 		for (BattleCardView card : this.activity.myPlayer.specialInfo.getSelectedCard()) {
 			this.activity.myPlayer.specialInfo.dustCard(card);
