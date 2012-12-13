@@ -34,7 +34,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp" >
+        android:layout_marginTop="60dp" >
 
         <Button
             android:id="@+id/button2"
@@ -67,7 +67,7 @@
             <Button
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:background="@drawable/listitem_bg"
                 android:onClick="breedersMenuOnClick"
