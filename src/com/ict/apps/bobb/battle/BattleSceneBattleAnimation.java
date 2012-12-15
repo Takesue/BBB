@@ -12,6 +12,7 @@ import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,72 +85,98 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// ステータスパネルを表示し、初期値を設定する。
 		this.viewStatusPannel();
 		
+		// アニメーションを順番に登録する
+		BattleAnimationManager bam = new BattleAnimationManager();
+		
 		// 自プレイヤの属性効果発動
-		BattleUtil.judgeAttribute(this.activity.myPlayer, this.activity.enemyPlayer);
-		// 攻撃守備の上がり下がりで動きに変化をつけ、０をmyとしてセット
-		this.startAttributeAnimation(this.activity.myPlayer, this.activity.enemyPlayer);
-		
-		
+		if (BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null) {
+			bam.add(new Runnable() {
+				public void run() {
+					BattleUtil.judgeAttribute(activity.myPlayer, activity.enemyPlayer);
+					// 攻撃守備の上がり下がりで動きに変化をつける
+					startAttributeAnimation(activity.myPlayer, activity.enemyPlayer);
+				}
+			}, 2000);
+		}
+
 		// 相手プレイヤの属性効果発動
-		BattleUtil.judgeAttribute(this.activity.enemyPlayer, this.activity.myPlayer);
-		// 攻撃守備の上がり下がりで動きに変化をつけ、０をmyとしてセット
-		this.startAttributeAnimation(this.activity.enemyPlayer, this.activity.myPlayer);
-		
-		
+		if (BattleUtil.getAttribute(activity.enemyPlayer.cardInfo.getSelectedCard()) != null) {
+			bam.add(new Runnable() {
+				public void run() {
+					BattleUtil.judgeAttribute(activity.enemyPlayer, activity.myPlayer);
+					// 攻撃守備の上がり下がりで動きに変化をつけ、０をmyとしてセット
+					startAttributeAnimation(activity.enemyPlayer, activity.myPlayer);
+				}
+			}, 2000);
+		}
 		
 		// 自プレイヤ特殊カード効果発動
-		if (this.activity.myPlayer.specialInfo.getSelectedCard().size() != 0) {
-			// 属性特殊カードアニメーション
-			EffectOfCard.getEffectInstance(this.activity.myPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
-				.execEffect(this.activity.myPlayer, this.activity.enemyPlayer);
-			
-			// パネルにMyPlayer情報、enemyPlayer情報を設定する
-			this.setPlayerInfoToPanel(this.activity.myPlayer);
-			this.setPlayerInfoToPanel(this.activity.enemyPlayer);
-			
+		if (activity.myPlayer.specialInfo.getSelectedCard().size() != 0) {
+			bam.add(new Runnable() {
+				public void run() {
+					// 属性特殊カードアニメーション
+					EffectOfCard.getEffectInstance(activity.myPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
+						.execEffect(activity.myPlayer, activity.enemyPlayer);
+						
+					startEffectAnimation(activity.myPlayer, activity.enemyPlayer);
+						
+					// パネルにMyPlayer情報、enemyPlayer情報を設定する
+					setPlayerInfoToPanel(activity.myPlayer);
+					setPlayerInfoToPanel(activity.enemyPlayer);
+				}
+			}, 2000);
 		}
-		
+
 		// 相手プレイヤ特殊カード効果発動
-		if (this.activity.enemyPlayer.specialInfo.getSelectedCard().size() != 0){
-			// 属性特殊カードアニメーション
-			EffectOfCard.getEffectInstance(this.activity.enemyPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
-				.execEffect(this.activity.enemyPlayer, this.activity.myPlayer);
-			
-			// パネルにMyPlayer情報、enemyPlayer情報を設定する
-			this.setPlayerInfoToPanel(this.activity.myPlayer);
-			this.setPlayerInfoToPanel(this.activity.enemyPlayer);
-			
+		if (activity.enemyPlayer.specialInfo.getSelectedCard().size() != 0){
+			bam.add(new Runnable() {
+				public void run() {
+					// 属性特殊カードアニメーション
+					EffectOfCard.getEffectInstance(activity.enemyPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
+						.execEffect(activity.enemyPlayer, activity.myPlayer);
+
+					startEffectAnimation(activity.myPlayer, activity.enemyPlayer);
+
+					// パネルにMyPlayer情報、enemyPlayer情報を設定する
+					setPlayerInfoToPanel(activity.myPlayer);
+					setPlayerInfoToPanel(activity.enemyPlayer);
+				}
+		}, 2000);
 		}
 		
+		// 残りのアニメーション
+		bam.add(new Runnable() {
+			public void run() {
+				
+				// ダメージをtoastで表示する
+				mesegeDamege();
+				
+				// カードをアニメーションさせる
+				animationCards(1, activity.enemyPlayer);
+				animationCards(0, activity.myPlayer);
+				
+				// 各ライフポイントを削る
+				lifePointRecalc();
+				
+				// カード使用済み
+				battleAnimationDustCard();
+				
+				// 試合終了かどうか確認する
+				battleEndCheck();
+				
+				// 試合終了であれば、トーストを表示して終わらせる
+				if(endCount > 0){
+					battleEnd();
+				}
+				
+				//次のシーンへ移る
+				callChangeNexrScene();
+			}
+		}, 100);
 		
-		// 合計値を消す
-//		this.calcDelete(enemyTotal, myTotal);
+		// アニメーションの開始
+		bam.startAnimations();
 		
-		// ダメージをtoastで表示する
-		this.mesegeDamege();
-		
-		// カードをアニメーションさせる
-//		this.animationCards(1, this.activity.enemyPlayer, enemyTotal);
-//		this.animationCards(0, this.activity.myPlayer, myTotal);
-		this.animationCards(1, this.activity.enemyPlayer);
-		this.animationCards(0, this.activity.myPlayer);
-		
-		// 各ライフポイントを削る
-		this.lifePointRecalc();
-		
-		// カード使用済み
-		this.battleAnimationDustCard();
-		
-		// 試合終了かどうか確認する
-		this.battleEndCheck();
-		
-		// 試合終了であれば、トーストを表示して終わらせる
-		if(this.endCount > 0){
-			this.battleEnd();
-		}
-		
-		//次のシーンへ移る
-		this.callChangeNexrScene();
 	}
 
 	@Override
@@ -297,29 +324,29 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		return totalView;
 	}
 
-	/**
-	 * 攻撃力と守備力の合計値を算出して表示する
-	 * 
-	 * @param cards
-	 * @param view   合計を表示しているLayoutView
-	 */
-	private void calcAndViewTotal(int typeH, ArrayList<BattleCardView> cards, View view) {
-		
-		int totalAttack = 0;
-		int totalDefense = 0;
-
-		// 合計値加算
-		for (BattleCardView card : cards) {
-			int type = card.getCardInfo().getType();
-			if (type == 3) {
-				// 攻撃力加算
-				totalAttack += card.getCardInfo().getAttack();
-			}
-			else if (type == 4) {
-				// 守備力加算
-				totalDefense += card.getCardInfo().getDefense();
-			}
-		}
+//	/**
+//	 * 攻撃力と守備力の合計値を算出して表示する
+//	 * 
+//	 * @param cards
+//	 * @param view   合計を表示しているLayoutView
+//	 */
+//	private void calcAndViewTotal(int typeH, ArrayList<BattleCardView> cards, View view) {
+//		
+//		int totalAttack = 0;
+//		int totalDefense = 0;
+//
+//		// 合計値加算
+//		for (BattleCardView card : cards) {
+//			int type = card.getCardInfo().getType();
+//			if (type == 3) {
+//				// 攻撃力加算
+//				totalAttack += card.getCardInfo().getAttack();
+//			}
+//			else if (type == 4) {
+//				// 守備力加算
+//				totalDefense += card.getCardInfo().getDefense();
+//			}
+//		}
 //		CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(bigCards); 
 //		CardAttribute enemyAtt = this.activity.enemyPlayer.cardInfo.getAttribute(bigEnemyCards); 
 ////		CardAttribute myAtt = this.getAttribute(0);
@@ -368,14 +395,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 //			this.enemyAttack = special[2];
 //			this.enemyDefense = special[3];
 //		}
-		// 攻撃力合計
-		((TextView)view.findViewById(R.id.battle_total_attack)).setText(Integer.toString(totalAttack));
-		
-		// 守備力合計
-		((TextView)view.findViewById(R.id.battle_total_defense)).setText(Integer.toString(totalDefense));
-		
-		
-	}
+//		// 攻撃力合計
+//		((TextView)view.findViewById(R.id.battle_total_attack)).setText(Integer.toString(totalAttack));
+//		
+//		// 守備力合計
+//		((TextView)view.findViewById(R.id.battle_total_defense)).setText(Integer.toString(totalDefense));
+//		
+//		
+//	}
 
 	
 	
@@ -540,18 +567,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	public int getMyAttack(){
 		int atack = 0;
 		if((this.activity.myPlayer.totalAttack - this.activity.enemyPlayer.totalDefense) > 0){
-			atack = this.activity.myPlayer.totalAttack - this.activity.enemyPlayer.totalDefense; 
-		}else{
-			atack = 0;
+			atack = this.activity.myPlayer.totalAttack - this.activity.enemyPlayer.totalDefense;
 		}
 		return atack;
 	}
+	
 	public int getEnemyAttack(){
 		int atack = 0;
 		if((this.activity.enemyPlayer.totalAttack - this.activity.myPlayer.totalDefense) > 0){
-			atack = this.activity.enemyPlayer.totalAttack - this.activity.myPlayer.totalDefense; 
-		}else{
-			atack = 0;
+			atack = this.activity.enemyPlayer.totalAttack - this.activity.myPlayer.totalDefense;
 		}
 		return atack;
 	}
@@ -838,19 +862,17 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		if(myAtt != enemyAtt){
 			// 攻撃力表示
-			TextView Attack;
-			TextView Defense;
 			
-			Attack = (TextView)this.activity.findViewById(resIds[2]);
-			Defense = (TextView)this.activity.findViewById(resIds[3]);
+			TextView attack = (TextView)this.activity.findViewById(resIds[2]);
+			TextView defense = (TextView)this.activity.findViewById(resIds[3]);
 			
 			// 値変更前の数値をintとして保持
-			int attack_i = Integer.parseInt((String)Attack.getText());
-			int defense_i = Integer.parseInt((String)Defense.getText());
+			int attack_i = Integer.parseInt((String)attack.getText());
+			int defense_i = Integer.parseInt((String)defense.getText());
 			
 			// パネル上の数値を変更
-			Attack.setText(Integer.toString(myPlayer.totalAttack));
-			Defense.setText(Integer.toString(myPlayer.totalDefense));
+			attack.setText(Integer.toString(myPlayer.totalAttack));
+			defense.setText(Integer.toString(myPlayer.totalDefense));
 //			
 //			if(type == 0){
 //				Attack = (TextView)this.activity.findViewById(R.id.myAttack);
@@ -870,17 +892,17 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			 ||(defense_i < myPlayer.totalDefense)){
 				rotate = new RotateAnimation(-10, 0);
 				//2000msの間実行
-				rotate.setDuration(2000);
-				rotate.setInterpolator(new CycleInterpolator(20));
+				rotate.setDuration(1000);
+				rotate.setInterpolator(new CycleInterpolator(10));
 			}else{
 				rotate = new RotateAnimation(10, 0);
 				//2000msの間実行
-				rotate.setDuration(2000);
-				rotate.setInterpolator(new CycleInterpolator(800));
+				rotate.setDuration(1000);
+				rotate.setInterpolator(new CycleInterpolator(10));
 			}
 			//アニメーションスタート
-			Attack.startAnimation(rotate);
-			Defense.startAnimation(rotate);
+			attack.startAnimation(rotate);
+			defense.startAnimation(rotate);
 		}
 		
 		// 属性点滅
@@ -893,11 +915,56 @@ public class BattleSceneBattleAnimation implements BattleScene {
 //		}
 		AlphaAnimation alpha = new AlphaAnimation(1, 0);
 		//2000msの間実行
-		alpha.setDuration(2000);
+		alpha.setDuration(1000);
 		alpha.setInterpolator(new CycleInterpolator(10));
 		Att.startAnimation(alpha);
 		
 	}
+	
+	
+	/**
+	 * 属性発動アニメーション
+	 * @param myPlayer
+	 * @param enemyPlayer
+	 */
+	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
+		
+		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
+		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
+		TextView enemyAttack = (TextView)this.activity.findViewById(resIdList[1][2]);
+		TextView enemyDefense = (TextView)this.activity.findViewById(resIdList[1][3]);
+		
+		// 値変更前の数値をintとして保持
+		int myAttack_i = Integer.parseInt((String)myAttack.getText());
+		int myDefense_i = Integer.parseInt((String)myDefense.getText());
+		int enemyAttack_i = Integer.parseInt((String)enemyAttack.getText());
+		int enemyDefense_i = Integer.parseInt((String)enemyDefense.getText());
+
+		// アニメーション定義
+		AlphaAnimation alpha = new AlphaAnimation(1, 0);
+		//1000msの間実行
+		alpha.setDuration(1000);
+		alpha.setInterpolator(new CycleInterpolator(10));
+
+		// 値の変化点をはアニメーション実施する
+		if (myAttack_i != myPlayer.totalAttack) {
+			myAttack.setTextColor(Color.YELLOW);
+			myAttack.setAnimation(alpha);
+		}
+		if (myDefense_i != myPlayer.totalDefense) {
+			myDefense.setTextColor(Color.YELLOW);
+			myDefense.setAnimation(alpha);
+		}
+		if (enemyAttack_i != enemyPlayer.totalAttack) {
+			enemyAttack.setTextColor(Color.YELLOW);
+			enemyAttack.setAnimation(alpha);
+		}
+		if (enemyDefense_i != enemyPlayer.totalDefense) {
+			enemyDefense.setTextColor(Color.YELLOW);
+			enemyDefense.setAnimation(alpha);
+		}
+	}
+
 	
 	/**
 	 * ステータスパネルにPlayerの情報を設定する

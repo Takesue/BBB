@@ -155,6 +155,9 @@ public class BattleUtil extends Activity {
 				}
 			}
 		}
+		else if (myAtt == null){
+			retValue = 1.0f;
+		}
 		
 		return retValue;
 	}
