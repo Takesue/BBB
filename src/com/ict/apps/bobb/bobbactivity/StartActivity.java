@@ -435,13 +435,13 @@ public class StartActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(5l);						// 虫キットID
 		kit.setBarcode_id(566711118889l);			// バーコードID
-		kit.setName("露産カブトムシE");					// 名前
+		kit.setName("兜ムシⅡ");					// 名前
 		kit.setAttack(700);							// 攻撃
 		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("imomusi01");			// 画像ファイル名
-		kit.setIntroduction("ミキティ～");				// カード説明
+		kit.setImageFileName("kabuto002");			// 画像ファイル名
+		kit.setIntroduction("仲良し♪");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
