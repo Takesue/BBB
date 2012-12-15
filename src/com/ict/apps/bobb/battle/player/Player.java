@@ -47,7 +47,7 @@ public abstract class Player {
 	
 	// コンテキストを保持
 	protected Context context = null;
-
+	
 	/**
 	 * コンストラクタ
 	 * @param context
@@ -217,6 +217,15 @@ public abstract class Player {
 			
 		}
 	}
+	
+	/**
+	 * 攻撃力、守備力合算値クリア
+	 */
+	public void totalValueClear() {
+		this.totalAttack = 0;
+		this.totalDefense = 0;
+	}
+
 
 
 }

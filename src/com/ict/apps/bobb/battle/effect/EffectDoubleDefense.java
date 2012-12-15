@@ -7,8 +7,8 @@ public class EffectDoubleDefense extends EffectOfCard {
 	@Override
 	public void execEffect(Player userInfo, Player enemyInfo) {
 		
-		// 攻撃力2倍
-		userInfo.totalAttack = userInfo.totalAttack * 2;
+		// 守備力2倍
+		userInfo.totalDefense = userInfo.totalDefense * 2;
 		
 	}
 
