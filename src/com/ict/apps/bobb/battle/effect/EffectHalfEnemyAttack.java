@@ -11,7 +11,7 @@ public class EffectHalfEnemyAttack extends EffectOfCard {
 	public void execEffect(Player userInfo, Player enemyInfo) {
 		
 		// 相手攻撃力１／２
-		userInfo.totalAttack = userInfo.totalAttack / 2;
+		enemyInfo.totalAttack = enemyInfo.totalAttack / 2;
 		
 	}
 
