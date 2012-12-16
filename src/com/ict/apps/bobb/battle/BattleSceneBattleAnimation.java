@@ -82,11 +82,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.calcValue(this.activity.myPlayer);
 		this.calcValue(this.activity.enemyPlayer);
 		
-		// ステータスパネルを表示し、初期値を設定する。
-		this.viewStatusPannel();
-		
 		// アニメーションを順番に登録する
 		BattleAnimationManager bam = new BattleAnimationManager();
+
+		// ステータスパネルを表示し、初期値を設定する。
+		bam.add(new Runnable() {
+			public void run() {
+				viewStatusPannel();
+			}
+		}, 1500);
 		
 		// 自プレイヤの属性効果発動
 		if (BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null) {
