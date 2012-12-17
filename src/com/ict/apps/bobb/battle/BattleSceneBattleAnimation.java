@@ -172,9 +172,11 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				if(endCount > 0){
 					battleEnd();
 				}
+				else {
+					//次のシーンへ移る
+					callChangeNexrScene();
+				}
 				
-				//次のシーンへ移る
-				callChangeNexrScene();
 			}
 		}, 100);
 		
@@ -704,7 +706,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 							activity.finish();*/
 						}
 					});
-					Thread.sleep(2000);
+					
+					Thread.sleep(4000);
 					mHandler.post(new Runnable() {
 						public void run() {
 							//activity.finish();

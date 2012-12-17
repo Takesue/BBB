@@ -40,11 +40,7 @@ public class BattleActivity extends BaseActivity{
 	private int currentScene = 0;
 	
 	// シーン毎にアクションの挙動を変える（場面転換）
-	private BattleScene[] scenes = {
-			new BattleSceneDealCard(this),
-			new BattleSceneCardSelection(this),
-			new BattleSceneBattleAnimation(this)
-	};
+	private BattleScene[] scenes = null;
 	
 	public boolean dealflg = false;
 	
@@ -94,6 +90,40 @@ public class BattleActivity extends BaseActivity{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_battle);
 		
+//		// 戦闘画面のベース部品を取得
+//		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
+//
+//		this.bm = new BattleManager(this);
+//		
+//		// 対戦開始前の初期処理
+//		this.bm.initBattleAct();
+//		
+//		// 対戦開始
+//		this.bm.startBattleScene();
+		this.gameStart();
+	}
+	
+	/**
+	 * 対戦ゲーム開始
+	 */
+	public void gameStart() {
+		
+		/*------------------------
+		 *  初期化処理
+		 -------------------------*/
+		this.currentScene = 0;
+		this.dealflg = false;
+		this.bm = null;
+		this.myPlayer = null;
+		this.enemyPlayer = null;
+		
+		BattleScene[] scenes = {
+				new BattleSceneDealCard(this),
+				new BattleSceneCardSelection(this),
+				new BattleSceneBattleAnimation(this)
+		};
+		this.scenes = scenes;
+		
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
 
@@ -104,6 +134,7 @@ public class BattleActivity extends BaseActivity{
 		
 		// 対戦開始
 		this.bm.startBattleScene();
+
 	}
 	
 
