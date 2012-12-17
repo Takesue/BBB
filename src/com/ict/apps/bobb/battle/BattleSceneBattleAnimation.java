@@ -515,6 +515,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					
 				}
 				catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}).start();

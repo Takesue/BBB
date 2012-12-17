@@ -73,7 +73,7 @@ public class BattleManager {
 		
 		// 自分の対戦時使用情報を生成
 		this.activity.myPlayer = new MyPlayer(this.activity);
-		this.activity.myPlayer.createCardBattlerInfo(null,null);
+		this.activity.myPlayer.createCardBattlerInfo();
 		// カードをシャッフルする。
 		this.activity.myPlayer.cardInfo.shuffle();
 		
@@ -162,7 +162,7 @@ public class BattleManager {
 			// オンラインユーザでない場合
 			
 			// 対戦相手（CPU）の情報生成
-			this.activity.enemyPlayer.createCardBattlerInfo(null,null);
+			this.activity.enemyPlayer.createCardBattlerInfo();
 
 			// カードをシャッフルする。
 			this.activity.enemyPlayer.cardInfo.shuffle();

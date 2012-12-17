@@ -106,6 +106,10 @@ public class CPU extends Player{
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
 		return;
 	}
+
+	@Override
+	public void createCardBattlerInfo() {
+	}
 	
 
 }

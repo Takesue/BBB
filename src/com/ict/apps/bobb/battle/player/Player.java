@@ -128,6 +128,12 @@ public abstract class Player {
 	public abstract void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards);
 	
 	/**
+	 * 自分自身で使用するカード対戦時に必要な情報一式を自前で生成する
+	 * @return
+	 */
+	public abstract void createCardBattlerInfo();
+
+	/**
 	 * 一般カードを選択する
 	 * @return  カードを3枚保持する配列、nullの場合選択失敗
 	 */

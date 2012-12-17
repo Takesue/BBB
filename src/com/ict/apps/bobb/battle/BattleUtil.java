@@ -124,6 +124,7 @@ public class BattleUtil extends Activity {
 		
 		float winnum  = 1.8f;
 		float losenum = 0.7f;
+		float drawnum = 1.0f;
 		float nullnum = 1.4f;
 		
 		float retValue = nullnum;
@@ -141,7 +142,7 @@ public class BattleUtil extends Activity {
 				if (myAtt == judgeMap[i][0]) {
 					if (enemyAtt == judgeMap[i][0]) {
 						// アイコ
-						retValue = 1.0f;
+						retValue = drawnum;
 						break;
 					} else if (enemyAtt == judgeMap[i][1]) {
 						// Myが勝ち
@@ -156,7 +157,7 @@ public class BattleUtil extends Activity {
 			}
 		}
 		else if (myAtt == null){
-			retValue = 1.0f;
+			retValue = drawnum;
 		}
 		
 		return retValue;

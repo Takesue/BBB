@@ -70,5 +70,13 @@ public class CPU02 extends CPU {
 		return;
 	}
 	
+	/**
+	 * 対戦時に使用するカードを生成する
+	 */
+	@Override
+	public void createCardBattlerInfo() {
+		this.createCardBattlerInfo(null, null);
+	}
+
 
 }

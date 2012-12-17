@@ -33,9 +33,12 @@ public class MyPlayer extends Player {
 
 	@Override
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
-		
+		return;
+	}
+	
+	@Override
+	public void createCardBattlerInfo() {
 		// ユーザの対戦時情報を管理する管理テーブルに設定する
-//		CardBattlerInfo info = new CardBattlerInfo();
 		this.setName(StatusInfo.getUserName(this.context));
 		this.setLifepoint(4000);
 		this.cardInfo = new CardInfo();
@@ -59,8 +62,6 @@ public class MyPlayer extends Player {
 		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit1.createBeetleCards());
 		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit2.createBeetleCards());
 		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit3.createBeetleCards());
-
-		return;
 	}
 
 	@Override
@@ -109,5 +110,6 @@ public class MyPlayer extends Player {
 			}
 		}
 	}
+
 	
 }

@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 /**
  * 対戦時のカードを配布するシーンのクラス
@@ -39,6 +40,10 @@ public class BattleSceneDealCard implements BattleScene {
 	
 	private final int enemyCardsPosY = 20;
 	
+	// プログレスバー保持
+	private ProgressBar myProgressBar = null;
+	private ProgressBar enemyProgressBar = null;
+	
 	
 	/**
 	 * コンストラクタ
@@ -55,10 +60,24 @@ public class BattleSceneDealCard implements BattleScene {
 		((TextView)this.activity.findViewById(R.id.battle_enemyName)).setText("対戦相手 : " + this.activity.enemyPlayer.getName());
 
 		// 相手情報（LP）
-		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("LP : " + this.activity.enemyPlayer.getLifepoint());
+//		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("LP : " + this.activity.enemyPlayer.getLifepoint());
+		// ユーザ情報（LPBar）
+		if (enemyProgressBar == null) {
+			enemyProgressBar = ((ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar));
+			enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
+		}
+		enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
 
 		// ユーザ情報（LP）
-		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("LP : " + this.activity.myPlayer.getLifepoint());
+//		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("LP : " + this.activity.myPlayer.getLifepoint());
+		
+		// ユーザ情報（LPBar）
+		if (myProgressBar == null) {
+			myProgressBar = ((ProgressBar)this.activity.findViewById(R.id.battle_myLifebar));
+			myProgressBar.setMax(this.activity.myPlayer.getLifepoint());
+		}
+		myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());
+
 
 		// ユーザ情報（制限時間）
 		((TextView)this.activity.findViewById(R.id.battle_timelimit)).setText("制限時間 :0秒");
