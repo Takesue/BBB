@@ -13,7 +13,12 @@ public class RuleActivity extends BaseActivity {
 	
 	// コメント
 	private String[] commentList = {
-			"これからルールの説明をします。",
+			"これからルールの説明をします。\n" +
+			"1.XXX\n" +
+			"2.XXX\n" +
+			"3.XXX\n" +
+			"4.XXX\n" +
+			"5.XXX\n",
 			"・対戦の流れ",
 			"・カードについて",
 			"・属性について",

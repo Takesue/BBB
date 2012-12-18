@@ -42,8 +42,8 @@ public class CPU02 extends CPU {
 	@Override
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
 		
-		cardInfo = new CardInfo();
-		specialInfo = new SpecialCardInfo();
+		this.cardInfo = new CardInfo();
+		this.specialInfo = new SpecialCardInfo();
 		
 		// CPUの使用する使用する虫キットを取得する
 		// カードを管理テーブルに設定する。
