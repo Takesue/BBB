@@ -61,19 +61,17 @@ public class BattleSceneDealCard implements BattleScene {
 
 		// 相手情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("LP : " + this.activity.enemyPlayer.getLifepoint());
-		// ユーザ情報（LPBar）
-		if (enemyProgressBar == null) {
-			enemyProgressBar = ((ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar));
-			enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
+		if (this.enemyProgressBar == null) {
+			this.enemyProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar);
+			this.enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
 		}
-		enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
+		this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
 
 		// ユーザ情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("LP : " + this.activity.myPlayer.getLifepoint());
-		
 		// ユーザ情報（LPBar）
 		if (myProgressBar == null) {
-			myProgressBar = ((ProgressBar)this.activity.findViewById(R.id.battle_myLifebar));
+			myProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_myLifebar);
 			myProgressBar.setMax(this.activity.myPlayer.getLifepoint());
 		}
 		myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());

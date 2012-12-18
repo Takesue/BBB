@@ -127,6 +127,7 @@ public class BattleActivity extends BaseActivity{
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
 
+		// 対戦管理インスタンス生成
 		this.bm = new BattleManager(this);
 		
 		// 対戦開始前の初期処理

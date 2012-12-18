@@ -39,11 +39,10 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="2dp"
-                    android:background="@drawable/lifepoint_bg"
                     android:ellipsize="end"
                     android:paddingLeft="5dp"
                     android:scrollHorizontally="true"
-                    android:text="LP:"
+                    android:text="LP"
                     android:textColor="#000000" />
 
                 <ProgressBar

@@ -21,6 +21,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -566,6 +567,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		int myLp = this.activity.myPlayer.getLifepoint() - getEnemyAttack(); 
 		this.activity.enemyPlayer.setLifepoint(enemyLp);
 		this.activity.myPlayer.setLifepoint(myLp);
+		
 	}
 	
 	/**
@@ -707,6 +709,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						}
 					});
 					
+					// LPゲージの更新
+					((ProgressBar)activity.findViewById(R.id.battle_enemyLifebar)).setProgress(activity.enemyPlayer.getLifepoint());
+					((ProgressBar)activity.findViewById(R.id.battle_myLifebar)).setProgress(activity.myPlayer.getLifepoint());
+
 					Thread.sleep(4000);
 					mHandler.post(new Runnable() {
 						public void run() {
@@ -1029,6 +1035,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		else {
 			// 吹き出しコメント空文字設定
 			((TextView)this.activity.findViewById(resIds[6])).setText("");
+			((TextView)this.activity.findViewById(resIds[6])).setBackgroundDrawable(null);
 		}
 
 	}
