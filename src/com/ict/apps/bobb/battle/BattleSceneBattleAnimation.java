@@ -122,9 +122,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					// 属性特殊カードアニメーション
 					EffectOfCard.getEffectInstance(activity.myPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
 						.execEffect(activity.myPlayer, activity.enemyPlayer);
-						
+					
 					startEffectAnimation(activity.myPlayer, activity.enemyPlayer);
-						
+					
 					// パネルにMyPlayer情報、enemyPlayer情報を設定する
 					setPlayerInfoToPanel(activity.myPlayer);
 					setPlayerInfoToPanel(activity.enemyPlayer);
@@ -503,6 +503,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						
 						Thread.sleep(100);
 						
+						// 衝突効果音
+						activity.playEffect(R.raw.crash);
+						
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
 						
@@ -686,16 +689,25 @@ public class BattleSceneBattleAnimation implements BattleScene {
 							finish();
 							
 							BattleToast toast = new BattleToast(activity);
+							// BGM停止
+							activity.stopBgm();
 
 							if(endCount == 1){
+								// 効果音
+								activity.playEffect(R.raw.win);
 //								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_win);
+
 							}
 							if(endCount == 2){
+								// 効果音
+								activity.playEffect(R.raw.lose);
 //								Toast.makeText(activity, "ＬＯＳＥ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_lose);
 							}
 							if(endCount == 3){
+								// 効果音
+								activity.playEffect(R.raw.draw);
 //								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_draw);
 							}
@@ -933,6 +945,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		alpha.setInterpolator(new CycleInterpolator(10));
 		Att.startAnimation(alpha);
 		
+		// 効果音
+		activity.playEffect(R.raw.attribute);
+		
 	}
 	
 	
@@ -977,6 +992,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
 		}
+		
+		// 効果音
+		activity.playEffect(R.raw.effect);
+
 	}
 
 	

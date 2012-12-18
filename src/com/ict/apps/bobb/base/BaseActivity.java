@@ -79,7 +79,7 @@ public abstract class BaseActivity extends Activity {
 	/**
 	 * BGM停止
 	 */
-	protected void stopBgm() {
+	public void stopBgm() {
 		if (BaseActivity.bgm != null) {
 			BaseActivity.bgm.stop();
 		}
@@ -98,7 +98,12 @@ public abstract class BaseActivity extends Activity {
 		BaseActivity.effect.loadEffect(R.raw.card_open);
 		BaseActivity.effect.loadEffect(R.raw.card_set);
 		BaseActivity.effect.loadEffect(R.raw.push);
-		
+		BaseActivity.effect.loadEffect(R.raw.attribute);
+		BaseActivity.effect.loadEffect(R.raw.effect);
+		BaseActivity.effect.loadEffect(R.raw.crash);
+		BaseActivity.effect.loadEffect(R.raw.win);
+		BaseActivity.effect.loadEffect(R.raw.lose);
+		BaseActivity.effect.loadEffect(R.raw.draw);
 	}
 	
 	/**

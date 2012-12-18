@@ -32,7 +32,7 @@ public class CPU01 extends CPU {
 		super(context);
 		
 		this.setName("CPU01");
-		this.setLifepoint(4000);
+		this.setLifepoint(5000);
 		this.setLevel(1);
 		
 		// CPU思考回路の設定
@@ -167,29 +167,29 @@ public class CPU01 extends CPU {
 		 * 
 		 ------------------------------------*/
 		kit = new BeetleKit();
-		kit.setBeetleKitId(1003l);					// 虫キットID
-		kit.setBarcode_id(111111111113l);			// バーコードID
-		kit.setName("超蝶々");							// 名前
-		kit.setEffect("相手攻撃力１／２");					// 効果
-		kit.setBreedcount(0);						// ブリード回数
+		kit.setBeetleKitId(1001l);					// 虫キットID
+		kit.setBarcode_id(111111111112l);			// バーコードID
+		kit.setName("いいずカブト");					// 名前
+		kit.setEffect("攻撃力２倍");					// 効果
+		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");			// 画像ファイル名
-		kit.setIntroduction("美しすぎる・・・");			// カード説明
+		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setIntroduction("トガッテルぜ～");				// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(4);							// 特殊効果ID
+		kit.setEffectId(2);							// 特殊効果ID
 		specialCardList.addAll(Arrays.asList(kit.createBeetleCards()));
 		
 		kit = new BeetleKit();
-		kit.setBeetleKitId(1003l);					// 虫キットID
-		kit.setBarcode_id(111111111113l);			// バーコードID
-		kit.setName("超蝶々");							// 名前
-		kit.setEffect("相手攻撃力１／２");					// 効果
+		kit.setBeetleKitId(1002l);					// 虫キットID
+		kit.setBarcode_id(111111111112l);			// バーコードID
+		kit.setName("カブトガニ");						// 名前
+		kit.setEffect("守備力２倍");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");			// 画像ファイル名
-		kit.setIntroduction("美しすぎる・・・");			// カード説明
+		kit.setImageFileName("beetle2");			// 画像ファイル名
+		kit.setIntroduction("触るとイタイヨ");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(4);							// 特殊効果ID
+		kit.setEffectId(3);							// 特殊効果ID
 		specialCardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
 		kit = new BeetleKit();

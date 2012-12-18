@@ -407,7 +407,14 @@ public class BattleManager {
 				this.activity);
 
 		// 表示項目の配列
-		final CharSequence[] menuList = { "対戦を終わる", "リトライ" };
+		CharSequence[] menuList = null;
+		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+			menuList = new CharSequence[]{ "対戦を終わる" };
+		}
+		else {
+			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
+		}
+
 
 		// タイトルを設定
 //		alertDialogBuilder.setTitle("タイトル");
@@ -434,7 +441,7 @@ public class BattleManager {
 		alertDialogBuilder.setCancelable(false);
 
 		// ダイアログを表示
-		alertDialogBuilder.create().show();		
+		alertDialogBuilder.create().show();
 		
 	}
 	

@@ -40,7 +40,7 @@ public class MyPlayer extends Player {
 	public void createCardBattlerInfo() {
 		// ユーザの対戦時情報を管理する管理テーブルに設定する
 		this.setName(StatusInfo.getUserName(this.context));
-		this.setLifepoint(4000);
+		this.setLifepoint(StatusInfo.getLP(this.context));
 		this.cardInfo = new CardInfo();
 		this.specialInfo = new SpecialCardInfo();
 		

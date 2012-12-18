@@ -135,6 +135,9 @@ public class BattleActivity extends BaseActivity{
 		
 		// 対戦開始
 		this.bm.startBattleScene();
+		
+		// 対戦BGMスタート
+		this.startBgm();
 
 	}
 	
