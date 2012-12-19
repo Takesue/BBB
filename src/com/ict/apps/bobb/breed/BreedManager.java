@@ -182,7 +182,9 @@ public class BreedManager {
 	private int calculateCardValue(long barcode, int ptype) {
 		
 		int retValue = 0;
-
+		
+		int maxValue = 1500;
+		
 		if (0 < barcode) {
 			// 13桁の文字列に変換
 			String strBarcode = String.format("%1$013d", barcode);
@@ -215,14 +217,28 @@ public class BreedManager {
 				total += Integer.valueOf(digitnum[i]);
 			}
 			
-			if (attack > 1500) {
+			if (attack > 1000) {
 				attack = attack*(10 - (total % 5))/10;
 			}
-			if (defense > 1500) {
+			if (defense > 1000) {
 				defense = defense*(10 -(total % 5))/10;
 			}
+
+			// 最大値より大きかったら最大値に変更する
+			if (attack > maxValue) {
+				attack = maxValue;
+			}
 			
+			if (defense > maxValue) {
+				defense = maxValue;
+			}
+
+			// 10の位以下は丸める
+			attack = attack/100*100;
+			defense = defense/100*100;
+
 			retValue = ((ptype == 0) ? attack : defense);
+
 		}
 		
 		
@@ -256,9 +272,9 @@ public class BreedManager {
 	private int getLevel(int attack, int defense) {
 		// xmlに切り出して動的に変更できるようにしたい。
 		int lv0_max = 0;
-		int lv1_max = 2000;
-		int lv2_max = 3000;
-		int lv3_max = 4000;
+		int lv1_max = 700;
+		int lv2_max = 1200;
+		int lv3_max = 1500;
 		
 		int level = 0;
 		

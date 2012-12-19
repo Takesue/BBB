@@ -29,7 +29,7 @@ public class CPU02 extends CPU {
 		super(context);
 		
 		this.setName("CPU02");
-		this.setLifepoint(4000);
+		this.setLifepoint(5000);
 		this.setLevel(2);
 		
 		// CPU思考回路の設定
@@ -42,8 +42,8 @@ public class CPU02 extends CPU {
 	@Override
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
 		
-		cardInfo = new CardInfo();
-		specialInfo = new SpecialCardInfo();
+		this.cardInfo = new CardInfo();
+		this.specialInfo = new SpecialCardInfo();
 		
 		// CPUの使用する使用する虫キットを取得する
 		// カードを管理テーブルに設定する。
@@ -70,5 +70,13 @@ public class CPU02 extends CPU {
 		return;
 	}
 	
+	/**
+	 * 対戦時に使用するカードを生成する
+	 */
+	@Override
+	public void createCardBattlerInfo() {
+		this.createCardBattlerInfo(null, null);
+	}
+
 
 }

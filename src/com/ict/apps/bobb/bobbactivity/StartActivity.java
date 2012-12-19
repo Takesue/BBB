@@ -392,7 +392,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBarcode_id(299911116767l);			// バーコードID
 		kit.setName("クワガタLv1");					// 名前
 		kit.setAttack(500);							// 攻撃
-		kit.setDefense(700);						// 守備
+		kit.setDefense(600);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("kuwagata01");			// 画像ファイル名
@@ -406,8 +406,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(3l);						// 虫キットID
 		kit.setBarcode_id(388711111111l);			// バーコードID
 		kit.setName("イモムシ");						// 名前
-		kit.setAttack(450);							// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(400);							// 攻撃
+		kit.setDefense(400);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("imomusi01");			// 画像ファイル名
@@ -421,7 +421,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(4l);						// 虫キットID
 		kit.setBarcode_id(411111118989l);			// バーコードID
 		kit.setName("兜ムシ");						// 名前
-		kit.setAttack(1150);						// 攻撃
+		kit.setAttack(800);							// 攻撃
 		kit.setDefense(700);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
@@ -435,13 +435,13 @@ public class StartActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(5l);						// 虫キットID
 		kit.setBarcode_id(566711118889l);			// バーコードID
-		kit.setName("露産カブトムシE");					// 名前
-		kit.setAttack(700);							// 攻撃
+		kit.setName("兜ムシⅡ");						// 名前
+		kit.setAttack(600);							// 攻撃
 		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("imomusi01");			// 画像ファイル名
-		kit.setIntroduction("ミキティ～");				// カード説明
+		kit.setImageFileName("kabuto002");			// 画像ファイル名
+		kit.setIntroduction("仲良し♪");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -451,8 +451,8 @@ public class StartActivity extends BaseActivity {
 		kit.setBeetleKitId(6l);						// 虫キットID
 		kit.setBarcode_id(598711118888l);			// バーコードID
 		kit.setName("ミヤマクワガタ");					// 名前
-		kit.setAttack(700);							// 攻撃
-		kit.setDefense(1050);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("kuwagata01");			// 画像ファイル名
@@ -483,7 +483,7 @@ public class StartActivity extends BaseActivity {
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle1");			// 画像ファイル名
-		kit.setIntroduction("つよいよ");				// カード説明
+		kit.setIntroduction("トガッテルぜ～");				// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(2);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
@@ -539,7 +539,7 @@ public class StartActivity extends BaseActivity {
 		
 		// ユーザ情報クラスのアクセス例
 //		StatusInfo.setUserName(this, "Testユーザ名");
-		StatusInfo.setLP(this, 2000);
+		StatusInfo.setLP(this, 5000);
 		StatusInfo.setLevel(this, 1);
 		StatusInfo.setButtleCount(this, 123);
 		StatusInfo.setEXP(this, 999);

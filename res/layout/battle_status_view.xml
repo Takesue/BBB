@@ -379,7 +379,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="○"
+                            android:text="ー"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
