@@ -32,7 +32,7 @@ public class CPU01 extends CPU {
 		super(context);
 		
 		this.setName("CPU01");
-		this.setLifepoint(5000);
+		this.setLifepoint(Integer.parseInt((String)context.getText(R.string.maxLp)));
 		this.setLevel(1);
 		
 		// CPU思考回路の設定

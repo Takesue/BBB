@@ -958,16 +958,22 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
+		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
 		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
 		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
+		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
 		TextView enemyAttack = (TextView)this.activity.findViewById(resIdList[1][2]);
 		TextView enemyDefense = (TextView)this.activity.findViewById(resIdList[1][3]);
 		
+		
 		// 値変更前の数値をintとして保持
+		int myLp_i = Integer.parseInt((String)myLp.getText());
 		int myAttack_i = Integer.parseInt((String)myAttack.getText());
 		int myDefense_i = Integer.parseInt((String)myDefense.getText());
+		int enemyLp_i = Integer.parseInt((String)enemyLp.getText());
 		int enemyAttack_i = Integer.parseInt((String)enemyAttack.getText());
 		int enemyDefense_i = Integer.parseInt((String)enemyDefense.getText());
+		
 
 		// アニメーション定義
 		AlphaAnimation alpha = new AlphaAnimation(1, 0);
@@ -976,6 +982,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		alpha.setInterpolator(new CycleInterpolator(10));
 
 		// 値の変化点をはアニメーション実施する
+		if (myLp_i != myPlayer.getLifepoint()) {
+			myLp.setTextColor(Color.YELLOW);
+			myLp.setAnimation(alpha);
+		}
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
@@ -983,6 +993,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
+		}
+		if (enemyLp_i != enemyPlayer.getLifepoint()) {
+			enemyLp.setTextColor(Color.YELLOW);
+			enemyLp.setAnimation(alpha);
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
