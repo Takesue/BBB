@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -73,6 +74,11 @@ public class BattleManager {
 	 * 対戦開始時の初期処理
 	 */
 	public void initBattleAct() {
+		
+		// 対戦相手の特殊カード表記を初期化（未使用に）する。
+		((TextView)this.activity.findViewById(R.id.spe_card1)).setBackgroundResource(R.drawable.cards);
+		((TextView)this.activity.findViewById(R.id.spe_card2)).setBackgroundResource(R.drawable.cards);
+		((TextView)this.activity.findViewById(R.id.spe_card3)).setBackgroundResource(R.drawable.cards);
 		
 		// 自分の対戦時使用情報を生成
 		this.activity.myPlayer = new MyPlayer(this.activity);
