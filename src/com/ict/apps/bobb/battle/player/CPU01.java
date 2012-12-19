@@ -1,5 +1,8 @@
 package com.ict.apps.bobb.battle.player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.ict.apps.bobb.battle.CardInfo;
 import com.ict.apps.bobb.battle.SpecialCardInfo;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
@@ -29,7 +32,7 @@ public class CPU01 extends CPU {
 		super(context);
 		
 		this.setName("CPU01");
-		this.setLifepoint(4000);
+		this.setLifepoint(5000);
 		this.setLevel(1);
 		
 		// CPU思考回路の設定
@@ -46,28 +49,170 @@ public class CPU01 extends CPU {
 		
 		// CPUの使用する使用する虫キットを取得する
 		// カードを管理テーブルに設定する。
+		this.setCardInfoToCardBattlerInfo(cards);
+		this.setCardInfoToCardSpecialInfo(specialCards);
 		
-		BeetleKit beetlekit1 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK1);
-		BeetleKit beetlekit2 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK2);
-		BeetleKit beetlekit3 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK3);
-		BeetleKit beetlekit4 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK4);
-		BeetleKit beetlekit5 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK5);
-		BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD1);
-		BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD2);
-		BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD3);
-
-		
-		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit1.createBeetleCards());
-		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit2.createBeetleCards());
-		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit3.createBeetleCards());
-		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit4.createBeetleCards());
-		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit5.createBeetleCards());
-		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit1.createBeetleCards());
-		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit2.createBeetleCards());
-		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit3.createBeetleCards());
+//		BeetleKit beetlekit1 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK1);
+//		BeetleKit beetlekit2 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK2);
+//		BeetleKit beetlekit3 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK3);
+//		BeetleKit beetlekit4 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK4);
+//		BeetleKit beetlekit5 = BattleUseKit.getUseKit(this.context, BattleUseKit.DeckNum.DECK5);
+//		BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD1);
+//		BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD2);
+//		BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this.context, BattleUseSpecialCard.CardNum.CARD3);
+//
+//		
+//		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit1.createBeetleCards());
+//		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit2.createBeetleCards());
+//		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit3.createBeetleCards());
+//		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit4.createBeetleCards());
+//		this.setCardInfoToCardBattlerInfo((BeetleCard[]) beetlekit5.createBeetleCards());
+//		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit1.createBeetleCards());
+//		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit2.createBeetleCards());
+//		this.setCardInfoToCardSpecialInfo((SpecialCard[]) specialkit3.createBeetleCards());
 
 		return;
 	}
 	
+	/**
+	 * 対戦時に使用するカードを生成する
+	 */
+	@Override
+	public void createCardBattlerInfo() {
+		
+		// 生成カードの一時保持用インスタンス
+		ArrayList<Card> cardList = new ArrayList<Card>();
+		ArrayList<Card> specialCardList = new ArrayList<Card>();
+
+		/*-----------------------------------
+		 * 
+		 * 使用する一般カードの生成
+		 * 
+		 ------------------------------------*/
+		BeetleKit kit;
+		kit = new BeetleKit();
+		
+		// No1
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("オークカブト");						// 名前
+		kit.setAttack(500);							// 攻撃
+		kit.setDefense(500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(900);						// 画像ID
+		kit.setImageFileName("oakabuto01");			// 画像ファイル名
+		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		// No2
+		kit = new BeetleKit();
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("オークカブト");						// 名前
+		kit.setAttack(500);							// 攻撃
+		kit.setDefense(500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(900);						// 画像ID
+		kit.setImageFileName("oakabuto01");			// 画像ファイル名
+		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		// No3
+		kit = new BeetleKit();
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("オークカブト");						// 名前
+		kit.setAttack(500);							// 攻撃
+		kit.setDefense(500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(900);						// 画像ID
+		kit.setImageFileName("oakabuto01");			// 画像ファイル名
+		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		// No4
+		kit = new BeetleKit();
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("オークカブト");						// 名前
+		kit.setAttack(500);							// 攻撃
+		kit.setDefense(500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(900);						// 画像ID
+		kit.setImageFileName("oakabuto01");			// 画像ファイル名
+		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		// No5
+		kit = new BeetleKit();
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("オークカブト");						// 名前
+		kit.setAttack(500);							// 攻撃
+		kit.setDefense(500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(900);						// 画像ID
+		kit.setImageFileName("oakabuto01");			// 画像ファイル名
+		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		/*-----------------------------------
+		 * 
+		 * 使用する特殊カードの生成
+		 * 
+		 ------------------------------------*/
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1001l);					// 虫キットID
+		kit.setBarcode_id(111111111112l);			// バーコードID
+		kit.setName("いいずカブト");					// 名前
+		kit.setEffect("攻撃力２倍");					// 効果
+		kit.setBreedcount(4);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setIntroduction("トガッテルぜ～");				// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(2);							// 特殊効果ID
+		specialCardList.addAll(Arrays.asList(kit.createBeetleCards()));
+		
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1002l);					// 虫キットID
+		kit.setBarcode_id(111111111112l);			// バーコードID
+		kit.setName("カブトガニ");						// 名前
+		kit.setEffect("守備力２倍");					// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle2");			// 画像ファイル名
+		kit.setIntroduction("触るとイタイヨ");			// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(3);							// 特殊効果ID
+		specialCardList.addAll(Arrays.asList(kit.createBeetleCards()));
+
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1003l);					// 虫キットID
+		kit.setBarcode_id(111111111113l);			// バーコードID
+		kit.setName("超蝶々");							// 名前
+		kit.setEffect("相手攻撃力１／２");					// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setIntroduction("美しすぎる・・・");			// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(4);							// 特殊効果ID
+		specialCardList.addAll(Arrays.asList(kit.createBeetleCards()));
+		
+		BeetleCard[] cards = new BeetleCard[cardList.size()];
+		cards = cardList.toArray(cards);
+
+		SpecialCard[] specialCards = new SpecialCard[specialCardList.size()];
+		specialCards = specialCardList.toArray(specialCards);
+
+		this.createCardBattlerInfo(cards, specialCards);
+	}
+
 
 }

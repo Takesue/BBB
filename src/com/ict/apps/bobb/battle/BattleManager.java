@@ -25,7 +25,10 @@ import com.ict.apps.bobb.online.OnlineQueryRegistUsingCard;
 import com.ict.apps.bobb.online.OnlineQueryResponseForBattleReq;
 import com.ict.apps.bobb.online.OnlineResponseListener;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -73,7 +76,7 @@ public class BattleManager {
 		
 		// 自分の対戦時使用情報を生成
 		this.activity.myPlayer = new MyPlayer(this.activity);
-		this.activity.myPlayer.createCardBattlerInfo(null,null);
+		this.activity.myPlayer.createCardBattlerInfo();
 		// カードをシャッフルする。
 		this.activity.myPlayer.cardInfo.shuffle();
 		
@@ -162,7 +165,7 @@ public class BattleManager {
 			// オンラインユーザでない場合
 			
 			// 対戦相手（CPU）の情報生成
-			this.activity.enemyPlayer.createCardBattlerInfo(null,null);
+			this.activity.enemyPlayer.createCardBattlerInfo();
 
 			// カードをシャッフルする。
 			this.activity.enemyPlayer.cardInfo.shuffle();
@@ -399,7 +402,47 @@ public class BattleManager {
 		}
 		
 		
-		this.activity.finish();
+		
+		final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				this.activity);
+
+		// 表示項目の配列
+		CharSequence[] menuList = null;
+		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+			menuList = new CharSequence[]{ "対戦を終わる" };
+		}
+		else {
+			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
+		}
+
+
+		// タイトルを設定
+//		alertDialogBuilder.setTitle("タイトル");
+		// 表示項目とリスナの設定
+		alertDialogBuilder.setItems(menuList,
+				new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						if (which == 0) {
+							// 対戦終了
+							activity.finish();
+						}
+						else if(which == 1) {
+							// リトライなので、再戦する
+							// 現表示のクリア
+							activity.baseLayout.removeAllViews();
+							activity.gameStart();
+						}
+					}
+				});
+
+		// back keyを使用不可に設定
+		alertDialogBuilder.setCancelable(false);
+
+		// ダイアログを表示
+		alertDialogBuilder.create().show();
+		
 	}
 	
 	

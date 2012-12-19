@@ -54,9 +54,15 @@ public class OnlinePlayer extends Player{
 	@Override
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
 		
+		// 対戦時に使用するカードの一式を生成する
 		this.setCardInfoToCardBattlerInfo(cards);
 		this.setCardInfoToCardSpecialInfo(specialCards);
+		
 		return;
+	}
+	
+	@Override
+	public void createCardBattlerInfo() {
 	}
 	
 	/**
@@ -103,6 +109,8 @@ public class OnlinePlayer extends Player{
 			}
 		}
 	}
+
+
 
 	
 

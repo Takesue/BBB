@@ -85,14 +85,18 @@ public class CPU extends Player{
 		// 手持ちで未使用の特殊カードを取得する
 		ArrayList<BattleCardView> cards = userInfo.specialInfo.getHoldCard();
 		
-		if (cards.size() > 0) {
-			Random random = new Random();
-			
-			int r = random.nextInt( cards.size() );
-			BattleCardView card = cards.get(r);
-			userInfo.specialInfo.selectCard(card);
+		Random execRandom = new Random();
+		int r = execRandom.nextInt(3);
+		if (r == 1) {
+			// 3回に1回の確率で特殊カードを使用
+			if (cards.size() > 0) {
+				Random random = new Random();
+				
+				r = random.nextInt( cards.size() );
+				BattleCardView card = cards.get(r);
+				userInfo.specialInfo.selectCard(card);
+			}
 		}
-		
 		
 		return null;
 	}
@@ -101,6 +105,10 @@ public class CPU extends Player{
 	@Override
 	public void createCardBattlerInfo(BeetleCard[] cards, SpecialCard[] specialCards) {
 		return;
+	}
+
+	@Override
+	public void createCardBattlerInfo() {
 	}
 	
 
