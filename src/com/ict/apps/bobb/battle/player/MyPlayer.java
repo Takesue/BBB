@@ -41,6 +41,7 @@ public class MyPlayer extends Player {
 		// ユーザの対戦時情報を管理する管理テーブルに設定する
 		this.setName(StatusInfo.getUserName(this.context));
 		this.setLifepoint(StatusInfo.getLP(this.context));
+		this.setLpMax(this.getLifepoint());
 		this.cardInfo = new CardInfo();
 		this.specialInfo = new SpecialCardInfo();
 		

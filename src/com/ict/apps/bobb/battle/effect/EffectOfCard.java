@@ -24,6 +24,8 @@ public abstract class EffectOfCard {
 	public static final int EFFECT_ID_HALF_ENEMY_ATTACK_ = 4;
 	// 相手守備力１／２
 	public static final int EFFECT_ID_HALF_ENEMY_DEFENSE = 5;
+	// 攻撃力１．５倍
+	public static final int EFFECT_ID_HALF_UP_ATTACK = 6;
 	
 
 	/**
@@ -52,6 +54,10 @@ public abstract class EffectOfCard {
 		case EffectOfCard.EFFECT_ID_HALF_ENEMY_DEFENSE:		//　相手守備力１／２
 			returnValue = new EffectHalfEnemyDefense();
 			break;
+		case EffectOfCard.EFFECT_ID_HALF_UP_ATTACK:		//　攻撃力１．５倍
+			returnValue = new EffectHalfUpAttack();
+			break;
+			
 		default:
 			// 想定外の効果ID。エラー。
 			break;

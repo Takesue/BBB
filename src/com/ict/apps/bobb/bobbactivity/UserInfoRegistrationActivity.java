@@ -229,13 +229,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(7l);						// 虫キットID
 		kit.setBarcode_id(545911119999l);			// バーコードID
-		kit.setName("ヘラクレスオオカブト");				// 名前
+		kit.setName("マスク・ド・クワガタ");				// 名前
 		kit.setAttack(1200);						// 攻撃
 		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kabuto01");			// 画像ファイル名
-		kit.setIntroduction("世界一でかいで！！");				// カード説明
+		kit.setImageFileName("mask_de_kuwagata");			// 画像ファイル名
+		kit.setIntroduction("？？？");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 
@@ -293,7 +293,7 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setEffect("相手守備力１／２");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setImageFileName("tenntoumusi");			// 画像ファイル名
 		kit.setIntroduction("七つのホシを持つ男");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(5);							// 特殊効果ID
@@ -301,15 +301,28 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1005l);					// 虫キットID
-		kit.setBarcode_id(111111111114l);			// バーコードID
-		kit.setName("女王蜂");					// 名前
-		kit.setEffect("ＬＰ ３０％回復");				// 効果
+		kit.setBarcode_id(111111111115l);			// バーコードID
+		kit.setName("女王蜂");						// 名前
+		kit.setEffect("ＬＰ ５０％回復");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
 		kit.setIntroduction("ロイヤルゼリーもってます");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(1);							// 特殊効果ID
+		factory.insertBeetleKitToDB(kit);
+
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1006l);					// 虫キットID
+		kit.setBarcode_id(111111111125l);			// バーコードID
+		kit.setName("攻撃増強剤");					// 名前
+		kit.setEffect("攻撃力５０％UP");				// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setIntroduction("強気になります。");			// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(6);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 
 		// 戦闘時使用特殊カードに設定
