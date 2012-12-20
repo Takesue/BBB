@@ -494,6 +494,31 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					}
 					
 					int length = cards.size();
+//					for (int i = 0; i < length; i++) {
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						
+//						// 衝突効果音
+//						activity.playEffect(R.raw.crash);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
+//					}
+					
 					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
@@ -501,23 +526,33 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
 						
-						Thread.sleep(100);
-						
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						// 衝突効果音
 						activity.playEffect(R.raw.crash);
 						
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
 						
-						Thread.sleep(100);
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
-						
-						Thread.sleep(100);
-						
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
 					}
+
 					
 				}
 				catch (InterruptedException e) {

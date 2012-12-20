@@ -118,7 +118,7 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し",0);
 		factory.setImageInfo(8, "クマモン8", 2, 3, "beetle2", "ゆるキャラNo8から陥落？？", "無し",0);
 		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し",0);
-		factory.setImageInfo(1004, "橋下カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
+		factory.setImageInfo(1004, "特殊カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
 		
 		
 		// テストデータ挿入
@@ -234,11 +234,25 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("mask_de_kuwagata");			// 画像ファイル名
+		kit.setImageFileName("mask_de_kuwagata");	// 画像ファイル名
 		kit.setIntroduction("？？？");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1004l);					// 虫キットID
+		kit.setBarcode_id(111111111114l);			// バーコードID
+		kit.setName("ナナホシテントウ");					// 名前
+		kit.setEffect("ＬＰ ５０％回復");				// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("tenntoumusi");			// 画像ファイル名
+		kit.setIntroduction("七つのホシを持つ男");		// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(1);							// 特殊効果ID
+		factory.insertBeetleKitToDB(kit);
+		// 戦闘時使用特殊カードに設定
+		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD2, kit);
 		
 		// 特殊カードダミー情報設定
 		kit = new BeetleKit();
@@ -253,8 +267,6 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(2);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
-		// 戦闘時使用特殊カードに設定
-		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD1, kit);
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1002l);					// 虫キットID
@@ -269,13 +281,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setEffectId(3);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
-		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD2, kit);
+		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD1, kit);
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1003l);					// 虫キットID
 		kit.setBarcode_id(111111111113l);			// バーコードID
 		kit.setName("超蝶々");							// 名前
-		kit.setEffect("相手攻撃力１／２");					// 効果
+		kit.setEffect("相手守備力１／２");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
@@ -283,33 +295,18 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(4);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
-		// 戦闘時使用特殊カードに設定
-		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD3, kit);
-
-		kit = new BeetleKit();
-		kit.setBeetleKitId(1004l);					// 虫キットID
-		kit.setBarcode_id(111111111114l);			// バーコードID
-		kit.setName("ナナホシテントウ");					// 名前
-		kit.setEffect("相手守備力１／２");				// 効果
-		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("tenntoumusi");			// 画像ファイル名
-		kit.setIntroduction("七つのホシを持つ男");		// カード説明
-		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(5);							// 特殊効果ID
-		factory.insertBeetleKitToDB(kit);
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1005l);					// 虫キットID
 		kit.setBarcode_id(111111111115l);			// バーコードID
 		kit.setName("女王蜂");						// 名前
-		kit.setEffect("ＬＰ ５０％回復");				// 効果
+		kit.setEffect("相手攻撃力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("beetle3");			// 画像ファイル名
 		kit.setIntroduction("ロイヤルゼリーもってます");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(1);							// 特殊効果ID
+		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 
 		kit = new BeetleKit();
@@ -324,6 +321,8 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(6);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
+		// 戦闘時使用特殊カードに設定
+		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD3, kit);
 
 		// 戦闘時使用特殊カードに設定
 //		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
