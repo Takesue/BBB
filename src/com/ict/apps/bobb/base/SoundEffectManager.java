@@ -23,7 +23,7 @@ public class SoundEffectManager {
 
 	public SoundEffectManager (Context context) {
 		this.context = context;
-		this.maxPoolNum = 14;
+		this.maxPoolNum = 12;
 		this.createSoundPool();
 	}
 

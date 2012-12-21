@@ -97,8 +97,8 @@ public class CPU01 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -111,8 +111,8 @@ public class CPU01 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -125,8 +125,8 @@ public class CPU01 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -139,12 +139,12 @@ public class CPU01 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setIntroduction("フンガ～♪");				// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -153,8 +153,8 @@ public class CPU01 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
