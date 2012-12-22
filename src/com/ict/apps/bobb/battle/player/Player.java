@@ -27,6 +27,9 @@ public abstract class Player {
 	// LP
 	private int lifepoint = 0;
 
+	// LP
+	private int lpMax = 0;
+
 	// Level
 	private int Level = 0;
 
@@ -86,6 +89,22 @@ public abstract class Player {
 	 */
 	public void setLifepoint(int lifepoint) {
 		this.lifepoint = lifepoint;
+	}
+
+	/**
+	 * ライフポイントMAXを取得する
+	 * @return
+	 */
+	public int getLpMax() {
+		return lpMax;
+	}
+
+	/**
+	 * ライフポイントMAXを設定する
+	 * @return
+	 */
+	public void setLpMax(int lpMax) {
+		this.lpMax = lpMax;
 	}
 
 	/**

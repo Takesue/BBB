@@ -33,19 +33,10 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textView1"
             android:layout_marginBottom="100dp"
-            android:layout_weight="1.00"
-            android:background="@drawable/baloon"
+            android:background="@drawable/rule_baloon"
             android:text=""
             android:textColor="#000000"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/chara01" />
 
         <TextView
             android:id="@+id/rule_fukidasi"
@@ -55,14 +46,20 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/rule_fukidasi1"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="22sp" />
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/rule_fukidasi"
+            android:src="@drawable/chara01" />
     </RelativeLayout>
 
     <Button

@@ -494,6 +494,31 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					}
 					
 					int length = cards.size();
+//					for (int i = 0; i < length; i++) {
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						
+//						// 衝突効果音
+//						activity.playEffect(R.raw.crash);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
+//						
+//						Thread.sleep(100);
+//						
+//						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
+//						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
+//					}
+					
 					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(startPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
@@ -501,23 +526,33 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
 						
-						Thread.sleep(100);
-						
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						// 衝突効果音
 						activity.playEffect(R.raw.crash);
 						
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
 						
-						Thread.sleep(100);
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(stopPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(centerPosY*tmpDensity), 5);
-						
-						Thread.sleep(100);
-						
+					}
+
+					Thread.sleep(100);
+
+					for (int i = 0; i < length; i++) {
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(startPosY*tmpDensity), 5);
 					}
+
 					
 				}
 				catch (InterruptedException e) {
@@ -694,23 +729,27 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 							if(endCount == 1){
 								// 効果音
-								activity.playEffect(R.raw.win);
+//								activity.playEffect(R.raw.win);
+								activity.setBGM(R.raw.win);
 //								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_win);
 
 							}
 							if(endCount == 2){
 								// 効果音
-								activity.playEffect(R.raw.lose);
+//								activity.playEffect(R.raw.lose);
+								activity.setBGM(R.raw.lose);
 //								Toast.makeText(activity, "ＬＯＳＥ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_lose);
 							}
 							if(endCount == 3){
 								// 効果音
-								activity.playEffect(R.raw.draw);
+//								activity.playEffect(R.raw.draw);
+								activity.setBGM(R.raw.draw);
 //								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_draw);
 							}
+							activity.startBgm();
 							toast.show();
 							
 /*							try {
@@ -956,17 +995,26 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
+<<<<<<< HEAD
 		
+=======
+		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
+>>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
 		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
+		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
 		TextView enemyAttack = (TextView)this.activity.findViewById(resIdList[1][2]);
 		TextView enemyDefense = (TextView)this.activity.findViewById(resIdList[1][3]);
 		
+		
 		// 値変更前の数値をintとして保持
+		int myLp_i = Integer.parseInt((String)myLp.getText());
 		int myAttack_i = Integer.parseInt((String)myAttack.getText());
 		int myDefense_i = Integer.parseInt((String)myDefense.getText());
+		int enemyLp_i = Integer.parseInt((String)enemyLp.getText());
 		int enemyAttack_i = Integer.parseInt((String)enemyAttack.getText());
 		int enemyDefense_i = Integer.parseInt((String)enemyDefense.getText());
+		
 
 		// アニメーション定義
 		AlphaAnimation alpha = new AlphaAnimation(1, 0);
@@ -974,7 +1022,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		alpha.setDuration(1000);
 		alpha.setInterpolator(new CycleInterpolator(10));
 
+<<<<<<< HEAD
 		// 値の変化点はアニメーション実施する
+=======
+		// 値の変化点をはアニメーション実施する
+		if (myLp_i != myPlayer.getLifepoint()) {
+			myLp.setTextColor(Color.YELLOW);
+			myLp.setAnimation(alpha);
+		}
+>>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
@@ -982,6 +1038,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
+		}
+		if (enemyLp_i != enemyPlayer.getLifepoint()) {
+			enemyLp.setTextColor(Color.YELLOW);
+			enemyLp.setAnimation(alpha);
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);

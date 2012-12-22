@@ -18,6 +18,9 @@ public class BgmManager {
 
 	// 最初に取得した時のコンテキスト恐らく、開始画面のコンテキスト
 	private static Context context;
+	
+	// 最後に音楽再生依頼したコンテキスト
+	private static Context current = null;
 
 	private BgmManager() {
 		currentPlayBgm = -1;
@@ -44,6 +47,7 @@ public class BgmManager {
 	 * @param resid
 	 */
 	public void play(int id) {
+		
 		if (id == this.currentPlayBgm) { // 現在再生しているので何もしない
 			return;
 		} else {

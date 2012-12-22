@@ -12,8 +12,14 @@ public class EffectLifeRecovery extends EffectOfCard {
 	@Override
 	public void execEffect(Player userInfo, Player enemyInfo) {
 		
-		// 30%ライフポイント増
-		userInfo.setLifepoint((int)(userInfo.getLifepoint()*1.3f));
+		// 50%ライフポイント増
+		userInfo.setLifepoint((int)(userInfo.getLifepoint() + userInfo.getLpMax()*0.5f));
+		
+		if (userInfo.getLifepoint() > userInfo.getLpMax()) {
+			// MAX値よりも大きい場合、MAX値へ変更
+			userInfo.setLifepoint(userInfo.getLpMax());
+		}
+		
 		
 	}
 
