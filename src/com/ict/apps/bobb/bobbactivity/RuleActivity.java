@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class RuleActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_rule);
 
 		TextView fukidasi = (TextView) this.findViewById(R.id.rule_fukidasi);

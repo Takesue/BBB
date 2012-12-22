@@ -118,8 +118,11 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		factory.setImageInfo(7, "クマモン7", 1, 3, "beetle1", "ゆるキャラNo7から陥落？？", "無し",0);
 		factory.setImageInfo(8, "クマモン8", 2, 3, "beetle2", "ゆるキャラNo8から陥落？？", "無し",0);
 		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し",0);
+		factory.setImageInfo(1001, "特殊カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
+		factory.setImageInfo(1002, "特殊カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
+		factory.setImageInfo(1003, "特殊カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
 		factory.setImageInfo(1004, "特殊カブト", 1, 3, "beetle1", "教育委員会の糞やろう", "攻撃力アップ",2);
-		
+
 		
 		// テストデータ挿入
 		// 新規カード取得（バーコード番号からカード生成）  DBにカード情報を登録
@@ -303,8 +306,8 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setEffect("相手攻撃力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");			// 画像ファイル名
-		kit.setIntroduction("ロイヤルゼリーもってます");		// カード説明
+		kit.setImageFileName("jooubati");			// 画像ファイル名
+		kit.setIntroduction("ジョオウサマとお呼び！");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);

@@ -21,7 +21,9 @@ public abstract class OnlineQuery {
 	/**
 	 * Google API project id registered to use GCM.
 	 */
-	public static final String SENDER_ID = "1041399877162";
+//	public static final String SENDER_ID = "1041399877162";
+	public static final String SENDER_ID = "886952507466";
+	
 	
 	// リクエストの結果Json形式
 	private JSONArray response = null;
