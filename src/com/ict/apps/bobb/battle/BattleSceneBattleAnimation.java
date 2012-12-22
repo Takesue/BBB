@@ -925,6 +925,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		
 		
+		AlphaAnimation alpha = new AlphaAnimation(1, 0);
+		//1000msの間実行
+		alpha.setDuration(1000);
+		alpha.setInterpolator(new CycleInterpolator(10));
 		if(myAtt != enemyAtt){
 			// 攻撃力表示
 			
@@ -938,20 +942,23 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			// パネル上の数値を変更
 			attack.setText(Integer.toString(myPlayer.totalAttack));
 			defense.setText(Integer.toString(myPlayer.totalDefense));
-//			
-//			if(type == 0){
-//				Attack = (TextView)this.activity.findViewById(R.id.myAttack);
-//				Defense = (TextView)this.activity.findViewById(R.id.myDefense);
-//				Attack.setText(Integer.toString(this.activity.myPlayer.totalAttack));
-//				Defense.setText(Integer.toString(this.activity.myPlayer.totalDefense));
-//			}else{
-//				Attack = (TextView)this.activity.findViewById(R.id.enemyAttack);
-//				Defense = (TextView)this.activity.findViewById(R.id.enemyDefense);
-//				Attack.setText(Integer.toString(this.activity.enemyPlayer.totalAttack));
-//				Defense.setText(Integer.toString(this.activity.enemyPlayer.totalDefense));
-//			}
 			
-			// 攻撃守備は上下に振る
+			if((attack_i < myPlayer.totalAttack)
+			 ||(defense_i < myPlayer.totalDefense)){
+				attack.setTextColor(Color.RED);
+				defense.setTextColor(Color.RED);
+				attack.setAnimation(alpha);
+				defense.setAnimation(alpha);
+			}else{
+				attack.setTextColor(Color.BLUE);
+				defense.setTextColor(Color.BLUE);
+				attack.setAnimation(alpha);
+				defense.setAnimation(alpha);
+			}
+			//アニメーションスタート
+			attack.startAnimation(alpha);
+			defense.startAnimation(alpha);
+/*			// 攻撃守備は上下に振る
 			RotateAnimation rotate;
 			if((attack_i < myPlayer.totalAttack)
 			 ||(defense_i < myPlayer.totalDefense)){
@@ -968,21 +975,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			//アニメーションスタート
 			attack.startAnimation(rotate);
 			defense.startAnimation(rotate);
+			*/
 		}
 		
 		// 属性点滅
 		TextView Att = (TextView)this.activity.findViewById(resIds[4]);
-
-//		if(type == 0){
-//			Att = (TextView)this.activity.findViewById(R.id.myAttribute);
-//		}else{
-//			Att = (TextView)this.activity.findViewById(R.id.enemyAttribute);
-//		}
-		AlphaAnimation alpha = new AlphaAnimation(1, 0);
-		//2000msの間実行
-		alpha.setDuration(1000);
-		alpha.setInterpolator(new CycleInterpolator(10));
-		Att.startAnimation(alpha);
+		Att.setAnimation(alpha);
 		
 		// 効果音
 		activity.playEffect(R.raw.attribute);
@@ -997,7 +995,11 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
+<<<<<<< HEAD
+		
+=======
 		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
+>>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
 		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
 		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
@@ -1020,11 +1022,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		alpha.setDuration(1000);
 		alpha.setInterpolator(new CycleInterpolator(10));
 
+<<<<<<< HEAD
+		// 値の変化点はアニメーション実施する
+=======
 		// 値の変化点をはアニメーション実施する
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
 		}
+>>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
@@ -1084,15 +1090,19 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		ArrayList<BattleCardView> cards = player.cardInfo.getSelectedCard();
 		CardAttribute myAtt = BattleUtil.getAttribute(cards);
 		if(myAtt == CardAttribute.FIRE){
+			((TextView)this.activity.findViewById(resIds[4])).setTextColor(Color.RED);
 			((TextView)this.activity.findViewById(resIds[4])).setText("火");
 		}
 		else if(myAtt == CardAttribute.WATER){
+			((TextView)this.activity.findViewById(resIds[4])).setTextColor(Color.BLUE);
 			((TextView)this.activity.findViewById(resIds[4])).setText("水");
 		}
 		else if(myAtt == CardAttribute.WIND){
+			((TextView)this.activity.findViewById(resIds[4])).setTextColor(Color.GREEN);
 			((TextView)this.activity.findViewById(resIds[4])).setText("風");
 		}
 		else {
+			((TextView)this.activity.findViewById(resIds[4])).setTextColor(Color.WHITE);
 			((TextView)this.activity.findViewById(resIds[4])).setText("―");
 		}
 
