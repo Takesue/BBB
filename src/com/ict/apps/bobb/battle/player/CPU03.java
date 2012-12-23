@@ -23,20 +23,20 @@ import android.view.View;
 /**
  * 初期対戦用CPU
  */
-public class CPU01 extends CPU {
+public class CPU03 extends CPU {
 	
 	/**
 	 * コンストラクタ
 	 */
-	public CPU01(Context context) {
+	public CPU03(Context context) {
 		super(context);
 		
-		this.setName("CPU01");
+		this.setName("CPU03");
 		this.setLifepoint(Integer.parseInt((String)context.getText(R.string.maxLp)));
 		this.setLpMax(this.getLifepoint());
-		this.setLevel(1);
-		this.setIcResourceId(R.drawable.cpu01_ic);
-		
+		this.setLevel(20);
+		this.setIcResourceId(R.drawable.cpu03_ic);
+
 		// CPU思考回路の設定
 		// 判断の優先度順に設定する。
 		this.setIdeaList(new IdeaFirstInFirstout());
@@ -78,13 +78,13 @@ public class CPU01 extends CPU {
 		// No1
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(900);						// 画像ID
-		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -92,13 +92,13 @@ public class CPU01 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(900);						// 画像ID
-		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -106,13 +106,13 @@ public class CPU01 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(900);						// 画像ID
-		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -120,13 +120,13 @@ public class CPU01 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(900);						// 画像ID
-		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");				// カード説明
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -134,13 +134,13 @@ public class CPU01 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("オークカブト");						// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(500);						// 守備
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(900);						// 画像ID
-		kit.setImageFileName("oakabuto01");			// 画像ファイル名
-		kit.setIntroduction("フンガ～♪");			// カード説明
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 

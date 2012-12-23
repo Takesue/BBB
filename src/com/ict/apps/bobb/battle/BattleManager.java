@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.ict.apps.bobb.battle.player.CPU01;
 import com.ict.apps.bobb.battle.player.CPU02;
+import com.ict.apps.bobb.battle.player.CPU03;
+import com.ict.apps.bobb.battle.player.CPU04;
 import com.ict.apps.bobb.battle.player.MyPlayer;
 import com.ict.apps.bobb.battle.player.OnlinePlayer;
 import com.ict.apps.bobb.battle.player.Player;
@@ -98,8 +100,11 @@ public class BattleManager {
 			else if ("CPU02".equals(intent.getStringExtra("user_name"))) {
 				this.activity.enemyPlayer = new CPU02(this.activity);
 			}
+			else if ("CPU03".equals(intent.getStringExtra("user_name"))) {
+				this.activity.enemyPlayer = new CPU03(this.activity);
+			}
 			else {
-				this.activity.enemyPlayer = new CPU01(this.activity);
+				this.activity.enemyPlayer = new CPU04(this.activity);
 			}
 		}
 		

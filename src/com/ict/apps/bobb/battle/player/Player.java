@@ -51,6 +51,9 @@ public abstract class Player {
 	// コンテキストを保持
 	protected Context context = null;
 	
+	// アイコンのリソースID
+	private int icResourceId = 0;
+	
 	/**
 	 * コンストラクタ
 	 * @param context
@@ -137,6 +140,22 @@ public abstract class Player {
 	 */
 	public void setRequest(String request) {
 		this.request = request;
+	}
+	
+	/**
+	 * リソースID設定
+	 * @return
+	 */
+	public int getIcResourceId() {
+		return icResourceId;
+	}
+
+	/**
+	 * リソースID取得
+	 * @param icResourceId
+	 */
+	public void setIcResourceId(int icResourceId) {
+		this.icResourceId = icResourceId;
 	}
 
 	

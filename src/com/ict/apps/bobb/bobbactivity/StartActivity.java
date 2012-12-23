@@ -7,6 +7,8 @@ import com.google.android.gcm.GCMRegistrar;
 import com.ict.apps.bobb.base.BaseActivity;
 import com.ict.apps.bobb.battle.player.CPU01;
 import com.ict.apps.bobb.battle.player.CPU02;
+import com.ict.apps.bobb.battle.player.CPU03;
+import com.ict.apps.bobb.battle.player.CPU04;
 import com.ict.apps.bobb.battle.player.OnlinePlayer;
 import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.battle.player.PlayerListAdapter;
@@ -68,8 +70,9 @@ public class StartActivity extends BaseActivity {
 		}
 		else {
 			this.init();
+			// カード生成
 			// テスト用に呼び出している。
-			UserInfoRegistrationActivity.createDefauleCards(this);
+//			UserInfoRegistrationActivity.createDefauleCards(this);
 		}
     }
 
@@ -136,7 +139,9 @@ public class StartActivity extends BaseActivity {
 
 		final Player[] userList = {
 			new CPU01(this),
-			new CPU02(this)
+			new CPU02(this),
+			new CPU03(this),
+			new CPU04(this)
 		};
 
 		this.viewPopupPlayerLis(userList);

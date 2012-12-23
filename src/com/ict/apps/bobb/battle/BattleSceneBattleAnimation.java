@@ -995,11 +995,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
-<<<<<<< HEAD
-		
-=======
 		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
->>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
 		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
 		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
@@ -1022,15 +1018,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		alpha.setDuration(1000);
 		alpha.setInterpolator(new CycleInterpolator(10));
 
-<<<<<<< HEAD
 		// 値の変化点はアニメーション実施する
-=======
 		// 値の変化点をはアニメーション実施する
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
 		}
->>>>>>> 9d06da5fab21b07a6fbe2fd619eefefef31a4654
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);

@@ -43,6 +43,9 @@ public class PlayerListAdapter extends ArrayAdapter<Object> {
 		TextView fName = (TextView) convertView.findViewById(text1);
 		TextView fDetail = (TextView) convertView.findViewById(text2);
 		ImageView fIcon = (ImageView) convertView.findViewById(icon);
+		if (player[position].getIcResourceId() != 0) {
+			fIcon.setImageResource(player[position].getIcResourceId());
+		}
 		fName.setText(player[position].getName());
 		fDetail.setText("Lv : " + player[position].getLevel());
 

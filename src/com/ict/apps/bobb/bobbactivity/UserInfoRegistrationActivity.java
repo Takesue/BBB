@@ -326,6 +326,19 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD3, kit);
+		
+		kit.setBeetleKitId(900l);					// 虫キットID
+		kit.setBarcode_id(199911118876l);			// バーコードID
+		kit.setName("バイキンガブト");					// 名前
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(901);						// 画像ID
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setType(1);								// 種別　1：一般　2：特殊
+		factory.insertBeetleKitToDB(kit);
+
 
 		// 戦闘時使用特殊カードに設定
 //		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
