@@ -277,7 +277,6 @@ public class BattleManager {
 		
 		// 対戦相手カード情報が取得できていた場合、相手のカード情報を管理下に登録する。
 		this.activity.enemyPlayer.setName(this.enemyUserName);
-		this.activity.enemyPlayer.setLifepoint(4000);
 		this.activity.enemyPlayer.createCardBattlerInfo(
 				this.getEnemyUsingCardQery.getBeetleCards(),
 				this.getEnemyUsingCardQery.getSpecialCards());

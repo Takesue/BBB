@@ -7,6 +7,7 @@ import android.util.Log;
 
 
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
+import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.data.BeetleCard;
 import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.SpecialCard;
@@ -23,8 +24,8 @@ public class OnlinePlayer extends Player{
 	 */
 	public OnlinePlayer(Context context) {
 		super(context);
+		this.setLifepoint(StatusInfo.getLP(context));
 	}
-
 
 	/**
 	 * 一般カードを選択する
