@@ -66,14 +66,14 @@
                             android:textSize="14sp" />
 
                     </LinearLayout>
-
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
+
                         <TextView
                             android:id="@+id/enemyLpTitle"
                             android:layout_width="match_parent"
@@ -85,19 +85,37 @@
                             android:textColor="#ffffff"
                             android:textSize="10sp"
                             android:textStyle="bold" />
-
+
                         <TextView
                             android:id="@+id/enemyLp"
-                            android:layout_width="match_parent"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/enemyLpTitle"
+                            android:layout_toLeftOf="@+id/enemyDamege"
                             android:ellipsize="end"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
                             android:textSize="14sp" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/enemyDamege"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/enemyLp"
+                            android:layout_alignBottom="@+id/enemyLp"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:scrollHorizontally="true"
+                            android:text="3500"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,27 +129,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
+
                         <TextView
-                            android:id="@+id/enemyDefenseTitle"
+                            android:id="@+id/enemyAttributeTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="守備"
-                            android:textColor="#0000FF"
+                            android:text="属性"
+                            android:textColor="#7CFC00"
                             android:textSize="10sp"
                             android:textStyle="bold" />
-
+
                         <TextView
-                            android:id="@+id/enemyDefense"
+                            android:id="@+id/enemyAttribute"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="500"
+                            android:text="火"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -180,27 +198,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
+
                         <TextView
-                            android:id="@+id/enemyAttributeTitle"
+                            android:id="@+id/enemyDefenseTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="属性"
-                            android:textColor="#7CFC00"
+                            android:text="守備"
+                            android:textColor="#0000FF"
                             android:textSize="10sp"
                             android:textStyle="bold" />
-
+
                         <TextView
-                            android:id="@+id/enemyAttribute"
+                            android:id="@+id/enemyDefense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="火"
+                            android:text="500"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -263,27 +281,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
+
                         <TextView
-                            android:id="@+id/myAttackTitle"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:scrollHorizontally="true"
-                            android:text="攻撃"
-                            android:textColor="#FF0000"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/myAttack"
+                            android:id="@+id/myAttributeTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="400"
+                            android:text="属性"
+                            android:textColor="#7CFC00"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/myAttribute"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:scrollHorizontally="true"
+                            android:text="火"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -327,27 +345,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
+
                         <TextView
-                            android:id="@+id/myAttributeTitle"
-                            android:layout_width="match_parent"
+                            android:id="@+id/myAttackTitle"
+                            android:layout_width="85dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="属性"
-                            android:textColor="#7CFC00"
+                            android:text="攻撃"
+                            android:textColor="#FF0000"
                             android:textSize="10sp"
                             android:textStyle="bold" />
-
+
                         <TextView
-                            android:id="@+id/myAttribute"
+                            android:id="@+id/myAttack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:scrollHorizontally="true"
-                            android:text="火"
+                            android:text="400"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -422,7 +440,7 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -440,19 +458,36 @@
                             android:textColor="#ffffff"
                             android:textSize="10sp"
                             android:textStyle="bold" />
-
+
                         <TextView
                             android:id="@+id/myLp"
-                            android:layout_width="match_parent"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/myLpTitle"
+                            android:layout_toLeftOf="@+id/myDamege"
                             android:ellipsize="end"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
                             android:textSize="14sp" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/myDamege"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/myLp"
+                            android:layout_alignBottom="@+id/myLp"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:scrollHorizontally="true"
+                            android:text="3500"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp" />
+                        
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
