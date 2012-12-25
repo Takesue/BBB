@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_userinforegistration);
 
 		// ブロードキャストレシーバの登録
@@ -329,7 +331,7 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキンガブト");					// 名前
+		kit.setName("バイキングワガタ");					// 名前
 		kit.setAttack(1500);						// 攻撃
 		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数

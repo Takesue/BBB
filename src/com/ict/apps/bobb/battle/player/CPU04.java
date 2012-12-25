@@ -28,7 +28,7 @@ public class CPU04 extends CPU {
 	public CPU04(Context context) {
 		super(context);
 		
-		this.setName("クローン君");
+		this.setName("CPU04(CLONE)");
 		this.setLifepoint(Integer.parseInt((String)context.getText(R.string.maxLp)));
 		this.setLpMax(this.getLifepoint());
 		this.setLevel(0);
