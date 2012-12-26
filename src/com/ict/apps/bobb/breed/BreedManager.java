@@ -183,9 +183,6 @@ public class BreedManager {
 		
 		int retValue = 0;
 		
-		// 算出時の最大値
-		int maxValue = 1600;
-		
 		if (0 < barcode) {
 			// 13桁の文字列に変換
 			String strBarcode = String.format("%1$013d", barcode);
@@ -204,10 +201,10 @@ public class BreedManager {
 			int typeE = Integer.valueOf(digitnum[5] + digitnum[8]) + base;
 			int typeF = Integer.valueOf(digitnum[7] + digitnum[6]) + base;
 			
-			// 値は400～2400の範囲で収束する
+			// 値は800～2800の範囲で収束する
 			
-			int attack = ((typeA + typeD)*typeE/1000*100) + 400;
-			int defense = ((typeB + typeF)*typeC/1000*100) + 400;
+			int attack = ((typeA + typeD)*typeE/1000*100) + 800;
+			int defense = ((typeB + typeF)*typeC/1000*100) + 800;
 			
 			System.out.println(attack);
 			System.out.println(defense);
@@ -218,26 +215,19 @@ public class BreedManager {
 				total += Integer.valueOf(digitnum[i]);
 			}
 			
-			if (attack > 1000) {
+			// 1600以上の数値の場合一定確率で値を下げる
+			if (attack > 1500) {
 				attack = attack*(10 - (total % 5))/10;
 			}
-			if (defense > 1000) {
+			if (defense > 1500) {
 				defense = defense*(10 -(total % 5))/10;
 			}
 
-			// 最大値より大きかったら最大値に変更する
-			if (attack > maxValue) {
-				attack = maxValue;
-			}
 			
-			if (defense > maxValue) {
-				defense = maxValue;
-			}
-
-			// 10の位以下は丸める
-			attack = attack/100*100;
-			defense = defense/100*100;
-
+			// 最大値より大きかったら最大値に変更する
+			attack = tuningValue(attack);
+			defense = tuningValue(defense);
+			
 			retValue = ((ptype == 0) ? attack : defense);
 
 		}
@@ -273,23 +263,23 @@ public class BreedManager {
 	private int getLevel(int attack, int defense) {
 		// xmlに切り出して動的に変更できるようにしたい。
 		int lv0_max = 0;
-		int lv1_max = 1500;
-		int lv2_max = 2200;
-		int lv3_max = 3000;
+		int lv1_max = 3000;
+		int lv2_max = 4000;
+		int lv3_max = 5000;
 		
-		int level = 0;
+		int level = 1;
 		
 		int total = attack + defense;
 		
-		if (lv0_max < total && total <= lv1_max) {
+		if (lv0_max < total && total < lv1_max) {
 			// レベル１
 			level = 1;
 		}
-		else if (lv1_max < total && total <= lv2_max) {
+		else if (total < lv2_max) {
 			// レベル２
 			level = 2;
 		}
-		else if (lv2_max < total && total <= lv3_max) {
+		else if (total < lv3_max) {
 			// レベル３
 			level = 3;
 		}
@@ -310,13 +300,13 @@ public class BreedManager {
 		int category = 0;
 		
 		// 比率
-		int rate = 2;
+		float rate = 1.2f;
 		
-		if (defense * rate <= attack) {
+		if ( (int)(defense * rate) <= attack) {
 			// 攻撃型
 			category = 1;
 		}
-		else if (attack * rate <= defense) {
+		else if ((int)(attack * rate) <= defense) {
 			// 守備型
 			category = 3;
 		}
@@ -417,17 +407,17 @@ public class BreedManager {
 		
 		// 新カードのブリード回数設定
 		// 2枚のうちブリード回数が多い方の値を＋１
-		if (beetle1.getBreedcount() <= beetle2.getBreedcount()) {
-			newBeetle.setBreedcount(beetle2.getBreedcount() + 1);
-			
-		}
+		int count = (beetle1.getBreedcount() > beetle2.getBreedcount()) ? beetle1.getBreedcount() : beetle2.getBreedcount();
+		newBeetle.setBreedcount(++count);
 		
 		// 基礎値×ブリード回数の合計が加算される
 		int base = 20;
-		newBeetle.setAttack(newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
-		newBeetle.setDefense(newBeetle.getDefense() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base) + 200);
 		
-		// ★親のバーコードは削除するのか？
+		int attack = newBeetle.getAttack() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base);
+		int defense = newBeetle.getDefense() + ((beetle1.getBreedcount() + beetle2.getBreedcount()) * base);
+		
+		newBeetle.setAttack(this.tuningValue(attack));
+		newBeetle.setDefense(this.tuningValue(defense));
 		
 		// 親カード削除
 		BeetleKitFactory factory = new BeetleKitFactory(context);
@@ -437,8 +427,32 @@ public class BreedManager {
 		// 子供カード登録
 		factory.insertBeetleKitToDB(newBeetle);
 		
-
 		return newBeetle;
 	}
+
+	/**
+	 * 攻撃値、守備値をチューニングする
+	 * @return
+	 */
+	private int tuningValue(int value) {
+
+		// 最大値
+		int maxValue = 2500;
+		int minValue = 1000;
+
+		if (value < minValue) {
+			// 最低値より小さい場合最低値を設定
+			value = minValue;
+		}
+		else if (value > maxValue) {
+			value = maxValue;
+		}
+		
+		// 10の位以下は丸める
+		value = value/100*100;
+		
+		return value;
+	}
+	
 
 }

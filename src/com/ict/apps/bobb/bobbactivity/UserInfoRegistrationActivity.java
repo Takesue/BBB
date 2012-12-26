@@ -119,11 +119,11 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		factory.setImageInfo(7, "スリープ（Z）ワーム", 3, 1, "imomusi01", "ZZZ・・・", "無し",0);
 		factory.setImageInfo(8, "チェリー・バタフライ", 3, 2, "tyou01", "お花、大ー好き♪♪♪", "無し",0);
 		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し",0);
-		factory.setImageInfo(1001, "怪人クワガタレディ", 0, 0, "kaijinkuwagatalady", "教育委員会の糞やろう", "攻撃力５０％",6);
-		factory.setImageInfo(1002, "カブ子ムシ", 0, 0, "kabukomushi", "額の角は飾りなの♪", "守備力２倍", 3);
+		factory.setImageInfo(1001, "バイキングワガタ", 0, 0, "vikinguwagata", "蹂躙大好き♪", "攻撃力５０％",6);
+		factory.setImageInfo(1002, "カブ子ムシ", 0, 0, "kabukomushi", "額の角は飾りなの♪", "ＬＰ ５０％回復", 1);
 		factory.setImageInfo(1003, "セクシーバタフライ", 0, 0, "sexybutterfly", "黄金のハネで守ってあげる！", "相手攻撃力１／２", 5);
-		factory.setImageInfo(1004, "女王蜂", 0, 0, "joousama", "ジョオウサマとお呼び！", "相手守備力１／２", 4);
-		factory.setImageInfo(1005, "ナナホシテントウ", 0, 0, "tenntoumusi", "七つのホシを持つ男", "ＬＰ ５０％回復",1);
+		factory.setImageInfo(1004, "女王蜂", 0, 0, "jooubati", "ジョオウサマとお呼び！", "相手守備力１／２", 4);
+		factory.setImageInfo(1005, "ナナホシテントウ", 0, 0, "tenntoumusi", "七つのホシを持つ男", "守備力２倍", 3);
 		
 		// テストデータ挿入
 		// 新規カード取得（バーコード番号からカード生成）  DBにカード情報を登録
@@ -145,13 +145,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1l);						// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("なまいきカブトD");					// 名前
-		kit.setAttack(800);							// 攻撃
-		kit.setDefense(900);						// 守備
+		kit.setName("ワームA");						// 名前
+		kit.setAttack(1100);						// 攻撃
+		kit.setDefense(900);							// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kabuto01");			// 画像ファイル名
-		kit.setIntroduction("ん・・・なんか用か？");		// カード説明
+		kit.setImageFileName("imomusi_def_a");			// 画像ファイル名
+		kit.setIntroduction("ZZZ・・・")	;			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -160,13 +160,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(2l);						// 虫キットID
 		kit.setBarcode_id(299911116767l);			// バーコードID
-		kit.setName("きぐるみクワガタD");					// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(600);						// 守備
+		kit.setName("ワームB");						// 名前
+		kit.setAttack(900);							// 攻撃
+		kit.setDefense(1100);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kuwagata01");			// 画像ファイル名
-		kit.setIntroduction("お星さまの力を借りて戦うよ");	// カード説明
+		kit.setImageFileName("imomusi_def_b");			// 画像ファイル名
+		kit.setIntroduction("ZZZ・・・")	;			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -175,13 +175,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(3l);						// 虫キットID
 		kit.setBarcode_id(388711111111l);			// バーコードID
-		kit.setName("スリープ（Z）ワーム");					// 名前
-		kit.setAttack(400);							// 攻撃
-		kit.setDefense(400);						// 守備
+		kit.setName("ワームC");						// 名前
+		kit.setAttack(1000);						// 攻撃
+		kit.setDefense(1100);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("imomusi01");			// 画像ファイル名
-		kit.setIntroduction("アメリカン")	;			// カード説明
+		kit.setImageFileName("imomusi_def_c");			// 画像ファイル名
+		kit.setIntroduction("ZZZ・・・")	;			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -190,13 +190,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(4l);						// 虫キットID
 		kit.setBarcode_id(411111118989l);			// バーコードID
-		kit.setName("兜ムシ");						// 名前
-		kit.setAttack(800);							// 攻撃
-		kit.setDefense(700);						// 守備
+		kit.setName("ワームD");						// 名前
+		kit.setAttack(1200);						// 攻撃
+		kit.setDefense(800);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kabuto001");			// 画像ファイル名
-		kit.setIntroduction("ジロジロみるなよ");			// カード説明
+		kit.setImageFileName("imomusi_def_d");			// 画像ファイル名
+		kit.setIntroduction("ZZZ・・・")	;			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
@@ -205,55 +205,30 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(5l);						// 虫キットID
 		kit.setBarcode_id(566711118889l);			// バーコードID
-		kit.setName("兜ムシⅡ");						// 名前
-		kit.setAttack(600);							// 攻撃
-		kit.setDefense(900);						// 守備
+		kit.setName("ワームE");						// 名前
+		kit.setAttack(800);							// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kabuto002");			// 画像ファイル名
-		kit.setIntroduction("仲良し♪");				// カード説明
+		kit.setImageFileName("imomusi_def_e");			// 画像ファイル名
+		kit.setIntroduction("ZZZ・・・")	;			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		factory.insertBeetleKitToDB(kit);
 		// デッキに設定
 		BattleUseKit.setUseKit(context, BattleUseKit.DeckNum.DECK5, kit);
 
-		kit = new BeetleKit();
-		kit.setBeetleKitId(6l);						// 虫キットID
-		kit.setBarcode_id(598711118888l);			// バーコードID
-		kit.setName("きぐるみクワガタD");					// 名前
-		kit.setAttack(500);							// 攻撃
-		kit.setDefense(600);						// 守備
-		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kuwagata01");			// 画像ファイル名
-		kit.setIntroduction("お星さまの力を借りて戦うよ");	// カード説明
-		kit.setType(1);								// 種別　1：一般　2：特殊
-		factory.insertBeetleKitToDB(kit);
-
-		kit = new BeetleKit();
-		kit.setBeetleKitId(7l);						// 虫キットID
-		kit.setBarcode_id(545911119999l);			// バーコードID
-		kit.setName("マスク・ド・クワガタ");				// 名前
-		kit.setAttack(1200);						// 攻撃
-		kit.setDefense(1200);						// 守備
-		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("mask_de_kuwagata");	// 画像ファイル名
-		kit.setIntroduction("？？？");				// カード説明
-		kit.setType(1);								// 種別　1：一般　2：特殊
-		factory.insertBeetleKitToDB(kit);
 
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1005l);					// 虫キットID
 		kit.setBarcode_id(111111111114l);			// バーコードID
 		kit.setName("ナナホシテントウ");					// 名前
-		kit.setEffect("ＬＰ ５０％回復");				// 効果
+		kit.setEffect("守備力２倍");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("tenntoumusi");		// 画像ファイル名
 		kit.setIntroduction("七つのホシを持つ男");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(1);							// 特殊効果ID
+		kit.setEffectId(3);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD2, kit);
@@ -276,13 +251,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setBeetleKitId(1002l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブ子ムシ");						// 名前
-		kit.setEffect("守備力２倍");					// 効果
+		kit.setEffect("ＬＰ ５０％回復");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("kabukomushi");		// 画像ファイル名
 		kit.setIntroduction("触るとイタイヨ");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(3);							// 特殊効果ID
+		kit.setEffectId(1);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD1, kit);
@@ -316,34 +291,18 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(1001l);					// 虫キットID
 		kit.setBarcode_id(111111111125l);			// バーコードID
-		kit.setName("怪人クワガタレディ");					// 名前
+		kit.setName("バイキングワガタ");					// 名前
 		kit.setEffect("攻撃力５０％UP");				// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
-		kit.setIntroduction("腕が角だから防御は苦手なの(>0<)");	// カード説明
+		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
+		kit.setIntroduction("蹂躙大好き♪");		// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(6);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
 		// 戦闘時使用特殊カードに設定
 		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD3, kit);
 		
-		kit.setBeetleKitId(900l);					// 虫キットID
-		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
-		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
-		kit.setType(1);								// 種別　1：一般　2：特殊
-		factory.insertBeetleKitToDB(kit);
-
-
-		// 戦闘時使用特殊カードに設定
-//		BattleUseSpecialCard.setUseKit(this, BattleUseSpecialCard.CardNum.CARD1, kit);
-
 		
 		// ユーザ情報クラスのアクセス例
 //		StatusInfo.setUserName(this, "Testユーザ名");

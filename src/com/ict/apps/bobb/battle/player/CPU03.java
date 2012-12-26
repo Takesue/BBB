@@ -78,13 +78,13 @@ public class CPU03 extends CPU {
 		// No1
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1300);						// 攻撃
-		kit.setDefense(1200);						// 守備
+		kit.setName("怪人クワガタレディ");				// 名前
+		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(1600);						// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
+		kit.setIntroduction("腕が角だから防御は苦手なの");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -92,13 +92,13 @@ public class CPU03 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1300);						// 攻撃
-		kit.setDefense(1200);						// 守備
+		kit.setName("怪人クワガタレディ");				// 名前
+		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(1600);						// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
+		kit.setIntroduction("腕が角だから防御は苦手なの");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -106,13 +106,13 @@ public class CPU03 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1300);						// 攻撃
-		kit.setDefense(1200);						// 守備
+		kit.setName("怪人クワガタレディ");				// 名前
+		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(1600);						// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
+		kit.setIntroduction("腕が角だから防御は苦手なの");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -120,13 +120,13 @@ public class CPU03 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1300);						// 攻撃
-		kit.setDefense(1200);						// 守備
+		kit.setName("怪人クワガタレディ");				// 名前
+		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(1600);						// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
+		kit.setIntroduction("腕が角だから防御は苦手なの");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 
@@ -134,13 +134,13 @@ public class CPU03 extends CPU {
 		kit = new BeetleKit();
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
-		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1300);						// 攻撃
-		kit.setDefense(1200);						// 守備
+		kit.setName("怪人クワガタレディ");				// 名前
+		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(1600);						// 攻撃
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
-		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
-		kit.setIntroduction("蹂躙大好き♪");			// カード説明
+		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
+		kit.setIntroduction("腕が角だから防御は苦手なの");			// カード説明
 		kit.setType(1);								// 種別　1：一般　2：特殊
 		cardList.addAll(Arrays.asList(kit.createBeetleCards()));
 

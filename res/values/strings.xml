@@ -3,5 +3,5 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_start">BoBB</string>
     <string name="breedIntroduction">虫キットと虫キットをブリード（交配）します。ブリードする２枚を設定してください。ブリードに使用した虫キットは無くなります。</string>
-    <string name="maxLp">6000</string>
+    <string name="maxLp">10000</string>
 </resources>

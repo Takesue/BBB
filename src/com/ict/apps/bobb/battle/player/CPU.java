@@ -19,7 +19,6 @@ public class CPU extends Player{
 		super(context);
 	}
 
-
 	// アイデアリストのルートインスタンス
 	private IdeaForSelectCard ideaRoot = null;
 
