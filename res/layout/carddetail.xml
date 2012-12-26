@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/carddetail_intoro"
         android:layout_alignTop="@+id/carddetail_attrribute"
-        android:src="@drawable/beetle1" />
+        android:src="@drawable/kabuto01" />
 
     <TextView
         android:id="@+id/carddetail_name"

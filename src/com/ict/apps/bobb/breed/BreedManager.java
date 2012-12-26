@@ -183,7 +183,8 @@ public class BreedManager {
 		
 		int retValue = 0;
 		
-		int maxValue = 1500;
+		// 算出時の最大値
+		int maxValue = 1600;
 		
 		if (0 < barcode) {
 			// 13桁の文字列に変換
@@ -272,9 +273,9 @@ public class BreedManager {
 	private int getLevel(int attack, int defense) {
 		// xmlに切り出して動的に変更できるようにしたい。
 		int lv0_max = 0;
-		int lv1_max = 700;
-		int lv2_max = 1200;
-		int lv3_max = 1500;
+		int lv1_max = 1500;
+		int lv2_max = 2200;
+		int lv3_max = 3000;
 		
 		int level = 0;
 		

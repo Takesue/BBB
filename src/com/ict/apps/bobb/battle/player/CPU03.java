@@ -79,8 +79,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setAttack(1300);						// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
@@ -93,8 +93,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setAttack(1300);						// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
@@ -107,8 +107,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setAttack(1300);						// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
@@ -121,8 +121,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setAttack(1300);						// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("vikinguwagata");		// 画像ファイル名
@@ -135,8 +135,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("バイキングワガタ");					// 名前
-		kit.setAttack(1500);						// 攻撃
-		kit.setDefense(1500);						// 守備
+		kit.setAttack(1300);						// 攻撃
+		kit.setDefense(1200);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("vikinguwagata");		// 画像ファイル名

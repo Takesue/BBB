@@ -1,5 +1,6 @@
 package com.ict.apps.bobb.battle;
 
+import java.security.KeyStore.CallbackHandlerProtection;
 import java.util.ArrayList;
 
 import com.ict.apps.bobb.battle.effect.EffectOfCard;
@@ -12,7 +13,11 @@ import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -97,17 +103,25 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null) {
 			bam.add(new Runnable() {
 				public void run() {
+					
+					// 全ての矢印オブジェクトを削除
+					clearAllUpDownViews();
+
 					BattleUtil.judgeAttribute(activity.myPlayer, activity.enemyPlayer);
 					// 攻撃守備の上がり下がりで動きに変化をつける
 					startAttributeAnimation(activity.myPlayer, activity.enemyPlayer);
 				}
 			}, 2000);
 		}
-
+		
 		// 相手プレイヤの属性効果発動
 		if (BattleUtil.getAttribute(activity.enemyPlayer.cardInfo.getSelectedCard()) != null) {
 			bam.add(new Runnable() {
 				public void run() {
+					
+					// 全ての矢印オブジェクトを削除
+					clearAllUpDownViews();
+
 					BattleUtil.judgeAttribute(activity.enemyPlayer, activity.myPlayer);
 					// 攻撃守備の上がり下がりで動きに変化をつけ、０をmyとしてセット
 					startAttributeAnimation(activity.enemyPlayer, activity.myPlayer);
@@ -119,6 +133,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (activity.myPlayer.specialInfo.getSelectedCard().size() != 0) {
 			bam.add(new Runnable() {
 				public void run() {
+					
+					// 全ての矢印オブジェクトを削除
+					clearAllUpDownViews();
+
 					// 属性特殊カードアニメーション
 					EffectOfCard.getEffectInstance(activity.myPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
 						.execEffect(activity.myPlayer, activity.enemyPlayer);
@@ -136,6 +154,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (activity.enemyPlayer.specialInfo.getSelectedCard().size() != 0){
 			bam.add(new Runnable() {
 				public void run() {
+					
+					// 全ての矢印オブジェクトを削除
+					clearAllUpDownViews();
+
 					// 属性特殊カードアニメーション
 					EffectOfCard.getEffectInstance(activity.enemyPlayer.specialInfo.getSelectedCard().get(0).getSpecialInfo())
 						.execEffect(activity.enemyPlayer, activity.myPlayer);
@@ -146,12 +168,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					setPlayerInfoToPanel(activity.myPlayer);
 					setPlayerInfoToPanel(activity.enemyPlayer);
 				}
-		}, 2000);
+			}, 2000);
 		}
 		
 		// 残りのアニメーション
 		bam.add(new Runnable() {
 			public void run() {
+				
+				// 全ての矢印オブジェクトを削除
+				clearAllUpDownViews();
 				
 				// ダメージをtoastで表示する
 				mesegeDamege();
@@ -893,10 +918,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 	// リソース
 	private static int[][] resIdList = {
-			{R.id.myName, R.id.myLp, R.id.myAttack, R.id.myDefense, R.id.myAttribute, R.id.myEffect, R.id.myComment},
-			{R.id.enemyName, R.id.enemyLp, R.id.enemyAttack, R.id.enemyDefense, R.id.enemyAttribute, R.id.enemyEffect, R.id.enemyComment}
+			{R.id.myName, R.id.myLp, R.id.myAttack, R.id.myDefense, R.id.myAttribute, R.id.myEffect, R.id.myComment, R.id.myDamege},
+			{R.id.enemyName, R.id.enemyLp, R.id.enemyAttack, R.id.enemyDefense, R.id.enemyAttribute, R.id.enemyEffect, R.id.enemyComment, R.id.enemyDamege}
 	};
-
+	
 	/**
 	 * 属性発動アニメーション
 	 * @param myPlayer
@@ -907,6 +932,19 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 自分、相手の属性取得
 		CardAttribute myAtt = BattleUtil.getAttribute(myPlayer.cardInfo.getSelectedCard()); 
 		CardAttribute enemyAtt = BattleUtil.getAttribute(enemyPlayer.cardInfo.getSelectedCard());
+		
+		
+		
+		
+//		Bitmap bitmap;
+//		Resources res = this.activity.getContext().getResources();
+//        bitmap = BitmapFactory.decodeResource(res, R.drawable.upmark);
+//        ImageView upDown = new ImageView(this.activity);
+//        upDown.setImageResource(R.drawable.upmark);
+//        upDown.drawBitmap(bitmap,0,0,new Paint());
+		
+		
+		
 		
 		if (myAtt == null) {
 			// 自分の属性コンボが無い場合、何もしない。
@@ -943,21 +981,61 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			attack.setText(Integer.toString(myPlayer.totalAttack));
 			defense.setText(Integer.toString(myPlayer.totalDefense));
 			
-			if((attack_i < myPlayer.totalAttack)
-			 ||(defense_i < myPlayer.totalDefense)){
+			if(attack_i < myPlayer.totalAttack){
 				attack.setTextColor(Color.RED);
+				attack.setAnimation(alpha);
+			}
+			if(defense_i < myPlayer.totalDefense){
 				defense.setTextColor(Color.RED);
-				attack.setAnimation(alpha);
 				defense.setAnimation(alpha);
-			}else{
+			}
+			if(attack_i > myPlayer.totalAttack){
 				attack.setTextColor(Color.BLUE);
-				defense.setTextColor(Color.BLUE);
 				attack.setAnimation(alpha);
+			}
+			if(defense_i > myPlayer.totalDefense){
+				defense.setTextColor(Color.BLUE);
 				defense.setAnimation(alpha);
 			}
 			//アニメーションスタート
 			attack.startAnimation(alpha);
+			if (myPlayer instanceof MyPlayer) {
+				// MyPlayerの場合、自プレイヤの処理
+				if (attack_i < myPlayer.totalAttack) {
+					viewStatusUpDown(215,270,0).setAnimation(alpha);
+				}
+				if (attack_i > myPlayer.totalAttack) {
+					viewStatusUpDown(215,270,1).setAnimation(alpha);
+				}
+			}
+			else {
+				// MyPlayerの場合、相手プレイヤの処理
+				if (attack_i < myPlayer.totalAttack) {
+					viewStatusUpDown(135,190,0).setAnimation(alpha);
+				}
+				if (attack_i > myPlayer.totalAttack) {
+					viewStatusUpDown(135,190,1).setAnimation(alpha);
+				}
+			}
 			defense.startAnimation(alpha);
+			if (myPlayer instanceof MyPlayer) {
+				// MyPlayerの場合、自プレイヤの処理
+				if (defense_i < myPlayer.totalDefense) {
+					viewStatusUpDown(135,270,0).setAnimation(alpha);
+				}
+				if (defense_i > myPlayer.totalDefense) {
+					viewStatusUpDown(135,270,1).setAnimation(alpha);
+				}
+			}
+			else {
+				// MyPlayerの場合、相手プレイヤの処理
+				if (defense_i < myPlayer.totalDefense) {
+					viewStatusUpDown(215,190,0).setAnimation(alpha);
+				}
+				if (defense_i > myPlayer.totalDefense) {
+					viewStatusUpDown(215,190,1).setAnimation(alpha);
+				}
+			}
 /*			// 攻撃守備は上下に振る
 			RotateAnimation rotate;
 			if((attack_i < myPlayer.totalAttack)
@@ -996,7 +1074,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
 		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
-		TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
+		final TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
+		
 		TextView myDefense = (TextView)this.activity.findViewById(resIdList[0][3]);
 		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
 		TextView enemyAttack = (TextView)this.activity.findViewById(resIdList[1][2]);
@@ -1013,36 +1092,71 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 
 		// アニメーション定義
-		AlphaAnimation alpha = new AlphaAnimation(1, 0);
+		final AlphaAnimation alpha = new AlphaAnimation(1, 0);
 		//1000msの間実行
 		alpha.setDuration(1000);
 		alpha.setInterpolator(new CycleInterpolator(10));
 
-		// 値の変化点はアニメーション実施する
 		// 値の変化点をはアニメーション実施する
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
+			if (myLp_i < myPlayer.getLifepoint()){
+				viewStatusUpDown(260,305,0).setAnimation(alpha);
+			}
+			if (myLp_i > myPlayer.getLifepoint()){
+				viewStatusUpDown(260,305,1).setAnimation(alpha);
+			}
 		}
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
+			if (myAttack_i < myPlayer.totalAttack) {
+				viewStatusUpDown(215,270,0).setAnimation(alpha);
+			}
+			if (myAttack_i > myPlayer.totalAttack) {
+				viewStatusUpDown(215,270,1).setAnimation(alpha);
+			}
 		}
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
+			if (myDefense_i < myPlayer.totalDefense) {
+				viewStatusUpDown(135,270,0).setAnimation(alpha);
+			}
+			if (myDefense_i > myPlayer.totalDefense) {
+				viewStatusUpDown(135,270,1).setAnimation(alpha);
+			}
 		}
 		if (enemyLp_i != enemyPlayer.getLifepoint()) {
 			enemyLp.setTextColor(Color.YELLOW);
 			enemyLp.setAnimation(alpha);
+			if (enemyLp_i < enemyPlayer.getLifepoint()) {
+				viewStatusUpDown(260,150,0).setAnimation(alpha);
+			}
+			if (enemyLp_i > enemyPlayer.getLifepoint()) {
+				viewStatusUpDown(260,150,1).setAnimation(alpha);
+			}
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
 			enemyAttack.setAnimation(alpha);
+			if (enemyAttack_i < enemyPlayer.totalAttack) {
+				viewStatusUpDown(135,190,0).setAnimation(alpha);
+			}
+			if (enemyAttack_i > enemyPlayer.totalAttack) {
+				viewStatusUpDown(135,190,1).setAnimation(alpha);
+			}
 		}
 		if (enemyDefense_i != enemyPlayer.totalDefense) {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
+			if (enemyDefense_i < enemyPlayer.totalDefense) {
+				viewStatusUpDown(215,190,0).setAnimation(alpha);
+			}
+			if (enemyDefense_i > enemyPlayer.totalDefense) {
+				viewStatusUpDown(215,190,1).setAnimation(alpha);
+			}
 		}
 		
 		// 効果音
@@ -1112,7 +1226,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			((TextView)this.activity.findViewById(resIds[6])).setText("");
 			((TextView)this.activity.findViewById(resIds[6])).setBackgroundDrawable(null);
 		}
-
+		((TextView)this.activity.findViewById(resIds[7])).setVisibility(View.INVISIBLE);
+		
 	}
 	
 	/**
@@ -1125,6 +1240,58 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		// 攻撃力・守備力合算
 		BattleUtil.calcAndViewTotal(player);
 
+	}
+	// リソース
+	private static int[] markList = 
+			{R.drawable.upmark, R.drawable.downmark};
+	
+	
+	// 削除時に指定する必要があるため、矢印ビューをアレイで保持する
+	private ArrayList<LinearLayout> viewUpDownList = new ArrayList<LinearLayout>();
+	
+	/**
+	 * ステータスアップダウンのマークを表示
+	 * @param  left          横位置
+	 * @param  top           高さ位置
+	 * @param  type          ０：アップマーク　１：ダウンマーク
+	 * @return upDownPannel  戻り値を利用してアニメーション実装
+	 */
+	public LinearLayout viewStatusUpDown(int left, int top, int type) {
+		// Densityの値を取得
+		int num = 0;
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+		// ステータス表示View取得
+		LinearLayout upDownPannel = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_status_updown, null);
+
+		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
+				(int)(20 * tmpDensity),
+				(int)(20 * tmpDensity));
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		params.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
+		upDownPannel.setBackgroundResource(markList[type]);
+		upDownPannel.setLayoutParams(params);
+		// 戦闘ベース部品に追加する
+		this.activity.baseLayout.addView(upDownPannel, params);
+		
+		// 矢印Viewを保持
+		this.viewUpDownList.add(upDownPannel);
+		
+		return upDownPannel;
+		
+	}
+	
+	/**
+	 * 全てのUPWODNビューを外す
+	 */
+	private void clearAllUpDownViews() {
+		
+		for (View v : this.viewUpDownList) {
+			this.activity.baseLayout.removeView(v);
+		}
+		
 	}
 
 }

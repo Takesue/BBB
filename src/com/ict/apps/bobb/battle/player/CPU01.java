@@ -156,7 +156,7 @@ public class CPU01 extends CPU {
 		kit.setEffect("攻撃力２倍");					// 効果
 		kit.setBreedcount(4);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle1");			// 画像ファイル名
+		kit.setImageFileName("kabuto01");			// 画像ファイル名
 		kit.setIntroduction("トガッテルぜ～");				// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(2);							// 特殊効果ID
@@ -169,7 +169,7 @@ public class CPU01 extends CPU {
 		kit.setEffect("守備力２倍");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle2");			// 画像ファイル名
+		kit.setImageFileName("kabuto01");			// 画像ファイル名
 		kit.setIntroduction("触るとイタイヨ");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(3);							// 特殊効果ID
@@ -182,7 +182,7 @@ public class CPU01 extends CPU {
 		kit.setEffect("相手攻撃力１／２");					// 効果
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("beetle3");			// 画像ファイル名
+		kit.setImageFileName("kabuto01");			// 画像ファイル名
 		kit.setIntroduction("美しすぎる・・・");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(4);							// 特殊効果ID
