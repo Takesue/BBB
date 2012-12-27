@@ -179,14 +179,23 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				clearAllUpDownViews();
 				
 				// ダメージをtoastで表示する
-				mesegeDamege();
+//				mesegeDamege();
 				
 				// カードをアニメーションさせる
 				animationCards(1, activity.enemyPlayer);
 				animationCards(0, activity.myPlayer);
+			}
+		}, 100);
+		
+		// 残りのアニメーション
+		bam.add(new Runnable() {
+			public void run() {
 				
 				// 各ライフポイントを削る
 				lifePointRecalc();
+				
+				// ステータス画面にダメージポイントと戦闘後ＬＰをセット
+				setPanelLifePoint();
 				
 				// カード使用済み
 				battleAnimationDustCard();
@@ -1001,39 +1010,27 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			attack.startAnimation(alpha);
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
-				if (attack_i < myPlayer.totalAttack) {
-					viewStatusUpDown(215,270,0).setAnimation(alpha);
-				}
-				if (attack_i > myPlayer.totalAttack) {
-					viewStatusUpDown(215,270,1).setAnimation(alpha);
+				if (attack_i != myPlayer.totalAttack) {
+					viewStatusUpDown(215,270,attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
-				if (attack_i < myPlayer.totalAttack) {
-					viewStatusUpDown(135,190,0).setAnimation(alpha);
-				}
-				if (attack_i > myPlayer.totalAttack) {
-					viewStatusUpDown(135,190,1).setAnimation(alpha);
+				if (attack_i != myPlayer.totalAttack) {
+					viewStatusUpDown(135,190,attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			defense.startAnimation(alpha);
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
-				if (defense_i < myPlayer.totalDefense) {
-					viewStatusUpDown(135,270,0).setAnimation(alpha);
-				}
-				if (defense_i > myPlayer.totalDefense) {
-					viewStatusUpDown(135,270,1).setAnimation(alpha);
+				if (defense_i != myPlayer.totalDefense) {
+					viewStatusUpDown(135,270,defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
-				if (defense_i < myPlayer.totalDefense) {
-					viewStatusUpDown(215,190,0).setAnimation(alpha);
-				}
-				if (defense_i > myPlayer.totalDefense) {
-					viewStatusUpDown(215,190,1).setAnimation(alpha);
+				if (defense_i != myPlayer.totalDefense) {
+					viewStatusUpDown(215,190,defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 /*			// 攻撃守備は上下に振る
@@ -1101,62 +1098,32 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
-			if (myLp_i < myPlayer.getLifepoint()){
-				viewStatusUpDown(260,305,0).setAnimation(alpha);
-			}
-			if (myLp_i > myPlayer.getLifepoint()){
-				viewStatusUpDown(260,305,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(260,305,myLp_i,myPlayer.getLifepoint()).setAnimation(alpha);
 		}
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
-			if (myAttack_i < myPlayer.totalAttack) {
-				viewStatusUpDown(215,270,0).setAnimation(alpha);
-			}
-			if (myAttack_i > myPlayer.totalAttack) {
-				viewStatusUpDown(215,270,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(215,270,myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
-			if (myDefense_i < myPlayer.totalDefense) {
-				viewStatusUpDown(135,270,0).setAnimation(alpha);
-			}
-			if (myDefense_i > myPlayer.totalDefense) {
-				viewStatusUpDown(135,270,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(135,270,myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
 		}
 		if (enemyLp_i != enemyPlayer.getLifepoint()) {
 			enemyLp.setTextColor(Color.YELLOW);
 			enemyLp.setAnimation(alpha);
-			if (enemyLp_i < enemyPlayer.getLifepoint()) {
-				viewStatusUpDown(260,150,0).setAnimation(alpha);
-			}
-			if (enemyLp_i > enemyPlayer.getLifepoint()) {
-				viewStatusUpDown(260,150,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(260,150,enemyLp_i,enemyPlayer.getLifepoint()).setAnimation(alpha);
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
 			enemyAttack.setAnimation(alpha);
-			if (enemyAttack_i < enemyPlayer.totalAttack) {
-				viewStatusUpDown(135,190,0).setAnimation(alpha);
-			}
-			if (enemyAttack_i > enemyPlayer.totalAttack) {
-				viewStatusUpDown(135,190,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(135,190,enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (enemyDefense_i != enemyPlayer.totalDefense) {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
-			if (enemyDefense_i < enemyPlayer.totalDefense) {
-				viewStatusUpDown(215,190,0).setAnimation(alpha);
-			}
-			if (enemyDefense_i > enemyPlayer.totalDefense) {
-				viewStatusUpDown(215,190,1).setAnimation(alpha);
-			}
+			viewStatusUpDown(215,190,enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
 		}
 		
 		// 効果音
@@ -1253,10 +1220,17 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * ステータスアップダウンのマークを表示
 	 * @param  left          横位置
 	 * @param  top           高さ位置
-	 * @param  type          ０：アップマーク　１：ダウンマーク
+	 * @param  oldPower      
+	 * @param  newPower      
 	 * @return upDownPannel  戻り値を利用してアニメーション実装
 	 */
-	public LinearLayout viewStatusUpDown(int left, int top, int type) {
+	public LinearLayout viewStatusUpDown(int left, int top, int oldPower, int newPower) {
+		int type = 0;
+		if(oldPower <= newPower){
+			type = 0;
+		}else{
+			type = 1;
+		}
 		// Densityの値を取得
 		int num = 0;
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -1284,6 +1258,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * 全てのUPWODNビューを外す
 	 */
 	private void clearAllUpDownViews() {
@@ -1291,6 +1266,27 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		for (View v : this.viewUpDownList) {
 			this.activity.baseLayout.removeView(v);
 		}
+=======
+	 * ステータスパネルにPlayerの情報を設定する
+	 * @param player
+	 */
+	private void setPanelLifePoint() {
+		
+		// リソース
+//		private static int[][] resIdList = {
+//				{R.id.myName, R.id.myLp, R.id.myAttack, R.id.myDefense, R.id.myAttribute, R.id.myEffect, R.id.myComment, R.id.myDamege},
+//				{R.id.enemyName, R.id.enemyLp, R.id.enemyAttack, R.id.enemyDefense, R.id.enemyAttribute, R.id.enemyEffect, R.id.enemyComment, R.id.enemyDamege}
+//		};
+		// ダメージ設定
+		((TextView)this.activity.findViewById(this.resIdList[0][7])).setText(Integer.toString(getEnemyAttack()));
+		((TextView)this.activity.findViewById(this.resIdList[1][7])).setText(Integer.toString(getMyAttack()));
+		// LP設定
+		((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()));
+		((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()));
+		
+		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
+		((TextView)this.activity.findViewById(this.resIdList[1][7])).setVisibility(View.VISIBLE);
+>>>>>>> shibas3
 		
 	}
 
