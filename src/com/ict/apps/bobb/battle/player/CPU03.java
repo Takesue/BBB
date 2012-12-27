@@ -34,7 +34,7 @@ public class CPU03 extends CPU {
 		this.setName("CPU03");
 		this.setLifepoint(Integer.parseInt((String)context.getText(R.string.maxLp)));
 		this.setLpMax(this.getLifepoint());
-		this.setLevel(20);
+		this.setLevel(10);
 		this.setIcResourceId(R.drawable.cpu03_ic);
 
 		// CPU思考回路の設定
@@ -79,8 +79,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("怪人クワガタレディ");				// 名前
-		kit.setAttack(1600);						// 攻撃
-		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(2000);						// 攻撃
+		kit.setDefense(2000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
@@ -93,8 +93,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("怪人クワガタレディ");				// 名前
-		kit.setAttack(1600);						// 攻撃
-		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(2000);						// 攻撃
+		kit.setDefense(2000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
@@ -107,8 +107,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("怪人クワガタレディ");				// 名前
-		kit.setAttack(1600);						// 攻撃
-		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(2000);						// 攻撃
+		kit.setDefense(2000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
@@ -121,8 +121,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("怪人クワガタレディ");				// 名前
-		kit.setAttack(1600);						// 攻撃
-		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(2000);						// 攻撃
+		kit.setDefense(2000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名
@@ -135,8 +135,8 @@ public class CPU03 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("怪人クワガタレディ");				// 名前
-		kit.setAttack(1600);						// 攻撃
-		kit.setAttack(1600);						// 攻撃
+		kit.setAttack(2000);						// 攻撃
+		kit.setDefense(2000);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("kaijinkuwagatalady");		// 画像ファイル名

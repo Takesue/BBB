@@ -80,7 +80,7 @@ public class CPU01 extends CPU {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
 		kit.setAttack(900);							// 攻撃
-		kit.setAttack(900);							// 攻撃
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -94,7 +94,7 @@ public class CPU01 extends CPU {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
 		kit.setAttack(900);							// 攻撃
-		kit.setAttack(900);							// 攻撃
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -108,7 +108,7 @@ public class CPU01 extends CPU {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
 		kit.setAttack(900);							// 攻撃
-		kit.setAttack(900);							// 攻撃
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -122,7 +122,7 @@ public class CPU01 extends CPU {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
 		kit.setAttack(900);							// 攻撃
-		kit.setAttack(900);							// 攻撃
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名
@@ -136,7 +136,7 @@ public class CPU01 extends CPU {
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("オークカブト");						// 名前
 		kit.setAttack(900);							// 攻撃
-		kit.setAttack(900);							// 攻撃
+		kit.setDefense(900);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(900);						// 画像ID
 		kit.setImageFileName("oakabuto01");			// 画像ファイル名

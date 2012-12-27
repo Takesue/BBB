@@ -92,18 +92,6 @@ public abstract class BaseActivity extends Activity {
 		
 		// 効果音をロードしておく
 		BaseActivity.effect = SoundEffectManager.getInstance(this);
-		BaseActivity.effect.loadEffect(R.raw.breed_create1);
-		BaseActivity.effect.loadEffect(R.raw.breed_create2);
-		BaseActivity.effect.loadEffect(R.raw.deal_card);
-		BaseActivity.effect.loadEffect(R.raw.card_open);
-		BaseActivity.effect.loadEffect(R.raw.card_set);
-		BaseActivity.effect.loadEffect(R.raw.push);
-		BaseActivity.effect.loadEffect(R.raw.attribute);
-		BaseActivity.effect.loadEffect(R.raw.effect);
-		BaseActivity.effect.loadEffect(R.raw.crash);
-		BaseActivity.effect.loadEffect(R.raw.win);
-		BaseActivity.effect.loadEffect(R.raw.lose);
-		BaseActivity.effect.loadEffect(R.raw.draw);
 	}
 	
 	/**
@@ -111,6 +99,7 @@ public abstract class BaseActivity extends Activity {
 	 * @param resId
 	 */
 	public void playEffect(int resId) {
+		
 		BaseActivity.effect.play(resId);
 	}
 

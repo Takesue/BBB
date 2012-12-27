@@ -754,27 +754,23 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 							if(endCount == 1){
 								// 効果音
-//								activity.playEffect(R.raw.win);
-								activity.setBGM(R.raw.win);
+								activity.playEffect(R.raw.win);
 //								Toast.makeText(activity, "ＷＩＮ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_win);
 
 							}
 							if(endCount == 2){
 								// 効果音
-//								activity.playEffect(R.raw.lose);
-								activity.setBGM(R.raw.lose);
+								activity.playEffect(R.raw.lose);
 //								Toast.makeText(activity, "ＬＯＳＥ！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_lose);
 							}
 							if(endCount == 3){
 								// 効果音
-//								activity.playEffect(R.raw.draw);
-								activity.setBGM(R.raw.draw);
+								activity.playEffect(R.raw.draw);
 //								Toast.makeText(activity, "ＤＲＡＷ　ＧＡＭＥ　！！！", 1000).show();
 								toast.setTextBackground(R.drawable.toast_draw);
 							}
-							activity.startBgm();
 							toast.show();
 							
 /*							try {

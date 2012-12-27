@@ -34,7 +34,7 @@ public class CPU02 extends CPU {
 		this.setName("CPU02");
 		this.setLifepoint(Integer.parseInt((String)context.getText(R.string.maxLp)));
 		this.setLpMax(this.getLifepoint());
-		this.setLevel(10);
+		this.setLevel(5);
 		this.setIcResourceId(R.drawable.cpu02_ic);
 		
 		// CPU思考回路の設定
@@ -80,8 +80,8 @@ public class CPU02 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("マスク・ド・ダルマン");				// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("mask_de_kuwagata");		// 画像ファイル名
@@ -94,8 +94,8 @@ public class CPU02 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("マスク・ド・ダルマン");				// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("mask_de_kuwagata");		// 画像ファイル名
@@ -108,8 +108,8 @@ public class CPU02 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("マスク・ド・ダルマン");				// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("mask_de_kuwagata");		// 画像ファイル名
@@ -122,8 +122,8 @@ public class CPU02 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("マスク・ド・ダルマン");				// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("mask_de_kuwagata");		// 画像ファイル名
@@ -136,8 +136,8 @@ public class CPU02 extends CPU {
 		kit.setBeetleKitId(900l);					// 虫キットID
 		kit.setBarcode_id(199911118876l);			// バーコードID
 		kit.setName("マスク・ド・ダルマン");				// 名前
-		kit.setAttack(1000);						// 攻撃
-		kit.setDefense(1000);						// 守備
+		kit.setAttack(1500);						// 攻撃
+		kit.setDefense(1500);						// 守備
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(901);						// 画像ID
 		kit.setImageFileName("mask_de_kuwagata");		// 画像ファイル名

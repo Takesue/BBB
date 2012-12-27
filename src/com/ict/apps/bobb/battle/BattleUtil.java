@@ -148,7 +148,7 @@ public class BattleUtil extends Activity {
 						// Myが勝ち
 						retValue = winnum;
 						break;
-					} else if (enemyAtt == judgeMap[i][1]) {
+					} else if (enemyAtt == judgeMap[i][2]) {
 						// enemyが勝ち
 						retValue = losenum;
 						break;

@@ -115,6 +115,9 @@ public class BattleSceneCardSelection implements BattleScene {
 		}
 		
 		
+		
+		
+		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, spnStrings);
 		
 		//スピナーの背景に画像を張り付ける
