@@ -56,26 +56,6 @@ public class BattleSceneDealCard implements BattleScene {
 	}
 
 	
-	/**
-	 * LPデジタル表示設定
-	 * @param textView
-	 * @param lifePoint
-	 */
-	private void setLpView(TextView textView, int lifePoint) {
-		
-		textView.setText(" " + lifePoint);
-		
-		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
-			// 30%以下では赤表示
-			textView.setTextColor(Color.RED);
-		}
-		else {
-			// 30%以上では黒表示
-			textView.setTextColor(Color.BLUE);
-		}
-		
-	}
-	
 	
 	@Override
 	public void init() {
@@ -430,7 +410,6 @@ public class BattleSceneDealCard implements BattleScene {
 //
 //	}
 	
-
 	// ハンドラー取得
 	private Handler mHandler = new Handler();
 
@@ -447,6 +426,25 @@ public class BattleSceneDealCard implements BattleScene {
 				activity.bm.dealCardFinished();
 			}
 		});
+	}
+
+	/**
+	 * LPデジタル表示設定
+	 * @param textView
+	 * @param lifePoint
+	 */
+	private void setLpView(TextView textView, int lifePoint) {
+		
+		textView.setText(" " + lifePoint);
+		
+		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
+			// 30%以下では赤表示
+			textView.setTextColor(Color.RED);
+		}
+		else {
+			// 30%以上では黒表示
+			textView.setTextColor(Color.BLUE);
+		}
 	}
 
 }

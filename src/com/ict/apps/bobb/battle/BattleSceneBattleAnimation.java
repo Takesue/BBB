@@ -1254,7 +1254,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 全てのUPWODNビューを外す
 	 */
 	private void clearAllUpDownViews() {
@@ -1262,7 +1261,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		for (View v : this.viewUpDownList) {
 			this.activity.baseLayout.removeView(v);
 		}
-=======
+	}
+	
+	/**
 	 * ステータスパネルにPlayerの情報を設定する
 	 * @param player
 	 */
@@ -1282,7 +1283,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
 		((TextView)this.activity.findViewById(this.resIdList[1][7])).setVisibility(View.VISIBLE);
->>>>>>> shibas3
 		
 	}
 
