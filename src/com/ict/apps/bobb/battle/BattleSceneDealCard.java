@@ -6,8 +6,10 @@ import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
+import com.ict.apps.bobb.common.StatusInfo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +55,28 @@ public class BattleSceneDealCard implements BattleScene {
 		this.activity = activity;
 	}
 
+	
+	/**
+	 * LPデジタル表示設定
+	 * @param textView
+	 * @param lifePoint
+	 */
+	private void setLpView(TextView textView, int lifePoint) {
+		
+		textView.setText(" " + lifePoint);
+		
+		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
+			// 30%以下では赤表示
+			textView.setTextColor(Color.RED);
+		}
+		else {
+			// 30%以上では黒表示
+			textView.setTextColor(Color.BLUE);
+		}
+		
+	}
+	
+	
 	@Override
 	public void init() {
 
@@ -60,7 +84,8 @@ public class BattleSceneDealCard implements BattleScene {
 		((TextView)this.activity.findViewById(R.id.battle_enemyName)).setText("対戦相手 : " + this.activity.enemyPlayer.getName());
 
 		// 相手情報（LP）
-//		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("LP : " + this.activity.enemyPlayer.getLifepoint());
+//		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("" + this.activity.enemyPlayer.getLifepoint());
+		this.setLpView((TextView)this.activity.findViewById(R.id.battle_enemyLp), this.activity.enemyPlayer.getLifepoint());
 		if (this.enemyProgressBar == null) {
 			this.enemyProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar);
 			this.enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
@@ -68,7 +93,8 @@ public class BattleSceneDealCard implements BattleScene {
 		this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
 
 		// ユーザ情報（LP）
-//		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("LP : " + this.activity.myPlayer.getLifepoint());
+//		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("" + this.activity.myPlayer.getLifepoint());
+		this.setLpView((TextView)this.activity.findViewById(R.id.battle_myLp), this.activity.myPlayer.getLifepoint());
 		// ユーザ情報（LPBar）
 		if (myProgressBar == null) {
 			myProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_myLifebar);

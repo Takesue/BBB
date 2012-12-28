@@ -34,7 +34,6 @@
                 android:background="@drawable/lifepoint_bg" >
 
                 <TextView
-                    android:id="@+id/battle_enemyLp"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -45,21 +44,38 @@
                     android:text="LP"
                     android:textColor="#000000" />
 
-                <ProgressBar
-                    android:id="@+id/battle_enemyLifebar"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="14dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:max="4000"
-                    android:minWidth="280dip"
-                    android:progress="4000"
-                    android:progressDrawable="@drawable/progressbar" />
+                    android:layout_height="match_parent" >
+
+                    <ProgressBar
+                        android:id="@+id/battle_enemyLifebar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:max="4000"
+                        android:minWidth="280dip"
+                        android:progress="4000"
+                        android:progressDrawable="@drawable/progressbar" />
+
+                    <TextView
+                        android:id="@+id/battle_enemyLp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center_vertical"
+                        android:text="10000"
+                        android:textColor="#000000"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -130,7 +146,6 @@
             android:background="@drawable/lifepoint_bg" >
 
             <TextView
-                android:id="@+id/battle_myLp"
                 android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -140,21 +155,37 @@
                 android:text="LP"
                 android:textColor="#000000" />
 
-            <ProgressBar
-                android:id="@+id/battle_myLifebar"
-                style="?android:attr/progressBarStyleHorizontal"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="14dp"
-                android:layout_weight="1"
-                android:progressDrawable="@drawable/progressbar"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:max="4000"
-                android:minWidth="280dip"
-                android:progress="4000" />
+                android:layout_height="match_parent" >
+
+                <ProgressBar
+                    android:id="@+id/battle_myLifebar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:max="4000"
+                    android:minWidth="280dip"
+                    android:progress="4000"
+                    android:progressDrawable="@drawable/progressbar" />
+
+                <TextView
+                    android:id="@+id/battle_myLp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center_vertical"
+                    android:text="10000"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
