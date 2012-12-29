@@ -98,7 +98,7 @@
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/enemyDamege"
@@ -112,7 +112,7 @@
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
 
                     </RelativeLayout>
 
@@ -161,44 +161,6 @@
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
 
-
-
-                        <TextView
-                            android:id="@+id/enemyAttackTitle"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:scrollHorizontally="true"
-                            android:text="攻撃"
-                            android:textColor="#FF0000"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-
-
-
-
-                        <TextView
-                            android:id="@+id/enemyAttack"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:scrollHorizontally="true"
-                            android:text="400"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-                    
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/waku"
-                        android:orientation="vertical" >
-
                         <TextView
                             android:id="@+id/enemyDefenseTitle"
                             android:layout_width="match_parent"
@@ -219,6 +181,38 @@
                             android:gravity="center"
                             android:scrollHorizontally="true"
                             android:text="500"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                    
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/waku"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/enemyAttackTitle"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:scrollHorizontally="true"
+                            android:text="攻撃"
+                            android:textColor="#FF0000"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/enemyAttack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:scrollHorizontally="true"
+                            android:text="400"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -313,38 +307,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/waku"
                         android:orientation="vertical" >
-
-                        <TextView
-                            android:id="@+id/myDefenseTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:scrollHorizontally="true"
-                            android:text="守備"
-                            android:textColor="#00FFFF"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/myDefense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:scrollHorizontally="true"
-                            android:text="500"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/waku"
-                        android:orientation="vertical" >
 
                         <TextView
                             android:id="@+id/myAttackTitle"
@@ -366,6 +328,38 @@
                             android:gravity="center"
                             android:scrollHorizontally="true"
                             android:text="400"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/waku"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/myDefenseTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:scrollHorizontally="true"
+                            android:text="守備"
+                            android:textColor="#00FFFF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/myDefense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:scrollHorizontally="true"
+                            android:text="500"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -471,7 +465,7 @@
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/myDamege"
@@ -485,7 +479,7 @@
                             android:scrollHorizontally="true"
                             android:text="3500"
                             android:textColor="#ffffff"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
                         
                     </RelativeLayout>
                 </LinearLayout>

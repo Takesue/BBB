@@ -185,7 +185,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				animationCards(1, activity.enemyPlayer);
 				animationCards(0, activity.myPlayer);
 			}
-		}, 100);
+		}, 2000);
 		
 		// 残りのアニメーション
 		bam.add(new Runnable() {
@@ -991,11 +991,11 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			defense.setText(Integer.toString(myPlayer.totalDefense));
 			
 			if(attack_i < myPlayer.totalAttack){
-				attack.setTextColor(Color.RED);
+				attack.setTextColor(Color.YELLOW);
 				attack.setAnimation(alpha);
 			}
 			if(defense_i < myPlayer.totalDefense){
-				defense.setTextColor(Color.RED);
+				defense.setTextColor(Color.YELLOW);
 				defense.setAnimation(alpha);
 			}
 			if(attack_i > myPlayer.totalAttack){
@@ -1011,26 +1011,26 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(215,270,attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(135,270,attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(135,190,attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(215,190,attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			defense.startAnimation(alpha);
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(135,270,defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(215,270,defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(215,190,defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(135,190,defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 /*			// 攻撃守備は上下に振る
@@ -1103,12 +1103,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
-			viewStatusUpDown(215,270,myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(135,270,myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
-			viewStatusUpDown(135,270,myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(215,270,myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
 		}
 		if (enemyLp_i != enemyPlayer.getLifepoint()) {
 			enemyLp.setTextColor(Color.YELLOW);
@@ -1118,12 +1118,12 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
 			enemyAttack.setAnimation(alpha);
-			viewStatusUpDown(135,190,enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(215,190,enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (enemyDefense_i != enemyPlayer.totalDefense) {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
-			viewStatusUpDown(215,190,enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(135,190,enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
 		}
 		
 		// 効果音
@@ -1258,15 +1258,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * 全てのUPWODNビューを外す
+	 * 全てのUPDOWNビューを外す
 	 */
 	private void clearAllUpDownViews() {
 		
 		for (View v : this.viewUpDownList) {
 			this.activity.baseLayout.removeView(v);
 		}
-=======
+	}
+	/*
 	 * ステータスパネルにPlayerの情報を設定する
 	 * @param player
 	 */
@@ -1286,7 +1286,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
 		((TextView)this.activity.findViewById(this.resIdList[1][7])).setVisibility(View.VISIBLE);
->>>>>>> shibas3
 		
 	}
 
