@@ -23,8 +23,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -185,7 +187,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				animationCards(1, activity.enemyPlayer);
 				animationCards(0, activity.myPlayer);
 			}
-		}, 2000);
+		}, 3000);
 		
 		// 残りのアニメーション
 		bam.add(new Runnable() {
@@ -1254,11 +1256,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * 全てのUPWODNビューを外す
-=======
 	 * 全てのUPDOWNビューを外す
->>>>>>> shibas3
 	 */
 	private void clearAllUpDownViews() {
 		
@@ -1266,25 +1264,25 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			this.activity.baseLayout.removeView(v);
 		}
 	}
-<<<<<<< HEAD
-	
 	/**
-=======
-	/*
->>>>>>> shibas3
 	 * ステータスパネルにPlayerの情報を設定する
 	 * @param player
 	 */
 	private void setPanelLifePoint() {
 		
-		// リソース
-//		private static int[][] resIdList = {
-//				{R.id.myName, R.id.myLp, R.id.myAttack, R.id.myDefense, R.id.myAttribute, R.id.myEffect, R.id.myComment, R.id.myDamege},
-//				{R.id.enemyName, R.id.enemyLp, R.id.enemyAttack, R.id.enemyDefense, R.id.enemyAttribute, R.id.enemyEffect, R.id.enemyComment, R.id.enemyDamege}
-//		};
 		// ダメージ設定
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setText(Integer.toString(getEnemyAttack()));
 		((TextView)this.activity.findViewById(this.resIdList[1][7])).setText(Integer.toString(getMyAttack()));
+		if(getEnemyAttack() > 0){
+			((TextView)this.activity.findViewById(this.resIdList[0][7])).setTextColor(Color.RED);
+		}else{
+			((TextView)this.activity.findViewById(this.resIdList[0][7])).setTextColor(Color.WHITE);
+		}
+		if(getMyAttack() > 0){
+			((TextView)this.activity.findViewById(this.resIdList[1][7])).setTextColor(Color.RED);
+		}else{
+			((TextView)this.activity.findViewById(this.resIdList[1][7])).setTextColor(Color.WHITE);
+		}
 		// LP設定
 		((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()));
 		((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()));
@@ -1292,6 +1290,25 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
 		((TextView)this.activity.findViewById(this.resIdList[1][7])).setVisibility(View.VISIBLE);
 		
+		this.startLifePointAnimation(getMyAttack(), getEnemyAttack());
 	}
-
+	
+	private void startLifePointAnimation(int myAttack, int enemyAttack) {
+		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
+		TextView enemyLp = (TextView)this.activity.findViewById(resIdList[1][1]);
+		TranslateAnimation translate = new TranslateAnimation(0, 10, 0, 0);
+		//1000msの間で
+		translate.setDuration(1000);
+		//10回繰り返す
+		translate.setInterpolator(new CycleInterpolator(10));
+		//アニメーションスタート
+		if(myAttack > 0){
+			myLp.startAnimation(translate);
+		}
+		if(enemyAttack > 0){
+			enemyLp.startAnimation(translate);
+		}
+	}
+	
+	
 }
