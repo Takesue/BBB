@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 
 public class BattleActivity extends BaseActivity{
 
@@ -126,7 +127,12 @@ public class BattleActivity extends BaseActivity{
 		
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
-
+/*		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
+		int myCardMarginX = (int) ((new Float(this.baseLayout.getWidth())/tmpDensity));
+		int myCardMarginY = (int) ((new Float(this.baseLayout.getHeight())/tmpDensity));
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)((myCardMarginX) *tmpDensity), (int)((myCardMarginY) *tmpDensity));
+		this.findViewById(R.id.battle_base_layout).setLayoutParams(params);
+*/
 		// 対戦管理インスタンス生成
 		this.bm = new BattleManager(this);
 		
