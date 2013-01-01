@@ -113,6 +113,7 @@ public class BattleSceneDealCard implements BattleScene {
 		
 		this.displayCards(1);
 		
+		this.startLimitDealCard();
 	}
 
 	@Override
@@ -219,12 +220,18 @@ public class BattleSceneDealCard implements BattleScene {
 	 * 配るボタン画面に設定する
 	 * @param type
 	 */
+	//スレッドでのオートプッシュ用
+	Button button;
+	
 	public void setDealButton() {
 
 		Button button = new Button(this.activity);
+		//スレッドでのオートプッシュ用
+		this.button = button;
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				stopLimitDealCard();
 				dealCardsOnClick(v);
 //				activity.finishOnClick(v);
 			}
@@ -447,4 +454,49 @@ public class BattleSceneDealCard implements BattleScene {
 		}
 	}
 
+	/**
+	 * カード配布時間制限
+	 * ※約２秒
+	 */
+	
+	//プッシュボタン押下判断 true:押されていない false:押された
+	private boolean limitFlg = true;
+	
+	public void startLimitDealCard(){
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				int limit = 0;
+				limitFlg = true;
+				while(limit <= 2000 && limitFlg == true){
+					try {
+						Thread.sleep(1);
+					}
+					catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					limit++;
+				}
+				if(limitFlg){
+					mHandler.post(new Runnable() {
+						public void run() {
+							dealCardsOnClick(button);
+						}
+					});
+				}
+			}
+		}).start();
+	}
+	
+	/**
+	 * カード配布時間制限解除
+	 */
+	
+	public void stopLimitDealCard(){
+		this.limitFlg = false;
+	}
+	
+	
 }

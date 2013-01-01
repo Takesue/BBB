@@ -302,7 +302,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		int myCardMarginX = (int) ((new Float(this.activity.baseLayout.getWidth())/tmpDensity - (new Float(posX)*2))/3);
-		
 		int length = cards.size();
 		for (int i = 0; i < length; i++) {
 			// Densityの値を取得
@@ -1302,10 +1301,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		//10回繰り返す
 		translate.setInterpolator(new CycleInterpolator(10));
 		//アニメーションスタート
-		if(myAttack > 0){
+		if(enemyAttack > 0){
 			myLp.startAnimation(translate);
 		}
-		if(enemyAttack > 0){
+		if(myAttack > 0){
 			enemyLp.startAnimation(translate);
 		}
 	}
