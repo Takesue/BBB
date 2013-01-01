@@ -112,13 +112,13 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		// 画像テーブル挿入  インストール直後の初回起動時に一回だけ実行する必要がある。
 		factory.setImageInfo(1, "なまいきカブト", 1, 1, "kabuto01", "ん・・・なんか用か？", "無し",0);
 		factory.setImageInfo(2, "ミニ・カブトキング", 1, 2, "kabuto02", "キングは俺様だ！！", "無し",0);
-		factory.setImageInfo(3, "ヒラタクワガタ", 1, 3, "kuwagata01", "のりさん大好き♪", "無し",0);
+		factory.setImageInfo(3, "イイズカブト", 1, 3, "kabuto03", "私は戦い続ける。私を慕う民のために", "無し",0);
 		factory.setImageInfo(4, "きぐるみクワガタ", 2, 1, "kuwagata01", "お星さまの力を借りて戦うよ", "無し",0);
 		factory.setImageInfo(5, "マフラー・クワガタ", 2, 2, "kuwagata02", "寒いの苦手", "無し",0);
-		factory.setImageInfo(6, "虫A", 2, 3, "beetle3", "ゆるキャラNo6から陥落？？", "無し",0);
+		factory.setImageInfo(6, "マスター・クワガタ", 2, 3, "kuwagata03", "世界、いや宇宙すべて俺の物だ", "無し",0);
 		factory.setImageInfo(7, "スリープ（Z）ワーム", 3, 1, "imomusi01", "ZZZ・・・", "無し",0);
 		factory.setImageInfo(8, "チェリー・バタフライ", 3, 2, "tyou01", "お花、大ー好き♪♪♪", "無し",0);
-		factory.setImageInfo(9, "クマモン9", 3, 3, "beetle3", "ゆるキャラNo9から陥落？？", "無し",0);
+		factory.setImageInfo(9, "ブラック・バタフライ", 3, 3, "tyou02", "黒き蝶の力見せてあげる", "無し",0);
 		factory.setImageInfo(1001, "バイキングワガタ", 0, 0, "vikinguwagata", "蹂躙大好き♪", "攻撃力５０％",6);
 		factory.setImageInfo(1002, "カブ子ムシ", 0, 0, "kabukomushi", "額の角は飾りなの♪", "ＬＰ ５０％回復", 1);
 		factory.setImageInfo(1003, "セクシーバタフライ", 0, 0, "sexybutterfly", "黄金のハネで守ってあげる！", "相手攻撃力１／２", 5);
