@@ -2,6 +2,8 @@ package com.ict.apps.bobb.base;
 
 import java.util.HashMap;
 
+import com.ict.apps.bobb.bobbactivity.R;
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -23,13 +25,27 @@ public class SoundEffectManager {
 
 	public SoundEffectManager (Context context) {
 		this.context = context;
-		this.maxPoolNum = 10;
+		this.maxPoolNum = 12;
 		this.createSoundPool();
 	}
 
 	public static SoundEffectManager getInstance(Context context) {
 		if (SoundEffectManager.instance == null) {
 			SoundEffectManager.instance = new SoundEffectManager(context);
+			
+			SoundEffectManager.instance.loadEffect(R.raw.breed_create1);
+			SoundEffectManager.instance.loadEffect(R.raw.breed_create2);
+			SoundEffectManager.instance.loadEffect(R.raw.deal_card);
+			SoundEffectManager.instance.loadEffect(R.raw.card_open);
+			SoundEffectManager.instance.loadEffect(R.raw.card_set);
+			SoundEffectManager.instance.loadEffect(R.raw.push);
+			SoundEffectManager.instance.loadEffect(R.raw.attribute);
+			SoundEffectManager.instance.loadEffect(R.raw.effect);
+			SoundEffectManager.instance.loadEffect(R.raw.crash);
+			SoundEffectManager.instance.loadEffect(R.raw.win);
+			SoundEffectManager.instance.loadEffect(R.raw.lose);
+			SoundEffectManager.instance.loadEffect(R.raw.draw);
+
 		}
 		return SoundEffectManager.instance;
 	}

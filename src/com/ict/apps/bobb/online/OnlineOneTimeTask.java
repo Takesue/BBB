@@ -2,12 +2,10 @@ package com.ict.apps.bobb.online;
 
 import java.io.IOException;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * オンライン対戦のシングル通信要求
@@ -26,6 +24,11 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	public OnlineOneTimeTask(Context context) {
 		this.context = context;
 	}
+	
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
 
 	@Override
 	protected Integer doInBackground(OnlineQuery... params) {
@@ -38,11 +41,11 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 				String response = OnlineConnection.post(this.query);
 				Log.d(TAG, "doInBackground - response = " + response);
 				
-				// クエリ-インスタンスにレスポンスデータを設定
-				this.query.setResponse(response);
-				this.query.execAfterReceiveingAction(this.context);
-				
-				result = 0;
+				if (response != null) {
+					// クエリ-インスタンスにレスポンスデータを設定
+					this.query.setResponse(response);
+					result = 0;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -54,8 +57,17 @@ public class OnlineOneTimeTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 	protected void onPostExecute(Integer result) {
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
-//		this.query.execAfterReceiveingAction(this.context);
 		
+		if (result == 0) {
+			// Query固有の受信後処理を実施する
+			this.query.execAfterReceiveingAction(this.context, result);
+		}
+
+		// Activityへブロードキャスト
+		OnlineUtil.completeQery(this.context, result == 0 ? "success" : "error");
+		
+		// データクリア
+		this.query = null;
 	}
 
 	@Override

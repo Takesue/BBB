@@ -125,7 +125,7 @@ public class BreedersMenuActivity extends BaseActivity {
 			if (requestCode == 0) {
 				String barcode = data.getStringExtra("SCAN_RESULT");
 				
-				this.playEffect(R.raw.breed_create1);
+//				this.playEffect(R.raw.breed_create1);
 				
 				// バーコード情報を渡して取得結果画面へ遷移する。
 				Intent intent = new Intent(BreedersMenuActivity.this, NewBeetleInfoActivity.class);

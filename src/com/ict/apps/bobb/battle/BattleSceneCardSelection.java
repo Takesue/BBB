@@ -1,7 +1,11 @@
 package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.ict.apps.bobb.battle.player.MyPlayer;
+import com.ict.apps.bobb.battle.player.Player;
 import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
@@ -43,7 +47,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	private int totalDefense = 0;
 
 	// 3枚カードを選択済みフラグ
-	public static boolean threeCardselected = false;
+	public boolean threeCardselected = false;
 	
 	/**
 	 * コンストラクタ
@@ -56,30 +60,38 @@ public class BattleSceneCardSelection implements BattleScene {
 	@Override
 	public void init() {
 		
-		// 相手
-		
 		// 手札を表示する （自分）
-		this.displayCards(0);
+		this.displayCards(this.activity.myPlayer);
 		// 手札を表示する （相手）
-		this.displayCards(1);
+		this.displayCards(this.activity.enemyPlayer);
 		
 		// 合計値表示
 		this.viewTotal(5, 180);
 		
 		// 特殊カード選択spinner表示
 		this.viewSpinner();
+		
+		// 制限時間タイマー開始
+		this.startLimitTimeCountDown(30);
 	}
+	
+	// 特殊カード選択用スピナー
+	private Spinner spinner = null;
+	
 	/**
 	 * 特殊カード選択spinner表示
 	 */
 //    private ArrayList<Integer>  spinnerId = new ArrayList<Integer>();
-	private int spinnerId = 0;
+//	private int spinnerId = 0;
+	
 	public void viewSpinner() {
 		
-		Spinner spinner = new Spinner(this.activity);
+		// スピナーを生成
+		this.spinner = new Spinner(this.activity);
 
-		ArrayList<String>  spnStrings = new ArrayList<String>();
-	    ArrayList<Integer> spnId = new ArrayList<Integer>();
+		ArrayList<String> spnStrings = new ArrayList<String>();
+		final ArrayList<Integer> spnId = new ArrayList<Integer>();
+
 /*		setSpinnerDate(i)の「i」の部分にはeffectIdを入れる予定
  *		effectIdごとで説明文をspinnerにセットできれば・・・
  *		ということでsetSpinnerDate(int id)メソッドを追加
@@ -87,58 +99,70 @@ public class BattleSceneCardSelection implements BattleScene {
  *		しないようにできればいいと思うのだが・・・
  *		指定したIDを使用したいので、よく考えよう。
  */
+
+		// 対戦に使用する特殊カード3枚を取得
+		final ArrayList<BattleCardView> spCards = this.activity.myPlayer.specialInfo.getHoldCard();
+		
+		// スピナーに不使用項目を設定
 		spnStrings.add("特殊Ｃ使用しない");
 		spnId.add(0);
-	    
-	    final ArrayList<BattleCardView> spCards =  this.activity.mySpecialInfo.getHoldCard();
-	    
+		
+		// 取得した3枚をスピナーに設定
 		int length = spCards.size();
 		for (int i = 0; i < length; i++) {
 			spnStrings.add(spCards.get(i).getEffect());
 			spnId.add(spCards.get(i).getEffectId());
 		}
-	    final ArrayList<Integer> sendSpnId = new ArrayList<Integer>(spnId);
-		// Densityの値を取得
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
-		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		cartParams.setMargins((int)(110 * tmpDensity),
-				(int)(180 * tmpDensity),0,0);
-		this.activity.baseLayout.addView(spinner,cartParams);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
-		android.R.layout.simple_spinner_item, spnStrings);
+		
+		
+		
+		
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, spnStrings);
+		
 		//スピナーの背景に画像を張り付ける
-		spinner.setBackgroundResource(R.drawable.spn_view);
+		this.spinner.setBackgroundResource(R.drawable.spn_view);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
+		this.spinner.setAdapter(adapter);
 		
 		//スピナーのクリックイベントを取得する
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			//Itemが選択された時
-			public void onItemSelected(AdapterView parent,
-				View view, int position, long id) {
+			public void onItemSelected(AdapterView parent, View view, int position, long id) {
 				//parentのspinnerを指定
 				Spinner spinner = (Spinner) parent;
 				//選択されたitemを取得
-				String item = (String) spinner.getSelectedItem();
-
-				Long itemId = (Long) spinner.getSelectedItemId();
-				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+//				String item = (String) spinner.getSelectedItem();
+//				Long itemId = spinner.getSelectedItemId();
+//				spinnerId = sendSpnId.get(Integer.parseInt(itemId.toString()));
+//				int length = spCards.size();
+//				for (int i = 0; i < length; i++) {
+//					//選択された効果が０であれば他の状態を０に戻す
+//					if(itemId == 0){
+//						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
+//					//選択された効果のものは状態を１にする
+//					}else if(itemId == i + 1){
+//						activity.myPlayer.specialInfo.selectCard(spCards.get(i));
+//					//選択された効果の以外ものは状態を０に戻す
+//					}else{
+//						activity.myPlayer.specialInfo.resetCard(spCards.get(i));
+//					}
+//				}
+				
+//				spinerImtemIndex = (int)spinner.getSelectedItemId();
+				int spinerImtemIndex = position;
+//				spinnerId = spnId.get(itemId);
+				
+				// 3つともリセットして初期化
 				int length = spCards.size();
 				for (int i = 0; i < length; i++) {
-					//選択された効果が０であれば他の状態を０に戻す
-					if(itemId == 0){
-						activity.mySpecialInfo.resetCard(spCards.get(i));
-					//選択された効果のものは状態を１にする
-					}else if(itemId == i + 1){
-						activity.mySpecialInfo.selectCard(spCards.get(i));
-					//選択された効果の以外ものは状態を０に戻す
-					}else{
-						activity.mySpecialInfo.resetCard(spCards.get(i));
-					}
+					activity.myPlayer.specialInfo.resetCard(spCards.get(i));
 				}
+				// カード使用しない「０」以外の場合カードを選択状態の「１」にする
+				if (spinerImtemIndex != 0 ) {
+					activity.myPlayer.specialInfo.selectCard(spCards.get(spinerImtemIndex-1));
+				}
+				
 /*				//Toast表示
 				Toast.makeText(MainActivity.this,
 					String.format("%sが選択されました。", item),
@@ -152,32 +176,34 @@ public class BattleSceneCardSelection implements BattleScene {
 */
 			}
 		});
+		
+		
+		// スピナーを配置位置を設定する
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(300 * tmpDensity),(int)(60 * tmpDensity));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(110 * tmpDensity), (int)(180 * tmpDensity),0,0);
+
+		// スピナーを画面に設定
+		this.activity.baseLayout.addView(this.spinner, cartParams);
+
 	}
 	
 	/**
 	 * 再表示
 	 */
-	public void reviw(int type) {
+	public void review(Player info) {
 		
-		ArrayList<BattleCardView> viewCards = null;
-		
-		// 自分のカードを全部取得
-		CardBattlerInfo info = null;
-		if (type == 0) {
-			info = this.activity.myInfo;
-		}
-		else {
-			info = this.activity.enemyInfo;
-		}
-		viewCards = info.getAllCards();
-		
+		ArrayList<BattleCardView> viewCards = info.cardInfo.getAllCards();
 
 		int length = viewCards.size();
 		for (int i = 0; i < length; i++) {
 			
 			// 手札の場合、のみ表示する
-			if ((info.getStatus(viewCards.get(i)) == 1)
-					|| (info.getStatus(viewCards.get(i)) == 2)){
+			if ((info.cardInfo.getStatus(viewCards.get(i)) == 1)
+					|| (info.cardInfo.getStatus(viewCards.get(i)) == 2)){
 				
 				// 戦闘ベース部品にcard追加する
 				this.activity.baseLayout.addView(viewCards.get(i));
@@ -190,19 +216,11 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * カードを表示する
 	 * @param type
 	 */
-	public void displayCards(int type) {
+	public void displayCards(Player info) {
 		
 		ArrayList<BattleCardView> viewCards = null;
 		
-		// 自分のカードを全部取得
-		CardBattlerInfo info = null;
-		if (type == 0) {
-			info = this.activity.myInfo;
-		}
-		else {
-			info = this.activity.enemyInfo;
-		}
-		viewCards = info.getAllCards();
+		viewCards = info.cardInfo.getAllCards();
 		
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
@@ -211,8 +229,8 @@ public class BattleSceneCardSelection implements BattleScene {
 		for (int i = 0; i < length; i++) {
 			
 			// 手札の場合、のみ表示する
-			if ((info.getStatus(viewCards.get(i)) == 1)
-					|| (info.getStatus(viewCards.get(i)) == 2)){
+			if ((info.cardInfo.getStatus(viewCards.get(i)) == 1)
+					|| (info.cardInfo.getStatus(viewCards.get(i)) == 2)){
 				BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
 						(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_width)),
 						(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.card_height)));
@@ -241,7 +259,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		
 		BattleCardView view = null;
 		BeetleCard info = bigCard.getCardInfo();
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		for(BattleCardView selectedCard : cards) {
 			if (info.equals(selectedCard.getCardInfo())) {
 				// 一致したら入れ替える
@@ -257,10 +275,10 @@ public class BattleSceneCardSelection implements BattleScene {
 	@Override
 	public void moveCard(BattleCardView view, int action) {
 
-		if (this.activity.myInfo.getStatus(view) == null) {
+		if (this.activity.myPlayer.cardInfo.getStatus(view) == null) {
 			
 			for ( BattleCardView card : this.bigCards) {
-				if ((view.equals(card)) && (action == 1) && (BattleSceneCardSelection.threeCardselected == true)){
+				if ((view.equals(card)) && (action == 1) && (this.threeCardselected == true)){
 					// カードと押されたカードが同じで、且つ下げイベントで且つ、3枚選択されている状態の場合
 					
 					// 下げるビューを見つける。
@@ -271,37 +289,40 @@ public class BattleSceneCardSelection implements BattleScene {
 					}
 				}
 			}
-			if (this.activity.myInfo.getStatus(view) == null) {
+			if (this.activity.myPlayer.cardInfo.getStatus(view) == null) {
 				// 入れ替えてもなおNULLなら何もしない
 				return;
 			}
 		}
 		
-		int status = this.activity.myInfo.getStatus((BattleCardView) view);
+		int status = this.activity.myPlayer.cardInfo.getStatus((BattleCardView) view);
 		// カードのステータスが　手札、手札から選択の場合、上げ下げ可能
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 
 		if (status == 1) {
 			// カードを押さえてカードより上の座標ずらしたら、カードを上にずらす。
-			if ((action == 0) && (BattleSceneCardSelection.threeCardselected == false)){
+			if ((action == 0) && (this.threeCardselected == false)){
 				BattleLayout.LayoutParams params = (BattleLayout.LayoutParams)view.getLayoutParams();
 				params.setMargins((int)((view).getStartPosLeft() * tmpDensity), (int)(((view).getStartPosTop() - 20)* tmpDensity), 0, 0);
 				view.setLayoutParams(params);
 				
 				// 選択
-				this.activity.myInfo.selectCard(view);
+				this.activity.myPlayer.cardInfo.selectCard(view);
 				
 				// 選択状況を解析
 				this.analyzeSelectCards();
+				
+				// 効果音設定
+				this.activity.playEffect(R.raw.card_set);
 
 			}
 		}
 		else if (status == 2) {
-			// カードを押さえてカードより下の座標にずらしたらカードを元の位置にに戻す
+			// カードを押さえてカードより下の座標にずらしたらカードを元の位置に戻す
 			if (action == 1) {
 				
-				if (BattleSceneCardSelection.threeCardselected == true) {
+				if (this.threeCardselected == true) {
 					
 					this.rollbackBefoeThreeSelect();
 
@@ -312,11 +333,13 @@ public class BattleSceneCardSelection implements BattleScene {
 				view.setLayoutParams(params);
 
 				// 選択解除
-				this.activity.myInfo.dealCard(view);
+				this.activity.myPlayer.cardInfo.dealCard(view);
 
 				// 選択状況を解析
 				this.analyzeSelectCards();
 
+				// 効果音設定
+				this.activity.playEffect(R.raw.card_set);
 			}
 		}
 		
@@ -326,26 +349,27 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * 3枚選ぶ前の状態に戻る
 	 */
 	private void rollbackBefoeThreeSelect() {
-		BattleSceneCardSelection.threeCardselected = false;
-		this.finish();
-		this.reviw(0);
-		this.reviw(1);
+		this.threeCardselected = false;
+		this.activity.baseLayout.removeAllViews();
+		this.review(this.activity.myPlayer);
+		this.review(this.activity.enemyPlayer);
 		this.viewTotal(5, 180);
-		this.viewSpinner();
+//		this.viewSpinner();
+		this.activity.baseLayout.addView(this.spinner);
 	}
 	
 	@Override
 	public void finish() {
 		// 表示しているビューを全て削除する
 		this.activity.baseLayout.removeAllViews();
-
+		this.stopLimitTimeCountDown();
 	}
 
 	@Override
 	public void onLongClickCard(BattleCardView view) {
 		
 		// 手札の時だけ表示する。
-		if (this.activity.myInfo.getStatus(view) == 1) {
+		if (this.activity.myPlayer.cardInfo.getStatus(view) == 1) {
 			// 表示する
 			this.viewDetailCards(view, 20, 10);
 		}
@@ -361,7 +385,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 * 3枚カード選択時にフラグが立つ
 	 * @return
 	 */
-	public static boolean isThreeCardselected() {
+	public boolean isThreeCardselected() {
 		return threeCardselected;
 	}
 
@@ -469,16 +493,19 @@ public class BattleSceneCardSelection implements BattleScene {
 		// Densityの値を取得
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		
-
 		// CARD用View取得
 		LinearLayout totalView = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_totalpoint, null);
 		
+		int width = 100;
+		int height = 120;
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(100 * tmpDensity),
-				(int)(120 * tmpDensity));
+				(int)(width * tmpDensity),
+				(int)(height * tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		
+		
 		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
 		
 		// 攻撃力合計
@@ -499,7 +526,7 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 	private void analyzeSelectCards() {
 		
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		
 		// 攻撃力と守備力の合計値を算出して表示する
 		this.calcAndViewTotal(cards);
@@ -536,20 +563,21 @@ public class BattleSceneCardSelection implements BattleScene {
 			}
 		}
 		
-		// 3枚選択された場合属性一致であれば、合計値を変更する
-		if (cards.size() == 3) {
-			CardAttribute myAtt = this.activity.myInfo.getAttribute(cards); 
-			if(myAtt != null){
-				int[] atts = this.activity.myInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
-				this.totalAttack = atts[0];
-				this.totalDefense = atts[1];
-			}
-		}
-		// 特殊カード使用時、必要であれば値を変更する
-		int[] special = this.activity.mySpecialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
-		this.totalAttack = special[0];
-		this.totalDefense = special[1];
-		this.activity.mySpecialInfo.spinnerId = this.spinnerId;
+//		// 3枚選択された場合属性一致であれば、合計値を変更する
+//		if (cards.size() == 3) {
+//			CardAttribute myAtt = this.activity.myPlayer.cardInfo.getAttribute(cards); 
+//			if(myAtt != null){
+//				int[] atts = this.activity.myPlayer.cardInfo.judgeAttribute(myAtt, null, this.totalAttack, this.totalDefense);
+//				this.totalAttack = atts[0];
+//				this.totalDefense = atts[1];
+//			}
+//		}
+		
+//		// 特殊カード使用時、必要であれば値を変更する
+//		int[] special = this.activity.myPlayer.specialInfo.judgeSpecial(this.spinnerId, 0, this.totalAttack, this.totalDefense, 0, 0);
+//		this.totalAttack = special[0];
+//		this.totalDefense = special[1];
+//		this.activity.myPlayer.specialInfo.spinnerId = this.spinnerId;
 		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(R.id.battle_total_attack)).setText(Integer.toString(this.totalAttack));
@@ -561,19 +589,19 @@ public class BattleSceneCardSelection implements BattleScene {
 	
 	
 	// ３つ選択して大きくなった状態のカードを生成して保持する。
-	ArrayList<BattleCardView> bigCards = new ArrayList<BattleCardView>();
+	private ArrayList<BattleCardView> bigCards = new ArrayList<BattleCardView>();
 	
 	/**
 	 * 選択カードの確認拡大表示
 	 */
 	private void viewSelectedBigCardDisp() {
 		// 表示を一旦クリア
-		this.finish();
+		this.activity.baseLayout.removeAllViews();
 		this.bigCards.clear();
 		
 		// 選択した3つを中央に表示
 		// 多少拡大する
-		ArrayList<BattleCardView> cards = this.activity.myInfo.getSelectedCard();
+		ArrayList<BattleCardView> cards = this.activity.myPlayer.cardInfo.getSelectedCard();
 		
 		int posX = 10;
 		int posY = 160;
@@ -608,10 +636,83 @@ public class BattleSceneCardSelection implements BattleScene {
 		}
 
 		// 合計パネルを右上に表示
-		this.viewTotal(200, 10);
+		int left = (int) (new Float(this.activity.baseLayout.getWidth())/tmpDensity - (100 + 10));
+		
+		this.viewTotal(left, 10);
 		this.calcAndViewTotal(cards);
 		
+		// 特殊カード効果や属性について　 吹き出し表示
+		this.viewAddingStatus();
+		
+		// Battleボタンを表示
 		this.setDealButton();
+	}
+	
+	/**
+	 * 効果カードや属性など、選択したカードによる追加効果を説明表示する
+	 */
+	private void viewAddingStatus() {
+		
+		int left = 20;
+		int top = 10;
+		
+		int[] resIds = {
+				R.id.baloonTxt1,
+				R.id.baloonTxt2,
+				R.id.baloonTxt3,
+				R.id.baloonTxt4
+		};
+		
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+
+		// CARD用View取得
+		LinearLayout totalView = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_baloon, null);
+		
+		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+				(int)(180 * tmpDensity),
+				(int)(120 * tmpDensity));
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
+		
+		// 属性効果確認
+		int i = 0;
+		CardAttribute cardAttribute = this.activity.myPlayer.cardInfo.getAttribute(this.activity.myPlayer.cardInfo.getSelectedCard());
+		if (cardAttribute != null) {
+			
+			TextView text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("属性効果発動！！");
+			text.setTextColor(Color.RED);
+			
+			text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("  効果：" + "攻撃・守備力" + "UP!!");
+			text.setTextColor(Color.BLACK);
+			
+		}
+		
+		// 特殊カード効果確認
+		ArrayList<BattleCardView> specials = this.activity.myPlayer.specialInfo.getSelectedCard();
+		if (specials.size() == 1) {
+			TextView text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("特殊C使用！！");
+			text.setTextColor(Color.GREEN);
+			
+			text = ((TextView)totalView.findViewById(resIds[i++]));
+			text.setText("  効果：" + specials.get(0).getEffect());
+			text.setTextColor(Color.BLACK);
+		}
+		
+		if (i == 0) {
+			((TextView)totalView.findViewById(resIds[i++])).setText("追加効果なし");
+		}
+		
+		
+		// 戦闘ベース部品にカード詳細を追加する
+		this.activity.baseLayout.addView(totalView, cartParams);
+
 	}
 	
 	/**
@@ -624,11 +725,7 @@ public class BattleSceneCardSelection implements BattleScene {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// 戦闘シーンへ移動するため、値を戻す
-				BattleSceneCardSelection.threeCardselected = false;
-				
-				// 戦闘シーンへ移動
-				callChangeNexrScene();
+				selectCardFinished();
 			}
 		});
 		
@@ -648,22 +745,78 @@ public class BattleSceneCardSelection implements BattleScene {
 
 	}
 	
-	
-
-	// ハンドラー取得
-	private Handler mHandler = new Handler();
-
 	/**
-	 * シーン変更（別スレッド呼び出し用）
+	 * カード選択終了した場合に実行する。
+	 * カード選択終了処理及び、対戦管理クラスへ終了を通知
+	 * 本来はfinish()メソッドで実施すべきだが、本クラス内では、カード選択確定表示の際の
+	 * 画面クリアとしてfinishを使用しているため、実質的に本メソッドがこのクラスの終了処理メソッドとなる。
 	 */
-	private void callChangeNexrScene() {
+	private void selectCardFinished() {
 		
-		// 別スレッドから呼ぶので、ハンドラーで実装する
-		this.mHandler.post(new Runnable() {
+		// 戦闘シーンへ移動するため、値を戻す
+		this.threeCardselected = false;
+		
+		// 制限時間タイマー停止
+		this.stopLimitTimeCountDown();
+		
+		// 戦闘シーンへ移動
+		this.activity.bm.selectCardFinished();
+
+	}
+	
+	// 
+	private Timer mTimer = null;
+	private int counter = -1;
+	
+	/**
+	 * タイマー開始
+	 * @param count
+	 */
+	public void startLimitTimeCountDown(int count) {
+		
+		// タイマー実行間隔　m秒
+		final int duration = 1000;	
+		final android.os.Handler handler = new android.os.Handler();
+		this.mTimer = new Timer();
+		
+		// カウントダウン時間を設定
+		this.counter = count;
+
+		this.mTimer.schedule(new TimerTask() {
+			@Override
 			public void run() {
-				activity.changeNextScene();
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						// 残り秒数表示
+						((TextView)activity.findViewById(R.id.battle_timelimit)).setText("制限時間 :" + counter + "秒");
+						if (counter == 0) {
+							
+							// 制限時間経過時の処理
+							// 強制的にカード選択させる。
+							((MyPlayer)activity.myPlayer).forcedCardSelection();
+							
+							// カード選択シーン終了
+							selectCardFinished();
+						}
+						else {
+							// カウントダウン
+							counter--;
+						}
+					}
+				});
 			}
-		});
+		}, 0, duration);
+	}
+	
+	/**
+	 * タイマー停止
+	 * @param count
+	 */
+	public void stopLimitTimeCountDown() {
+		if (this.mTimer != null) {
+			this.mTimer.cancel();
+		}
 	}
 
 

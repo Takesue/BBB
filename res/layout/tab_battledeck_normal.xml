@@ -38,7 +38,7 @@
                     android:layout_alignRight="@+id/deck1"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/beetle1" />
+                    android:src="@drawable/kabuto01" />
                 
                 <ImageView
                     android:id="@+id/imageView1"
@@ -105,7 +105,7 @@
                     android:layout_alignRight="@+id/deck2"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/beetle1" />
+                    android:src="@drawable/kabuto01" />
                 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -172,7 +172,7 @@
                     android:layout_alignRight="@+id/deck3"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/beetle1" />
+                    android:src="@drawable/kabuto01" />
                 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -239,7 +239,7 @@
                     android:layout_alignRight="@+id/deck4"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/beetle2" />
+                    android:src="@drawable/kabuto01" />
                 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -306,7 +306,7 @@
                     android:layout_alignRight="@+id/deck5"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/beetle2" />
+                    android:src="@drawable/kabuto01" />
                 
                 <ImageView
                     android:id="@+id/imageView5"

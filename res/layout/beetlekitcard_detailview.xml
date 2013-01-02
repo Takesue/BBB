@@ -23,7 +23,7 @@
             android:layout_height="210dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/beetle1" />
+            android:src="@drawable/kabuto01" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -75,7 +75,7 @@
         </LinearLayout>
 
     </LinearLayout>
-
+
     <TextView
         android:id="@+id/beetlekit_carddetail_intoro"
         android:layout_width="wrap_content"
@@ -86,7 +86,9 @@
         android:layout_centerVertical="false"
         android:layout_marginTop="220dp"
         android:background="@drawable/beetlekit_detail_intro_bgpng"
+        android:ellipsize="end"
         android:gravity="center_horizontal"
+        android:scrollHorizontally="true"
         android:text="紹介：XX"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />

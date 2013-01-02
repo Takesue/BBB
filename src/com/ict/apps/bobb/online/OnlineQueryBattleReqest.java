@@ -3,10 +3,12 @@ package com.ict.apps.bobb.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ict.apps.bobb.bobbactivity.BattleActivity;
+
 import android.content.Context;
 
 /**
- * アクセスログを登録する
+ * 対戦要求をする
  */
 public class OnlineQueryBattleReqest extends OnlineQuery {
 
@@ -24,12 +26,12 @@ public class OnlineQueryBattleReqest extends OnlineQuery {
 	}
 
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 受信後特になにもしない。
+	public boolean isPoolingFinish(String response) {
+		return true;
 	}
 
 	/**
-	 * ユーザIDを設定する
+	 * 自ユーザIDを設定する
 	 * @param name
 	 */
 	public void setUserId(String id) {
@@ -37,7 +39,7 @@ public class OnlineQueryBattleReqest extends OnlineQuery {
 	}
 
 	/**
-	 * ユーザIDを設定する
+	 * 対戦相手ユーザIDを設定する
 	 * @param name
 	 */
 	public void setEnemyUserId(String id) {
@@ -49,7 +51,7 @@ public class OnlineQueryBattleReqest extends OnlineQuery {
 	 * @param name
 	 */
 	public void setRegistrationId(String registrationId) {
-		this.reqParams.put("transaction_id", registrationId);
+		this.reqParams.put("registration_id", registrationId);
 	}
 
 }

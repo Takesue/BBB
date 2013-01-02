@@ -59,5 +59,14 @@ public class BattleToast extends Toast {
 		TextView text = (TextView) layout.findViewById(R.id.battleToastText);
 		text.setBackgroundResource(resid);
 	}
+	
+	/**
+	 * テキスト文字サイズを設定
+	 * @param message
+	 */
+	public void setTextSize(float size) {
+		TextView text = (TextView) layout.findViewById(R.id.battleToastText);
+		text.setTextSize(size);
+	}
 
 }

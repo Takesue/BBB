@@ -60,7 +60,7 @@
                     android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
-                    android:src="@drawable/beetle1" />
+                    android:src="@drawable/kabuto01" />
 
             </LinearLayout>
 
@@ -135,7 +135,7 @@
                     android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
-                    android:src="@drawable/beetle2" />
+                    android:src="@drawable/kabuto01" />
 
             </LinearLayout>
 

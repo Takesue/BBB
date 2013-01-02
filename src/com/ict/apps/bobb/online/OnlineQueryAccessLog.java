@@ -23,9 +23,10 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 		return this.reqParams;
 	}
 
+	
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 受信後特になにもしない。
+	public boolean isPoolingFinish(String response) {
+		return true;
 	}
 
 	/**
@@ -59,8 +60,5 @@ public class OnlineQueryAccessLog extends OnlineQuery {
 	public void setRegistrationId(String registrationId) {
 		this.reqParams.put("transaction_id", registrationId);
 	}
-
-	
-	
 
 }

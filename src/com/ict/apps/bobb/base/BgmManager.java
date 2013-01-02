@@ -18,6 +18,9 @@ public class BgmManager {
 
 	// 最初に取得した時のコンテキスト恐らく、開始画面のコンテキスト
 	private static Context context;
+	
+	// 最後に音楽再生依頼したコンテキスト
+	private static Context current = null;
 
 	private BgmManager() {
 		currentPlayBgm = -1;
@@ -44,19 +47,20 @@ public class BgmManager {
 	 * @param resid
 	 */
 	public void play(int id) {
+		
 		if (id == this.currentPlayBgm) { // 現在再生しているので何もしない
 			return;
 		} else {
-			this.currentPlayBgm = id;
-			
 			// 現在の曲を止める。
 			this.stop();
+
+			this.currentPlayBgm = id;
 			
 			if (this.player == null) {
 				this.player = MediaPlayer.create(BgmManager.context, this.currentPlayBgm);
 				this.player.setLooping(true);
 				this.player.start();
-				this.player.setVolume(0.3f, 0.3f);
+				this.player.setVolume(0.5f, 0.5f);
 			}
 		}
 	}
