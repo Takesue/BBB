@@ -10,6 +10,8 @@ import android.content.Context;
 import android.util.Log;
 
 public abstract class OnlineQuery {
+	
+	private int poolingCount = 30;
 
 	/**
 	 * Base URL of the Demo Server
@@ -19,10 +21,15 @@ public abstract class OnlineQuery {
 	/**
 	 * Google API project id registered to use GCM.
 	 */
-	public static final String SENDER_ID = "1041399877162";
+//	public static final String SENDER_ID = "1041399877162";
+	public static final String SENDER_ID = "886952507466";
+	
 	
 	// リクエストの結果Json形式
 	private JSONArray response = null;
+	
+	// クエリ-のレスポンス返却時のリスナー
+	private OnlineResponseListener listener = null;
 	
 	/**
 	 * リクエストURLを返却
@@ -38,10 +45,32 @@ public abstract class OnlineQuery {
 	 */
 	public abstract Map<String, String> getParam();
 	
+	
+	/**
+	 * リスナーを設定
+	 */
+	public void setListner(OnlineResponseListener listener) {
+		this.listener = listener;
+	}
+
 	/**
 	 * データ受信後の固有アクションを実装する
+	 * @param context  Qyeryを発行したcontext
+	 * @param result   結果
 	 */
-	public abstract void execAfterReceiveingAction(Context context);
+	public void execAfterReceiveingAction(Context context, Integer result) {
+		
+		if (this.listener != null) {
+			this.listener.response(context, this, result);
+		}
+	}
+	
+	/**
+	 * Poolingを終了させるべきかどうかを判定
+	 * @return true Pooling終了
+	 */
+	public abstract boolean isPoolingFinish(String response);
+	
 	
 	/**
 	 * リクエストの結果文字列を設定
@@ -87,6 +116,21 @@ public abstract class OnlineQuery {
 		return responseData;
 	}
 	
-	
+	/**
+	 * ポーリング数を取得
+	 * @return
+	 */
+	public int getPoolingCount() {
+		return poolingCount;
+	}
+
+	/**
+	 * ポーリング数を設定
+	 * @param poolingCount
+	 */
+	public void setPoolingCount(int poolingCount) {
+		this.poolingCount = poolingCount;
+	}
+
 
 }

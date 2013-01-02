@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * オンライン対戦のポーリング通信要求
@@ -44,14 +45,18 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 			this.query = params[0];
 			try {
 				
-				// 最大30秒間実施する
-				for(int i = 0; i < 30; i++) {
+				// 設定した秒数ループを実施する（デフォルト30秒）
+				int loopCnt = this.query.getPoolingCount();
+				for(int i = 0; i < loopCnt; i++) {
 					String response = OnlineConnection.post(this.query);
 					Log.d(TAG, "doInBackground - response = " + response);
-					if (!this.analyzeResponse(response)) {
+					if (response != null
+						&&(!this.analyzeResponse(response))
+						&& (this.query.isPoolingFinish(response))) {
+						
 						// クエリ-インスタンスにレスポンスデータを設定
 						this.query.setResponse(response);
-						this.query.execAfterReceiveingAction(this.context);
+//						this.query.execAfterReceiveingAction(this.context);
 						retValue = 0;
 						break;
 					}
@@ -72,9 +77,18 @@ public class OnlinePoolingTask extends AsyncTask<OnlineQuery, Integer, Integer> 
 		// doInBackgroundが終了した場合にその復帰値を引数として受ける。
 		Log.d(TAG, "onPostExecute - " + result);
 		
-		// Query固有の受信後処理を実施する
-//		this.query.execAfterReceiveingAction(this.context);
 		this.dialog.dismiss();
+
+		if (result != 0) {
+			Toast.makeText(this.context, "通信タイムアウト", Toast.LENGTH_SHORT).show();
+		}
+		
+		// Query固有の受信後処理を実施する
+		this.query.execAfterReceiveingAction(this.context, result);
+		
+		
+		// ブロードキャスト
+		OnlineUtil.completeQery(this.context, result == 0 ? "success" : "error");
 		
 		// データクリア
 		this.query = null;

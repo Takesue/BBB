@@ -11,5 +11,10 @@
     <style name="AppTheme" parent="android:Theme.Light" />
      -->
     
-
+	<style name="CustomDialog"
+    	parent="android:style/Theme.Dialog">
+    	<!--背景に指定したいdrawableリソースを指定-->
+    	<item name="android:windowBackground">@color/menu_bg</item>
+    	<item name="android:windowNoTitle">true</item>
+</style>
 </resources>

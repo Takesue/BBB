@@ -26,7 +26,7 @@ public interface BattleScene {
 	 * カードオブジェクトが長押しされた場合に呼ばれる
 	 */
 	public void onLongClickCard(BattleCardView view);
-
+	
 	/**
 	 * カードオブジェクトから手を離す場合に呼ばれる
 	 */

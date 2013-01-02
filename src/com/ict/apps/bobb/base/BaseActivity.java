@@ -6,7 +6,8 @@ import com.ict.apps.bobb.battle.BattleToast;
 import com.ict.apps.bobb.bobbactivity.MainMenuActivity;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.bobbactivity.RuleActivity;
-import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.bobbactivity.StartActivity;
+import com.ict.apps.bobb.online.OnlineUtil;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -47,7 +48,7 @@ public abstract class BaseActivity extends Activity {
 //		this.MemoryDisplay();
 		
 		// ブロードキャストレシーバの登録
-		this.registerReceiver(this.mHandleMessageReceiver, new IntentFilter(GcmUtil.POPUP_MESSAGE_ACTION));
+		this.registerReceiver(this.mHandleMessageReceiver, new IntentFilter(OnlineUtil.POPUP_MESSAGE_ACTION));
 		
 	}
 	
@@ -58,22 +59,27 @@ public abstract class BaseActivity extends Activity {
 		this.startBgm();
 	}
 
+	private int bgmNum = R.raw.breed_bgm;
+	
+	public void setBGM(int redId) {
+		this.bgmNum = redId;
+	}
+	
 	/**
 	 * BGM再生
 	 */
-	protected void startBgm() {
+	public void startBgm() {
 		
 		if (BaseActivity.bgm == null) {
 			BaseActivity.bgm = BgmManager.get(this);
 		}
-
-		BaseActivity.bgm.play(R.raw.breed_bgm);
+		BaseActivity.bgm.play(this.bgmNum);
 	}
 	
 	/**
 	 * BGM停止
 	 */
-	protected void stopBgm() {
+	public void stopBgm() {
 		if (BaseActivity.bgm != null) {
 			BaseActivity.bgm.stop();
 		}
@@ -86,15 +92,14 @@ public abstract class BaseActivity extends Activity {
 		
 		// 効果音をロードしておく
 		BaseActivity.effect = SoundEffectManager.getInstance(this);
-		BaseActivity.effect.loadEffect(R.raw.breed_create1);
-		BaseActivity.effect.loadEffect(R.raw.breed_create2);
 	}
 	
 	/**
 	 * 指定したリソースIDの効果音を再生する
 	 * @param resId
 	 */
-	protected void playEffect(int resId) {
+	public void playEffect(int resId) {
+		
 		BaseActivity.effect.play(resId);
 	}
 
@@ -105,7 +110,7 @@ public abstract class BaseActivity extends Activity {
 		
 //		Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
 		
-		if (BaseActivity.bgm.matchPlayContext(this)) {
+		if ((BaseActivity.bgm != null) && (BaseActivity.bgm.matchPlayContext(this))) {
 			// 回収処理
 			this.stopBgm();
 			BgmManager.release();
@@ -153,7 +158,7 @@ public abstract class BaseActivity extends Activity {
 		case R.id.menu_top:
 			// TOPへ戻る
 			// いままでの画面スタックは削除してトップ画面に戻る
-			Intent intent = new Intent(this, MainMenuActivity.class);  
+			Intent intent = new Intent(this, StartActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 				Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			this.startActivity(intent); 
@@ -161,7 +166,6 @@ public abstract class BaseActivity extends Activity {
 			break;
 		case R.id.menu_rule:
 			// ルール説明
-			Toast.makeText(this, "ruleだよ", Toast.LENGTH_SHORT).show();
 			this.callRuleView();
 			break;
 		 }
@@ -176,7 +180,6 @@ public abstract class BaseActivity extends Activity {
 		Intent intent = new Intent(this, RuleActivity.class);
 		this.startActivity(intent); 
 	}
-	
 	
 	
 	// メモリ表示再描画用のスレッド
@@ -246,13 +249,17 @@ public abstract class BaseActivity extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(
-					GcmUtil.EXTRA_MESSAGE);
+					OnlineUtil.EXTRA_MESSAGE);
 			BattleToast toast = new BattleToast(content);
 			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
-			toast.setText(newMessage);
+			toast.setText(newMessage + "\n 「ユーザ対戦」から依頼者を選択すると対戦できます");
 			toast.setDuration(Toast.LENGTH_LONG);
+			toast.setTextBackground(R.drawable.toast_push);
+			toast.setTextSize(10f);
 			toast.show();
 			
+			// 効果音
+			playEffect(R.raw.push);
 		}
 	};
 	

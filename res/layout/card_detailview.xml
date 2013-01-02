@@ -29,18 +29,21 @@
         android:layout_height="210dp"
         android:layout_alignRight="@+id/carddetail_intoro"
         android:layout_alignTop="@+id/carddetail_attrribute"
-        android:src="@drawable/beetle1" />
-
+        android:src="@drawable/kabuto01" />
+
     <TextView
         android:id="@+id/carddetail_name"
         android:layout_width="180dp"
         android:layout_height="30dp"
         android:layout_alignRight="@+id/carddetail_icon"
         android:layout_alignTop="@+id/carddetail_attrribute"
+        android:ellipsize="end"
         android:paddingLeft="10dp"
+        android:scrollHorizontally="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/carddetail_attrribute"

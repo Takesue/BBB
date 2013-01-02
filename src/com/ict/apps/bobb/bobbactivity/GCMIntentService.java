@@ -11,7 +11,7 @@ import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 import com.ict.apps.bobb.bobbactivity.R;
-import com.ict.apps.bobb.online.GcmUtil;
+import com.ict.apps.bobb.online.OnlineUtil;
 import com.ict.apps.bobb.online.OnlineQuery;
 
 /**
@@ -42,7 +42,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Log.i(TAG, "Received message");
 		String message = "対戦要求がきています。";
 		
-		GcmUtil.popupMessage(context, message);
+		OnlineUtil.popupMessage(context, message);
 		// notifies user
 		GCMIntentService.generateNotification(context, message);
 		

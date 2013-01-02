@@ -27,13 +27,10 @@ public class OnlineQueryUserRegister extends OnlineQuery {
 	}
 	
 	@Override
-	public void execAfterReceiveingAction(Context context) {
-		// 受信後にリファレンスにデータを保存する処理を呼び出す必要あり。
-		StatusInfo.setUserId(context, this.getResponseData(0, "id"));
-		Log.d("★★JsonData", this.getResponseData(0, "user_name"));
-
+	public boolean isPoolingFinish(String response) {
+		return true;
 	}
-	
+
 	/**
 	 * ユーザ名を設定する
 	 * @param name
