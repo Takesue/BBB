@@ -1,7 +1,12 @@
 package com.ict.apps.bobb.bobbactivity;
 
+import java.util.ArrayList;
+
 import com.ict.apps.bobb.battle.BattleSceneCardSelection;
+import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.data.BeetleCard;
+import com.ict.apps.bobb.data.BeetleKit;
+import com.ict.apps.bobb.data.Card;
 import com.ict.apps.bobb.data.CardAttribute;
 import com.ict.apps.bobb.data.SpecialCard;
 
@@ -377,5 +382,30 @@ public class BattleCardView extends LinearLayout {
 	public String getEffect() {
 		return this.specialCardInfo.getEffect();
 	}
+	/**
+	 * 特殊カードを表にする
+	 * カード情報をカードに設定する
+	 */
+	public void flippedSpecialCardFace(BeetleKit specialCard) {
+		
+		// 画像設定
+		((ImageView)this.findViewById(R.id.myCardImage)).setImageResource(specialCard.getImageResourceId(this.activity));
+		
+		// 属性設定
+		((ImageView)this.findViewById(R.id.myCardAttr)).setImageResource(R.drawable.special);
+		
+		// 特殊カード
+		
+		// 背景設定
+		this.setBackgroundResource(R.drawable.card_violet);
+		
+		// 特殊
+		((TextView)this.findViewById(R.id.myCardAD)).setText("名前：");
+		((TextView)this.findViewById(R.id.myCardAD)).setTextSize(8);
+		// 表示文字設定
+		((TextView)this.findViewById(R.id.myCardValue)).setText(specialCard.getName());
+		((TextView)this.findViewById(R.id.myCardValue)).setTextSize(8);
+	}
+
 
 }

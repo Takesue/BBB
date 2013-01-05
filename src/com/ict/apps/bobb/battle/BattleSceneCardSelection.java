@@ -10,7 +10,9 @@ import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
 import com.ict.apps.bobb.bobbactivity.R;
+import com.ict.apps.bobb.common.BattleUseSpecialCard;
 import com.ict.apps.bobb.data.BeetleCard;
+import com.ict.apps.bobb.data.BeetleKit;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
@@ -642,6 +644,9 @@ public class BattleSceneCardSelection implements BattleScene {
 		this.calcAndViewTotal(cards);
 		
 		// 特殊カード効果や属性について　 吹き出し表示
+		this.viewSelectedSpecialCardDisp();
+		
+		// 特殊カード表示
 		this.viewAddingStatus();
 		
 		// Battleボタンを表示
@@ -653,7 +658,8 @@ public class BattleSceneCardSelection implements BattleScene {
 	 */
 	private void viewAddingStatus() {
 		
-		int left = 20;
+//		int left = 20;
+		int left = 110;
 		int top = 10;
 		
 		int[] resIds = {
@@ -672,8 +678,10 @@ public class BattleSceneCardSelection implements BattleScene {
 				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_baloon, null);
 		
 		BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
-				(int)(180 * tmpDensity),
+//				(int)(180 * tmpDensity),
+				(int)(100 * tmpDensity),
 				(int)(120 * tmpDensity));
+//				(int)(300 * tmpDensity));
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		cartParams.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
@@ -688,8 +696,9 @@ public class BattleSceneCardSelection implements BattleScene {
 			text.setTextColor(Color.RED);
 			
 			text = ((TextView)totalView.findViewById(resIds[i++]));
-			text.setText("  効果：" + "攻撃・守備力" + "UP!!");
+			text.setText("効果：" + "攻撃・守備力" + "UP!!");
 			text.setTextColor(Color.BLACK);
+			text.setHorizontallyScrolling( false );
 			
 		}
 		
@@ -701,8 +710,9 @@ public class BattleSceneCardSelection implements BattleScene {
 			text.setTextColor(Color.GREEN);
 			
 			text = ((TextView)totalView.findViewById(resIds[i++]));
-			text.setText("  効果：" + specials.get(0).getEffect());
+			text.setText("効果：" + specials.get(0).getEffect());
 			text.setTextColor(Color.BLACK);
+			text.setHorizontallyScrolling( false );
 		}
 		
 		if (i == 0) {
@@ -713,6 +723,59 @@ public class BattleSceneCardSelection implements BattleScene {
 		// 戦闘ベース部品にカード詳細を追加する
 		this.activity.baseLayout.addView(totalView, cartParams);
 
+	}
+	
+	
+	/**
+	 * 効果カードを表示する
+	 */
+	private void viewSelectedSpecialCardDisp() {
+		
+		int posX = 10;
+		int posY = 10;
+		
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+		// 特殊カード効果確認
+		ArrayList<BattleCardView> specials = this.activity.myPlayer.specialInfo.getSelectedCard();
+		if (specials.size() == 1) {
+			BattleCardView viewCard = (BattleCardView)((LayoutInflater) this.activity
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+					R.layout.my_cards_big, null);
+			
+			viewCard.setControlActivity(this.activity);
+			BattleLayout.LayoutParams cartParams = new BattleLayout.LayoutParams(
+					(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.big_card_width)),
+					(int)(this.activity.getResources().getDimensionPixelSize(R.dimen.big_card_height)));
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			cartParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			cartParams.setMargins((int)((posX) *tmpDensity), (int)(posY*tmpDensity), 0, 0);
+			viewCard.setBeetleCard(specials.get(0).getCardInfo());
+			viewCard.setUpFlag(true);
+			BeetleKit specialkit1 = BattleUseSpecialCard.getUseKit(this.activity, BattleUseSpecialCard.CardNum.CARD1);
+			BeetleKit specialkit2 = BattleUseSpecialCard.getUseKit(this.activity, BattleUseSpecialCard.CardNum.CARD2);
+			BeetleKit specialkit3 = BattleUseSpecialCard.getUseKit(this.activity, BattleUseSpecialCard.CardNum.CARD3);
+			BeetleKit specialkit = specialkit1;
+			if(specials.get(0).getEffectId() == specialkit1.getEffectId()){
+				specialkit = specialkit1;
+			}
+			if(specials.get(0).getEffectId() == specialkit2.getEffectId()){
+				specialkit = specialkit2;
+			}
+			if(specials.get(0).getEffectId() == specialkit3.getEffectId()){
+				specialkit = specialkit3;
+			}
+			
+			viewCard.flippedSpecialCardFace(specialkit);
+			
+			// 参照を保持する
+			this.bigCards.add(viewCard);
+			
+			// 戦闘ベース部品にcard追加する
+			this.activity.baseLayout.addView(viewCard, 0, cartParams);
+		}
+		
 	}
 	
 	/**
