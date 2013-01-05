@@ -26,9 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class BattleActivity extends BaseActivity{
@@ -54,6 +56,8 @@ public class BattleActivity extends BaseActivity{
 	// 対戦相手の対戦時情報を一元保持
 	public Player enemyPlayer = null;
 	
+	// 画面サイズ取得用インスタンス生成
+	public BattleDisplay battleDisplay = new BattleDisplay();
 
 	/**
 	 * シーン設定
@@ -101,6 +105,8 @@ public class BattleActivity extends BaseActivity{
 //		
 //		// 対戦開始
 //		this.bm.startBattleScene();
+		
+		// 対戦開始
 		this.gameStart();
 	}
 	
@@ -127,12 +133,19 @@ public class BattleActivity extends BaseActivity{
 		
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
-/*		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
-		int myCardMarginX = (int) ((new Float(this.baseLayout.getWidth())/tmpDensity));
-		int myCardMarginY = (int) ((new Float(this.baseLayout.getHeight())/tmpDensity));
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)((myCardMarginX) *tmpDensity), (int)((myCardMarginY) *tmpDensity));
+		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
+
+		this.battleDisplay.setPosX((WindowManager)getSystemService(WINDOW_SERVICE));
+		this.battleDisplay.setPosY((WindowManager)getSystemService(WINDOW_SERVICE));
+		float posX = this.battleDisplay.getPosX();
+		float posY = this.battleDisplay.getBBLayoutPosY();
+//		posY = this.battleDisplay.getBaseLayoutHeigth(posY);
+//		float posX = 320;
+//		float posY = 430;
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)(posX *tmpDensity), (int)(posY *tmpDensity));
 		this.findViewById(R.id.battle_base_layout).setLayoutParams(params);
-*/
+		
+		
 		// 対戦管理インスタンス生成
 		this.bm = new BattleManager(this);
 		
@@ -144,7 +157,7 @@ public class BattleActivity extends BaseActivity{
 
 	}
 	
-
+	
 	/**
 	 * カードオブジェクトのタッチイベントがきた場合に呼ばれる
 	 * @param view

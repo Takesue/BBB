@@ -28,19 +28,29 @@ public class BattleSceneDealCard implements BattleScene {
 	
 	private BattleActivity activity = null;
 	
+	
 	// 山札の表示開始位置を定義
-	private final int[][] initialCardsPos = 
-		{
-			{50,225,5,380},	// 自分
+	private final int[][] initialCardsPos = new int[2][4];
+/*		{
+			{50,225,5,350},	// 自分
 			{50,125,5, 20}	// 相手
 		};
+*/	
+	// 縦幅を画面サイズに合わせる処理
+	private void setInitialCardsPos(){
+		this.initialCardsPos[0][0] = 50;
+		this.initialCardsPos[0][1] = (int)this.activity.battleDisplay.getBBLayoutPosY()/4*2;
+		this.initialCardsPos[0][2] = 5;
+		this.initialCardsPos[0][3] = (int)this.activity.battleDisplay.getBBLayoutPosY()/4*3;
+		this.initialCardsPos[1][0] = 50;
+		this.initialCardsPos[1][1] = (int)this.activity.battleDisplay.getBBLayoutPosY()/4*1;
+		this.initialCardsPos[1][2] = 5;
+		this.initialCardsPos[1][3] = 10;
+		
+	}
 	
 	// 手札の左右のマージン
 	private final int leftMargin = 5;
-	// 手札のY座標
-	private final int myCardsPosY = 380;
-	
-	private final int enemyCardsPosY = 20;
 	
 	// プログレスバー保持
 	private ProgressBar myProgressBar = null;
@@ -54,12 +64,10 @@ public class BattleSceneDealCard implements BattleScene {
 	public BattleSceneDealCard(BattleActivity activity) {
 		this.activity = activity;
 	}
-
-	
 	
 	@Override
 	public void init() {
-
+		this.setInitialCardsPos();
 		// 相手情報（Name）
 		((TextView)this.activity.findViewById(R.id.battle_enemyName)).setText("対戦相手 : " + this.activity.enemyPlayer.getName());
 
@@ -203,10 +211,10 @@ public class BattleSceneDealCard implements BattleScene {
 			cartParams.setMargins((int)((this.initialCardsPos[type][2] + myCardMarginX*i) *tmpDensity), (int)(this.initialCardsPos[type][3]*tmpDensity), 0, 0);
 			
 			if(type == 0){
-				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , this.myCardsPosY);
+				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , initialCardsPos[0][3]);
 				viewCards.get(i).flippedCardFace();
 			}else{
-				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , this.enemyCardsPosY);
+				viewCards.get(i).setPosXY((this.leftMargin + myCardMarginX*(i)) , initialCardsPos[1][3]);
 				viewCards.get(i).flippedCardBack();
 			}
 			
@@ -299,10 +307,10 @@ public class BattleSceneDealCard implements BattleScene {
 						cardList[i - init] = activity.enemyPlayer.cardInfo.getNextCard();
 						if(init <= count){
 							// ３枚～５枚配り
-							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , enemyCardsPosY, 3);
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , initialCardsPos[1][3], 3);
 						}else{
 							// １枚～２枚配り
-							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , enemyCardsPosY, 3);
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , initialCardsPos[1][3], 3);
 						}
 						
 						Thread.sleep(200);
@@ -342,12 +350,11 @@ public class BattleSceneDealCard implements BattleScene {
 						cardList[i - init] = activity.myPlayer.cardInfo.getNextCard();
 						if(init <= count){
 							// ３枚～５枚配り
-							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , myCardsPosY, 3);
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i) , initialCardsPos[0][3], 3);
 						}else{
 							// １枚～２枚配り
-							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , myCardsPosY, 3);
+							cardList[i - init].startMovingCard(leftMargin + myCardMarginX*(i - (init - 2)) , initialCardsPos[0][3], 3);
 						}
-
 						Thread.sleep(200);
 					}
 					

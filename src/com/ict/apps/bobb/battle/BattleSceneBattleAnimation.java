@@ -257,7 +257,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			public void run() {
 				
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(2500);
 					mHandler.post(new Runnable() {
 						public void run() {
 							finish();
@@ -296,7 +296,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		ArrayList<BattleCardView> cards = info.cardInfo.getSelectedCard();
 		
 		int posX = 10;
-		int posY = 320;
+//		int posY = 320;
+		int posY = 300;
 		if (type == 1) {
 			posY = 30;
 		}
@@ -928,6 +929,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			{R.id.enemyName, R.id.enemyLp, R.id.enemyAttack, R.id.enemyDefense, R.id.enemyAttribute, R.id.enemyEffect, R.id.enemyComment, R.id.enemyDamege}
 	};
 	
+	
 	/**
 	 * 属性発動アニメーション
 	 * @param myPlayer
@@ -939,6 +941,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		CardAttribute myAtt = BattleUtil.getAttribute(myPlayer.cardInfo.getSelectedCard()); 
 		CardAttribute enemyAtt = BattleUtil.getAttribute(enemyPlayer.cardInfo.getSelectedCard());
 		
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
 		
 		
 		
@@ -1008,26 +1011,26 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(135,270,attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0),attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(215,190,attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0),attack_i,myPlayer.totalAttack).setAnimation(alpha);
 				}
 			}
 			defense.startAnimation(alpha);
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(215,270,defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1),defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(135,190,defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1),defense_i,myPlayer.totalDefense).setAnimation(alpha);
 				}
 			}
 /*			// 攻撃守備は上下に振る
@@ -1067,6 +1070,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void startEffectAnimation(Player myPlayer, Player enemyPlayer) {
 		
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
 		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);
 		final TextView myAttack = (TextView)this.activity.findViewById(resIdList[0][2]);
 		
@@ -1095,37 +1100,62 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
-			viewStatusUpDown(260,305,myLp_i,myPlayer.getLifepoint()).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,2),this.getArrowPosY(0,2),myLp_i,myPlayer.getLifepoint()).setAnimation(alpha);
 		}
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
-			viewStatusUpDown(135,270,myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0),myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
-			viewStatusUpDown(215,270,myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1),myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
 		}
 		if (enemyLp_i != enemyPlayer.getLifepoint()) {
 			enemyLp.setTextColor(Color.YELLOW);
 			enemyLp.setAnimation(alpha);
-			viewStatusUpDown(260,150,enemyLp_i,enemyPlayer.getLifepoint()).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,2),this.getArrowPosY(1,2),enemyLp_i,enemyPlayer.getLifepoint()).setAnimation(alpha);
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
 			enemyAttack.setAnimation(alpha);
-			viewStatusUpDown(215,190,enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0),enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
 		}
 		if (enemyDefense_i != enemyPlayer.totalDefense) {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
-			viewStatusUpDown(135,190,enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1),enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
 		}
 		
 		// 効果音
 		activity.playEffect(R.raw.effect);
 
+	}
+	
+	private int getArrowPosX(int type, int num){
+		int myAttackPosX = 85;
+		int myDefensePosX = 165;
+		int myLifepointPosX = 180;
+		int enemyAttackPosX = 165;
+		int enemyDefensePosX = 85;
+		int enemyLifepointPosX = 180;
+		int[][] arrowPosX = {{myAttackPosX,myDefensePosX,myLifepointPosX},
+							 {enemyAttackPosX,enemyDefensePosX,enemyLifepointPosX}};
+		int posX = arrowPosX[type][num];
+		return posX;
+	}
+	private int getArrowPosY(int type, int num){
+		int myAttackPosY = 180;
+		int myDefensePosY = 180;
+		int myLifepointPosY = 215;
+		int enemyAttackPosY = 100;
+		int enemyDefensePosY = 100;
+		int enemyLifepointPosY = 60;
+		int[][] arrowPosX = {{myAttackPosY,myDefensePosY,myLifepointPosY},
+							 {enemyAttackPosY,enemyDefensePosY,enemyLifepointPosY}};
+		int posY = arrowPosX[type][num];
+		return posY;
 	}
 
 	
@@ -1245,8 +1275,8 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		upDownPannel.setBackgroundResource(markList[type]);
 		upDownPannel.setLayoutParams(params);
 		// 戦闘ベース部品に追加する
-		this.activity.baseLayout.addView(upDownPannel, params);
-		
+		RelativeLayout rL = (RelativeLayout)this.activity.baseLayout.findViewById(R.id.score_panel_root);
+		rL.addView(upDownPannel, params);
 		// 矢印Viewを保持
 		this.viewUpDownList.add(upDownPannel);
 		
@@ -1260,7 +1290,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	private void clearAllUpDownViews() {
 		
 		for (View v : this.viewUpDownList) {
-			this.activity.baseLayout.removeView(v);
+			RelativeLayout rL = (RelativeLayout)this.activity.baseLayout.findViewById(R.id.score_panel_root);
+			rL.removeView(v);
+//			this.activity.baseLayout.removeView(v);
 		}
 	}
 	/**
