@@ -57,7 +57,7 @@ public class BattleActivity extends BaseActivity{
 	public Player enemyPlayer = null;
 	
 	// 画面サイズ取得用インスタンス生成
-	public BattleDisplay battleDisplay = new BattleDisplay();
+	public BattleDisplay battleDisplay = new BattleDisplay(this);
 
 	/**
 	 * シーン設定
@@ -134,7 +134,7 @@ public class BattleActivity extends BaseActivity{
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
 		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
-
+		
 		this.battleDisplay.setPosX((WindowManager)getSystemService(WINDOW_SERVICE));
 		this.battleDisplay.setPosY((WindowManager)getSystemService(WINDOW_SERVICE));
 		float posX = this.battleDisplay.getPosX();
