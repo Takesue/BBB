@@ -68,6 +68,7 @@
                     </LinearLayout>
 
                     <RelativeLayout
+                        android:id="@+id/enemyLpStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -155,6 +156,7 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/enemyDefenseStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -187,6 +189,7 @@
                     </LinearLayout>
                     
                     <LinearLayout
+                        android:id="@+id/enemyAttackStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -302,6 +305,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/myAttackStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -334,6 +338,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/myDefenseStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -435,6 +440,7 @@
                     </LinearLayout>
 
                     <RelativeLayout
+                        android:id="@+id/myLpStage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

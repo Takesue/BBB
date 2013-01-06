@@ -135,13 +135,10 @@ public class BattleActivity extends BaseActivity{
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
 		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
 		
-		this.battleDisplay.setPosX((WindowManager)getSystemService(WINDOW_SERVICE));
-		this.battleDisplay.setPosY((WindowManager)getSystemService(WINDOW_SERVICE));
+		this.battleDisplay.setPosX();
+		this.battleDisplay.setPosY();
 		float posX = this.battleDisplay.getPosX();
 		float posY = this.battleDisplay.getBBLayoutPosY();
-//		posY = this.battleDisplay.getBaseLayoutHeigth(posY);
-//		float posX = 320;
-//		float posY = 430;
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)(posX *tmpDensity), (int)(posY *tmpDensity));
 		this.findViewById(R.id.battle_base_layout).setLayoutParams(params);
 		

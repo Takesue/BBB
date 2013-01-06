@@ -73,22 +73,24 @@ public class BattleSceneDealCard implements BattleScene {
 
 		// 相手情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("" + this.activity.enemyPlayer.getLifepoint());
-		this.setLpView((TextView)this.activity.findViewById(R.id.battle_enemyLp), this.activity.enemyPlayer.getLifepoint());
 		if (this.enemyProgressBar == null) {
 			this.enemyProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar);
 			this.enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
-		}
-		this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
+			this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
+			
+			((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText(" " + this.activity.enemyPlayer.getLifepoint());
+			}
 
 		// ユーザ情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("" + this.activity.myPlayer.getLifepoint());
-		this.setLpView((TextView)this.activity.findViewById(R.id.battle_myLp), this.activity.myPlayer.getLifepoint());
 		// ユーザ情報（LPBar）
 		if (myProgressBar == null) {
 			myProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_myLifebar);
 			myProgressBar.setMax(this.activity.myPlayer.getLifepoint());
+			myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());
+			
+			((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText(" " + this.activity.myPlayer.getLifepoint());
 		}
-		myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());
 
 
 		// ユーザ情報（制限時間）
@@ -442,24 +444,6 @@ public class BattleSceneDealCard implements BattleScene {
 		});
 	}
 
-	/**
-	 * LPデジタル表示設定
-	 * @param textView
-	 * @param lifePoint
-	 */
-	private void setLpView(TextView textView, int lifePoint) {
-		
-		textView.setText(" " + lifePoint);
-		
-		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
-			// 30%以下では赤表示
-			textView.setTextColor(Color.RED);
-		}
-		else {
-			// 30%以上では黒表示
-			textView.setTextColor(Color.BLUE);
-		}
-	}
 
 	/**
 	 * カード配布時間制限
