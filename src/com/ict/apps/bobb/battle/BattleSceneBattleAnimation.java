@@ -99,11 +99,14 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		bam.add(new Runnable() {
 			public void run() {
 				viewStatusPannel();
+				viewCrearPannel();
 			}
 		}, 1000);
 		
 		// 自プレイヤの属性効果発動
-		if (BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null) {
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if ((BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null)
+		 &&(activity.finishFlg)){
 			bam.add(new Runnable() {
 				public void run() {
 					
@@ -118,7 +121,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		
 		// 相手プレイヤの属性効果発動
-		if (BattleUtil.getAttribute(activity.enemyPlayer.cardInfo.getSelectedCard()) != null) {
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if ((BattleUtil.getAttribute(activity.enemyPlayer.cardInfo.getSelectedCard()) != null)
+		 &&(activity.finishFlg)){
 			bam.add(new Runnable() {
 				public void run() {
 					
@@ -133,7 +138,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		
 		// 自プレイヤ特殊カード効果発動
-		if (activity.myPlayer.specialInfo.getSelectedCard().size() != 0) {
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if ((activity.myPlayer.specialInfo.getSelectedCard().size() != 0)
+		 &&(activity.finishFlg)){
 			bam.add(new Runnable() {
 				public void run() {
 					
@@ -154,7 +161,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 
 		// 相手プレイヤ特殊カード効果発動
-		if (activity.enemyPlayer.specialInfo.getSelectedCard().size() != 0){
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if ((activity.enemyPlayer.specialInfo.getSelectedCard().size() != 0)
+		 &&(activity.finishFlg)){
 			bam.add(new Runnable() {
 				public void run() {
 					
@@ -175,48 +184,54 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		
 		// 残りのアニメーション
-		bam.add(new Runnable() {
-			public void run() {
-				
-				// 全ての矢印オブジェクトを削除
-				clearAllUpDownViews();
-				
-				// ダメージをtoastで表示する
-//				mesegeDamege();
-				
-				// カードをアニメーションさせる
-				animationCards(1, activity.enemyPlayer);
-				animationCards(0, activity.myPlayer);
-			}
-		}, 1500);
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if (activity.finishFlg){
+			bam.add(new Runnable() {
+				public void run() {
+					
+					// 全ての矢印オブジェクトを削除
+					clearAllUpDownViews();
+					
+					// ダメージをtoastで表示する
+	//				mesegeDamege();
+					
+					// カードをアニメーションさせる
+					animationCards(1, activity.enemyPlayer);
+					animationCards(0, activity.myPlayer);
+				}
+			}, 1500);
+		}
 		
 		// 残りのアニメーション
-		bam.add(new Runnable() {
-			public void run() {
-				
-				// 各ライフポイントを削る
-				lifePointRecalc();
-				
-				// ステータス画面にダメージポイントと戦闘後ＬＰをセット
-				setPanelLifePoint();
-				
-				// カード使用済み
-				battleAnimationDustCard();
-				
-				// 試合終了かどうか確認する
-				battleEndCheck();
-				
-				// 試合終了であれば、トーストを表示して終わらせる
-				if(endCount > 0){
-					battleEnd();
+		// onDestroyが行われていない場合のみ処理を行う(finishFlg)
+		if (activity.finishFlg){
+			bam.add(new Runnable() {
+				public void run() {
+					
+					// 各ライフポイントを削る
+					lifePointRecalc();
+					
+					// ステータス画面にダメージポイントと戦闘後ＬＰをセット
+					setPanelLifePoint();
+					
+					// カード使用済み
+					battleAnimationDustCard();
+					
+					// 試合終了かどうか確認する
+					battleEndCheck();
+					
+					// 試合終了であれば、トーストを表示して終わらせる
+					if(endCount > 0){
+						battleEnd();
+					}
+					else {
+						//次のシーンへ移る
+						callChangeNexrScene();
+					}
+					
 				}
-				else {
-					//次のシーンへ移る
-					callChangeNexrScene();
-				}
-				
-			}
-		}, 100);
+			}, 1500);
+		}
 		
 		// アニメーションの開始
 		bam.startAnimations();
@@ -569,7 +584,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 					for (int i = 0; i < length; i++) {
 						// 衝突効果音
-						activity.playEffect(R.raw.crash);
+						// onDestroyが行われていなければ処理する
+						if(activity.finishFlg){
+							activity.playEffect(R.raw.crash);
+						}
 						
 						cards.get(i).setPosXY((int)((posX + (myCardMarginX * i))), (int)(centerPosY*tmpDensity));
 						cards.get(i).startMovingCard((int)(posX + (myCardMarginX * i)), (int)(stopPosY*tmpDensity), 5);
@@ -825,6 +843,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
 				BattleLayout.LayoutParams.MATCH_PARENT,
 				this.activity.baseLayout.getHeight());
+		
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		params.setMargins((int)(0), (int)(0), 0, 0);
@@ -919,6 +938,32 @@ public class BattleSceneBattleAnimation implements BattleScene {
 //		this.activity.myPlayer.specialInfo.spinnerId = this.spinnerId;
 
 	}
+	
+	/**
+	 * ステータスupdown矢印設定用の透明パネル
+	 */
+	public void viewCrearPannel() {
+		// Densityの値を取得
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+		// ステータス表示View取得
+		LinearLayout crearPannel = (LinearLayout) ((LayoutInflater) this.activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.battle_status_crear_view, null);
+
+		
+		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
+				BattleLayout.LayoutParams.MATCH_PARENT,
+				this.activity.baseLayout.getHeight());
+		
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		params.setMargins((int)(0), (int)(0), 0, 0);
+		crearPannel.setLayoutParams(params);
+
+		// 戦闘ベース部品にcard追加する
+		this.activity.baseLayout.addView(crearPannel, params);
+		
+	}
 
 	// リソース
 	private static int[][] resIdList = {
@@ -1008,26 +1053,30 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0),attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0)
+									,attack_i,myPlayer.totalAttack,R.id.myAttackCrearStage).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (attack_i != myPlayer.totalAttack) {
-					viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0),attack_i,myPlayer.totalAttack).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0)
+									,attack_i,myPlayer.totalAttack,R.id.enemyAttackCrearStage).setAnimation(alpha);
 				}
 			}
 			defense.startAnimation(alpha);
 			if (myPlayer instanceof MyPlayer) {
 				// MyPlayerの場合、自プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1),defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1)
+									,defense_i,myPlayer.totalDefense,R.id.myDefenseCrearStage).setAnimation(alpha);
 				}
 			}
 			else {
 				// MyPlayerの場合、相手プレイヤの処理
 				if (defense_i != myPlayer.totalDefense) {
-					viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1),defense_i,myPlayer.totalDefense).setAnimation(alpha);
+					viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1)
+									,defense_i,myPlayer.totalDefense,R.id.enemyDefenseCrearStage).setAnimation(alpha);
 				}
 			}
 /*			// 攻撃守備は上下に振る
@@ -1097,32 +1146,38 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		if (myLp_i != myPlayer.getLifepoint()) {
 			myLp.setTextColor(Color.YELLOW);
 			myLp.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(0,2),this.getArrowPosY(0,2),myLp_i,myPlayer.getLifepoint()).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,2),this.getArrowPosY(0,2),myLp_i,myPlayer.getLifepoint()
+							,R.id.myLpCrearStage).setAnimation(alpha);
 		}
 		if (myAttack_i != myPlayer.totalAttack) {
 			myAttack.setTextColor(Color.YELLOW);
 			myAttack.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0),myAttack_i,myPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,0),this.getArrowPosY(0,0),myAttack_i,myPlayer.totalAttack
+							,R.id.myAttackCrearStage).setAnimation(alpha);
 		}
 		if (myDefense_i != myPlayer.totalDefense) {
 			myDefense.setTextColor(Color.YELLOW);
 			myDefense.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1),myDefense_i,myPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(0,1),this.getArrowPosY(0,1),myDefense_i,myPlayer.totalDefense
+							,R.id.myDefenseCrearStage).setAnimation(alpha);
 		}
 		if (enemyLp_i != enemyPlayer.getLifepoint()) {
 			enemyLp.setTextColor(Color.YELLOW);
 			enemyLp.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(1,2),this.getArrowPosY(1,2),enemyLp_i,enemyPlayer.getLifepoint()).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,2),this.getArrowPosY(1,2),enemyLp_i,enemyPlayer.getLifepoint()
+							,R.id.enemyLpCrearStage).setAnimation(alpha);
 		}
 		if (enemyAttack_i != enemyPlayer.totalAttack) {
 			enemyAttack.setTextColor(Color.YELLOW);
 			enemyAttack.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0),enemyAttack_i,enemyPlayer.totalAttack).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,0),this.getArrowPosY(1,0),enemyAttack_i,enemyPlayer.totalAttack
+							,R.id.enemyAttackCrearStage).setAnimation(alpha);
 		}
 		if (enemyDefense_i != enemyPlayer.totalDefense) {
 			enemyDefense.setTextColor(Color.YELLOW);
 			enemyDefense.setAnimation(alpha);
-			viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1),enemyDefense_i,enemyPlayer.totalDefense).setAnimation(alpha);
+			viewStatusUpDown(this.getArrowPosX(1,1),this.getArrowPosY(1,1),enemyDefense_i,enemyPlayer.totalDefense
+							,R.id.enemyDefenseCrearStage).setAnimation(alpha);
 		}
 		
 		// 効果音
@@ -1131,26 +1186,24 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	private int getArrowPosX(int type, int num){
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		int myAttackPosX = (int)(55 * tmpDensity);
-		int myDefensePosX = (int)(110 * tmpDensity);
-		int myLifepointPosX = (int)(120 * tmpDensity);
-		int enemyAttackPosX = (int)(110 * tmpDensity);
-		int enemyDefensePosX = (int)(55 * tmpDensity);
-		int enemyLifepointPosX = (int)(120 * tmpDensity);
+		int myAttackPosX = 5;
+		int myDefensePosX = 5;
+		int myLifepointPosX = 5;
+		int enemyAttackPosX = 5;
+		int enemyDefensePosX = 5;
+		int enemyLifepointPosX = 5;
 		int[][] arrowPosX = {{myAttackPosX,myDefensePosX,myLifepointPosX},
 							 {enemyAttackPosX,enemyDefensePosX,enemyLifepointPosX}};
 		int posX = arrowPosX[type][num];
 		return posX;
 	}
 	private int getArrowPosY(int type, int num){
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		int myAttackPosY = (int)(120 * tmpDensity);
-		int myDefensePosY = (int)(120 * tmpDensity);
-		int myLifepointPosY = (int)(147 * tmpDensity);
-		int enemyAttackPosY = (int)(68 * tmpDensity);
-		int enemyDefensePosY = (int)(68 * tmpDensity);
-		int enemyLifepointPosY = (int)(45 * tmpDensity);
+		int myAttackPosY = 10;
+		int myDefensePosY = 10;
+		int myLifepointPosY = 20;
+		int enemyAttackPosY = 10;
+		int enemyDefensePosY = 10;
+		int enemyLifepointPosY = 20;
 		int[][] arrowPosX = {{myAttackPosY,myDefensePosY,myLifepointPosY},
 							 {enemyAttackPosY,enemyDefensePosY,enemyLifepointPosY}};
 		int posY = arrowPosX[type][num];
@@ -1176,6 +1229,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		((TextView)this.activity.findViewById(resIds[0])).setText(player.getName());
 		// LP設定
 		((TextView)this.activity.findViewById(resIds[1])).setText(Integer.toString(player.getLifepoint()));
+//		((TextView)this.activity.findViewById(resIds[1])).setText(Integer.toString(player.getLifepoint()) + " ");
 		
 		// 攻撃力合計
 		((TextView)this.activity.findViewById(resIds[2])).setText(Integer.toString(player.totalAttack));
@@ -1241,6 +1295,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	
 	// 削除時に指定する必要があるため、矢印ビューをアレイで保持する
 	private ArrayList<LinearLayout> viewUpDownList = new ArrayList<LinearLayout>();
+	private ArrayList<LinearLayout> stageList = new ArrayList<LinearLayout>();
 	
 	/**
 	 * ステータスアップダウンのマークを表示
@@ -1248,9 +1303,10 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 * @param  top           高さ位置
 	 * @param  oldPower      
 	 * @param  newPower      
+	 * @param  stage         矢印表示パネルの選定用
 	 * @return upDownPannel  戻り値を利用してアニメーション実装
 	 */
-	public LinearLayout viewStatusUpDown(int left, int top, int oldPower, int newPower) {
+	public LinearLayout viewStatusUpDown(int left, int top, int oldPower, int newPower, int stage) {
 		int type = 0;
 		if(oldPower <= newPower){
 			type = 0;
@@ -1267,17 +1323,19 @@ public class BattleSceneBattleAnimation implements BattleScene {
 
 		BattleLayout.LayoutParams params = new BattleLayout.LayoutParams(
 				(int)(20 * tmpDensity),
-				(int)(20 * tmpDensity));
+				(int)(40 * tmpDensity));
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		params.setMargins((int)(left*tmpDensity), (int)(top*tmpDensity), 0, 0);
 		upDownPannel.setBackgroundResource(markList[type]);
 		upDownPannel.setLayoutParams(params);
 		// 戦闘ベース部品に追加する
-		RelativeLayout rL = (RelativeLayout)this.activity.baseLayout.findViewById(R.id.score_panel_root);
-		rL.addView(upDownPannel, params);
+		LinearLayout lL = (LinearLayout)this.activity.baseLayout.findViewById(stage);
+		lL.addView(upDownPannel, params);
 		// 矢印Viewを保持
 		this.viewUpDownList.add(upDownPannel);
+		// どのView項目かも保持
+		this.stageList.add(lL);
 		
 		return upDownPannel;
 		
@@ -1288,10 +1346,15 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	 */
 	private void clearAllUpDownViews() {
 		
-		for (View v : this.viewUpDownList) {
-			RelativeLayout rL = (RelativeLayout)this.activity.baseLayout.findViewById(R.id.score_panel_root);
+/*		for (View v : this.viewUpDownList) {
+			RelativeLayout rL = (RelativeLayout)this.activity.baseLayout.findViewById(R.id.score_crearpanel_root);
 			rL.removeView(v);
 //			this.activity.baseLayout.removeView(v);
+		}
+*/
+		for (int i = 0; i < this.viewUpDownList.size(); i++){
+			LinearLayout lL = this.stageList.get(i);
+			lL.removeView(this.viewUpDownList.get(i));
 		}
 	}
 	/**
@@ -1315,14 +1378,16 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		}
 		// LP設定
 		if(this.activity.myPlayer.getLifepoint() < 0){
-			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText("0");
+			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText("0 ");
 		}else{
 			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()));
+//			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()) + " ");
 		}
 		if(this.activity.enemyPlayer.getLifepoint() < 0){
-			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText("0");
+			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText("0 ");
 		}else{
 			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()));
+//			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()) + " ");
 		}
 		
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
@@ -1368,6 +1433,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		translate.setDuration(1000);
 		//10回繰り返す
 		translate.setInterpolator(new CycleInterpolator(10));
+		//アニメーション終了後開始前に戻す？（開始前に戻らないが使い方間違ってる？）
+		translate.setFillBefore(true);
+		
 		//アニメーションスタート
 		if(enemyAttack > 0){
 			myLp.startAnimation(translate);

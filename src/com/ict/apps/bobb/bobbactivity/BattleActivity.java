@@ -186,7 +186,9 @@ public class BattleActivity extends BaseActivity{
 		this.scenes[this.currentScene].actionUpCard(view);
 		
 	}
-	
+
+	// 途中終了時のスレッド回避用フラグ true:通常 false:途中終了の為スレッド終了
+	public boolean finishFlg = true;
 	@Override
 	protected void onDestroy() {
 		
@@ -194,6 +196,8 @@ public class BattleActivity extends BaseActivity{
 			((BattleSceneCardSelection)this.getCurrentScene()).stopLimitTimeCountDown();
 		}
 		super.onDestroy();
+		
+		this.finishFlg = false;
 	}
 
 }

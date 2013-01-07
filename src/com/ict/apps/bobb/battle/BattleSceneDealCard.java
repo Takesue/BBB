@@ -470,7 +470,10 @@ public class BattleSceneDealCard implements BattleScene {
 					}
 					limit++;
 				}
-				if(limitFlg){
+				// pushされていない場合処理を行う
+				// かつonDestroyが行われていない場合処理を行う
+				if((limitFlg)
+				 &&(activity.finishFlg)){
 					mHandler.post(new Runnable() {
 						public void run() {
 							dealCardsOnClick(button);

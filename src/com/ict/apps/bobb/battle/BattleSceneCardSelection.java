@@ -855,12 +855,15 @@ public class BattleSceneCardSelection implements BattleScene {
 						((TextView)activity.findViewById(R.id.battle_timelimit)).setText("制限時間 :" + counter + "秒");
 						if (counter == 0) {
 							
-							// 制限時間経過時の処理
-							// 強制的にカード選択させる。
-							((MyPlayer)activity.myPlayer).forcedCardSelection();
-							
-							// カード選択シーン終了
-							selectCardFinished();
+							// onDestroyが行われた場合処理しない
+							if(activity.finishFlg){
+								// 制限時間経過時の処理
+								// 強制的にカード選択させる。
+								((MyPlayer)activity.myPlayer).forcedCardSelection();
+								
+								// カード選択シーン終了
+								selectCardFinished();
+							}
 						}
 						else {
 							// カウントダウン
