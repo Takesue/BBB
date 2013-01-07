@@ -10,6 +10,7 @@ import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.BattleLayout;
 import com.ict.apps.bobb.bobbactivity.R;
+import com.ict.apps.bobb.common.StatusInfo;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.content.Context;
@@ -99,7 +100,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			public void run() {
 				viewStatusPannel();
 			}
-		}, 1500);
+		}, 1000);
 		
 		// 自プレイヤの属性効果発動
 		if (BattleUtil.getAttribute(activity.myPlayer.cardInfo.getSelectedCard()) != null) {
@@ -113,7 +114,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					// 攻撃守備の上がり下がりで動きに変化をつける
 					startAttributeAnimation(activity.myPlayer, activity.enemyPlayer);
 				}
-			}, 2000);
+			}, 1200);
 		}
 		
 		// 相手プレイヤの属性効果発動
@@ -128,7 +129,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					// 攻撃守備の上がり下がりで動きに変化をつけ、０をmyとしてセット
 					startAttributeAnimation(activity.enemyPlayer, activity.myPlayer);
 				}
-			}, 2000);
+			}, 1200);
 		}
 		
 		// 自プレイヤ特殊カード効果発動
@@ -149,7 +150,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					setPlayerInfoToPanel(activity.myPlayer);
 					setPlayerInfoToPanel(activity.enemyPlayer);
 				}
-			}, 2000);
+			}, 1200);
 		}
 
 		// 相手プレイヤ特殊カード効果発動
@@ -170,7 +171,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 					setPlayerInfoToPanel(activity.myPlayer);
 					setPlayerInfoToPanel(activity.enemyPlayer);
 				}
-			}, 2000);
+			}, 1200);
 		}
 		
 		// 残りのアニメーション
@@ -187,7 +188,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				animationCards(1, activity.enemyPlayer);
 				animationCards(0, activity.myPlayer);
 			}
-		}, 3000);
+		}, 1500);
 		
 		// 残りのアニメーション
 		bam.add(new Runnable() {
@@ -257,7 +258,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			public void run() {
 				
 				try {
-					Thread.sleep(2500);
+					Thread.sleep(1500);
 					mHandler.post(new Runnable() {
 						public void run() {
 							finish();
@@ -524,9 +525,9 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				
 				try {
 					if(runType == 0){
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 					}else{
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 					}
 					
 					int length = cards.size();
@@ -754,7 +755,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			public void run() {
 				
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(4000);
 					mHandler.post(new Runnable() {
 						public void run() {
 							finish();
@@ -792,10 +793,6 @@ public class BattleSceneBattleAnimation implements BattleScene {
 						}
 					});
 					
-					// LPゲージの更新
-					((ProgressBar)activity.findViewById(R.id.battle_enemyLifebar)).setProgress(activity.enemyPlayer.getLifepoint());
-					((ProgressBar)activity.findViewById(R.id.battle_myLifebar)).setProgress(activity.myPlayer.getLifepoint());
-
 					Thread.sleep(4000);
 					mHandler.post(new Runnable() {
 						public void run() {
@@ -999,11 +996,11 @@ public class BattleSceneBattleAnimation implements BattleScene {
 				defense.setAnimation(alpha);
 			}
 			if(attack_i > myPlayer.totalAttack){
-				attack.setTextColor(Color.BLUE);
+				attack.setTextColor(Color.CYAN);
 				attack.setAnimation(alpha);
 			}
 			if(defense_i > myPlayer.totalDefense){
-				defense.setTextColor(Color.BLUE);
+				defense.setTextColor(Color.CYAN);
 				defense.setAnimation(alpha);
 			}
 			//アニメーションスタート
@@ -1134,24 +1131,26 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	private int getArrowPosX(int type, int num){
-		int myAttackPosX = 85;
-		int myDefensePosX = 165;
-		int myLifepointPosX = 180;
-		int enemyAttackPosX = 165;
-		int enemyDefensePosX = 85;
-		int enemyLifepointPosX = 180;
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		int myAttackPosX = (int)(55 * tmpDensity);
+		int myDefensePosX = (int)(110 * tmpDensity);
+		int myLifepointPosX = (int)(120 * tmpDensity);
+		int enemyAttackPosX = (int)(110 * tmpDensity);
+		int enemyDefensePosX = (int)(55 * tmpDensity);
+		int enemyLifepointPosX = (int)(120 * tmpDensity);
 		int[][] arrowPosX = {{myAttackPosX,myDefensePosX,myLifepointPosX},
 							 {enemyAttackPosX,enemyDefensePosX,enemyLifepointPosX}};
 		int posX = arrowPosX[type][num];
 		return posX;
 	}
 	private int getArrowPosY(int type, int num){
-		int myAttackPosY = 180;
-		int myDefensePosY = 180;
-		int myLifepointPosY = 215;
-		int enemyAttackPosY = 100;
-		int enemyDefensePosY = 100;
-		int enemyLifepointPosY = 60;
+		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		int myAttackPosY = (int)(120 * tmpDensity);
+		int myDefensePosY = (int)(120 * tmpDensity);
+		int myLifepointPosY = (int)(147 * tmpDensity);
+		int enemyAttackPosY = (int)(68 * tmpDensity);
+		int enemyDefensePosY = (int)(68 * tmpDensity);
+		int enemyLifepointPosY = (int)(45 * tmpDensity);
 		int[][] arrowPosX = {{myAttackPosY,myDefensePosY,myLifepointPosY},
 							 {enemyAttackPosY,enemyDefensePosY,enemyLifepointPosY}};
 		int posY = arrowPosX[type][num];
@@ -1315,14 +1314,52 @@ public class BattleSceneBattleAnimation implements BattleScene {
 			((TextView)this.activity.findViewById(this.resIdList[1][7])).setTextColor(Color.WHITE);
 		}
 		// LP設定
-		((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()));
-		((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()));
+		if(this.activity.myPlayer.getLifepoint() < 0){
+			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText("0");
+		}else{
+			((TextView)this.activity.findViewById(this.resIdList[0][1])).setText(Integer.toString(this.activity.myPlayer.getLifepoint()));
+		}
+		if(this.activity.enemyPlayer.getLifepoint() < 0){
+			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText("0");
+		}else{
+			((TextView)this.activity.findViewById(this.resIdList[1][1])).setText(Integer.toString(this.activity.enemyPlayer.getLifepoint()));
+		}
 		
 		((TextView)this.activity.findViewById(this.resIdList[0][7])).setVisibility(View.VISIBLE);
 		((TextView)this.activity.findViewById(this.resIdList[1][7])).setVisibility(View.VISIBLE);
 		
 		this.startLifePointAnimation(getMyAttack(), getEnemyAttack());
+		
+		// LPゲージの更新
+		((ProgressBar)activity.findViewById(R.id.battle_enemyLifebar)).setProgress(activity.enemyPlayer.getLifepoint());
+		((ProgressBar)activity.findViewById(R.id.battle_myLifebar)).setProgress(activity.myPlayer.getLifepoint());
+		this.setLpView((TextView)activity.findViewById(R.id.battle_myLp), this.activity.myPlayer.getLifepoint());
+		this.setLpView((TextView)activity.findViewById(R.id.battle_enemyLp), this.activity.enemyPlayer.getLifepoint());
 	}
+	
+	/**
+	 * LPデジタル表示設定
+	 * @param textView
+	 * @param lifePoint
+	 */
+	private void setLpView(TextView textView, int lifePoint) {
+		
+		if(lifePoint < 0){
+			textView.setText(" " + 0);
+		}else{
+			textView.setText(" " + lifePoint);
+		}
+		
+		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
+			// 30%以下では赤表示
+			textView.setTextColor(Color.RED);
+		}
+		else {
+			// 30%以上では黒表示
+			textView.setTextColor(Color.BLUE);
+		}
+	}
+
 	
 	private void startLifePointAnimation(int myAttack, int enemyAttack) {
 		TextView myLp = (TextView)this.activity.findViewById(resIdList[0][1]);

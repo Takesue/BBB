@@ -73,22 +73,24 @@ public class BattleSceneDealCard implements BattleScene {
 
 		// 相手情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText("" + this.activity.enemyPlayer.getLifepoint());
-		this.setLpView((TextView)this.activity.findViewById(R.id.battle_enemyLp), this.activity.enemyPlayer.getLifepoint());
 		if (this.enemyProgressBar == null) {
 			this.enemyProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_enemyLifebar);
 			this.enemyProgressBar.setMax(this.activity.enemyPlayer.getLifepoint());
-		}
-		this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
+			this.enemyProgressBar.setProgress(this.activity.enemyPlayer.getLifepoint());
+			
+			((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText(" " + this.activity.enemyPlayer.getLifepoint());
+			}
 
 		// ユーザ情報（LP）
 //		((TextView)this.activity.findViewById(R.id.battle_myLp)).setText("" + this.activity.myPlayer.getLifepoint());
-		this.setLpView((TextView)this.activity.findViewById(R.id.battle_myLp), this.activity.myPlayer.getLifepoint());
 		// ユーザ情報（LPBar）
 		if (myProgressBar == null) {
 			myProgressBar = (ProgressBar)this.activity.findViewById(R.id.battle_myLifebar);
 			myProgressBar.setMax(this.activity.myPlayer.getLifepoint());
+			myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());
+			
+			((TextView)this.activity.findViewById(R.id.battle_enemyLp)).setText(" " + this.activity.myPlayer.getLifepoint());
 		}
-		myProgressBar.setProgress(this.activity.myPlayer.getLifepoint());
 
 
 		// ユーザ情報（制限時間）
@@ -239,9 +241,11 @@ public class BattleSceneDealCard implements BattleScene {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				stopLimitDealCard();
-				dealCardsOnClick(v);
-//				activity.finishOnClick(v);
+				// 制限時間オーバーで既に配られていなければ配るを実施
+				if (isUntilDealCard()) {
+					alreadyDealCard();
+					dealCardsOnClick(v);
+				}
 			}
 		});
 		
@@ -442,24 +446,6 @@ public class BattleSceneDealCard implements BattleScene {
 		});
 	}
 
-	/**
-	 * LPデジタル表示設定
-	 * @param textView
-	 * @param lifePoint
-	 */
-	private void setLpView(TextView textView, int lifePoint) {
-		
-		textView.setText(" " + lifePoint);
-		
-		if (lifePoint <= StatusInfo.getLP(this.activity)*20/100 ) {
-			// 30%以下では赤表示
-			textView.setTextColor(Color.RED);
-		}
-		else {
-			// 30%以上では黒表示
-			textView.setTextColor(Color.BLUE);
-		}
-	}
 
 	/**
 	 * カード配布時間制限
@@ -477,33 +463,42 @@ public class BattleSceneDealCard implements BattleScene {
 				
 				int limit = 0;
 				limitFlg = true;
-				while(limit <= 2000 && limitFlg == true){
+//				while(limit <= 2000 && limitFlg == true){
+
+				while(limitFlg){
 					try {
-						Thread.sleep(1);
+						Thread.sleep(100);
+						limit = limit + 100;
+						if (limit > 2000) {
+							mHandler.post(new Runnable() {
+								public void run() {
+									alreadyDealCard();
+									dealCardsOnClick(button);
+								}
+							});
+							break;
+						}
 					}
 					catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					limit++;
-				}
-				if(limitFlg){
-					mHandler.post(new Runnable() {
-						public void run() {
-							dealCardsOnClick(button);
-						}
-					});
 				}
 			}
 		}).start();
 	}
-	
+
 	/**
-	 * カード配布時間制限解除
+	 * カード配布は既に実施済みにする。
 	 */
-	
-	public void stopLimitDealCard(){
+	public void alreadyDealCard(){
 		this.limitFlg = false;
 	}
-	
-	
+
+	/**
+	 * まだ配ってないのかどうか？　trueまだ配っていない。
+	 * @return
+	 */
+	public boolean isUntilDealCard(){
+		return this.limitFlg;
+	}
 }

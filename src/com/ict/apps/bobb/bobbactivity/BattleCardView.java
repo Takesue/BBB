@@ -86,23 +86,27 @@ public class BattleCardView extends LinearLayout {
 		
 		Log.d("★", "getAction()" + "■ACTION_MOVE" + " width:" + width + "  height:" + height);
 
-		// カードを押さえてカードより上の座標ずらしたら、カードを上にずらす。
-		if (height <= 0) {
-			
-			if ((this.upFlag == false) && (! ((BattleSceneCardSelection)this.activity.getCurrentScene()).isThreeCardselected())){
-				// カードが上にあがったときは第二引数：0
-				this.activity.moveCard(this, 0);
-				this.upFlag = true;
+		// カード選択時のみ、操作可能とする。
+		if (this.activity.getCurrentScene() instanceof BattleSceneCardSelection) {
+			// カードを押さえてカードより上の座標ずらしたら、カードを上にずらす。
+			if (height <= 0) {
+				
+				if ((this.upFlag == false) && (! ((BattleSceneCardSelection)this.activity.getCurrentScene()).isThreeCardselected())){
+					// カードが上にあがったときは第二引数：0
+					this.activity.moveCard(this, 0);
+					this.upFlag = true;
+				}
+			}
+			else if (height >= view.getHeight()) {
+				// カードを押さえてカードより下の座標にずらしたらカードを元の位置にに戻す
+				// カードが下に下がったときは第二引数：1
+				if (this.upFlag == true) {
+					this.activity.moveCard(this, 1);
+					this.upFlag = false;
+				}
 			}
 		}
-		else if (height >= view.getHeight()) {
-			// カードを押さえてカードより下の座標にずらしたらカードを元の位置にに戻す
-			// カードが下に下がったときは第二引数：1
-			if (this.upFlag == true) {
-				this.activity.moveCard(this, 1);
-				this.upFlag = false;
-			}
-		}
+
 	}
 	
 	/**
