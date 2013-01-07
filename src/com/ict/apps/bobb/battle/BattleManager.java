@@ -418,12 +418,21 @@ public class BattleManager {
 
 		// 表示項目の配列
 		CharSequence[] menuList = null;
-		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+		
+		Intent intent = this.activity.getIntent();
+		if ("online".equals(intent.getStringExtra("user_mode"))) {
 			menuList = new CharSequence[]{ "対戦を終わる" };
 		}
 		else {
 			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
 		}
+		
+//		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+//			menuList = new CharSequence[]{ "対戦を終わる" };
+//		}
+//		else {
+//			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
+//		}
 
 
 		// タイトルを設定

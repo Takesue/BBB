@@ -72,7 +72,7 @@ public class BattleActivity extends BaseActivity{
 	 */
 	public void changeNextScene() {
 		// 終了するシーンの終了処理を呼び出す
-		this.scenes[this.currentScene].finish();
+		this.getCurrentScene().finish();
 		
 		// 現在のシーンIndexに+1してシーン数で割った余りがシーン番号
 		int sceneNum = (this.currentScene + 1) % this.scenes.length;
@@ -81,7 +81,7 @@ public class BattleActivity extends BaseActivity{
 		this.setCurrentScene(sceneNum);
 		
 		// シーンの初期化処理
-		this.scenes[this.currentScene].init();
+		this.getCurrentScene().init();
 		
 	}
 	

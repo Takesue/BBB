@@ -235,19 +235,6 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		
 		// 特殊カードダミー情報設定
 		kit = new BeetleKit();
-		kit.setBeetleKitId(1006l);					// 虫キットID
-		kit.setBarcode_id(111111111112l);			// バーコードID
-		kit.setName("いいずカブト");					// 名前
-		kit.setEffect("攻撃力２倍");					// 効果
-		kit.setBreedcount(4);						// ブリード回数
-		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("kabuto002");			// 画像ファイル名
-		kit.setIntroduction("トガッテルぜ～");				// カード説明
-		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(6);							// 特殊効果ID
-		factory.insertBeetleKitToDB(kit);
-
-		kit = new BeetleKit();
 		kit.setBeetleKitId(1002l);					// 虫キットID
 		kit.setBarcode_id(111111111112l);			// バーコードID
 		kit.setName("カブ子ムシ");						// 名前
