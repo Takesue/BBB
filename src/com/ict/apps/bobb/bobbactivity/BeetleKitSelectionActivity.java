@@ -83,7 +83,8 @@ public class BeetleKitSelectionActivity extends BaseActivity {
 				R.layout.beetle_kit_list_item_with_icon, null);
 		
 		// 名前設定
-		((TextView)view.findViewById(R.id.kit_name)).setText(kit.getName() + " " + kit.getBreedcount());
+		((TextView)view.findViewById(R.id.kit_name)).setText(kit.getName());
+//		((TextView)view.findViewById(R.id.kit_name)).setText(kit.getName() + " " + kit.getBreedcount());
 		// アイコン画像設定
 		ImageView image = (ImageView)view.findViewById(R.id.kiticon);
 		image.setImageResource(kit.getImageResourceId(this));

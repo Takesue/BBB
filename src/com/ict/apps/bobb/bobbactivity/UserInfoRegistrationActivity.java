@@ -250,19 +250,6 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		BattleUseSpecialCard.setUseKit(context, BattleUseSpecialCard.CardNum.CARD1, kit);
 
 		kit = new BeetleKit();
-		kit.setBeetleKitId(1004l);					// 虫キットID
-		kit.setBarcode_id(111111111113l);			// バーコードID
-		kit.setName("女王蜂");							// 名前
-		kit.setEffect("相手守備力１／２");				// 効果
-		kit.setBreedcount(0);						// ブリード回数
-		kit.setImage_id(1);							// 画像ID
-		kit.setImageFileName("jooubati");			// 画像ファイル名
-		kit.setIntroduction("ジョオウサマとお呼び！");			// カード説明
-		kit.setType(2);								// 種別　1：一般　2：特殊
-		kit.setEffectId(4);							// 特殊効果ID
-		factory.insertBeetleKitToDB(kit);
-
-		kit = new BeetleKit();
 		kit.setBeetleKitId(1003l);					// 虫キットID
 		kit.setBarcode_id(111111111115l);			// バーコードID
 		kit.setName("セクシーバタフライ");					// 名前
@@ -271,6 +258,19 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("sexybutterfly");		// 画像ファイル名
 		kit.setIntroduction("黄金のハネで守ってあげる！");		// カード説明
+		kit.setType(2);								// 種別　1：一般　2：特殊
+		kit.setEffectId(4);							// 特殊効果ID
+		factory.insertBeetleKitToDB(kit);
+
+		kit = new BeetleKit();
+		kit.setBeetleKitId(1004l);					// 虫キットID
+		kit.setBarcode_id(111111111113l);			// バーコードID
+		kit.setName("女王蜂");							// 名前
+		kit.setEffect("相手守備力１／２");				// 効果
+		kit.setBreedcount(0);						// ブリード回数
+		kit.setImage_id(1);							// 画像ID
+		kit.setImageFileName("jooubati");			// 画像ファイル名
+		kit.setIntroduction("ジョオウサマとお呼び！");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(5);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
