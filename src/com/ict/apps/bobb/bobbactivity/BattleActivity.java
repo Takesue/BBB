@@ -74,6 +74,12 @@ public class BattleActivity extends BaseActivity{
 		// 終了するシーンの終了処理を呼び出す
 		this.getCurrentScene().finish();
 		
+		// ユーザ操作等で既に対戦が終了しているかどうか確認
+		if (this.bm.isBattleFifnishFlag()){
+			// 次のシーンに移行せずに処理中断する。
+			return;
+		}
+		
 		// 現在のシーンIndexに+1してシーン数で割った余りがシーン番号
 		int sceneNum = (this.currentScene + 1) % this.scenes.length;
 		
@@ -194,8 +200,18 @@ public class BattleActivity extends BaseActivity{
 	protected void onDestroy() {
 		
 		if (this.getCurrentScene() instanceof BattleSceneCardSelection) {
+			// カード選択シーンで対戦終了した場合
+			// タイマーを止める
 			((BattleSceneCardSelection)this.getCurrentScene()).stopLimitTimeCountDown();
 		}
+		else if (this.getCurrentScene() instanceof BattleSceneDealCard) {
+			// カード選択シーンで対戦終了した場合、カード配布スレッドを止めるため、フラグを立てる
+			((BattleSceneDealCard)this.getCurrentScene()).alreadyDealCard();
+		}
+		
+		// 対戦終了フラグをONにする
+		this.bm.setBattleFifnishFlag(true);
+
 		super.onDestroy();
 	}
 

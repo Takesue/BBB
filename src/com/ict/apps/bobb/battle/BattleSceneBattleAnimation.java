@@ -21,8 +21,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
@@ -93,7 +95,7 @@ public class BattleSceneBattleAnimation implements BattleScene {
 		this.calcValue(this.activity.enemyPlayer);
 		
 		// アニメーションを順番に登録する
-		BattleAnimationManager bam = new BattleAnimationManager();
+		BattleAnimationManager bam = new BattleAnimationManager(this.activity);
 
 		// ステータスパネルを表示し、初期値を設定する。
 		bam.add(new Runnable() {
@@ -1131,26 +1133,35 @@ public class BattleSceneBattleAnimation implements BattleScene {
 	}
 	
 	private int getArrowPosX(int type, int num){
+//		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		
+		Display disp = ((WindowManager)this.activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		
 		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		int myAttackPosX = (int)(55 * tmpDensity);
-		int myDefensePosX = (int)(110 * tmpDensity);
-		int myLifepointPosX = (int)(120 * tmpDensity);
-		int enemyAttackPosX = (int)(110 * tmpDensity);
-		int enemyDefensePosX = (int)(55 * tmpDensity);
-		int enemyLifepointPosX = (int)(120 * tmpDensity);
+		
+		// 画面の幅取得
+		int width = (int)(disp.getWidth() / tmpDensity);
+		
+		int myAttackPosX = (int)(width*1/4) + 4;
+		int myDefensePosX = (int)(width*1/2) + 4;
+		int myLifepointPosX = (int)(width*1/2) + 20;
+		int enemyAttackPosX = (int)(width*2/4)+ 4;
+		int enemyDefensePosX = (int)(width*1/4)+ 4;
+		int enemyLifepointPosX = (int)(width*1/2) + 20;
 		int[][] arrowPosX = {{myAttackPosX,myDefensePosX,myLifepointPosX},
 							 {enemyAttackPosX,enemyDefensePosX,enemyLifepointPosX}};
 		int posX = arrowPosX[type][num];
 		return posX;
 	}
+	
 	private int getArrowPosY(int type, int num){
-		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
-		int myAttackPosY = (int)(120 * tmpDensity);
-		int myDefensePosY = (int)(120 * tmpDensity);
-		int myLifepointPosY = (int)(147 * tmpDensity);
-		int enemyAttackPosY = (int)(68 * tmpDensity);
-		int enemyDefensePosY = (int)(68 * tmpDensity);
-		int enemyLifepointPosY = (int)(45 * tmpDensity);
+//		float tmpDensity = this.activity.getResources().getDisplayMetrics().density;
+		int myAttackPosY = (int)(184);
+		int myDefensePosY = (int)(184);
+		int myLifepointPosY = (int)(225);
+		int enemyAttackPosY = (int)(100);
+		int enemyDefensePosY = (int)(100);
+		int enemyLifepointPosY = (int)(61);
 		int[][] arrowPosX = {{myAttackPosY,myDefensePosY,myLifepointPosY},
 							 {enemyAttackPosY,enemyDefensePosY,enemyLifepointPosY}};
 		int posY = arrowPosX[type][num];
