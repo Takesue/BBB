@@ -2,6 +2,8 @@ package com.ict.apps.bobb.battle;
 
 import java.util.ArrayList;
 
+import com.ict.apps.bobb.bobbactivity.BattleActivity;
+
 import android.os.Handler;
 
 public class BattleAnimationManager {
@@ -12,6 +14,17 @@ public class BattleAnimationManager {
 	
 	// ハンドラー
 	private Handler mHandler = new Handler();
+	
+	// 対戦画面アクティビティ
+	private BattleActivity activity = null;
+	
+	/**
+	 * コンストラクタ
+	 * @param activity
+	 */
+	public BattleAnimationManager(BattleActivity activity) {
+		this.activity = activity;
+	}
 	
 	/**
 	 * アニメーション追加
@@ -35,6 +48,12 @@ public class BattleAnimationManager {
 		try {
 			int length = this.runnableList.size();
 			for (int i = 0; i < length; i++) {
+				
+				// ユーザ操作等で既に対戦が終了しているかどうか確認
+				if (this.activity.bm.isBattleFifnishFlag()){
+					// アニメーションを中断する
+					return;
+				}
 				
 				// アニメーションを実行する
 				mHandler.post(this.runnableList.get(i));

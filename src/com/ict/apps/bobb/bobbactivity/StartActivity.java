@@ -140,8 +140,7 @@ public class StartActivity extends BaseActivity {
 		final Player[] userList = {
 			new CPU01(this),
 			new CPU02(this),
-			new CPU03(this),
-			new CPU04(this)
+			new CPU03(this)
 		};
 
 		this.viewPopupPlayerLis(userList);

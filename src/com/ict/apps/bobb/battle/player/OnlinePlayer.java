@@ -25,6 +25,7 @@ public class OnlinePlayer extends Player{
 	public OnlinePlayer(Context context) {
 		super(context);
 		this.setLifepoint(StatusInfo.getLP(context));
+		this.setLpMax(this.getLifepoint());
 	}
 
 	/**
