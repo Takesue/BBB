@@ -3,16 +3,20 @@ package com.ict.apps.bobb.battle;
 import java.util.ArrayList;
 
 import com.ict.apps.bobb.battle.player.Player;
+import com.ict.apps.bobb.bobbactivity.BattleActivity;
 import com.ict.apps.bobb.bobbactivity.BattleCardView;
 import com.ict.apps.bobb.bobbactivity.R;
 import com.ict.apps.bobb.data.CardAttribute;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -162,5 +166,5 @@ public class BattleUtil extends Activity {
 		
 		return retValue;
 	}
-
+	
 }

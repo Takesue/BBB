@@ -66,7 +66,7 @@ public class OnlineQueryEnemyUsingCard extends OnlineQuery {
 				BeetleCard card = new BeetleCard();
 				
 				card.setCardNum(Integer.parseInt(this.getResponseData(i, "card_num")));
-				card.setBeetleKitId(Integer.parseInt(this.getResponseData(i, "beetlekit_id")));
+				card.setBeetleKitId(Long.parseLong(this.getResponseData(i, "beetlekit_id")));
 				card.setImageId(Integer.parseInt(this.getResponseData(i, "image_id")));
 				card.setImageFileName(this.getResponseData(i, "image_file_name"));
 				card.setName(this.getResponseData(i, "beetle_name"));
@@ -106,7 +106,7 @@ public class OnlineQueryEnemyUsingCard extends OnlineQuery {
 				SpecialCard card = new SpecialCard();
 				
 				card.setCardNum(Integer.parseInt(this.getResponseData(i, "card_num")));
-				card.setBeetleKitId(Integer.parseInt(this.getResponseData(i, "beetlekit_id")));
+				card.setBeetleKitId(Long.parseLong(this.getResponseData(i, "beetlekit_id")));
 				card.setImageId(Integer.parseInt(this.getResponseData(i, "image_id")));
 				card.setImageFileName(this.getResponseData(i, "image_file_name"));
 				card.setName(this.getResponseData(i, "beetle_name"));

@@ -53,6 +53,8 @@ public class BattleManager {
 	
 	private String enemyUserName = null;
 	
+	private boolean battleFifnishFlag = false;
+	
 	// 現時点のターン数を保持
 	private int turnNum = 0;
 	
@@ -412,18 +414,32 @@ public class BattleManager {
 		}
 		
 		
+		if (activity.bm.isBattleFifnishFlag()){
+			// 終了フラグが立っていれば、画面が既に終了しているため、リトライダイアログは表示不要
+			return;
+		}
+
 		
 		final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				this.activity);
 
 		// 表示項目の配列
 		CharSequence[] menuList = null;
-		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+		
+		Intent intent = this.activity.getIntent();
+		if ("online".equals(intent.getStringExtra("user_mode"))) {
 			menuList = new CharSequence[]{ "対戦を終わる" };
 		}
 		else {
 			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
 		}
+		
+//		if (this.activity.enemyPlayer instanceof OnlinePlayer) {
+//			menuList = new CharSequence[]{ "対戦を終わる" };
+//		}
+//		else {
+//			menuList = new CharSequence[]{ "対戦を終わる", "リトライ" };
+//		}
 
 
 		// タイトルを設定
@@ -494,5 +510,24 @@ public class BattleManager {
 	private ArrayList<BattleCardView> analyzeEnemySelectSpecialCards() {
 		return this.activity.enemyPlayer.getSelectSpacialCard(this.activity.enemyPlayer, this.activity.myPlayer);
 	}
+	
+	/**
+	 * 対戦が終了しているかどうか判断
+	 * true ：　終了している。
+	 * @return
+	 */
+	public boolean isBattleFifnishFlag() {
+		return battleFifnishFlag;
+	}
+
+
+	/**
+	 * 対戦終了フラグの設定
+	 * @param battleFifnishFlag
+	 */
+	public void setBattleFifnishFlag(boolean battleFifnishFlag) {
+		this.battleFifnishFlag = battleFifnishFlag;
+	}
+
 	
 }

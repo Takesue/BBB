@@ -26,9 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class BattleActivity extends BaseActivity{
@@ -54,6 +56,8 @@ public class BattleActivity extends BaseActivity{
 	// 対戦相手の対戦時情報を一元保持
 	public Player enemyPlayer = null;
 	
+	// 画面サイズ取得用インスタンス生成
+	public BattleDisplay battleDisplay = new BattleDisplay(this);
 
 	/**
 	 * シーン設定
@@ -68,7 +72,13 @@ public class BattleActivity extends BaseActivity{
 	 */
 	public void changeNextScene() {
 		// 終了するシーンの終了処理を呼び出す
-		this.scenes[this.currentScene].finish();
+		this.getCurrentScene().finish();
+		
+		// ユーザ操作等で既に対戦が終了しているかどうか確認
+		if (this.bm.isBattleFifnishFlag()){
+			// 次のシーンに移行せずに処理中断する。
+			return;
+		}
 		
 		// 現在のシーンIndexに+1してシーン数で割った余りがシーン番号
 		int sceneNum = (this.currentScene + 1) % this.scenes.length;
@@ -77,7 +87,7 @@ public class BattleActivity extends BaseActivity{
 		this.setCurrentScene(sceneNum);
 		
 		// シーンの初期化処理
-		this.scenes[this.currentScene].init();
+		this.getCurrentScene().init();
 		
 	}
 	
@@ -101,6 +111,8 @@ public class BattleActivity extends BaseActivity{
 //		
 //		// 対戦開始
 //		this.bm.startBattleScene();
+		
+		// 対戦開始
 		this.gameStart();
 	}
 	
@@ -127,12 +139,19 @@ public class BattleActivity extends BaseActivity{
 		
 		// 戦闘画面のベース部品を取得
 		this.baseLayout = (BattleLayout)this.findViewById(R.id.battle_base_layout);
-/*		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
-		int myCardMarginX = (int) ((new Float(this.baseLayout.getWidth())/tmpDensity));
-		int myCardMarginY = (int) ((new Float(this.baseLayout.getHeight())/tmpDensity));
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)((myCardMarginX) *tmpDensity), (int)((myCardMarginY) *tmpDensity));
+		float tmpDensity = this.baseLayout.getResources().getDisplayMetrics().density;
+		
+		this.battleDisplay.setPosX();
+		this.battleDisplay.setPosY();
+		float posX = this.battleDisplay.getPosX();
+		float posY = this.battleDisplay.getBBLayoutPosY();
+//		posY = this.battleDisplay.getBaseLayoutHeigth(posY);
+//		float posX = 320;
+//		float posY = 430;
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)(posX *tmpDensity), (int)(posY *tmpDensity));
 		this.findViewById(R.id.battle_base_layout).setLayoutParams(params);
-*/
+		
+		
 		// 対戦管理インスタンス生成
 		this.bm = new BattleManager(this);
 		
@@ -144,7 +163,7 @@ public class BattleActivity extends BaseActivity{
 
 	}
 	
-
+	
 	/**
 	 * カードオブジェクトのタッチイベントがきた場合に呼ばれる
 	 * @param view
@@ -181,8 +200,18 @@ public class BattleActivity extends BaseActivity{
 	protected void onDestroy() {
 		
 		if (this.getCurrentScene() instanceof BattleSceneCardSelection) {
+			// カード選択シーンで対戦終了した場合
+			// タイマーを止める
 			((BattleSceneCardSelection)this.getCurrentScene()).stopLimitTimeCountDown();
 		}
+		else if (this.getCurrentScene() instanceof BattleSceneDealCard) {
+			// カード選択シーンで対戦終了した場合、カード配布スレッドを止めるため、フラグを立てる
+			((BattleSceneDealCard)this.getCurrentScene()).alreadyDealCard();
+		}
+		
+		// 対戦終了フラグをONにする
+		this.bm.setBattleFifnishFlag(true);
+
 		super.onDestroy();
 	}
 

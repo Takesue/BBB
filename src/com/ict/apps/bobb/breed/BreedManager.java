@@ -118,6 +118,44 @@ public class BreedManager {
 		
 		return bk;
 	}
+	
+	/**
+	 * 既に存在するキットの基礎値変更による画像更新
+	 * @return
+	 */
+	private BeetleKit updateNewBeetleKit(Context context, BeetleKit bk) {
+
+		// 攻守力の算出
+		// 攻撃力算出
+		int attack = bk.getAttack();
+		// 攻撃力算出
+		int defense = bk.getDefense();
+
+		// 攻守の値からレベルを算出
+		int level = this.getLevel(attack, defense);
+		// 攻守の値からカテゴリを算出
+		int category = this.getCategory(attack, defense);
+		
+		// レベルとカテゴリからImageIDを算出
+		int imageId = this.getImageId(context, level, category);
+		
+		// imageIDをキーにDBアクセスして、説明を取得する。
+		BeetleKitFactory factory = new BeetleKitFactory(context);
+		CardImageInfo imageInfo = factory.getImageInfo(imageId);
+
+		bk.setBeetleKitId(this.createBeetleId());
+		bk.setImage_id(imageId);
+		bk.setEffect(imageInfo.getEffect());
+		bk.setIntroduction(imageInfo.getIntroduction());
+		bk.setName(imageInfo.getName());
+		bk.setImageFileName(imageInfo.getFileName());
+		bk.setType(1);
+
+		return bk;
+	}
+
+	
+	
 
 	/**
 	 * バーコード履歴にバーコードを登録する
@@ -418,6 +456,9 @@ public class BreedManager {
 		
 		newBeetle.setAttack(this.tuningValue(attack));
 		newBeetle.setDefense(this.tuningValue(defense));
+		
+		// 値に加算があったので画像を更新
+		newBeetle = this.updateNewBeetleKit(context, newBeetle);
 		
 		// 親カード削除
 		BeetleKitFactory factory = new BeetleKitFactory(context);
