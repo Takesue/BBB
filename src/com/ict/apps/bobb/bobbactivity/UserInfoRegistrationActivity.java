@@ -242,7 +242,7 @@ public class UserInfoRegistrationActivity extends BaseActivity {
 		kit.setBreedcount(0);						// ブリード回数
 		kit.setImage_id(1);							// 画像ID
 		kit.setImageFileName("kabukomushi");		// 画像ファイル名
-		kit.setIntroduction("触るとイタイヨ");			// カード説明
+		kit.setIntroduction("額の角は飾りなの♪");			// カード説明
 		kit.setType(2);								// 種別　1：一般　2：特殊
 		kit.setEffectId(1);							// 特殊効果ID
 		factory.insertBeetleKitToDB(kit);
